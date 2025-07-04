@@ -30,7 +30,7 @@ const RegisterForm: React.FC = () => {
       await register(phone, password, nickname);
       navigate('/');
     } catch (err) {
-      setError('注册失败，请重试');
+      setError(err instanceof Error ? err.message : '注册失败，请重试');
     }
   };
 

@@ -119,6 +119,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     } catch (error: any) {
       setState(prev => ({ ...prev, isLoading: false }));
+      // 检查是否是用户已存在的错误
+      if (error.message && error.message.includes('User already registered')) {
+        throw new Error('该手机号已被注册，请使用其他手机号或直接登录');
+      }
       throw new Error(error.message || '注册失败');
     }
   };
