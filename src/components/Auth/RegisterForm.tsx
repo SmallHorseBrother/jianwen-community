@@ -9,7 +9,8 @@ const RegisterForm: React.FC = () => {
   const [nickname, setNickname] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
-  const { register, isLoading } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+  const { register } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -27,10 +28,13 @@ const RegisterForm: React.FC = () => {
     }
 
     try {
+      setIsLoading(true);
       await register(phone, password, nickname);
       navigate('/');
     } catch (err) {
       setError(err instanceof Error ? err.message : '注册失败，请重试');
+    } finally {
+      setIsLoading(false);
     }
   };
 

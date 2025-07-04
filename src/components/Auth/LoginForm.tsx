@@ -8,7 +8,8 @@ const LoginForm: React.FC = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
-  const { login, isLoading } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -21,6 +22,7 @@ const LoginForm: React.FC = () => {
     }
 
     try {
+      setIsLoading(true);
       await login(phone, password);
       navigate('/');
     } catch (err: any) {
@@ -32,6 +34,8 @@ const LoginForm: React.FC = () => {
       } else {
         setError(err.message || '登录失败，请检查账号密码');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
