@@ -31,12 +31,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        console.log('Auth state change:', event, session?.user?.id);
+        
         if (session?.user) {
           try {
             const profile = await getUserProfile(session.user.id);
             
             // 如果没有找到用户资料，设置为未认证状态
             if (!profile) {
+              console.log('No profile found for user:', session.user.id);
               setState({
                 user: null,
                 isAuthenticated: false,
@@ -45,6 +48,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               return;
             }
             
+            console.log('Profile loaded:', profile);
             const user: User = {
               id: profile.id,
               phone: profile.phone || '',
@@ -73,6 +77,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             });
           }
         } else {
+          console.log('No session, setting unauthenticated');
           setState({
             user: null,
             isAuthenticated: false,
@@ -87,6 +92,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = async (phone: string, password: string) => {
     try {
+      console.log('Attempting login with phone:', phone);
       // 使用手机号作为邮箱格式进行登录
       const email = `${phone}@jianwen.community`;
       
@@ -95,10 +101,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         password,
       });
 
+      console.log('Login response:', data, error);
       if (error) throw error;
 
       // 用户资料会通过onAuthStateChange自动加载
     } catch (error: any) {
+      console.error('Login error:', error);
       throw new Error(error.message || '登录失败');
     }
   };

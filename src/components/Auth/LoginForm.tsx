@@ -15,15 +15,18 @@ const LoginForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setIsLoading(true);
 
     if (!phone || !password) {
       setError('请填写手机号和密码');
+      setIsLoading(false);
       return;
     }
 
     try {
-      setIsLoading(true);
+      console.log('Starting login process...');
       await login(phone, password);
+      console.log('Login successful, navigating...');
       navigate('/');
     } catch (err: any) {
       console.error('登录错误:', err);
@@ -35,6 +38,7 @@ const LoginForm: React.FC = () => {
         setError(err.message || '登录失败，请检查账号密码');
       }
     } finally {
+      console.log('Login process finished');
       setIsLoading(false);
     }
   };

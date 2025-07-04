@@ -25,17 +25,21 @@ export const getCurrentUser = async () => {
 
 // 辅助函数：获取用户资料
 export const getUserProfile = async (userId: string) => {
+  console.log('Getting profile for user:', userId);
   const { data, error } = await supabase
     .from('profiles')
     .select('*')
     .eq('id', userId)
     .single();
   
+  console.log('Profile query result:', data, error);
   if (error) {
     // 如果没有找到用户资料，返回 null 而不是抛出错误
     if (error.code === 'PGRST116') {
+      console.log('No profile found for user:', userId);
       return null;
     }
+    console.error('Profile query error:', error);
     throw error;
   }
   return data;
