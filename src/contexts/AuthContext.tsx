@@ -86,9 +86,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const login = async (phone: string, password: string) => {
-    setState(prev => ({ ...prev, isLoading: true }));
-    
     try {
+      setState(prev => ({ ...prev, isLoading: true }));
+      
       // 使用手机号作为邮箱格式进行登录
       const email = `${phone}@jianwen.community`;
       
@@ -107,9 +107,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const register = async (phone: string, password: string, nickname: string) => {
-    setState(prev => ({ ...prev, isLoading: true }));
-    
     try {
+      setState(prev => ({ ...prev, isLoading: true }));
+      
       // 使用手机号作为邮箱格式进行注册
       const email = `${phone}@jianwen.community`;
       
@@ -153,8 +153,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
+    try {
+      setState(prev => ({ ...prev, isLoading: true }));
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      
+      // 手动清除状态，确保退出成功
+      setState({
+        user: null,
+        isAuthenticated: false,
+        isLoading: false,
+      });
+    } catch (error: any) {
+      setState(prev => ({ ...prev, isLoading: false }));
+      console.error('退出登录失败:', error);
+      throw new Error('退出登录失败');
+    }
   };
 
   const updateProfile = async (updates: Partial<User>) => {
