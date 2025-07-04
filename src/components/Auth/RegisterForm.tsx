@@ -27,15 +27,14 @@ const RegisterForm: React.FC = () => {
       return;
     }
 
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       await register(phone, password, nickname);
       navigate('/');
     } catch (err) {
       setError(err instanceof Error ? err.message : '注册失败，请重试');
-    } finally {
-      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   return (

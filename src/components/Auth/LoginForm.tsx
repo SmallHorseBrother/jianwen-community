@@ -15,14 +15,13 @@ const LoginForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    setIsLoading(true);
 
     if (!phone || !password) {
       setError('请填写手机号和密码');
-      setIsLoading(false);
       return;
     }
 
+    setIsLoading(true);
     try {
       console.log('Starting login process...');
       await login(phone, password);
@@ -37,10 +36,10 @@ const LoginForm: React.FC = () => {
       } else {
         setError(err.message || '登录失败，请检查账号密码');
       }
-    } finally {
-      console.log('Login process finished');
-      setIsLoading(false);
     }
+    
+    console.log('Login process finished');
+    setIsLoading(false);
   };
 
   return (
