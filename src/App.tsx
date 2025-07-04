@@ -8,9 +8,10 @@ import RegisterForm from './components/Auth/RegisterForm';
 import Profile from './pages/Profile';
 import FitnessHome from './pages/fitness/FitnessHome';
 import FitnessKnowledge from './pages/fitness/FitnessKnowledge';
-import OneRMCalculator from './pages/fitness/OneRMCalculator';
+import FitnessToolbox from './pages/fitness/OneRMCalculator';
 import LearningHome from './pages/learning/LearningHome';
 import LearningKnowledge from './pages/learning/LearningKnowledge';
+import LearningToolbox from './pages/learning/LearningToolbox';
 import ComingSoon from './components/Common/ComingSoon';
 
 // Protected Route Component
@@ -40,13 +41,14 @@ const AppRoutes: React.FC = () => {
       {/* Fitness Routes */}
       <Route path="/fitness" element={<Layout><FitnessHome /></Layout>} />
       <Route path="/fitness/knowledge" element={<Layout><FitnessKnowledge /></Layout>} />
-      <Route path="/fitness/calculator" element={<Layout><OneRMCalculator /></Layout>} />
+      <Route path="/fitness/calculator" element={<Layout><FitnessToolbox /></Layout>} />
       <Route path="/fitness/resources" element={<Layout><ComingSoon title="优质资源推荐" description="优质UP主、优质视频等内容整理中，敬请期待！" backTo="/fitness" /></Layout>} />
       <Route path="/fitness/profiles" element={<Layout><ComingSoon title="大佬卡片墙" description="该功能开发中，快去完善你的个人卡片吧！" backTo="/fitness" /></Layout>} />
       
       {/* Learning Routes */}
       <Route path="/learning" element={<Layout><LearningHome /></Layout>} />
       <Route path="/learning/knowledge" element={<Layout><LearningKnowledge /></Layout>} />
+      <Route path="/learning/toolbox" element={<Layout><LearningToolbox /></Layout>} />
       <Route path="/learning/resources" element={<Layout><ComingSoon title="学习资源推荐" description="精选学习资源和工具整理中，敬请期待！" backTo="/learning" /></Layout>} />
       <Route path="/learning/partners" element={<Layout><ComingSoon title="学伴匹配" description="正在为你寻找志同道合的学伴，敬请期待！" backTo="/learning" /></Layout>} />
       <Route path="/learning/tools" element={<Layout><ComingSoon title="学习工具" description="番茄钟、习惯打卡等实用功能正在路上！" backTo="/learning" /></Layout>} />

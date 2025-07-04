@@ -30,11 +30,11 @@ const LearningHome: React.FC = () => {
     },
     {
       icon: Clock,
-      title: '学习工具',
-      description: '番茄钟、习惯打卡等实用工具',
-      to: '/learning/tools',
+      title: '学习工具箱',
+      description: '番茄钟、任务倒计时、专注模式等实用工具',
+      to: '/learning/toolbox',
       color: 'from-orange-500 to-orange-600',
-      available: false,
+      available: true,
     },
   ];
 
@@ -43,7 +43,7 @@ const LearningHome: React.FC = () => {
       <div className="text-center">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">学习专区</h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          高效学习，持续成长。这里有最实用的学习方法和最优质的学习资源
+          理性学习，科学提效。枭马葛社区助你培养批判性思维和深度学习能力
         </p>
       </div>
 

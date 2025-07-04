@@ -14,8 +14,8 @@ const FitnessHome: React.FC = () => {
     },
     {
       icon: Calculator,
-      title: '1RM计算器',
-      description: '快速计算你的最大重复次数',
+      title: '健身工具箱',
+      description: '专业计算工具：1RM、BMR/TDEE、体脂率计算器',
       to: '/fitness/calculator',
       color: 'from-green-500 to-green-600',
       available: true,
