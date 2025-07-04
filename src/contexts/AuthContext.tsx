@@ -34,6 +34,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (session?.user) {
           try {
             const profile = await getUserProfile(session.user.id);
+            
+            // 如果没有找到用户资料，设置为未认证状态
+            if (!profile) {
+              setState({
+                user: null,
+                isAuthenticated: false,
+                isLoading: false,
+              });
+              return;
+            }
+            
             const user: User = {
               id: profile.id,
               phone: profile.phone || '',
@@ -129,7 +140,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (error: any) {
       setState(prev => ({ ...prev, isLoading: false }));
       // 检查是否是用户已存在的错误
-      if (error.message && error.message.includes('User already registered')) {
+      if (error.message && (error.message.includes('User already registered') || 
+          error.message.includes('duplicate key value violates unique constraint "profiles_phone_key"'))) {
+        throw new Error('该手机号已被注册，请使用其他手机号或直接登录');
+      }
+      // 检查是否是数据库约束违反错误（错误代码 23505）
+      if (error.code === '23505' && error.message.includes('profiles_phone_key')) {
         throw new Error('该手机号已被注册，请使用其他手机号或直接登录');
       }
       throw new Error(error.message || '注册失败');

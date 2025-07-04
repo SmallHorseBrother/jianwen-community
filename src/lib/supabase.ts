@@ -31,7 +31,13 @@ export const getUserProfile = async (userId: string) => {
     .eq('id', userId)
     .single();
   
-  if (error) throw error;
+  if (error) {
+    // 如果没有找到用户资料，返回 null 而不是抛出错误
+    if (error.code === 'PGRST116') {
+      return null;
+    }
+    throw error;
+  }
   return data;
 };
 
