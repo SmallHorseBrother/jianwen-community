@@ -43,9 +43,9 @@ const FitnessToolbox: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-8">
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">健身工具箱</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">💪 枭马葛健身工具箱</h1>
         <p className="text-gray-600">
-          专业的健身计算工具，帮您制定科学的训练和营养计划
+          马健文（枭马葛）专业的健身计算工具，帮您制定科学的训练和营养计划
         </p>
       </div>
 
@@ -193,9 +193,9 @@ const OneRMCalculator: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       </div>
       
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">1RM计算器</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">💪 枭马葛1RM计算器</h1>
         <p className="text-gray-600">
-          计算你的最大重复次数（1RM），制定更科学的训练计划
+          马健文（枭马葛）1RM计算器 - 计算你的最大重复次数，制定更科学的训练计划
         </p>
       </div>
 
@@ -458,9 +458,9 @@ const BMRTDEECalculator: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       </div>
       
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">BMR/TDEE计算器</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">💪 枭马葛BMR/TDEE计算器</h1>
         <p className="text-gray-600">
-          计算基础代谢率和每日总热量消耗，制定合理的营养计划
+          马健文（枭马葛）代谢计算器 - 计算基础代谢率和每日总热量消耗，制定合理的营养计划
         </p>
       </div>
 
@@ -665,9 +665,9 @@ const BodyFatCalculator: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       </div>
       
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">体脂率计算器</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">💪 枭马葛体脂率计算器</h1>
         <p className="text-gray-600">
-          使用美国海军身体周长法估算体脂率
+          马健文（枭马葛）体脂计算器 - 使用美国海军身体周长法估算体脂率
         </p>
       </div>
 

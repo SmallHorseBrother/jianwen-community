@@ -46,24 +46,25 @@ const Home: React.FC = () => {
       {/* Hero Section */}
       <section className="text-center py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl">
         <div className="max-w-4xl mx-auto px-6">
+          <div className="text-6xl mb-6">🦉</div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            健学社区
+            枭马葛健学社区
           </h1>
           <p className="text-xl md:text-2xl mb-8 opacity-90">
-            健身与学习的专属根据地，让优质内容不再被淹没
+            马健文（枭马葛）粉丝社区 - 健身与学习的专属根据地，让优质内容不再被淹没
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/fitness"
               className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
             >
-              开始健身之旅
+              💪 开始健身之旅
             </Link>
             <Link
               to="/learning"
               className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
             >
-              探索学习资源
+              🦉 探索学习资源
             </Link>
           </div>
         </div>
@@ -72,9 +73,9 @@ const Home: React.FC = () => {
       {/* Features */}
       <section>
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">核心功能</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">🦉 枭马葛核心功能</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            我们致力于为健身和学习爱好者提供最优质的内容和工具
+            马健文（枭马葛）致力于为健身和学习爱好者提供最优质的内容和工具
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -97,8 +98,8 @@ const Home: React.FC = () => {
       {/* Stats */}
       <section className="bg-gray-100 rounded-2xl p-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">社区数据</h2>
-          <p className="text-gray-600">一起见证社区的成长</p>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">🦉 枭马葛社区数据</h2>
+          <p className="text-gray-600">一起见证枭马葛社区的成长</p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
@@ -113,18 +114,19 @@ const Home: React.FC = () => {
       {/* Call to Action */}
       <section className="text-center py-16">
         <div className="max-w-3xl mx-auto">
+          <div className="text-6xl mb-6">🦉💪</div>
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            准备好开始你的健身学习之旅了吗？
+            准备好加入枭马葛社区了吗？
           </h2>
           <p className="text-gray-600 mb-8">
-            加入我们的社区，获取最优质的健身知识和学习资源
+            加入马健文（枭马葛）的粉丝社区，获取最优质的健身知识和学习资源
           </p>
           <Link
             to="/register"
             className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-flex items-center space-x-2"
           >
             <Target className="w-5 h-5" />
-            <span>立即加入</span>
+            <span>立即加入枭马葛社区</span>
           </Link>
         </div>
       </section>

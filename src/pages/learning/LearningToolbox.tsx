@@ -1,8 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { Clock, Target, Focus, ArrowLeft, Play, Pause, RotateCcw, Plus, X } from 'lucide-react';
+import { Clock, Target, Focus, ArrowLeft, Play, Pause, RotateCcw, Plus, X, CheckCircle, Circle } from 'lucide-react';
+import { useAuth } from '../../contexts/AuthContext';
+import { getUserTasks, createTask, deleteTask, toggleTaskCompletion, Task } from '../../services/taskService';
 
 const LearningToolbox: React.FC = () => {
   const [selectedTool, setSelectedTool] = useState<string | null>(null);
+  const { isAuthenticated } = useAuth();
+
+  if (!isAuthenticated) {
+    return (
+      <div className="max-w-4xl mx-auto text-center py-16">
+        <div className="bg-white rounded-xl shadow-md p-8">
+          <Target className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">需要登录才能使用学习工具</h2>
+          <p className="text-gray-600 mb-6">
+            枭马葛学习工具箱需要登录后才能使用，这样可以保存你的学习数据和进度。
+          </p>
+          <a
+            href="/login"
+            className="inline-block bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors"
+          >
+            立即登录
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   const tools = [
     {
@@ -238,24 +261,66 @@ const PomodoroTimer: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 
 // 任务倒计时组件
 const TaskCountdown: React.FC<{ onBack: () => void }> = ({ onBack }) => {
-  const [tasks, setTasks] = useState<Array<{id: number, name: string, deadline: string}>>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskName, setNewTaskName] = useState('');
   const [newTaskDeadline, setNewTaskDeadline] = useState('');
+  const [newTaskDescription, setNewTaskDescription] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  const addTask = () => {
-    if (newTaskName && newTaskDeadline) {
-      setTasks([...tasks, {
-        id: Date.now(),
-        name: newTaskName,
-        deadline: newTaskDeadline
-      }]);
-      setNewTaskName('');
-      setNewTaskDeadline('');
+  useEffect(() => {
+    loadTasks();
+  }, []);
+
+  const loadTasks = async () => {
+    try {
+      setLoading(true);
+      const userTasks = await getUserTasks();
+      setTasks(userTasks);
+    } catch (err: any) {
+      setError(err.message || '加载任务失败');
+    } finally {
+      setLoading(false);
     }
   };
 
-  const removeTask = (id: number) => {
-    setTasks(tasks.filter(task => task.id !== id));
+  const addTask = async () => {
+    if (!newTaskName || !newTaskDeadline) {
+      alert('请填写任务名称和截止时间');
+      return;
+    }
+
+    try {
+      await createTask({
+        name: newTaskName,
+        deadline: newTaskDeadline,
+        description: newTaskDescription,
+      });
+      setNewTaskName('');
+      setNewTaskDeadline('');
+      setNewTaskDescription('');
+      await loadTasks();
+    } catch (err: any) {
+      alert(err.message || '创建任务失败');
+    }
+  };
+
+  const removeTask = async (id: string) => {
+    try {
+      await deleteTask(id);
+      await loadTasks();
+    } catch (err: any) {
+      alert(err.message || '删除任务失败');
+    }
+  };
+
+  const toggleTask = async (id: string, isCompleted: boolean) => {
+    try {
+      await toggleTaskCompletion(id, !isCompleted);
+      await loadTasks();
+    } catch (err: any) {
+      alert(err.message || '更新任务失败');
+    }
   };
 
   const getTimeRemaining = (deadline: string) => {
@@ -297,40 +362,229 @@ const TaskCountdown: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">任务倒计时</h1>
         <p className="text-gray-600">
-          设置任务截止日期，可视化时间紧迫感，提升执行力
+          枭马葛任务管理系统 - 设置任务截止日期，可视化时间紧迫感，提升执行力
         </p>
       </div>
 
       {/* 添加任务 */}
       <div className="bg-white rounded-xl shadow-md p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">添加新任务</h3>
-        <div className="flex space-x-4">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">📝 添加新任务</h3>
+        <div className="space-y-4">
           <input
             type="text"
             value={newTaskName}
             onChange={(e) => setNewTaskName(e.target.value)}
             placeholder="任务名称"
-            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <input
-            type="datetime-local"
-            value={newTaskDeadline}
-            onChange={(e) => setNewTaskDeadline(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          <textarea
+            value={newTaskDescription}
+            onChange={(e) => setNewTaskDescription(e.target.value)}
+            placeholder="任务描述（可选）"
+            rows={2}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <button
-            onClick={addTask}
-            className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            <Plus className="w-4 h-4" />
-            <span>添加</span>
-          </button>
+          <div className="flex space-x-4">
+            <input
+              type="datetime-local"
+              value={newTaskDeadline}
+              onChange={(e) => setNewTaskDeadline(e.target.value)}
+              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <button
+              onClick={addTask}
+              className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              <Plus className="w-4 h-4" />
+              <span>添加</span>
+            </button>
+          </div>
         </div>
       </div>
 
       {/* 任务列表 */}
-      <div className="space-y-4">
-        {tasks.length === 0 ? (
+      {loading ? (
+        <div className="bg-white rounded-xl shadow-md p-8 text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="text-gray-500 mt-4">加载任务中...</p>
+        </div>
+      ) : error ? (
+        <div className="bg-white rounded-xl shadow-md p-8 text-center">
+          <p className="text-red-600">{error}</p>
+          <button
+            onClick={loadTasks}
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            重试
+          </button>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {tasks.length === 0 ? (
+            <div className="bg-gray-50 rounded-xl p-8 text-center">
+              <Target className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-500">暂无任务，添加一个开始管理你的时间吧！</p>
+              <p className="text-sm text-gray-400 mt-2">🦉 枭马葛提醒：合理规划时间，提升学习效率</p>
+            </div>
+          ) : (
+            tasks.map((task) => {
+              const timeInfo = getTimeRemaining(task.deadline);
+              return (
+                <div key={task.id} className={`bg-white rounded-xl shadow-md p-6 ${task.is_completed ? 'opacity-75' : ''}`}>
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-start space-x-3 flex-1">
+                      <button
+                        onClick={() => toggleTask(task.id, task.is_completed)}
+                        className={`mt-1 ${task.is_completed ? 'text-green-600' : 'text-gray-400 hover:text-green-600'} transition-colors`}
+                      >
+                        {task.is_completed ? <CheckCircle className="w-5 h-5" /> : <Circle className="w-5 h-5" />}
+                      </button>
+                      <div className="flex-1">
+                        <h4 className={`text-lg font-semibold mb-2 ${task.is_completed ? 'line-through text-gray-500' : 'text-gray-900'}`}>
+                          {task.name}
+                        </h4>
+                        {task.description && (
+                          <p className="text-sm text-gray-600 mb-2">{task.description}</p>
+                        )}
+                        <p className="text-sm text-gray-600 mb-2">
+                          📅 截止时间：{new Date(task.deadline).toLocaleString('zh-CN')}
+                        </p>
+                        {!task.is_completed && (
+                          <p className={`text-xl font-bold ${timeInfo.color}`}>
+                            {timeInfo.expired ? '⚠️ ' : '⏰ '}
+                            {timeInfo.text}
+                          </p>
+                        )}
+                        {task.is_completed && (
+                          <p className="text-green-600 font-bold">✅ 任务已完成</p>
+                        )}
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => removeTask(task.id)}
+                      className="text-gray-400 hover:text-red-600 transition-colors"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
+      )}
+
+      {/* 枭马葛励志语录 */}
+      {tasks.length > 0 && (
+        <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6">
+          <div className="text-center">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">🦉 枭马葛语录</h3>
+            <p className="text-gray-700 italic">
+              "时间管理不是为了压榨自己，而是为了给重要的事情留出空间。"
+            </p>
+            <p className="text-sm text-gray-500 mt-2">—— 马健文（枭马葛）</p>
+          </div>
+        </div>
+      )}
+
+      {/* 使用说明 */}
+      <div className="bg-blue-50 rounded-xl p-6">
+        <h3 className="text-lg font-semibold text-blue-800 mb-3">🎯 枭马葛时间管理法</h3>
+        <div className="text-sm text-blue-700 space-y-2">
+          <p>• 设置具体的截止日期和时间，增强紧迫感</p>
+          <p>• 将大任务分解为小任务，分别设置截止日期</p>
+          <p>• 绿色表示时间充裕，黄色提示需要关注，红色表示紧急</p>
+          <p>• 完成任务后及时标记，获得成就感</p>
+          <p>• 定期查看倒计时，保持对时间的敏感度</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// 专注模式组件
+const FocusMode: React.FC<{ onBack: () => void }> = ({ onBack }) => {
+  const [inFocusMode, setInFocusMode] = useState(false);
+  const [focusText, setFocusText] = useState('枭马葛专注模式');
+
+  if (inFocusMode) {
+    return (
+      <div className="fixed inset-0 bg-gray-900 text-white flex items-center justify-center">
+        <div className="text-center space-y-8">
+          <div className="text-6xl mb-4">🦉</div>
+          <h1 className="text-4xl font-bold">{focusText}</h1>
+          <p className="text-xl text-gray-300">保持专注，屏蔽干扰</p>
+          <p className="text-lg text-gray-400 italic">"深度思考是智慧的源泉" —— 枭马葛</p>
+          <button
+            onClick={() => setInFocusMode(false)}
+            className="px-6 py-3 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            退出专注模式
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-4xl mx-auto space-y-8">
+      <div className="flex items-center mb-6">
+        <button
+          onClick={onBack}
+          className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          <span>返回工具箱</span>
+        </button>
+      </div>
+
+      <div className="text-center">
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">🦉 枭马葛专注模式</h1>
+        <p className="text-gray-600">
+          进入极简的专注界面，屏蔽一切干扰，实现深度学习
+        </p>
+      </div>
+
+      <div className="bg-white rounded-xl shadow-md p-8">
+        <div className="text-center space-y-6">
+          <div className="text-6xl">🦉</div>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              专注提醒文字
+            </label>
+            <input
+              type="text"
+              value={focusText}
+              onChange={(e) => setFocusText(e.target.value)}
+              className="w-full max-w-md px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              placeholder="输入你的专注目标"
+            />
+          </div>
+
+          <button
+            onClick={() => setInFocusMode(true)}
+            className="px-8 py-4 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-lg font-medium"
+          >
+            进入枭马葛专注模式
+          </button>
+        </div>
+      </div>
+
+      {/* 枭马葛专注理念 */}
+      <div className="bg-purple-50 rounded-xl p-6">
+        <h3 className="text-lg font-semibold text-purple-800 mb-3">🦉 枭马葛专注理念</h3>
+        <div className="text-sm text-purple-700 space-y-2">
+          <p>• "专注不是压抑其他想法，而是让重要的想法占据主导地位"</p>
+          <p>• 进入后将全屏显示，屏蔽所有干扰信息</p>
+          <p>• 建议关闭其他应用和通知</p>
+          <p>• 配合番茄钟使用效果更佳</p>
+          <p>• 适合阅读、写作、思考等需要深度专注的学习活动</p>
+        </div>
+      </div>
+    </div>
+  );
+};
           <div className="bg-gray-50 rounded-xl p-8 text-center">
             <Target className="w-12 h-12 text-gray-400 mx-auto mb-4" />
             <p className="text-gray-500">暂无任务，添加一个开始管理你的时间吧！</p>

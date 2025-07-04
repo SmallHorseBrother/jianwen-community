@@ -57,8 +57,8 @@ const FitnessKnowledge: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">健身知识库</h1>
-          <p className="text-gray-600 mt-1">系统整理的健身精华内容</p>
+          <h1 className="text-3xl font-bold text-gray-900">💪 枭马葛健身知识库</h1>
+          <p className="text-gray-600 mt-1">马健文（枭马葛）系统整理的健身精华内容</p>
         </div>
       </div>
 

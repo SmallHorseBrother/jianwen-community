@@ -1,8 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Book, Users, Star, Clock } from 'lucide-react';
+import { useAuth } from '../../contexts/AuthContext';
 
 const LearningHome: React.FC = () => {
+  const { isAuthenticated } = useAuth();
+
+  if (!isAuthenticated) {
+    return (
+      <div className="max-w-4xl mx-auto text-center py-16">
+        <div className="bg-white rounded-xl shadow-md p-8">
+          <div className="text-6xl mb-6">🦉</div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">需要登录才能使用学习功能</h2>
+          <p className="text-gray-600 mb-6">
+            枭马葛学习专区需要登录后才能使用，这样可以保存你的学习数据和进度。
+          </p>
+          <a
+            href="/login"
+            className="inline-block bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors"
+          >
+            立即登录
+          </a>
+        </div>
+      </div>
+    );
+  }
+
   const sections = [
     {
       icon: Book,
@@ -41,7 +64,7 @@ const LearningHome: React.FC = () => {
   return (
     <div className="space-y-8">
       <div className="text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">学习专区</h1>
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">🦉 枭马葛学习专区</h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
           理性学习，科学提效。枭马葛社区助你培养批判性思维和深度学习能力
         </p>

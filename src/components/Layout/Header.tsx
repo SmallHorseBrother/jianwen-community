@@ -19,9 +19,9 @@ const Header: React.FC = () => {
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-              <Dumbbell className="w-6 h-6 text-white" />
+              <span className="text-white text-lg">🦉</span>
             </div>
-            <span className="text-xl font-bold text-gray-900">健学社区</span>
+            <span className="text-xl font-bold text-gray-900">枭马葛社区</span>
           </Link>
 
           <nav className="hidden md:flex space-x-8">

@@ -1,8 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Book, Calculator, Star, Users } from 'lucide-react';
+import { useAuth } from '../../contexts/AuthContext';
 
 const FitnessHome: React.FC = () => {
+  const { isAuthenticated } = useAuth();
+
+  if (!isAuthenticated) {
+    return (
+      <div className="max-w-4xl mx-auto text-center py-16">
+        <div className="bg-white rounded-xl shadow-md p-8">
+          <div className="text-6xl mb-6">💪</div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">需要登录才能使用健身功能</h2>
+          <p className="text-gray-600 mb-6">
+            枭马葛健身专区需要登录后才能使用，这样可以保存你的训练数据和进度。
+          </p>
+          <a
+            href="/login"
+            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            立即登录
+          </a>
+        </div>
+      </div>
+    );
+  }
+
   const sections = [
     {
       icon: Book,
@@ -41,9 +64,9 @@ const FitnessHome: React.FC = () => {
   return (
     <div className="space-y-8">
       <div className="text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">健身专区</h1>
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">💪 枭马葛健身专区</h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          科学健身，理性训练。这里有最系统的健身知识和最实用的训练工具
+          科学健身，理性训练。枭马葛为你打造最系统的健身知识和最实用的训练工具
         </p>
       </div>
 
