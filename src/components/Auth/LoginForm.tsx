@@ -23,8 +23,15 @@ const LoginForm: React.FC = () => {
     try {
       await login(phone, password);
       navigate('/');
-    } catch (err) {
-      setError('登录失败，请检查账号密码');
+    } catch (err: any) {
+      console.error('登录错误:', err);
+      if (err.message && err.message.includes('Invalid login credentials')) {
+        setError('手机号或密码错误，请检查后重试');
+      } else if (err.message && err.message.includes('Email not confirmed')) {
+        setError('账户未激活，请联系管理员');
+      } else {
+        setError(err.message || '登录失败，请检查账号密码');
+      }
     }
   };
 

@@ -78,8 +78,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setState(prev => ({ ...prev, isLoading: true }));
     
     try {
+      // 使用手机号作为邮箱格式进行登录
+      const email = `${phone}@jianwen.community`;
+      
       const { data, error } = await supabase.auth.signInWithPassword({
-        email: `${phone}@temp.com`, // 临时邮箱格式，因为Supabase需要邮箱
+        email,
         password,
       });
 
@@ -96,10 +99,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setState(prev => ({ ...prev, isLoading: true }));
     
     try {
+      // 使用手机号作为邮箱格式进行注册
+      const email = `${phone}@jianwen.community`;
+      
       // 注册用户
       const { data, error } = await supabase.auth.signUp({
-        email: `${phone}@temp.com`, // 临时邮箱格式
+        email,
         password,
+        options: {
+          emailRedirectTo: undefined, // 禁用邮箱确认
+        }
       });
 
       if (error) throw error;
