@@ -28,8 +28,8 @@ const Home: React.FC = () => {
     {
       icon: Users,
       title: '社区连接',
-      description: '与志同道合的朋友互相激励',
-      to: '/community',
+      description: '智能匹配志同道合的群友，建立有意义的连接',
+      to: '/community/matching',
       color: 'from-orange-500 to-orange-600',
     },
   ];
@@ -129,7 +129,7 @@ const Home: React.FC = () => {
             <span>立即加入枭马葛社区</span>
           </Link>
         </div>
-      </section>
+      <Route path="/community" element={<Layout><MatchingCenter /></Layout>} />
     </div>
   );
 };

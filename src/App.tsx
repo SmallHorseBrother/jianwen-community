@@ -12,6 +12,7 @@ import FitnessToolbox from './pages/fitness/OneRMCalculator';
 import LearningHome from './pages/learning/LearningHome';
 import LearningKnowledge from './pages/learning/LearningKnowledge';
 import LearningToolbox from './pages/learning/LearningToolbox';
+import MatchingCenter from './pages/MatchingCenter';
 import CommunityProfiles from './pages/CommunityProfiles';
 import ComingSoon from './components/Common/ComingSoon';
 
@@ -51,11 +52,13 @@ const AppRoutes: React.FC = () => {
       <Route path="/learning/knowledge" element={<Layout><LearningKnowledge /></Layout>} />
       <Route path="/learning/toolbox" element={<Layout><LearningToolbox /></Layout>} />
       <Route path="/learning/resources" element={<Layout><ComingSoon title="学习资源推荐" description="精选学习资源和工具整理中，敬请期待！" backTo="/learning" /></Layout>} />
-      <Route path="/learning/partners" element={<Layout><CommunityProfiles /></Layout>} />
+      <Route path="/learning/partners" element={<Layout><MatchingCenter /></Layout>} />
       <Route path="/learning/tools" element={<Layout><ComingSoon title="学习工具" description="番茄钟、习惯打卡等实用功能正在路上！" backTo="/learning" /></Layout>} />
       
       {/* Community Routes */}
-      <Route path="/community" element={<Layout><CommunityProfiles /></Layout>} />
+      <Route path="/community" element={<Layout><MatchingCenter /></Layout>} />
+      <Route path="/community/profiles" element={<Layout><CommunityProfiles /></Layout>} />
+      <Route path="/community/matching" element={<Layout><MatchingCenter /></Layout>} />
     </Routes>
   );
 };
