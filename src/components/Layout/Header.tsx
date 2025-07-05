@@ -8,10 +8,12 @@ const Header: React.FC = () => {
   const location = useLocation();
 
   // 检查用户资料完整度
-  const isProfileIncomplete = user && (!user.groupIdentity && !user.profession) || 
+  const isProfileIncomplete = user ? (
+    (!user.groupIdentity && !user.profession) || 
     (!user.specialties || user.specialties.length === 0) &&
     (!user.fitnessInterests || user.fitnessInterests.length === 0) &&
-    (!user.learningInterests || user.learningInterests.length === 0);
+    (!user.learningInterests || user.learningInterests.length === 0)
+  ) : false;
 
   const navItems = [
     { to: '/', label: '首页', icon: null },
