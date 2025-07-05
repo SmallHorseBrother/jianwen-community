@@ -35,11 +35,50 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         
         if (session?.user) {
           try {
-            const profile = await getUserProfile(session.user.id);
+            let profile = await getUserProfile(session.user.id);
             
-            // 如果没有找到用户资料，设置为未认证状态
+            // 如果没有找到用户资料，创建一个基本的资料
             if (!profile) {
-              console.log('No profile found for user:', session.user.id);
+              console.log('No profile found for user:', session.user.id, 'creating basic profile');
+              try {
+                // 从邮箱中提取手机号
+                const email = session.user.email || '';
+                const phone = email.replace('@jianwen.community', '');
+                
+                await createUserProfile({
+                  id: session.user.id,
+                  phone: phone,
+                  nickname: `用户${phone.slice(-4)}`, // 使用手机号后四位作为昵称
+                  bio: '',
+                  bench_press: 0,
+                  squat: 0,
+                  deadlift: 0,
+                  is_public: true,
+                  group_identity: null,
+                  profession: null,
+                  group_nickname: null,
+                  specialties: [],
+                  fitness_interests: [],
+                  learning_interests: [],
+                  social_links: {},
+                });
+                
+                // 重新获取创建的资料
+                profile = await getUserProfile(session.user.id);
+                console.log('Created and retrieved profile:', profile);
+              } catch (createError) {
+                console.error('Failed to create profile:', createError);
+                setState({
+                  user: null,
+                  isAuthenticated: false,
+                  isLoading: false,
+                });
+                return;
+              }
+            }
+            
+            if (!profile) {
+              console.log('Still no profile after creation attempt');
               setState({
                 user: null,
                 isAuthenticated: false,
@@ -61,6 +100,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 deadlift: profile.deadlift,
               },
               isPublic: profile.is_public,
+              groupIdentity: profile.group_identity,
+              profession: profile.profession,
+              groupNickname: profile.group_nickname,
+              specialties: profile.specialties || [],
+              fitnessInterests: profile.fitness_interests || [],
+              learningInterests: profile.learning_interests || [],
+              socialLinks: (profile.social_links as { [key: string]: string }) || {},
               createdAt: new Date(profile.created_at),
             };
             setState({
@@ -95,16 +141,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       console.log('Attempting login with phone:', phone);
       // 使用手机号作为邮箱格式进行登录
       const email = `${phone}@jianwen.community`;
+      console.log('Login email:', email);
       
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      console.log('Login response:', data, error);
-      if (error) throw error;
+      console.log('Login response:', { data, error });
+      if (error) {
+        console.error('Supabase login error:', error);
+        throw error;
+      }
 
-      // 用户资料会通过onAuthStateChange自动加载
+      if (data.user) {
+        console.log('Login successful, user ID:', data.user.id);
+        // 用户资料会通过onAuthStateChange自动加载
+      } else {
+        console.log('Login returned no user data');
+        throw new Error('登录失败：未返回用户数据');
+      }
     } catch (error: any) {
       console.error('Login error:', error);
       throw new Error(error.message || '登录失败');
@@ -138,6 +194,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         squat: 0,
         deadlift: 0,
         is_public: true,
+        group_identity: null,
+        profession: null,
+        group_nickname: null,
+        specialties: [],
+        fitness_interests: [],
+        learning_interests: [],
+        social_links: {},
       });
 
     } catch (error: any) {
@@ -187,6 +250,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (updates.avatar !== undefined) profileUpdates.avatar_url = updates.avatar;
       if (updates.isPublic !== undefined) profileUpdates.is_public = updates.isPublic;
       
+      // 社区卡片相关字段
+      if (updates.groupIdentity !== undefined) profileUpdates.group_identity = updates.groupIdentity;
+      if (updates.profession !== undefined) profileUpdates.profession = updates.profession;
+      if (updates.groupNickname !== undefined) profileUpdates.group_nickname = updates.groupNickname;
+      if (updates.specialties !== undefined) profileUpdates.specialties = updates.specialties;
+      if (updates.fitnessInterests !== undefined) profileUpdates.fitness_interests = updates.fitnessInterests;
+      if (updates.learningInterests !== undefined) profileUpdates.learning_interests = updates.learningInterests;
+      if (updates.socialLinks !== undefined) profileUpdates.social_links = updates.socialLinks;
+      
       if (updates.powerData) {
         if (updates.powerData.bench !== undefined) profileUpdates.bench_press = updates.powerData.bench;
         if (updates.powerData.squat !== undefined) profileUpdates.squat = updates.powerData.squat;
@@ -207,6 +279,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           deadlift: updatedProfile.deadlift,
         },
         isPublic: updatedProfile.is_public,
+        groupIdentity: updatedProfile.group_identity,
+        profession: updatedProfile.profession,
+        groupNickname: updatedProfile.group_nickname,
+        specialties: updatedProfile.specialties || [],
+        fitnessInterests: updatedProfile.fitness_interests || [],
+        learningInterests: updatedProfile.learning_interests || [],
+        socialLinks: (updatedProfile.social_links as { [key: string]: string }) || {},
       };
 
       setState(prev => ({ ...prev, user: updatedUser }));

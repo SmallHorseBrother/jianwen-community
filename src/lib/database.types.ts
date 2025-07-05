@@ -20,6 +20,13 @@ export interface Database {
           squat: number
           deadlift: number
           is_public: boolean
+          group_identity: string | null
+          profession: string | null
+          group_nickname: string | null
+          specialties: string[]
+          fitness_interests: string[]
+          learning_interests: string[]
+          social_links: Json
           created_at: string
           updated_at: string
         }
@@ -33,6 +40,13 @@ export interface Database {
           squat?: number
           deadlift?: number
           is_public?: boolean
+          group_identity?: string | null
+          profession?: string | null
+          group_nickname?: string | null
+          specialties?: string[]
+          fitness_interests?: string[]
+          learning_interests?: string[]
+          social_links?: Json
           created_at?: string
           updated_at?: string
         }
@@ -46,6 +60,13 @@ export interface Database {
           squat?: number
           deadlift?: number
           is_public?: boolean
+          group_identity?: string | null
+          profession?: string | null
+          group_nickname?: string | null
+          specialties?: string[]
+          fitness_interests?: string[]
+          learning_interests?: string[]
+          social_links?: Json
           created_at?: string
           updated_at?: string
         }

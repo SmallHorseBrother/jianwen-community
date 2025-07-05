@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Phone, Lock, Eye, EyeOff } from 'lucide-react';
+import { Phone, Lock, Eye, EyeOff, Settings } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
+import { supabase } from '../../lib/supabase';
 
 const LoginForm: React.FC = () => {
   const [phone, setPhone] = useState('');
@@ -40,6 +41,43 @@ const LoginForm: React.FC = () => {
     
     console.log('Login process finished');
     setIsLoading(false);
+  };
+
+  const handleDebug = async () => {
+    console.log('=== DEBUG INFO ===');
+    console.log('Testing database connection...');
+    
+    try {
+      const { data, error } = await supabase.from('profiles').select('count').limit(1);
+      if (error) {
+        console.error('Database connection failed:', error);
+      } else {
+        console.log('Database connection successful');
+      }
+    } catch (err) {
+      console.error('Database test failed:', err);
+    }
+    
+    console.log('Listing all users...');
+    try {
+      const { data, error } = await supabase.from('profiles').select('id, phone, nickname, created_at').limit(10);
+      if (error) {
+        console.error('User query failed:', error);
+      } else {
+        console.log('Users:', data);
+      }
+    } catch (err) {
+      console.error('User query failed:', err);
+    }
+    
+    console.log('=== END DEBUG ===');
+  };
+
+  const handleClearStorage = () => {
+    console.log('Clearing browser storage...');
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.reload();
   };
 
   return (
@@ -119,6 +157,23 @@ const LoginForm: React.FC = () => {
             </span>
           </div>
         </form>
+        
+        {/* 调试按钮 */}
+        <div className="mt-4 text-center space-y-2">
+          <button
+            onClick={handleDebug}
+            className="text-xs text-gray-400 hover:text-gray-600 flex items-center justify-center space-x-1"
+          >
+            <Settings className="w-3 h-3" />
+            <span>调试信息</span>
+          </button>
+          <button
+            onClick={handleClearStorage}
+            className="text-xs text-red-400 hover:text-red-600 flex items-center justify-center space-x-1"
+          >
+            <span>清除缓存</span>
+          </button>
+        </div>
       </div>
     </div>
   );

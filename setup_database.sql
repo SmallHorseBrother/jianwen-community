@@ -21,6 +21,14 @@ CREATE TABLE IF NOT EXISTS profiles (
   squat integer DEFAULT 0,
   deadlift integer DEFAULT 0,
   is_public boolean DEFAULT true,
+  -- 社区卡片相关字段
+  group_identity text, -- 群身份：学习一群、学习二群、健身一群、健身二群等
+  profession text, -- 专业领域
+  group_nickname text, -- 群昵称
+  specialties text[] DEFAULT '{}', -- 擅长领域数组
+  fitness_interests text[] DEFAULT '{}', -- 健身爱好数组
+  learning_interests text[] DEFAULT '{}', -- 学习兴趣数组
+  social_links jsonb DEFAULT '{}', -- 社交链接 JSON 对象
   created_at timestamptz DEFAULT now(),
   updated_at timestamptz DEFAULT now()
 );
@@ -147,6 +155,52 @@ CREATE INDEX articles_search_idx ON articles USING gin(to_tsvector('english', ti
 CREATE INDEX articles_category_idx ON articles(category);
 CREATE INDEX articles_type_idx ON articles(type);
 CREATE INDEX articles_tags_idx ON articles USING gin(tags);
+
+-- 为现有表添加新字段（如果不存在）
+DO $$ 
+BEGIN
+    -- 添加群身份字段
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                   WHERE table_name = 'profiles' AND column_name = 'group_identity') THEN
+        ALTER TABLE profiles ADD COLUMN group_identity text;
+    END IF;
+    
+    -- 添加专业领域字段
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                   WHERE table_name = 'profiles' AND column_name = 'profession') THEN
+        ALTER TABLE profiles ADD COLUMN profession text;
+    END IF;
+    
+    -- 添加群昵称字段
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                   WHERE table_name = 'profiles' AND column_name = 'group_nickname') THEN
+        ALTER TABLE profiles ADD COLUMN group_nickname text;
+    END IF;
+    
+    -- 添加擅长领域字段
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                   WHERE table_name = 'profiles' AND column_name = 'specialties') THEN
+        ALTER TABLE profiles ADD COLUMN specialties text[] DEFAULT '{}';
+    END IF;
+    
+    -- 添加健身爱好字段
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                   WHERE table_name = 'profiles' AND column_name = 'fitness_interests') THEN
+        ALTER TABLE profiles ADD COLUMN fitness_interests text[] DEFAULT '{}';
+    END IF;
+    
+    -- 添加学习兴趣字段
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                   WHERE table_name = 'profiles' AND column_name = 'learning_interests') THEN
+        ALTER TABLE profiles ADD COLUMN learning_interests text[] DEFAULT '{}';
+    END IF;
+    
+    -- 添加社交链接字段
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                   WHERE table_name = 'profiles' AND column_name = 'social_links') THEN
+        ALTER TABLE profiles ADD COLUMN social_links jsonb DEFAULT '{}';
+    END IF;
+END $$;
 
 -- 完成提示
 SELECT 'Database setup completed successfully!' as message; 

@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
-import { User, Phone, Shield, Save, Edit3 } from 'lucide-react';
+import { User, Phone, Shield, Save, Edit3, Users, BookOpen, Trophy, Heart, Plus, X } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { 
+  GROUP_IDENTITIES, 
+  PROFESSIONS, 
+  SPECIALTIES, 
+  FITNESS_INTERESTS, 
+  LEARNING_INTERESTS 
+} from '../types';
 
 const Profile: React.FC = () => {
   const { user, updateProfile } = useAuth();
@@ -11,7 +18,15 @@ const Profile: React.FC = () => {
     bench: user?.powerData.bench || 0,
     squat: user?.powerData.squat || 0,
     deadlift: user?.powerData.deadlift || 0,
-    isPublic: user?.isPublic || true,
+    isPublic: user?.isPublic ?? true,
+    // 社区卡片相关字段
+    groupIdentity: user?.groupIdentity || '',
+    profession: user?.profession || '',
+    groupNickname: user?.groupNickname || '',
+    specialties: user?.specialties || [],
+    fitnessInterests: user?.fitnessInterests || [],
+    learningInterests: user?.learningInterests || [],
+    socialLinks: user?.socialLinks || {},
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -26,6 +41,14 @@ const Profile: React.FC = () => {
         deadlift: formData.deadlift,
       },
       isPublic: formData.isPublic,
+      // 社区卡片相关字段
+      groupIdentity: formData.groupIdentity,
+      profession: formData.profession,
+      groupNickname: formData.groupNickname,
+      specialties: formData.specialties,
+      fitnessInterests: formData.fitnessInterests,
+      learningInterests: formData.learningInterests,
+      socialLinks: formData.socialLinks,
     });
     
     setIsEditing(false);
@@ -38,9 +61,56 @@ const Profile: React.FC = () => {
       bench: user?.powerData.bench || 0,
       squat: user?.powerData.squat || 0,
       deadlift: user?.powerData.deadlift || 0,
-      isPublic: user?.isPublic || true,
+      isPublic: user?.isPublic ?? true,
+      // 社区卡片相关字段
+      groupIdentity: user?.groupIdentity || '',
+      profession: user?.profession || '',
+      groupNickname: user?.groupNickname || '',
+      specialties: user?.specialties || [],
+      fitnessInterests: user?.fitnessInterests || [],
+      learningInterests: user?.learningInterests || [],
+      socialLinks: user?.socialLinks || {},
     });
     setIsEditing(false);
+  };
+
+  // 添加标签到数组
+  const addTag = (field: 'specialties' | 'fitnessInterests' | 'learningInterests', value: string) => {
+    if (value && !formData[field].includes(value)) {
+      setFormData(prev => ({
+        ...prev,
+        [field]: [...prev[field], value]
+      }));
+    }
+  };
+
+  // 从数组中删除标签
+  const removeTag = (field: 'specialties' | 'fitnessInterests' | 'learningInterests', value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: prev[field].filter(item => item !== value)
+    }));
+  };
+
+  // 更新社交链接
+  const updateSocialLink = (platform: string, url: string) => {
+    setFormData(prev => ({
+      ...prev,
+      socialLinks: {
+        ...prev.socialLinks,
+        [platform]: url
+      }
+    }));
+  };
+
+  // 删除社交链接
+  const removeSocialLink = (platform: string) => {
+    setFormData(prev => ({
+      ...prev,
+      socialLinks: Object.fromEntries(
+        Object.entries(prev.socialLinks).filter(([key]) => key !== platform)
+      )
+    }));
   };
 
   if (!user) return null;
@@ -162,6 +232,199 @@ const Profile: React.FC = () => {
                   }`}
                 />
               </div>
+            </div>
+          </div>
+
+          {/* 社区卡片信息 */}
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+              <Users className="w-5 h-5 mr-2" />
+              社区卡片信息
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  群身份 <span className="text-red-500">*</span>
+                </label>
+                <select
+                  value={formData.groupIdentity}
+                  onChange={(e) => setFormData({ ...formData, groupIdentity: e.target.value })}
+                  disabled={!isEditing}
+                  className={`w-full px-3 py-2 border border-gray-300 rounded-lg ${
+                    isEditing ? 'focus:outline-none focus:ring-2 focus:ring-blue-500' : 'bg-gray-50'
+                  }`}
+                >
+                  <option value="">请选择群身份</option>
+                  {GROUP_IDENTITIES.map(identity => (
+                    <option key={identity} value={identity}>{identity}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  专业领域
+                </label>
+                <select
+                  value={formData.profession}
+                  onChange={(e) => setFormData({ ...formData, profession: e.target.value })}
+                  disabled={!isEditing}
+                  className={`w-full px-3 py-2 border border-gray-300 rounded-lg ${
+                    isEditing ? 'focus:outline-none focus:ring-2 focus:ring-blue-500' : 'bg-gray-50'
+                  }`}
+                >
+                  <option value="">请选择专业领域</option>
+                  {PROFESSIONS.map(profession => (
+                    <option key={profession} value={profession}>{profession}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                群昵称
+              </label>
+              <input
+                type="text"
+                value={formData.groupNickname}
+                onChange={(e) => setFormData({ ...formData, groupNickname: e.target.value })}
+                disabled={!isEditing}
+                placeholder="您在群里的昵称"
+                className={`w-full px-3 py-2 border border-gray-300 rounded-lg ${
+                  isEditing ? 'focus:outline-none focus:ring-2 focus:ring-blue-500' : 'bg-gray-50'
+                }`}
+              />
+            </div>
+
+            {/* 擅长领域 */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                <Trophy className="w-4 h-4 inline mr-1" />
+                擅长领域
+              </label>
+              <div className="flex flex-wrap gap-2 mb-2">
+                {formData.specialties.map((specialty, index) => (
+                  <span
+                    key={index}
+                    className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full"
+                  >
+                    {specialty}
+                    {isEditing && (
+                      <button
+                        type="button"
+                        onClick={() => removeTag('specialties', specialty)}
+                        className="ml-1 text-blue-600 hover:text-blue-800"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    )}
+                  </span>
+                ))}
+              </div>
+              {isEditing && (
+                <select
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      addTag('specialties', e.target.value);
+                      e.target.value = '';
+                    }
+                  }}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="">添加擅长领域</option>
+                  {SPECIALTIES.filter(s => !formData.specialties.includes(s)).map(specialty => (
+                    <option key={specialty} value={specialty}>{specialty}</option>
+                  ))}
+                </select>
+              )}
+            </div>
+
+            {/* 健身爱好 */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                <Heart className="w-4 h-4 inline mr-1" />
+                健身爱好
+              </label>
+              <div className="flex flex-wrap gap-2 mb-2">
+                {formData.fitnessInterests.map((interest, index) => (
+                  <span
+                    key={index}
+                    className="inline-flex items-center px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full"
+                  >
+                    {interest}
+                    {isEditing && (
+                      <button
+                        type="button"
+                        onClick={() => removeTag('fitnessInterests', interest)}
+                        className="ml-1 text-green-600 hover:text-green-800"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    )}
+                  </span>
+                ))}
+              </div>
+              {isEditing && (
+                <select
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      addTag('fitnessInterests', e.target.value);
+                      e.target.value = '';
+                    }
+                  }}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="">添加健身爱好</option>
+                  {FITNESS_INTERESTS.filter(i => !formData.fitnessInterests.includes(i)).map(interest => (
+                    <option key={interest} value={interest}>{interest}</option>
+                  ))}
+                </select>
+              )}
+            </div>
+
+            {/* 学习兴趣 */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                <BookOpen className="w-4 h-4 inline mr-1" />
+                学习兴趣
+              </label>
+              <div className="flex flex-wrap gap-2 mb-2">
+                {formData.learningInterests.map((interest, index) => (
+                  <span
+                    key={index}
+                    className="inline-flex items-center px-3 py-1 bg-purple-100 text-purple-800 text-sm rounded-full"
+                  >
+                    {interest}
+                    {isEditing && (
+                      <button
+                        type="button"
+                        onClick={() => removeTag('learningInterests', interest)}
+                        className="ml-1 text-purple-600 hover:text-purple-800"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    )}
+                  </span>
+                ))}
+              </div>
+              {isEditing && (
+                <select
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      addTag('learningInterests', e.target.value);
+                      e.target.value = '';
+                    }
+                  }}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="">添加学习兴趣</option>
+                  {LEARNING_INTERESTS.filter(i => !formData.learningInterests.includes(i)).map(interest => (
+                    <option key={interest} value={interest}>{interest}</option>
+                  ))}
+                </select>
+              )}
             </div>
           </div>
 

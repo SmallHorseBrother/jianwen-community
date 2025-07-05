@@ -54,10 +54,10 @@ const FitnessHome: React.FC = () => {
     {
       icon: Users,
       title: '大佬卡片墙',
-      description: '展示社区大佬的训练数据',
+      description: '展示社区大佬的训练数据和个人信息',
       to: '/fitness/profiles',
       color: 'from-orange-500 to-orange-600',
-      available: false,
+      available: true,
     },
   ];
 
