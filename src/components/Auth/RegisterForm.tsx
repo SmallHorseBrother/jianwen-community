@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Phone, Lock, User, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
+import MathCaptcha from '../Common/MathCaptcha';
 
 const RegisterForm: React.FC = () => {
   const [phone, setPhone] = useState('');
@@ -10,6 +11,7 @@ const RegisterForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isCaptchaValid, setIsCaptchaValid] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
 
@@ -24,6 +26,11 @@ const RegisterForm: React.FC = () => {
 
     if (password.length < 6) {
       setError('密码长度至少6位');
+      return;
+    }
+
+    if (!isCaptchaValid) {
+      setError('请完成数学验证码');
       return;
     }
 
@@ -106,6 +113,10 @@ const RegisterForm: React.FC = () => {
                   {showPassword ? <EyeOff /> : <Eye />}
                 </button>
               </div>
+            </div>
+
+            <div>
+              <MathCaptcha onVerify={setIsCaptchaValid} />
             </div>
           </div>
 

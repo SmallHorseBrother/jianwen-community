@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Phone, Lock, Eye, EyeOff, Settings } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '../../lib/supabase';
+import MathCaptcha from '../Common/MathCaptcha';
 
 const LoginForm: React.FC = () => {
   const [phone, setPhone] = useState('');
@@ -10,6 +11,7 @@ const LoginForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isCaptchaValid, setIsCaptchaValid] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -19,6 +21,11 @@ const LoginForm: React.FC = () => {
 
     if (!phone || !password) {
       setError('请填写手机号和密码');
+      return;
+    }
+
+    if (!isCaptchaValid) {
+      setError('请完成数学验证码');
       return;
     }
 
@@ -131,6 +138,10 @@ const LoginForm: React.FC = () => {
                   {showPassword ? <EyeOff /> : <Eye />}
                 </button>
               </div>
+            </div>
+
+            <div>
+              <MathCaptcha onVerify={setIsCaptchaValid} />
             </div>
           </div>
 

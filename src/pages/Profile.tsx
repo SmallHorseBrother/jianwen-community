@@ -255,9 +255,10 @@ const Profile: React.FC = () => {
                 </label>
                 <input
                   type="number"
-                  value={formData.bench}
-                  onChange={(e) => setFormData({ ...formData, bench: Number(e.target.value) })}
+                  value={formData.bench === 0 ? '' : formData.bench}
+                  onChange={(e) => setFormData({ ...formData, bench: Number(e.target.value) || 0 })}
                   disabled={!isEditing}
+                  placeholder="请输入卧推重量"
                   className={`w-full px-3 py-2 border border-gray-300 rounded-lg ${
                     isEditing ? 'focus:outline-none focus:ring-2 focus:ring-blue-500' : 'bg-gray-50'
                   }`}
@@ -269,9 +270,10 @@ const Profile: React.FC = () => {
                 </label>
                 <input
                   type="number"
-                  value={formData.squat}
-                  onChange={(e) => setFormData({ ...formData, squat: Number(e.target.value) })}
+                  value={formData.squat === 0 ? '' : formData.squat}
+                  onChange={(e) => setFormData({ ...formData, squat: Number(e.target.value) || 0 })}
                   disabled={!isEditing}
+                  placeholder="请输入深蹲重量"
                   className={`w-full px-3 py-2 border border-gray-300 rounded-lg ${
                     isEditing ? 'focus:outline-none focus:ring-2 focus:ring-blue-500' : 'bg-gray-50'
                   }`}
@@ -283,9 +285,10 @@ const Profile: React.FC = () => {
                 </label>
                 <input
                   type="number"
-                  value={formData.deadlift}
-                  onChange={(e) => setFormData({ ...formData, deadlift: Number(e.target.value) })}
+                  value={formData.deadlift === 0 ? '' : formData.deadlift}
+                  onChange={(e) => setFormData({ ...formData, deadlift: Number(e.target.value) || 0 })}
                   disabled={!isEditing}
+                  placeholder="请输入硬拉重量"
                   className={`w-full px-3 py-2 border border-gray-300 rounded-lg ${
                     isEditing ? 'focus:outline-none focus:ring-2 focus:ring-blue-500' : 'bg-gray-50'
                   }`}
