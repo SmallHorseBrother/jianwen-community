@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Clock, Target, Focus, ArrowLeft, Play, Pause, RotateCcw, Plus, X, CheckCircle, Circle } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { getUserTasks, createTask, deleteTask, toggleTaskCompletion, Task } from '../../services/taskService';
@@ -16,12 +17,13 @@ const LearningToolbox: React.FC = () => {
           <p className="text-gray-600 mb-6">
             枭马葛学习工具箱需要登录后才能使用，这样可以保存你的学习数据和进度。
           </p>
-          <a
-            href="/login"
+          <Link
+            to="/login"
+            state={{ from: window.location.pathname }}
             className="inline-block bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors"
           >
             立即登录
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -220,8 +222,7 @@ const TaskCountdown: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       await createTask({
         name: newTask.name,
         deadline: new Date(newTask.deadline).toISOString(),
-        description: newTask.description,
-        user_id: user.id
+        description: newTask.description
       });
       setNewTask({ name: '', deadline: '', description: '' });
       setShowAddForm(false);
@@ -240,9 +241,9 @@ const TaskCountdown: React.FC<{ onBack: () => void }> = ({ onBack }) => {
     }
   };
 
-  const handleToggleTask = async (taskId: string) => {
+  const handleToggleTask = async (taskId: string, currentStatus: boolean) => {
     try {
-      await toggleTaskCompletion(taskId);
+      await toggleTaskCompletion(taskId, !currentStatus);
       loadTasks();
     } catch (error) {
       console.error('Failed to toggle task:', error);
@@ -367,7 +368,7 @@ const TaskCountdown: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                       <button
-                        onClick={() => handleToggleTask(task.id)}
+                        onClick={() => handleToggleTask(task.id, task.is_completed)}
                         className="text-gray-400 hover:text-gray-600"
                       >
                         {task.is_completed ? (

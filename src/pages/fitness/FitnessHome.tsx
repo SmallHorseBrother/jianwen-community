@@ -15,12 +15,13 @@ const FitnessHome: React.FC = () => {
           <p className="text-gray-600 mb-6">
             枭马葛健身专区需要登录后才能使用，这样可以保存你的训练数据和进度。
           </p>
-          <a
-            href="/login"
+          <Link
+            to="/login"
+            state={{ from: window.location.pathname }}
             className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
           >
             立即登录
-          </a>
+          </Link>
         </div>
       </div>
     );

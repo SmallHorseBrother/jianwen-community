@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Phone, Lock, User, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import MathCaptcha from '../Common/MathCaptcha';
@@ -14,6 +14,10 @@ const RegisterForm: React.FC = () => {
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  // 获取用户原本想要访问的页面
+  const from = location.state?.from || '/';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,7 +41,7 @@ const RegisterForm: React.FC = () => {
     setIsLoading(true);
     try {
       await register(phone, password, nickname);
-      navigate('/');
+      navigate(from);
     } catch (err) {
       setError(err instanceof Error ? err.message : '注册失败，请重试');
     }

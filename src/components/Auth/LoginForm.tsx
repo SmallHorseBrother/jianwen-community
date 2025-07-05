@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Phone, Lock, Eye, EyeOff, Settings } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '../../lib/supabase';
@@ -14,6 +14,14 @@ const LoginForm: React.FC = () => {
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  // 获取用户原本想要访问的页面
+  const from = location.state?.from || '/';
+  
+  // 调试信息
+  console.log('LoginForm - Location state:', location.state);
+  console.log('LoginForm - Redirect to:', from);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,8 +41,8 @@ const LoginForm: React.FC = () => {
     try {
       console.log('Starting login process...');
       await login(phone, password);
-      console.log('Login successful, navigating...');
-      navigate('/');
+      console.log('Login successful, navigating to:', from);
+      navigate(from);
     } catch (err: any) {
       console.error('登录错误:', err);
       if (err.message && err.message.includes('Invalid login credentials')) {

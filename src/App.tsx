@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Layout from './components/Layout/Layout';
 import Home from './pages/Home';
@@ -15,10 +15,12 @@ import LearningToolbox from './pages/learning/LearningToolbox';
 import MatchingCenter from './pages/MatchingCenter';
 import CommunityProfiles from './pages/CommunityProfiles';
 import ComingSoon from './components/Common/ComingSoon';
+import NotFound from './components/Common/NotFound';
 
 // Protected Route Component
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
+  const location = useLocation();
   
   if (isLoading) {
     return (
@@ -28,7 +30,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
     );
   }
   
-  return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
+  return isAuthenticated ? <>{children}</> : <Navigate to="/login" state={{ from: location.pathname }} replace />;
 };
 
 // App Routes Component
@@ -59,6 +61,9 @@ const AppRoutes: React.FC = () => {
       <Route path="/community" element={<Layout><MatchingCenter /></Layout>} />
       <Route path="/community/profiles" element={<Layout><CommunityProfiles /></Layout>} />
       <Route path="/community/matching" element={<Layout><MatchingCenter /></Layout>} />
+      
+      {/* 404 Page - must be last */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
