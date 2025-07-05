@@ -129,6 +129,7 @@ const Home: React.FC = () => {
             <span>立即加入枭马葛社区</span>
           </Link>
         </div>
+      </section>
       <Route path="/community" element={<Layout><MatchingCenter /></Layout>} />
     </div>
   );
