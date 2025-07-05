@@ -199,18 +199,8 @@ const CommunityProfiles: React.FC = () => {
               <div className="text-center">
                 <div className="text-gray-600">硬拉</div>
                 <div className="font-semibold">{profile.powerData.deadlift || '-'}</div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              {searchTerm || selectedGroup !== 'all' || selectedProfession !== 'all' 
-                ? '没有找到匹配的用户' 
-                : '还没有用户展示卡片'
-              }
-            </h3>
-            <p className="text-gray-600">
-              {searchTerm || selectedGroup !== 'all' || selectedProfession !== 'all'
-                ? '试试调整搜索条件或过滤器'
-                : '鼓励更多用户完善个人资料，让社区更加活跃！'
-              }
-            </p>
+              </div>
+            </div>
           </div>
         )}
       </div>
