@@ -130,7 +130,6 @@ const Home: React.FC = () => {
           </Link>
         </div>
       </section>
-      <Route path="/community" element={<Layout><MatchingCenter /></Layout>} />
     </div>
   );
 };
