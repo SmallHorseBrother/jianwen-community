@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, Phone, Shield, Save, Edit3, Users, BookOpen, Trophy, Heart, Plus, X } from 'lucide-react';
+import { User, Phone, Shield, Save, Edit3, Users, BookOpen, Trophy, Heart, Plus, X, AlertCircle, CheckCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { 
   GROUP_IDENTITIES, 
@@ -74,6 +74,27 @@ const Profile: React.FC = () => {
     setIsEditing(false);
   };
 
+  // 计算个人卡片完整度
+  const calculateCompleteness = () => {
+    let score = 0;
+    let total = 10;
+    
+    if (user?.nickname) score += 1;
+    if (user?.bio && user.bio.length > 10) score += 1;
+    if (user?.groupIdentity) score += 2; // 群身份很重要
+    if (user?.profession) score += 1;
+    if (user?.specialties && user.specialties.length > 0) score += 1;
+    if (user?.fitnessInterests && user.fitnessInterests.length > 0) score += 1;
+    if (user?.learningInterests && user.learningInterests.length > 0) score += 1;
+    if (user?.powerData && (user.powerData.bench > 0 || user.powerData.squat > 0 || user.powerData.deadlift > 0)) score += 1;
+    if (user?.groupNickname) score += 1;
+    
+    return { score, total, percentage: Math.round((score / total) * 100) };
+  };
+
+  const completeness = calculateCompleteness();
+  const isProfileComplete = completeness.percentage >= 70; // 70%以上算完整
+
   // 添加标签到数组
   const addTag = (field: 'specialties' | 'fitnessInterests' | 'learningInterests', value: string) => {
     if (value && !formData[field].includes(value)) {
@@ -117,6 +138,44 @@ const Profile: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto">
+      {/* 个人卡片完整度提示 */}
+      <div className={`mb-6 p-4 rounded-xl border-2 ${
+        isProfileComplete 
+          ? 'bg-green-50 border-green-200' 
+          : 'bg-yellow-50 border-yellow-200'
+      }`}>
+        <div className="flex items-center space-x-3">
+          {isProfileComplete ? (
+            <CheckCircle className="w-6 h-6 text-green-600" />
+          ) : (
+            <AlertCircle className="w-6 h-6 text-yellow-600" />
+          )}
+          <div className="flex-1">
+            <h3 className={`font-semibold ${
+              isProfileComplete ? 'text-green-900' : 'text-yellow-900'
+            }`}>
+              个人卡片完整度：{completeness.percentage}%
+            </h3>
+            <p className={`text-sm ${
+              isProfileComplete ? 'text-green-700' : 'text-yellow-700'
+            }`}>
+              {isProfileComplete 
+                ? '🎉 你的个人卡片已经很完整了！其他用户可以在大佬卡片墙中找到你，你也可以使用匹配功能寻找志同道合的伙伴。'
+                : '⚠️ 完善你的个人卡片信息，让其他用户更容易找到你！建议至少填写群身份、专业领域和兴趣爱好。'
+              }
+            </p>
+            <div className="mt-2 w-full bg-gray-200 rounded-full h-2">
+              <div 
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  isProfileComplete ? 'bg-green-500' : 'bg-yellow-500'
+                }`}
+                style={{ width: `${completeness.percentage}%` }}
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="bg-white rounded-xl shadow-md p-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
@@ -246,6 +305,7 @@ const Profile: React.FC = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   群身份 <span className="text-red-500">*</span>
+                  <span className="text-xs text-gray-500 ml-1">（必填，用于匹配同群用户）</span>
                 </label>
                 <select
                   value={formData.groupIdentity}
@@ -285,6 +345,7 @@ const Profile: React.FC = () => {
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 群昵称
+                <span className="text-xs text-gray-500 ml-1">（帮助群友认识你）</span>
               </label>
               <input
                 type="text"
@@ -443,7 +504,7 @@ const Profile: React.FC = () => {
               </div>
             </label>
             <p className="text-xs text-gray-500 mt-1 ml-7">
-              其他用户可以在大佬卡片墙中看到您的信息
+              开启后，其他用户可以在大佬卡片墙中看到您的信息，也可以通过匹配功能找到您
             </p>
           </div>
 

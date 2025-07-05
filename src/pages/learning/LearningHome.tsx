@@ -46,7 +46,7 @@ const LearningHome: React.FC = () => {
     {
       icon: Users,
       title: '学伴匹配',
-      description: '寻找志同道合的学习伙伴和群友',
+      description: '智能匹配志同道合的学习伙伴',
       to: '/learning/partners',
       color: 'from-green-500 to-green-600',
       available: true,

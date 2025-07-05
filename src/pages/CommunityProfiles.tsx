@@ -25,7 +25,15 @@ const CommunityProfiles: React.FC = () => {
     try {
       setLoading(true);
       const publicProfiles = await getPublicProfiles();
-      setProfiles(publicProfiles);
+      // 只显示信息相对完整的用户卡片
+      const completeProfiles = publicProfiles.filter(profile => {
+        // 至少要有群身份或专业信息
+        return profile.groupIdentity || profile.profession || 
+               (profile.specialties && profile.specialties.length > 0) ||
+               (profile.fitnessInterests && profile.fitnessInterests.length > 0) ||
+               (profile.learningInterests && profile.learningInterests.length > 0);
+      });
+      setProfiles(completeProfiles);
     } catch (error) {
       console.error('Failed to load profiles:', error);
     } finally {
@@ -191,8 +199,18 @@ const CommunityProfiles: React.FC = () => {
               <div className="text-center">
                 <div className="text-gray-600">硬拉</div>
                 <div className="font-semibold">{profile.powerData.deadlift || '-'}</div>
-              </div>
-            </div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              {searchTerm || selectedGroup !== 'all' || selectedProfession !== 'all' 
+                ? '没有找到匹配的用户' 
+                : '还没有用户展示卡片'
+              }
+            </h3>
+            <p className="text-gray-600">
+              {searchTerm || selectedGroup !== 'all' || selectedProfession !== 'all'
+                ? '试试调整搜索条件或过滤器'
+                : '鼓励更多用户完善个人资料，让社区更加活跃！'
+              }
+            </p>
           </div>
         )}
       </div>
@@ -203,7 +221,13 @@ const CommunityProfiles: React.FC = () => {
     <div className="space-y-6">
       <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">🦉 枭马葛大佬卡片墙</h1>
-        <p className="text-gray-600">认识志同道合的群友，发现学习和健身伙伴</p>
+        <p className="text-gray-600">
+          展示社区中信息完整的用户卡片，认识志同道合的群友
+          <br />
+          <span className="text-sm text-gray-500">
+            💡 想要出现在这里？请先在个人资料页面完善你的卡片信息
+          </span>
+        </p>
       </div>
 
       {/* 搜索和过滤 */}

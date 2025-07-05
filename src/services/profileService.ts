@@ -8,6 +8,7 @@ export const getPublicProfiles = async (): Promise<User[]> => {
       .from('profiles')
       .select('*')
       .eq('is_public', true)
+      .not('group_identity', 'is', null) // 至少要有群身份
       .order('created_at', { ascending: false });
 
     if (error) throw error;

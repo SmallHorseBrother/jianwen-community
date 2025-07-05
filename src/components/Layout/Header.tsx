@@ -1,11 +1,17 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Dumbbell, BookOpen, User, LogOut } from 'lucide-react';
+import { Dumbbell, BookOpen, User, LogOut, AlertCircle } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Header: React.FC = () => {
   const { user, isAuthenticated, logout } = useAuth();
   const location = useLocation();
+
+  // 检查用户资料完整度
+  const isProfileIncomplete = user && (!user.groupIdentity && !user.profession) || 
+    (!user.specialties || user.specialties.length === 0) &&
+    (!user.fitnessInterests || user.fitnessInterests.length === 0) &&
+    (!user.learningInterests || user.learningInterests.length === 0);
 
   const navItems = [
     { to: '/', label: '首页', icon: null },
@@ -46,10 +52,23 @@ const Header: React.FC = () => {
               <div className="flex items-center space-x-3">
                 <Link
                   to="/profile"
-                  className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors"
+                  className={`flex items-center space-x-2 transition-colors ${
+                    isProfileIncomplete 
+                      ? 'text-yellow-600 hover:text-yellow-700' 
+                      : 'text-gray-700 hover:text-blue-600'
+                  }`}
                 >
-                  <User className="w-5 h-5" />
+                  {isProfileIncomplete ? (
+                    <AlertCircle className="w-5 h-5" />
+                  ) : (
+                    <User className="w-5 h-5" />
+                  )}
                   <span className="hidden sm:inline">{user?.nickname}</span>
+                  {isProfileIncomplete && (
+                    <span className="hidden md:inline text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                      待完善
+                    </span>
+                  )}
                 </Link>
                 <button
                   onClick={logout}

@@ -19,6 +19,7 @@ const MatchingCenter: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [showPreferences, setShowPreferences] = useState(false);
   const [connections, setConnections] = useState<any>({});
+  const [profileIncomplete, setProfileIncomplete] = useState(false);
   const [preferences, setPreferences] = useState<MatchPreferences>({
     groups: [],
     professions: [],
@@ -32,8 +33,21 @@ const MatchingCenter: React.FC = () => {
   useEffect(() => {
     if (user) {
       loadInitialData();
+      checkProfileCompleteness();
     }
   }, [user]);
+
+  const checkProfileCompleteness = () => {
+    if (!user) return;
+    
+    // 检查用户资料是否足够完整进行匹配
+    const hasBasicInfo = user.groupIdentity || user.profession;
+    const hasInterests = (user.specialties && user.specialties.length > 0) ||
+                        (user.fitnessInterests && user.fitnessInterests.length > 0) ||
+                        (user.learningInterests && user.learningInterests.length > 0);
+    
+    setProfileIncomplete(!hasBasicInfo || !hasInterests);
+  };
 
   const loadInitialData = async () => {
     if (!user) return;
@@ -393,11 +407,42 @@ const MatchingCenter: React.FC = () => {
     );
   }
 
+  if (profileIncomplete) {
+    return (
+      <div className="text-center py-16">
+        <div className="max-w-md mx-auto bg-yellow-50 border border-yellow-200 rounded-xl p-8">
+          <AlertCircle className="w-16 h-16 text-yellow-600 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">完善个人资料</h2>
+          <p className="text-gray-600 mb-6">
+            要使用匹配功能，请先完善你的个人资料：
+          </p>
+          <ul className="text-left text-sm text-gray-600 mb-6 space-y-2">
+            <li>• 设置群身份或专业领域</li>
+            <li>• 添加至少一个兴趣爱好</li>
+            <li>• 完善个人简介</li>
+          </ul>
+          <Link
+            to="/profile"
+            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            去完善资料
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">🦉 枭马葛匹配中心</h1>
-        <p className="text-gray-600">发现志同道合的群友，建立有意义的连接</p>
+        <p className="text-gray-600">
+          基于你的兴趣和偏好，智能匹配志同道合的群友
+          <br />
+          <span className="text-sm text-gray-500">
+            💡 匹配算法会根据群身份、专业领域、兴趣爱好等因素计算匹配度
+          </span>
+        </p>
       </div>
 
       {/* 控制面板 */}

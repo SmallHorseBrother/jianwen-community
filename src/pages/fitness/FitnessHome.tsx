@@ -54,7 +54,7 @@ const FitnessHome: React.FC = () => {
     {
       icon: Users,
       title: '大佬卡片墙',
-      description: '展示社区大佬的训练数据和个人信息',
+      description: '浏览社区成员的健身卡片，寻找训练伙伴',
       to: '/fitness/profiles',
       color: 'from-orange-500 to-orange-600',
       available: true,
