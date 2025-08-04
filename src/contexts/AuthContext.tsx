@@ -160,6 +160,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         social_links: {},
       });
 
+      console.log('Registration completed successfully');
     } catch (error: any) {
       if (error.message && (error.message.includes('User already registered') || 
           error.message.includes('duplicate key value violates unique constraint "profiles_phone_key"'))) {
