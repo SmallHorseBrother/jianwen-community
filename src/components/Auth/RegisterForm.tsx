@@ -41,11 +41,12 @@ const RegisterForm: React.FC = () => {
     setIsLoading(true);
     try {
       await register(phone, password, nickname);
-      navigate(from);
+      navigate('/profile');
     } catch (err) {
       setError(err instanceof Error ? err.message : '注册失败，请重试');
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (

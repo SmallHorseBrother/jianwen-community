@@ -31,89 +31,46 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        console.log('Auth state change:', event, session?.user?.id);
-        
         if (session?.user) {
           try {
-            let profile = await getUserProfile(session.user.id);
+            const profile = await getUserProfile(session.user.id);
             
-            // 如果没有找到用户资料，创建一个基本的资料
-            if (!profile) {
-              console.log('No profile found for user:', session.user.id, 'creating basic profile');
-              try {
-                // 从邮箱中提取手机号
-                const email = session.user.email || '';
-                const phone = email.replace('@jianwen.community', '');
-                
-                await createUserProfile({
-                  id: session.user.id,
-                  phone: phone,
-                  nickname: `用户${phone.slice(-4)}`, // 使用手机号后四位作为昵称
-                  bio: '',
-                  bench_press: 0,
-                  squat: 0,
-                  deadlift: 0,
-                  is_public: true,
-                  group_identity: null,
-                  profession: null,
-                  group_nickname: null,
-                  specialties: [],
-                  fitness_interests: [],
-                  learning_interests: [],
-                  social_links: {},
-                });
-                
-                // 重新获取创建的资料
-                profile = await getUserProfile(session.user.id);
-                console.log('Created and retrieved profile:', profile);
-              } catch (createError) {
-                console.error('Failed to create profile:', createError);
-                setState({
-                  user: null,
-                  isAuthenticated: false,
-                  isLoading: false,
-                });
-                return;
-              }
-            }
-            
-            if (!profile) {
-              console.log('Still no profile after creation attempt');
+            if (profile) {
+              const user: User = {
+                id: profile.id,
+                phone: profile.phone || '',
+                nickname: profile.nickname,
+                bio: profile.bio,
+                avatar: profile.avatar_url,
+                powerData: {
+                  bench: profile.bench_press,
+                  squat: profile.squat,
+                  deadlift: profile.deadlift,
+                },
+                isPublic: profile.is_public,
+                groupIdentity: profile.group_identity,
+                profession: profile.profession,
+                groupNickname: profile.group_nickname,
+                specialties: profile.specialties || [],
+                fitnessInterests: profile.fitness_interests || [],
+                learningInterests: profile.learning_interests || [],
+                socialLinks: (profile.social_links as { [key: string]: string }) || {},
+                createdAt: new Date(profile.created_at),
+              };
+              setState({
+                user,
+                isAuthenticated: true,
+                isLoading: false,
+              });
+            } else {
+              // Profile not found, which might be okay if user just signed up
+              // The register function is responsible for creating the profile.
               setState({
                 user: null,
                 isAuthenticated: false,
                 isLoading: false,
               });
-              return;
             }
-            
-            console.log('Profile loaded:', profile);
-            const user: User = {
-              id: profile.id,
-              phone: profile.phone || '',
-              nickname: profile.nickname,
-              bio: profile.bio,
-              avatar: profile.avatar_url,
-              powerData: {
-                bench: profile.bench_press,
-                squat: profile.squat,
-                deadlift: profile.deadlift,
-              },
-              isPublic: profile.is_public,
-              groupIdentity: profile.group_identity,
-              profession: profile.profession,
-              groupNickname: profile.group_nickname,
-              specialties: profile.specialties || [],
-              fitnessInterests: profile.fitness_interests || [],
-              learningInterests: profile.learning_interests || [],
-              socialLinks: (profile.social_links as { [key: string]: string }) || {},
-              createdAt: new Date(profile.created_at),
-            };
-            setState({
-              user,
-              isAuthenticated: true,
-              isLoading: false,
-            });
           } catch (error) {
             console.error('获取用户资料失败:', error);
             setState({
@@ -123,7 +80,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             });
           }
         } else {
-          console.log('No session, setting unauthenticated');
           setState({
             user: null,
             isAuthenticated: false,
@@ -169,22 +125,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const register = async (phone: string, password: string, nickname: string) => {
     try {
-      // 使用手机号作为邮箱格式进行注册
       const email = `${phone}@jianwen.community`;
       
-      // 注册用户
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          emailRedirectTo: undefined, // 禁用邮箱确认
+          emailRedirectTo: undefined,
         }
       });
 
-      if (error) throw error;
-      if (!data.user) throw new Error('注册失败');
+      if (error) {
+        throw error;
+      }
+      if (!data.user) {
+        throw new Error('注册失败');
+      }
 
-      // 创建用户资料
       await createUserProfile({
         id: data.user.id,
         phone,
@@ -204,12 +161,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       });
 
     } catch (error: any) {
-      // 检查是否是用户已存在的错误
       if (error.message && (error.message.includes('User already registered') || 
           error.message.includes('duplicate key value violates unique constraint "profiles_phone_key"'))) {
         throw new Error('该手机号已被注册，请使用其他手机号或直接登录');
       }
-      // 检查是否是数据库约束违反错误（错误代码 23505）
       if (error.code === '23505' && error.message.includes('profiles_phone_key')) {
         throw new Error('该手机号已被注册，请使用其他手机号或直接登录');
       }

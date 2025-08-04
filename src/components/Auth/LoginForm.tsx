@@ -39,12 +39,9 @@ const LoginForm: React.FC = () => {
 
     setIsLoading(true);
     try {
-      console.log('Starting login process...');
       await login(phone, password);
-      console.log('Login successful, navigating to:', from);
-      navigate(from);
+      navigate(from, { replace: true });
     } catch (err: any) {
-      console.error('登录错误:', err);
       if (err.message && err.message.includes('Invalid login credentials')) {
         setError('手机号或密码错误，请检查后重试');
       } else if (err.message && err.message.includes('Email not confirmed')) {
@@ -52,10 +49,9 @@ const LoginForm: React.FC = () => {
       } else {
         setError(err.message || '登录失败，请检查账号密码');
       }
+    } finally {
+      setIsLoading(false);
     }
-    
-    console.log('Login process finished');
-    setIsLoading(false);
   };
 
   const handleDebug = async () => {
