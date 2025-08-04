@@ -52,10 +52,9 @@ const LoginForm: React.FC = () => {
       } else {
         setError(err.message || '登录失败，请检查账号密码');
       }
+    } finally {
+      setIsLoading(false);
     }
-    
-    console.log('Login process finished');
-    setIsLoading(false);
   };
 
   const handleDebug = async () => {

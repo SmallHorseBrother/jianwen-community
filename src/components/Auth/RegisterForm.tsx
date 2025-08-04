@@ -40,9 +40,12 @@ const RegisterForm: React.FC = () => {
 
     setIsLoading(true);
     try {
+      console.log('Submitting registration form...', { phone, nickname });
       await register(phone, password, nickname);
+      console.log('Registration successful, navigating...');
       navigate(from);
     } catch (err) {
+      console.error('Registration form error:', err);
       setError(err instanceof Error ? err.message : '注册失败，请重试');
     }
     setIsLoading(false);

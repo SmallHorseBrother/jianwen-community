@@ -35,6 +35,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         
         if (session?.user) {
           try {
+            console.log('User session found, loading profile...');
             let profile = await getUserProfile(session.user.id);
             
             // 如果没有找到用户资料，创建一个基本的资料
@@ -45,6 +46,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 const email = session.user.email || '';
                 const phone = email.replace('@jianwen.community', '');
                 
+                // 注意：这里只是创建默认资料，实际的昵称应该在注册时已经设置
                 await createUserProfile({
                   id: session.user.id,
                   phone: phone,
@@ -109,6 +111,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               socialLinks: (profile.social_links as { [key: string]: string }) || {},
               createdAt: new Date(profile.created_at),
             };
+            
+            console.log('Setting user state:', user);
             setState({
               user,
               isAuthenticated: true,
@@ -169,6 +173,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const register = async (phone: string, password: string, nickname: string) => {
     try {
+      console.log('Starting registration process...', { phone, nickname });
       // 使用手机号作为邮箱格式进行注册
       const email = `${phone}@jianwen.community`;
       
@@ -181,10 +186,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
       });
 
+      console.log('Supabase auth signup result:', { data, error });
       if (error) throw error;
       if (!data.user) throw new Error('注册失败');
 
       // 创建用户资料
+      console.log('Creating user profile with nickname:', nickname);
       await createUserProfile({
         id: data.user.id,
         phone,
@@ -203,7 +210,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         social_links: {},
       });
 
+      console.log('Registration completed successfully');
     } catch (error: any) {
+      console.error('Registration error:', error);
       // 检查是否是用户已存在的错误
       if (error.message && (error.message.includes('User already registered') || 
           error.message.includes('duplicate key value violates unique constraint "profiles_phone_key"'))) {
