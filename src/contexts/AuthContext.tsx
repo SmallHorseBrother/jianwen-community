@@ -125,8 +125,46 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       if (data.user) {
         console.log('Login successful, user ID:', data.user.id);
-        // 用户资料会通过onAuthStateChange自动加载
-        // 不在这里设置 isLoading: false，让 onAuthStateChange 处理
+
+        // 直接获取并设置用户资料，避免依赖 onAuthStateChange 可能的网络失败
+        try {
+          const profile = await getUserProfile(data.user.id);
+          if (!profile) {
+            throw new Error('未找到用户资料');
+          }
+          const user: User = {
+            id: profile.id,
+            phone: profile.phone || '',
+            nickname: profile.nickname,
+            bio: profile.bio,
+            avatar: profile.avatar_url,
+            powerData: {
+              bench: profile.bench_press,
+              squat: profile.squat,
+              deadlift: profile.deadlift,
+            },
+            isPublic: profile.is_public,
+            groupIdentity: profile.group_identity,
+            profession: profile.profession,
+            groupNickname: profile.group_nickname,
+            specialties: profile.specialties || [],
+            fitnessInterests: profile.fitness_interests || [],
+            learningInterests: profile.learning_interests || [],
+            socialLinks: (profile.social_links as { [key: string]: string }) || {},
+            createdAt: new Date(profile.created_at),
+          };
+          setState({
+            user,
+            isAuthenticated: true,
+            isLoading: false,
+          });
+        } catch (profileError) {
+          console.error('获取登录用户资料失败:', profileError);
+          // 若获取资料失败则强制登出，提示用户重试
+          await supabase.auth.signOut();
+          setState({ user: null, isAuthenticated: false, isLoading: false });
+          throw new Error('登录失败：无法加载用户资料，请稍后重试');
+        }
       } else {
         console.log('Login returned no user data');
         setState(prev => ({ ...prev, isLoading: false }));
