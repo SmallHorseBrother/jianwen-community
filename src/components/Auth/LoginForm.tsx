@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Phone, Lock, Eye, EyeOff, Settings } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import { supabase } from '../../lib/supabase';
+import { supabase, clearLocalSupabaseAuth } from '../../lib/supabase';
 import MathCaptcha from '../Common/MathCaptcha';
 
 const LoginForm: React.FC = () => {
@@ -37,9 +37,17 @@ const LoginForm: React.FC = () => {
       return;
     }
 
+    if (isLoading) return;
     setIsLoading(true);
     try {
-      await login(phone, password);
+      const withTimeout = <T,>(p: Promise<T>, ms: number, msg: string) =>
+        new Promise<T>((resolve, reject) => {
+          const t = setTimeout(() => reject(new Error(msg)), ms);
+          p.then((v) => { clearTimeout(t); resolve(v); })
+           .catch((err) => { clearTimeout(t); reject(err); });
+        });
+
+      await withTimeout(login(phone, password), 16000, '登录超时，请重试');
       navigate(from, { replace: true });
     } catch (err: any) {
       if (err.message && err.message.includes('Invalid login credentials')) {
@@ -59,7 +67,7 @@ const LoginForm: React.FC = () => {
     console.log('Testing database connection...');
     
     try {
-      const { data, error } = await supabase.from('profiles').select('count').limit(1);
+      const { error } = await supabase.from('profiles').select('count').limit(1);
       if (error) {
         console.error('Database connection failed:', error);
       } else {
@@ -84,8 +92,12 @@ const LoginForm: React.FC = () => {
     console.log('=== END DEBUG ===');
   };
 
-  const handleClearStorage = () => {
+  const handleClearStorage = async () => {
     console.log('Clearing browser storage...');
+    try {
+      await supabase.auth.signOut({ scope: 'local' });
+    } catch {}
+    clearLocalSupabaseAuth();
     localStorage.clear();
     sessionStorage.clear();
     window.location.reload();

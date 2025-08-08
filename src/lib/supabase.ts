@@ -16,6 +16,25 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
   }
 });
 
+// 清理可能损坏的本地 Supabase 会话键，避免登录时卡住
+export function clearLocalSupabaseAuth() {
+  try {
+    const projectRef = new URL(supabaseUrl).host.split('.')[0];
+    const keyPrefix = `sb-${projectRef}-`;
+    const keysToRemove: string[] = [];
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith(keyPrefix)) {
+        keysToRemove.push(key);
+      }
+    }
+    keysToRemove.forEach((k) => localStorage.removeItem(k));
+  } catch (err) {
+    // 忽略清理失败
+    console.warn('clearLocalSupabaseAuth failed:', err);
+  }
+}
+
 // 辅助函数：获取当前用户
 export const getCurrentUser = async () => {
   const { data: { user }, error } = await supabase.auth.getUser();

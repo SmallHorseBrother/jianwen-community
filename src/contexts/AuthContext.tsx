@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { User as SupabaseUser } from '@supabase/supabase-js';
-import { supabase, getCurrentUser, getUserProfile, createUserProfile, updateUserProfile } from '../lib/supabase';
+import { supabase, getUserProfile, createUserProfile, updateUserProfile, clearLocalSupabaseAuth } from '../lib/supabase';
 import { User, AuthState } from '../types';
 
 interface AuthContextType extends AuthState {
@@ -19,6 +18,24 @@ export const useAuth = () => {
   }
   return context;
 };
+
+// 为外部服务调用增加超时保护，避免 Promise 长时间悬挂
+function withTimeout<T>(promise: Promise<T>, timeoutMs: number, timeoutMessage: string): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const timer = setTimeout(() => {
+      reject(new Error(timeoutMessage));
+    }, timeoutMs);
+    promise
+      .then((value) => {
+        clearTimeout(timer);
+        resolve(value);
+      })
+      .catch((error) => {
+        clearTimeout(timer);
+        reject(error);
+      });
+  });
+}
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [state, setState] = useState<AuthState>({
@@ -110,11 +127,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // 使用手机号作为邮箱格式进行登录
       const email = `${phone}@jianwen.community`;
       console.log('Login email:', email);
-      
-      const { data, error } = await supabase.auth.signInWithPassword({
+      // 有时本地 supabase 会话损坏会导致登录悬挂，先清理本地会话再登录
+      try {
+        const { data: existing } = await supabase.auth.getSession();
+        if (existing?.session) {
+          await supabase.auth.signOut({ scope: 'local' });
+        }
+      } catch (preErr) {
+        console.warn('Pre-login local session cleanup failed (ignored):', preErr);
+      }
+      // 进一步移除可能残留的本地 Supabase 键
+      clearLocalSupabaseAuth();
+
+      const { data, error } = await withTimeout(
+        supabase.auth.signInWithPassword({
         email,
         password,
-      });
+        }),
+        15000,
+        '登录超时，请重试或点击清除缓存后再次尝试'
+      );
 
       console.log('Login response:', { data, error });
       if (error) {
@@ -128,7 +160,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         // 直接获取并设置用户资料，避免依赖 onAuthStateChange 可能的网络失败
         try {
-          const profile = await getUserProfile(data.user.id);
+          const profile = await withTimeout(
+            getUserProfile(data.user.id),
+            12000,
+            '获取用户资料超时，请稍后重试'
+          );
           if (!profile) {
             throw new Error('未找到用户资料');
           }
