@@ -31,11 +31,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        console.log('Auth state change:', event, session?.user?.id);
+        
         if (session?.user) {
           try {
+            console.log('Fetching user profile for:', session.user.id);
             const profile = await getUserProfile(session.user.id);
             
             if (profile) {
+              console.log('Profile loaded successfully:', profile.nickname);
               const user: User = {
                 id: profile.id,
                 phone: profile.phone || '',
@@ -63,6 +67,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 isLoading: false,
               });
             } else {
+              console.log('Profile not found for user:', session.user.id);
               // Profile not found, which might be okay if user just signed up
               // The register function is responsible for creating the profile.
               setState({
@@ -73,6 +78,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             }
           } catch (error) {
             console.error('获取用户资料失败:', error);
+            // 如果是网络错误或临时错误，保持认证状态但清除用户数据
+            // 这样用户可以重试而不需要重新登录
             setState({
               user: null,
               isAuthenticated: false,
@@ -80,6 +87,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             });
           }
         } else {
+          console.log('No session, clearing auth state');
           setState({
             user: null,
             isAuthenticated: false,
@@ -95,6 +103,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (phone: string, password: string) => {
     try {
       console.log('Attempting login with phone:', phone);
+      
+      // 设置加载状态
+      setState(prev => ({ ...prev, isLoading: true }));
+      
       // 使用手机号作为邮箱格式进行登录
       const email = `${phone}@jianwen.community`;
       console.log('Login email:', email);
@@ -107,18 +119,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       console.log('Login response:', { data, error });
       if (error) {
         console.error('Supabase login error:', error);
+        setState(prev => ({ ...prev, isLoading: false }));
         throw error;
       }
 
       if (data.user) {
         console.log('Login successful, user ID:', data.user.id);
         // 用户资料会通过onAuthStateChange自动加载
+        // 不在这里设置 isLoading: false，让 onAuthStateChange 处理
       } else {
         console.log('Login returned no user data');
+        setState(prev => ({ ...prev, isLoading: false }));
         throw new Error('登录失败：未返回用户数据');
       }
     } catch (error: any) {
       console.error('Login error:', error);
+      setState(prev => ({ ...prev, isLoading: false }));
       throw new Error(error.message || '登录失败');
     }
   };
@@ -127,23 +143,36 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const email = `${phone}@jianwen.community`;
       
-      const { data, error } = await supabase.auth.signUp({
+      // 1. 先尝试注册账号
+      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
         options: {
           emailRedirectTo: undefined,
-        }
+        },
       });
-
-      if (error) {
-        throw error;
+      if (signUpError) {
+        throw signUpError;
       }
-      if (!data.user) {
+      if (!signUpData.user) {
         throw new Error('注册失败');
       }
 
+      // 2. 注册后立即登录，确保获取 session，避免 RLS 拒绝 profile 插入
+      const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (signInError) {
+        throw signInError;
+      }
+      if (!signInData.session) {
+        console.warn('注册后未获取到 session，可能需要邮箱确认');
+      }
+
+      // 3. 创建用户资料
       await createUserProfile({
-        id: data.user.id,
+        id: signUpData.user.id,
         phone,
         nickname,
         bio: '',
@@ -160,7 +189,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         social_links: {},
       });
 
-      console.log('Registration completed successfully');
+      console.log('Registration & profile creation completed successfully');
     } catch (error: any) {
       if (error.message && (error.message.includes('User already registered') || 
           error.message.includes('duplicate key value violates unique constraint "profiles_phone_key"'))) {

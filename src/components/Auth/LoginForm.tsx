@@ -91,6 +91,14 @@ const LoginForm: React.FC = () => {
     window.location.reload();
   };
 
+  const handleRetryLogin = async () => {
+    console.log('Retrying login...');
+    setError('');
+    setIsLoading(false);
+    // 重置验证码状态
+    setIsCaptchaValid(false);
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
       <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-xl shadow-lg">
@@ -182,12 +190,20 @@ const LoginForm: React.FC = () => {
             <Settings className="w-3 h-3" />
             <span>调试信息</span>
           </button>
-          <button
-            onClick={handleClearStorage}
-            className="text-xs text-red-400 hover:text-red-600 flex items-center justify-center space-x-1"
-          >
-            <span>清除缓存</span>
-          </button>
+          <div className="flex justify-center space-x-4">
+            <button
+              onClick={handleRetryLogin}
+              className="text-xs text-blue-400 hover:text-blue-600 flex items-center justify-center space-x-1"
+            >
+              <span>重试登录</span>
+            </button>
+            <button
+              onClick={handleClearStorage}
+              className="text-xs text-red-400 hover:text-red-600 flex items-center justify-center space-x-1"
+            >
+              <span>清除缓存</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
