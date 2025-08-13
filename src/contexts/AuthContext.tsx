@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { supabase, getUserProfile, createUserProfile, updateUserProfile, clearLocalSupabaseAuth } from '../lib/supabase';
+import type { AuthChangeEvent, Session } from '@supabase/supabase-js';
+import { supabase, getCurrentSession, getUserProfile, createUserProfile, updateUserProfile } from '../lib/supabase.ts';
 import { User, AuthState } from '../types';
 
 interface AuthContextType extends AuthState {
@@ -19,24 +20,6 @@ export const useAuth = () => {
   return context;
 };
 
-// 为外部服务调用增加超时保护，避免 Promise 长时间悬挂
-function withTimeout<T>(promise: Promise<T>, timeoutMs: number, timeoutMessage: string): Promise<T> {
-  return new Promise<T>((resolve, reject) => {
-    const timer = setTimeout(() => {
-      reject(new Error(timeoutMessage));
-    }, timeoutMs);
-    promise
-      .then((value) => {
-        clearTimeout(timer);
-        resolve(value);
-      })
-      .catch((error) => {
-        clearTimeout(timer);
-        reject(error);
-      });
-  });
-}
-
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [state, setState] = useState<AuthState>({
     user: null,
@@ -44,77 +27,93 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     isLoading: true,
   });
 
-  // 监听认证状态变化
+  const mapProfileToUser = (profile: any): User => ({
+    id: profile.id,
+    phone: profile.phone || '',
+    nickname: profile.nickname,
+    bio: profile.bio || '',
+    avatar: profile.avatar_url ?? undefined,
+    powerData: {
+      bench: profile.bench_press || 0,
+      squat: profile.squat || 0,
+      deadlift: profile.deadlift || 0,
+    },
+    isPublic: profile.is_public,
+    groupIdentity: profile.group_identity ?? undefined,
+    profession: profile.profession ?? undefined,
+    groupNickname: profile.group_nickname ?? undefined,
+    specialties: profile.specialties || [],
+    fitnessInterests: profile.fitness_interests || [],
+    learningInterests: profile.learning_interests || [],
+    socialLinks: (profile.social_links as { [key: string]: string }) || {},
+    createdAt: new Date(profile.created_at),
+  });
+
+  // 初始化会话并监听认证变化
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        console.log('Auth state change:', event, session?.user?.id);
-        
+    let isMounted = true;
+
+    const hydrateSession = async () => {
+      try {
+        // 初次加载：检查当前会话
+        const session = await getCurrentSession();
+        if (!isMounted) return;
+
         if (session?.user) {
           try {
-            console.log('Fetching user profile for:', session.user.id);
             const profile = await getUserProfile(session.user.id);
-            
+            if (!isMounted) return;
+
             if (profile) {
-              console.log('Profile loaded successfully:', profile.nickname);
-              const user: User = {
-                id: profile.id,
-                phone: profile.phone || '',
-                nickname: profile.nickname,
-                bio: profile.bio,
-                avatar: profile.avatar_url,
-                powerData: {
-                  bench: profile.bench_press,
-                  squat: profile.squat,
-                  deadlift: profile.deadlift,
-                },
-                isPublic: profile.is_public,
-                groupIdentity: profile.group_identity,
-                profession: profile.profession,
-                groupNickname: profile.group_nickname,
-                specialties: profile.specialties || [],
-                fitnessInterests: profile.fitness_interests || [],
-                learningInterests: profile.learning_interests || [],
-                socialLinks: (profile.social_links as { [key: string]: string }) || {},
-                createdAt: new Date(profile.created_at),
-              };
-              setState({
-                user,
-                isAuthenticated: true,
-                isLoading: false,
-              });
+              const user: User = mapProfileToUser(profile);
+              setState({ user, isAuthenticated: true, isLoading: false });
             } else {
-              console.log('Profile not found for user:', session.user.id);
-              // Profile not found, which might be okay if user just signed up
-              // The register function is responsible for creating the profile.
-              setState({
-                user: null,
-                isAuthenticated: false,
-                isLoading: false,
-              });
+              setState({ user: null, isAuthenticated: false, isLoading: false });
             }
-          } catch (error) {
-            console.error('获取用户资料失败:', error);
-            // 如果是网络错误或临时错误，保持认证状态但清除用户数据
-            // 这样用户可以重试而不需要重新登录
-            setState({
-              user: null,
-              isAuthenticated: false,
-              isLoading: false,
-            });
+          } catch (err) {
+            console.error('初始化加载用户资料失败:', err);
+            setState({ user: null, isAuthenticated: false, isLoading: false });
           }
         } else {
-          console.log('No session, clearing auth state');
-          setState({
-            user: null,
-            isAuthenticated: false,
-            isLoading: false,
-          });
+          setState({ user: null, isAuthenticated: false, isLoading: false });
         }
+      } catch (err) {
+        console.error('初始化会话失败:', err);
+        setState({ user: null, isAuthenticated: false, isLoading: false });
       }
-    );
+    };
 
-    return () => subscription.unsubscribe();
+    hydrateSession();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event: AuthChangeEvent, session: Session | null) => {
+      console.log('Auth state change:', event, session?.user?.id);
+
+      if (!isMounted) return;
+
+      if (session?.user) {
+        try {
+          const profile = await getUserProfile(session.user.id);
+          if (!isMounted) return;
+
+          if (profile) {
+            const user: User = mapProfileToUser(profile);
+            setState({ user, isAuthenticated: true, isLoading: false });
+          } else {
+            setState({ user: null, isAuthenticated: false, isLoading: false });
+          }
+        } catch (error) {
+          console.error('获取用户资料失败:', error);
+          setState({ user: null, isAuthenticated: false, isLoading: false });
+        }
+      } else {
+        setState({ user: null, isAuthenticated: false, isLoading: false });
+      }
+    });
+
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
   const login = async (phone: string, password: string) => {
@@ -127,26 +126,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // 使用手机号作为邮箱格式进行登录
       const email = `${phone}@jianwen.community`;
       console.log('Login email:', email);
-      // 有时本地 supabase 会话损坏会导致登录悬挂，先清理本地会话再登录
-      try {
-        const { data: existing } = await supabase.auth.getSession();
-        if (existing?.session) {
-          await supabase.auth.signOut({ scope: 'local' });
-        }
-      } catch (preErr) {
-        console.warn('Pre-login local session cleanup failed (ignored):', preErr);
-      }
-      // 进一步移除可能残留的本地 Supabase 键
-      clearLocalSupabaseAuth();
-
-      const { data, error } = await withTimeout(
-        supabase.auth.signInWithPassword({
+      
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
-        }),
-        15000,
-        '登录超时，请重试或点击清除缓存后再次尝试'
-      );
+      });
 
       console.log('Login response:', { data, error });
       if (error) {
@@ -160,35 +144,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         // 直接获取并设置用户资料，避免依赖 onAuthStateChange 可能的网络失败
         try {
-          const profile = await withTimeout(
-            getUserProfile(data.user.id),
-            12000,
-            '获取用户资料超时，请稍后重试'
-          );
+          const profile = await getUserProfile(data.user.id);
           if (!profile) {
             throw new Error('未找到用户资料');
           }
-          const user: User = {
-            id: profile.id,
-            phone: profile.phone || '',
-            nickname: profile.nickname,
-            bio: profile.bio,
-            avatar: profile.avatar_url,
-            powerData: {
-              bench: profile.bench_press,
-              squat: profile.squat,
-              deadlift: profile.deadlift,
-            },
-            isPublic: profile.is_public,
-            groupIdentity: profile.group_identity,
-            profession: profile.profession,
-            groupNickname: profile.group_nickname,
-            specialties: profile.specialties || [],
-            fitnessInterests: profile.fitness_interests || [],
-            learningInterests: profile.learning_interests || [],
-            socialLinks: (profile.social_links as { [key: string]: string }) || {},
-            createdAt: new Date(profile.created_at),
-          };
+          const user: User = mapProfileToUser(profile);
           setState({
             user,
             isAuthenticated: true,
@@ -330,17 +290,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const updatedUser: User = {
         ...state.user,
         nickname: updatedProfile.nickname,
-        bio: updatedProfile.bio,
-        avatar: updatedProfile.avatar_url,
+        bio: updatedProfile.bio || '',
+        avatar: updatedProfile.avatar_url ?? undefined,
         powerData: {
-          bench: updatedProfile.bench_press,
-          squat: updatedProfile.squat,
-          deadlift: updatedProfile.deadlift,
+          bench: updatedProfile.bench_press || 0,
+          squat: updatedProfile.squat || 0,
+          deadlift: updatedProfile.deadlift || 0,
         },
         isPublic: updatedProfile.is_public,
-        groupIdentity: updatedProfile.group_identity,
-        profession: updatedProfile.profession,
-        groupNickname: updatedProfile.group_nickname,
+        groupIdentity: updatedProfile.group_identity ?? undefined,
+        profession: updatedProfile.profession ?? undefined,
+        groupNickname: updatedProfile.group_nickname ?? undefined,
         specialties: updatedProfile.specialties || [],
         fitnessInterests: updatedProfile.fitness_interests || [],
         learningInterests: updatedProfile.learning_interests || [],
