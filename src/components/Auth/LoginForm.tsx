@@ -105,6 +105,9 @@ const LoginForm: React.FC = () => {
         <div className="text-center">
           <h2 className="text-3xl font-bold text-gray-900">欢迎回来</h2>
           <p className="mt-2 text-gray-600">登录您的健学社区账户</p>
+          <div className="mt-4 text-sm text-gray-500 bg-blue-50 p-3 rounded-lg">
+            温馨提示：如果登录按钮无响应，请尝试更换浏览器或切换网络环境
+          </div>
         </div>
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
