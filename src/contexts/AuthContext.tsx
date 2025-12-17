@@ -42,20 +42,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     nickname: profile.nickname,
     bio: profile.bio || '',
     avatar: profile.avatar_url ?? undefined,
+    isPublic: profile.is_public,
+    createdAt: new Date(profile.created_at),
+    // 社交名片核心字段
+    groupIdentity: Array.isArray(profile.group_identity) ? profile.group_identity : (profile.group_identity ? [profile.group_identity] : []),
+    groupNickname: profile.group_nickname ?? undefined,
+    tags: profile.tags || [],
+    skillsOffering: profile.skills_offering ?? undefined,
+    skillsSeeking: profile.skills_seeking ?? undefined,
+    wechatId: profile.wechat_id ?? undefined,
+    socialLinks: (profile.social_links as { [key: string]: string }) || {},
+    // 废弃字段 (保留兼容性)
     powerData: {
       bench: profile.bench_press || 0,
       squat: profile.squat || 0,
       deadlift: profile.deadlift || 0,
     },
-    isPublic: profile.is_public,
-    groupIdentity: profile.group_identity ?? undefined,
     profession: profile.profession ?? undefined,
-    groupNickname: profile.group_nickname ?? undefined,
     specialties: profile.specialties || [],
     fitnessInterests: profile.fitness_interests || [],
     learningInterests: profile.learning_interests || [],
-    socialLinks: (profile.social_links as { [key: string]: string }) || {},
-    createdAt: new Date(profile.created_at),
   });
 
   // 初始化会话并监听认证变化
@@ -392,6 +398,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (updates.learningInterests !== undefined) profileUpdates.learning_interests = updates.learningInterests;
       if (updates.socialLinks !== undefined) profileUpdates.social_links = updates.socialLinks;
       
+      // V2.0 新增字段
+      if (updates.wechatId !== undefined) profileUpdates.wechat_id = updates.wechatId;
+      if (updates.tags !== undefined) profileUpdates.tags = updates.tags;
+      if (updates.skillsOffering !== undefined) profileUpdates.skills_offering = updates.skillsOffering;
+      if (updates.skillsSeeking !== undefined) profileUpdates.skills_seeking = updates.skillsSeeking;
+      
       if (updates.powerData) {
         if (updates.powerData.bench !== undefined) profileUpdates.bench_press = updates.powerData.bench;
         if (updates.powerData.squat !== undefined) profileUpdates.squat = updates.powerData.squat;
@@ -412,13 +424,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           deadlift: updatedProfile.deadlift || 0,
         },
         isPublic: updatedProfile.is_public,
-        groupIdentity: updatedProfile.group_identity ?? undefined,
+        groupIdentity: Array.isArray(updatedProfile.group_identity) ? updatedProfile.group_identity : (updatedProfile.group_identity ? [updatedProfile.group_identity] : []),
         profession: updatedProfile.profession ?? undefined,
         groupNickname: updatedProfile.group_nickname ?? undefined,
         specialties: updatedProfile.specialties || [],
         fitnessInterests: updatedProfile.fitness_interests || [],
         learningInterests: updatedProfile.learning_interests || [],
         socialLinks: (updatedProfile.social_links as { [key: string]: string }) || {},
+        // V2.0 新增字段
+        wechatId: (updatedProfile as any).wechat_id ?? undefined,
+        tags: (updatedProfile as any).tags || [],
+        skillsOffering: (updatedProfile as any).skills_offering ?? undefined,
+        skillsSeeking: (updatedProfile as any).skills_seeking ?? undefined,
       };
 
       setState(prev => ({ ...prev, user: updatedUser }));

@@ -72,14 +72,47 @@ type ProfileRow = Database['public']['Tables']['profiles']['Row'];
 type ProfileInsert = Database['public']['Tables']['profiles']['Insert'];
 type ProfileUpdate = Database['public']['Tables']['profiles']['Update'];
 
-export const getUserProfile = async (userId: string): Promise<ProfileRow | null> => {
-	const { data, error } = await supabase
-		.from('profiles')
-		.select('*')
-		.eq('id', userId)
-		.single();
-	if (error) return null;
-	return data as ProfileRow;
+export const getUserProfile = async (userId: string, retryCount = 0): Promise<ProfileRow | null> => {
+	const maxRetries = 3; // 增加到 3 次重试，给 Supabase 冷启动更多时间
+	console.log('[Supabase] Fetching profile for user:', userId, retryCount > 0 ? `(retry ${retryCount})` : '');
+	const startTime = Date.now();
+	
+	try {
+		const { data, error } = await supabase
+			.from('profiles')
+			.select('*')
+			.eq('id', userId)
+			.single();
+		
+		const duration = Date.now() - startTime;
+		console.log('[Supabase] Profile query completed in', duration, 'ms');
+		
+		if (error) {
+			console.error('[Supabase] Profile query error:', error);
+			// 如果是 PGRST116 错误（没有找到行），返回 null
+			if (error.code === 'PGRST116') {
+				return null;
+			}
+			// 其他错误抛出，让调用者处理
+			throw error;
+		}
+		
+		console.log('[Supabase] Profile found:', data?.id);
+		return data as ProfileRow;
+	} catch (err) {
+		const duration = Date.now() - startTime;
+		console.error('[Supabase] Profile fetch failed after', duration, 'ms:', err);
+		
+		// 如果还有重试次数，等待后重试
+		if (retryCount < maxRetries) {
+			const waitTime = (retryCount + 1) * 2000; // 递增等待时间: 2s, 4s, 6s
+			console.log(`[Supabase] Retrying profile fetch in ${waitTime/1000} seconds...`);
+			await new Promise(resolve => setTimeout(resolve, waitTime));
+			return getUserProfile(userId, retryCount + 1);
+		}
+		
+		throw err;
+	}
 };
 
 export const createUserProfile = async (profile: ProfileInsert): Promise<ProfileRow> => {
