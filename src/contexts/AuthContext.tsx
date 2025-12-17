@@ -184,114 +184,68 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const email = `${phone}@jianwen.community`;
       console.log('Login email:', email);
 
-      // 添加超时控制，避免无限等待
-      const loginPromise = supabase.auth.signInWithPassword({
+      // 直接调用登录，不使用 Promise.race（可能导致问题）
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      // 设置30秒超时
-      const timeoutPromise = new Promise((_, reject) => {
-        setTimeout(() => reject(new Error('登录请求超时，请检查网络连接')), 30000);
-      });
-
-      const { data, error } = await Promise.race([loginPromise, timeoutPromise]) as any;
-
       console.log('Login response:', { data, error });
+      
       if (error) {
         console.error('Supabase login error:', error);
-
-        // 如果是认证相关错误，清理缓存后重试一次
-        if (error.message && (
-          error.message.includes('Invalid login credentials') ||
-          error.message.includes('refresh_token_not_found') ||
-          error.message.includes('invalid_grant') ||
-          error.message.includes('session_not_found')
-        )) {
-          console.log('Auth error detected, clearing cache and retrying...');
-          clearAuthCache();
-
-          // 短暂延迟后重试一次
-          await new Promise(resolve => setTimeout(resolve, 500));
-
-          try {
-            const retryResult = await supabase.auth.signInWithPassword({
-              email,
-              password,
-            });
-
-            if (retryResult.error) {
-              setState(prev => ({ ...prev, isLoading: false }));
-              setIsManualLogin(false);
-              throw retryResult.error;
-            }
-
-            // 重试成功，继续正常流程
-            console.log('Retry login successful');
-            // 这里会继续执行下面的代码
-          } catch (retryError) {
-            setState(prev => ({ ...prev, isLoading: false }));
-            setIsManualLogin(false);
-            throw error; // 抛出原始错误
-          }
-        } else {
-          setState(prev => ({ ...prev, isLoading: false }));
-          setIsManualLogin(false);
-          throw error;
-        }
+        setState(prev => ({ ...prev, isLoading: false }));
+        setIsManualLogin(false);
+        throw error;
       }
 
-      if (data.user) {
-        console.log('Login successful, user ID:', data.user.id);
-
-        // 直接获取并设置用户资料，避免依赖 onAuthStateChange 可能的网络失败
-        try {
-          // 也添加超时控制
-          const profilePromise = getUserProfile(data.user.id);
-          const profileTimeoutPromise = new Promise((_, reject) => {
-            setTimeout(() => reject(new Error('获取用户资料超时')), 15000);
-          });
-
-          const profile = await Promise.race([profilePromise, profileTimeoutPromise]) as any;
-
-          if (!profile) {
-            throw new Error('未找到用户资料');
-          }
-          const user: User = mapProfileToUser(profile);
-
-          // 确保状态设置是原子的，避免竞态条件
-          setState({
-            user,
-            isAuthenticated: true,
-            isLoading: false,
-          });
-
-          console.log('Login completed successfully');
-        } catch (profileError) {
-          console.error('获取登录用户资料失败:', profileError);
-          // 若获取资料失败则强制登出，提示用户重试
-          await supabase.auth.signOut();
-          setState({ user: null, isAuthenticated: false, isLoading: false });
-          setIsManualLogin(false);
-          throw new Error('登录失败：无法加载用户资料，请稍后重试');
-        }
-      } else {
+      if (!data.user) {
         console.log('Login returned no user data');
         setState(prev => ({ ...prev, isLoading: false }));
         setIsManualLogin(false);
         throw new Error('登录失败：未返回用户数据');
       }
 
-      // 延迟重置手动登录标志，给 onAuthStateChange 一个缓冲时间
-      setTimeout(() => {
+      console.log('Login successful, user ID:', data.user.id);
+
+      // 直接获取并设置用户资料
+      try {
+        const profile = await getUserProfile(data.user.id);
+
+        if (!profile) {
+          throw new Error('未找到用户资料');
+        }
+        
+        const user: User = mapProfileToUser(profile);
+
+        // 确保状态设置是原子的
+        setState({
+          user,
+          isAuthenticated: true,
+          isLoading: false,
+        });
+
+        console.log('Login completed successfully');
+        
+        // 延迟重置手动登录标志
+        setTimeout(() => {
+          setIsManualLogin(false);
+        }, 500);
+        
+      } catch (profileError) {
+        console.error('获取登录用户资料失败:', profileError);
+        // 若获取资料失败则强制登出，提示用户重试
+        await supabase.auth.signOut();
+        setState({ user: null, isAuthenticated: false, isLoading: false });
         setIsManualLogin(false);
-      }, 1000);
+        throw new Error('登录失败：无法加载用户资料，请稍后重试');
+      }
 
     } catch (error: any) {
       console.error('Login error:', error);
       setState(prev => ({ ...prev, isLoading: false }));
       setIsManualLogin(false);
-      throw new Error(error.message || '登录失败');
+      throw error;
     }
   };
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Phone, Lock, Eye, EyeOff, Settings } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
@@ -12,58 +12,12 @@ const LoginForm: React.FC = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
-  const { login, isAuthenticated, isLoading: authLoading } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   
   // 获取用户原本想要访问的页面
   const from = location.state?.from || '/';
-  
-  // 调试信息
-  console.log('LoginForm - Location state:', location.state);
-  console.log('LoginForm - Redirect to:', from);
-  console.log('LoginForm - isAuthenticated:', isAuthenticated, 'authLoading:', authLoading);
-
-  // 监听认证状态变化，登录成功后自动导航
-  useEffect(() => {
-    console.log('LoginForm - Auth state changed:', { 
-      isAuthenticated, 
-      authLoading, 
-      isLoading,
-      currentPath: location.pathname,
-      targetPath: from
-    });
-    
-    // 如果已经认证且不在加载中，且当前在登录页面，则导航
-    if (isAuthenticated && !authLoading && location.pathname === '/login') {
-      console.log('LoginForm - User authenticated, preparing navigation to:', from);
-      
-      // 重置本地 loading 状态
-      if (isLoading) {
-        setIsLoading(false);
-      }
-      
-      // 使用 setTimeout 确保状态更新完成后再导航
-      const timer = setTimeout(() => {
-        try {
-          console.log('LoginForm - Executing navigation to:', from);
-          navigate(from, { replace: true });
-          console.log('LoginForm - Navigation executed successfully');
-        } catch (navError) {
-          console.error('LoginForm - Navigation error:', navError);
-          // 如果导航失败，尝试使用 window.location 作为备用方案
-          console.log('LoginForm - Trying fallback navigation with window.location');
-          try {
-            window.location.href = from;
-          } catch (fallbackError) {
-            console.error('LoginForm - Fallback navigation also failed:', fallbackError);
-          }
-        }
-      }, 300);
-      
-      return () => clearTimeout(timer);
-    }
-  }, [isAuthenticated, authLoading, isLoading, navigate, from, location.pathname]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -82,16 +36,11 @@ const LoginForm: React.FC = () => {
     setIsLoading(true);
     try {
       console.log('Starting login process...');
-      console.log('LoginForm - Before login, isAuthenticated:', isAuthenticated);
-      
       await login(phone, password);
+      console.log('Login successful, navigating to:', from);
       
-      console.log('LoginForm - Login function completed successfully');
-      console.log('LoginForm - Waiting for auth state update and navigation...');
-      
-      // 不在这里直接导航，让 useEffect 监听 isAuthenticated 变化后自动导航
-      // 这样可以确保状态完全同步后再导航
-      
+      // 登录成功后立即导航
+      navigate(from, { replace: true });
     } catch (err: any) {
       console.error('Login failed:', err);
       setIsLoading(false);
@@ -110,22 +59,7 @@ const LoginForm: React.FC = () => {
       } else {
         setError(err.message || '登录失败，请稍后重试');
       }
-
-      // 如果是网络相关错误，建议用户清除缓存
-      if (err.message && (
-        err.message.includes('timeout') ||
-        err.message.includes('网络') ||
-        err.message.includes('资料')
-      )) {
-        setTimeout(() => {
-          if (!error.includes('清除缓存')) {
-            setError(prev => prev + '\n\n如果问题持续，请尝试清除浏览器缓存后重试');
-          }
-        }, 2000);
-      }
     }
-    // 注意：不在 finally 中设置 setIsLoading(false)
-    // 因为登录成功后，isLoading 应该由认证状态控制
   };
 
   const handleDebug = async () => {
@@ -253,10 +187,10 @@ const LoginForm: React.FC = () => {
           <div>
             <button
               type="submit"
-              disabled={isLoading || authLoading}
+              disabled={isLoading}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
             >
-              {(isLoading || authLoading) ? '登录中...' : '登录'}
+              {isLoading ? '登录中...' : '登录'}
             </button>
           </div>
 
