@@ -27,6 +27,34 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     isLoading: true,
   });
 
+  // 添加一个标志来避免竞态条件
+  const [isManualLogin, setIsManualLogin] = useState(false);
+
+  // 缓存清理辅助函数
+  const clearAuthCache = () => {
+    try {
+      // 清理 Supabase 相关的 localStorage 缓存
+      const keys = Object.keys(localStorage);
+      keys.forEach(key => {
+        if (key.startsWith('sb-') || key.includes('supabase')) {
+          localStorage.removeItem(key);
+        }
+      });
+
+      // 清理 sessionStorage
+      const sessionKeys = Object.keys(sessionStorage);
+      sessionKeys.forEach(key => {
+        if (key.startsWith('sb-') || key.includes('supabase')) {
+          sessionStorage.removeItem(key);
+        }
+      });
+
+      console.log('Auth cache cleared');
+    } catch (error) {
+      console.error('Failed to clear auth cache:', error);
+    }
+  };
+
   const mapProfileToUser = (profile: any): User => ({
     id: profile.id,
     phone: profile.phone || '',
@@ -61,17 +89,35 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         if (session?.user) {
           try {
-            const profile = await getUserProfile(session.user.id);
+            // 添加超时控制到初始化
+            const profilePromise = getUserProfile(session.user.id);
+            const profileTimeoutPromise = new Promise((_, reject) => {
+              setTimeout(() => reject(new Error('初始化获取用户资料超时')), 10000);
+            });
+
+            const profile = await Promise.race([profilePromise, profileTimeoutPromise]) as any;
             if (!isMounted) return;
 
             if (profile) {
               const user: User = mapProfileToUser(profile);
               setState({ user, isAuthenticated: true, isLoading: false });
             } else {
+              // 如果有 session 但没有 profile，可能缓存损坏
+              console.warn('Session exists but profile not found, clearing auth cache');
+              clearAuthCache();
               setState({ user: null, isAuthenticated: false, isLoading: false });
             }
           } catch (err) {
             console.error('初始化加载用户资料失败:', err);
+            // 如果是网络错误或超时，清理缓存
+            if (err.message && (
+              err.message.includes('timeout') ||
+              err.message.includes('fetch') ||
+              err.message.includes('network')
+            )) {
+              console.warn('Network error during init, clearing auth cache');
+              clearAuthCache();
+            }
             setState({ user: null, isAuthenticated: false, isLoading: false });
           }
         } else {
@@ -79,6 +125,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
       } catch (err) {
         console.error('初始化会话失败:', err);
+        // 如果初始化失败，清理可能的损坏缓存
+        clearAuthCache();
         setState({ user: null, isAuthenticated: false, isLoading: false });
       }
     };
@@ -86,9 +134,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     hydrateSession();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event: AuthChangeEvent, session: Session | null) => {
-      console.log('Auth state change:', event, session?.user?.id);
+      console.log('Auth state change:', event, session?.user?.id, 'isManualLogin:', isManualLogin);
 
       if (!isMounted) return;
+
+      // 如果是手动登录过程中的状态变化，跳过自动处理
+      if (isManualLogin && event === 'SIGNED_IN') {
+        console.log('Skipping auth state change during manual login');
+        return;
+      }
 
       if (session?.user) {
         try {
@@ -114,29 +168,77 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       isMounted = false;
       subscription.unsubscribe();
     };
-  }, []);
+  }, [isManualLogin]);
 
   const login = async (phone: string, password: string) => {
     try {
       console.log('Attempting login with phone:', phone);
-      
+
+      // 设置手动登录标志，避免 onAuthStateChange 干扰
+      setIsManualLogin(true);
+
       // 设置加载状态
       setState(prev => ({ ...prev, isLoading: true }));
-      
+
       // 使用手机号作为邮箱格式进行登录
       const email = `${phone}@jianwen.community`;
       console.log('Login email:', email);
-      
-      const { data, error } = await supabase.auth.signInWithPassword({
+
+      // 添加超时控制，避免无限等待
+      const loginPromise = supabase.auth.signInWithPassword({
         email,
         password,
       });
 
+      // 设置30秒超时
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('登录请求超时，请检查网络连接')), 30000);
+      });
+
+      const { data, error } = await Promise.race([loginPromise, timeoutPromise]) as any;
+
       console.log('Login response:', { data, error });
       if (error) {
         console.error('Supabase login error:', error);
-        setState(prev => ({ ...prev, isLoading: false }));
-        throw error;
+
+        // 如果是认证相关错误，清理缓存后重试一次
+        if (error.message && (
+          error.message.includes('Invalid login credentials') ||
+          error.message.includes('refresh_token_not_found') ||
+          error.message.includes('invalid_grant') ||
+          error.message.includes('session_not_found')
+        )) {
+          console.log('Auth error detected, clearing cache and retrying...');
+          clearAuthCache();
+
+          // 短暂延迟后重试一次
+          await new Promise(resolve => setTimeout(resolve, 500));
+
+          try {
+            const retryResult = await supabase.auth.signInWithPassword({
+              email,
+              password,
+            });
+
+            if (retryResult.error) {
+              setState(prev => ({ ...prev, isLoading: false }));
+              setIsManualLogin(false);
+              throw retryResult.error;
+            }
+
+            // 重试成功，继续正常流程
+            console.log('Retry login successful');
+            // 这里会继续执行下面的代码
+          } catch (retryError) {
+            setState(prev => ({ ...prev, isLoading: false }));
+            setIsManualLogin(false);
+            throw error; // 抛出原始错误
+          }
+        } else {
+          setState(prev => ({ ...prev, isLoading: false }));
+          setIsManualLogin(false);
+          throw error;
+        }
       }
 
       if (data.user) {
@@ -144,31 +246,51 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         // 直接获取并设置用户资料，避免依赖 onAuthStateChange 可能的网络失败
         try {
-          const profile = await getUserProfile(data.user.id);
+          // 也添加超时控制
+          const profilePromise = getUserProfile(data.user.id);
+          const profileTimeoutPromise = new Promise((_, reject) => {
+            setTimeout(() => reject(new Error('获取用户资料超时')), 15000);
+          });
+
+          const profile = await Promise.race([profilePromise, profileTimeoutPromise]) as any;
+
           if (!profile) {
             throw new Error('未找到用户资料');
           }
           const user: User = mapProfileToUser(profile);
+
+          // 确保状态设置是原子的，避免竞态条件
           setState({
             user,
             isAuthenticated: true,
             isLoading: false,
           });
+
+          console.log('Login completed successfully');
         } catch (profileError) {
           console.error('获取登录用户资料失败:', profileError);
           // 若获取资料失败则强制登出，提示用户重试
           await supabase.auth.signOut();
           setState({ user: null, isAuthenticated: false, isLoading: false });
+          setIsManualLogin(false);
           throw new Error('登录失败：无法加载用户资料，请稍后重试');
         }
       } else {
         console.log('Login returned no user data');
         setState(prev => ({ ...prev, isLoading: false }));
+        setIsManualLogin(false);
         throw new Error('登录失败：未返回用户数据');
       }
+
+      // 延迟重置手动登录标志，给 onAuthStateChange 一个缓冲时间
+      setTimeout(() => {
+        setIsManualLogin(false);
+      }, 1000);
+
     } catch (error: any) {
       console.error('Login error:', error);
       setState(prev => ({ ...prev, isLoading: false }));
+      setIsManualLogin(false);
       throw new Error(error.message || '登录失败');
     }
   };

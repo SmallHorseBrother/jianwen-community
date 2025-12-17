@@ -4,17 +4,58 @@ import type { Database } from './database.types';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
 
+// 环境配置验证
 if (!supabaseUrl || !supabaseAnonKey) {
-	console.error('Missing Supabase environment variables VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY');
+	console.error('Missing Supabase environment variables');
+	console.error('VITE_SUPABASE_URL:', supabaseUrl ? '✓' : '✗ (missing)');
+	console.error('VITE_SUPABASE_ANON_KEY:', supabaseAnonKey ? '✓' : '✗ (missing)');
+
+	// 在开发环境下提供更多调试信息
+	if (import.meta.env.DEV) {
+		console.warn('Please check your environment variables in .env file');
+		console.warn('Expected format:');
+		console.warn('VITE_SUPABASE_URL=https://your-project.supabase.co');
+		console.warn('VITE_SUPABASE_ANON_KEY=your-anon-key');
+	}
 }
 
-export const supabase = createClient<Database>(supabaseUrl || '', supabaseAnonKey || '', {
-	auth: {
-		persistSession: true,
-		autoRefreshToken: true,
-		flowType: 'pkce',
-	},
-});
+// 创建 Supabase 客户端，增加错误处理
+let supabaseClient: ReturnType<typeof createClient<Database>>;
+
+try {
+	supabaseClient = createClient<Database>(supabaseUrl || '', supabaseAnonKey || '', {
+		auth: {
+			persistSession: true,
+			autoRefreshToken: true,
+			flowType: 'pkce',
+			// 增加调试模式
+			debug: import.meta.env.DEV,
+		},
+		// 添加全局超时设置
+		global: {
+			headers: {
+				'X-Client-Info': 'jianwen-community-web',
+			},
+		},
+	});
+
+	// 验证客户端创建成功
+	if (!supabaseClient) {
+		throw new Error('Failed to create Supabase client');
+	}
+
+} catch (error) {
+	console.error('Failed to initialize Supabase client:', error);
+	// 创建一个基本的客户端作为fallback（可能无法正常工作）
+	supabaseClient = createClient<Database>('', '', {
+		auth: {
+			persistSession: false,
+			autoRefreshToken: false,
+		},
+	});
+}
+
+export const supabase = supabaseClient;
 
 export const getCurrentSession = async (): Promise<Session | null> => {
 	const { data } = await supabase.auth.getSession();
@@ -60,6 +101,25 @@ export const updateUserProfile = async (userId: string, updates: ProfileUpdate):
 		.single();
 	if (error) throw error;
 	return data as ProfileRow;
+};
+
+// 连接测试函数
+export const testSupabaseConnection = async (): Promise<{ success: boolean; error?: string }> => {
+	try {
+		// 尝试一个简单的查询来测试连接
+		const { data, error } = await supabase
+			.from('profiles')
+			.select('count')
+			.limit(1);
+
+		if (error) {
+			return { success: false, error: error.message };
+		}
+
+		return { success: true };
+	} catch (err: any) {
+		return { success: false, error: err.message || 'Connection test failed' };
+	}
 };
 
 

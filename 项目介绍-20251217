@@ -1,0 +1,185 @@
+# 🏗️ Jianwen Community 项目详细分析
+
+## 1. 项目概述
+
+**Jianwen Community（健学社区）** 是一个现代化的社区平台，专注于将**健身**和**学习**两个领域结合，为用户提供一个能提升身体素质又能增长知识技能的综合性平台。
+
+---
+
+## 2. 技术栈
+
+| 层面 | 技术选择 |
+|------|----------|
+| **前端框架** | React 18.3.1 + TypeScript |
+| **构建工具** | Vite 5.4.2 |
+| **路由** | React Router DOM 7.6.3 |
+| **样式** | Tailwind CSS 3.4.1 |
+| **图标库** | Lucide React |
+| **后端服务** | Supabase 2.50.3 (PostgreSQL + Auth + Realtime + Edge Functions) |
+| **代码质量** | ESLint + TypeScript ESLint |
+
+---
+
+## 3. 核心功能模块
+
+### 🔐 用户认证系统
+- 基于 **Supabase Auth** 的安全认证
+- 受保护的路由系统 (`ProtectedRoute` 组件)
+- 全局认证状态管理 (`AuthContext`)
+
+### 👤 个人资料管理
+- 基础信息：昵称、简介、头像、手机号
+- 健身数据：卧推、深蹲、硬拉成绩记录
+- 社区扩展：群身份、专业领域、擅长领域、社交链接
+- 隐私控制：可选择是否公开资料
+
+### 💪 健身模块 (`/fitness`)
+| 功能 | 路由 | 状态 |
+|------|------|------|
+| 健身主页 | `/fitness` | ✅ 已完成 |
+| 知识库 | `/fitness/knowledge` | ✅ 已完成 |
+| 1RM计算器 | `/fitness/calculator` | ✅ 已完成 |
+| 资源推荐 | `/fitness/resources` | 🚧 开发中 |
+| 社区成员 | `/fitness/profiles` | ✅ 已完成 |
+
+### 📚 学习模块 (`/learning`)
+| 功能 | 路由 | 状态 |
+|------|------|------|
+| 学习主页 | `/learning` | ✅ 已完成 |
+| 知识库 | `/learning/knowledge` | ✅ 已完成 |
+| 工具箱 | `/learning/toolbox` | ✅ 已完成 |
+| 资源推荐 | `/learning/resources` | 🚧 开发中 |
+| 学习伙伴 | `/learning/partners` | ✅ 已完成 |
+| 学习工具 | `/learning/tools` | 🚧 开发中 |
+
+### 🤝 社区互动模块 (`/community`)
+- **匹配中心**：基于兴趣、专业领域等因素匹配合适的伙伴
+- **社区成员**：浏览和发现其他用户的公开资料
+- **用户连接**：建立关注、好友关系
+
+---
+
+## 4. 项目结构
+
+```
+jianwen-community/
+├── src/
+│   ├── components/          # 可复用组件
+│   │   ├── Auth/            # 登录/注册表单
+│   │   ├── Common/          # 通用组件 (ComingSoon, NotFound等)
+│   │   └── Layout/          # 布局组件
+│   ├── contexts/            # React Context
+│   │   └── AuthContext.tsx  # 用户认证状态管理
+│   ├── lib/                 # 核心库文件
+│   │   ├── supabase.ts      # Supabase客户端配置
+│   │   └── database.types.ts
+│   ├── pages/               # 页面组件
+│   │   ├── fitness/         # 健身相关页面 (3个)
+│   │   ├── learning/        # 学习相关页面 (3个)
+│   │   ├── Profile.tsx      # 个人资料页
+│   │   ├── MatchingCenter.tsx # 匹配中心 (核心功能)
+│   │   └── CommunityProfiles.tsx
+│   ├── services/            # 数据服务层
+│   │   ├── articleService.ts    # 文章服务
+│   │   ├── matchingService.ts   # 匹配服务 (核心)
+│   │   ├── profileService.ts    # 用户资料服务
+│   │   └── taskService.ts       # 任务服务
+│   └── types/               # TypeScript类型定义
+├── supabase/                # Supabase相关文件
+│   ├── functions/           # 云函数 (match-users, user-connections)
+│   ├── migrations/          # 数据库迁移 (4个迁移文件)
+│   └── scripts/             # 数据库脚本
+└── 配置文件...
+```
+
+---
+
+## 5. 数据库设计
+
+### 主要数据表
+
+**`profiles` 表 - 用户资料**
+```
+- id: UUID (主键，关联auth.users)
+- phone: 手机号
+- nickname: 昵称
+- bio: 个人简介
+- avatar_url: 头像链接
+- bench_press/squat/deadlift: 三项力量成绩
+- group_identity: 群身份
+- profession: 专业领域
+- specialties[]: 擅长领域数组
+- fitness_interests[]: 健身爱好数组
+- learning_interests[]: 学习兴趣数组
+- social_links: 社交链接 (JSONB)
+- is_public: 是否公开资料
+```
+
+**`articles` 表 - 文章内容**
+```
+- id: UUID (主键)
+- title: 标题
+- content: 内容
+- category: 分类
+- type: 类型 ('fitness' | 'learning')
+- tags[]: 标签数组
+- author_id: 作者ID
+- is_published: 是否发布
+```
+
+### RLS安全策略
+- 用户只能访问和修改自己的数据
+- 公开资料可被其他用户查看
+- 已发布文章可被所有认证用户查看
+
+---
+
+## 6. Edge Functions (云函数)
+
+| 函数名 | 功能 |
+|--------|------|
+| `match-users` | 用户匹配算法 - 根据兴趣、目标等因素匹配合适的伙伴 |
+| `user-connections` | 用户连接管理 - 处理关注/好友/匹配关系 |
+
+---
+
+## 7. 开发计划 (来自 `20250830社区升级.md`)
+
+项目有一份详细的开发路线图：
+
+| 优先级 | 任务 | 状态 |
+|--------|------|------|
+| **P0** | 修复Edge Functions鉴权安全问题 | 待完成 |
+| **P0** | 修复UUID过滤bug | 待完成 |
+| **P1** | 合并知识库/资源推荐为统一内容中心 | 待完成 |
+| **P2** | 学习打卡 + 连续天数(streak)功能 | 待完成 |
+| **P2.5** | 周榜/周报功能 | 待完成 |
+| **P3** | 匹配增强与社区互动 | 待完成 |
+| **P4** | 1v1 PK (MVP) | 待完成 |
+
+---
+
+## 8. 已知问题
+
+根据开发文档，存在以下问题待修复：
+
+1. **安全问题**：Edge Functions 信任 body 里的 userId，且使用 service role（高危）
+2. **bug**：匹配函数 UUID in 过滤方式不稳定
+3. **编译问题**：`MatchingCenter` 缺少部分导入
+4. **类型不一致**：活动类型前后端不统一（缺少 `match_request`）
+
+---
+
+## 9. 总结
+
+**Jianwen Community** 是一个：
+- ✅ **技术现代化**的全栈Web应用
+- ✅ 具备**完整用户系统**的社区平台  
+- ✅ 创新地将**健身+学习**两个领域结合
+- ✅ 拥有**清晰的开发规划**和迭代路线图
+
+当前处于 **MVP阶段**，核心匹配功能已实现，需要优先处理安全问题后再推进新功能开发。
+
+---
+
+*文档生成时间：2025-12-17*

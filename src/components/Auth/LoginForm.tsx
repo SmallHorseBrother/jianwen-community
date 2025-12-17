@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Phone, Lock, Eye, EyeOff, Settings } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import { supabase } from '../../lib/supabase';
+import { supabase, testSupabaseConnection } from '../../lib/supabase';
 import MathCaptcha from '../Common/MathCaptcha';
 
 const LoginForm: React.FC = () => {
@@ -39,15 +39,39 @@ const LoginForm: React.FC = () => {
 
     setIsLoading(true);
     try {
+      console.log('Starting login process...');
       await login(phone, password);
+      console.log('Login successful, navigating to:', from);
       navigate(from, { replace: true });
     } catch (err: any) {
+      console.error('Login failed:', err);
+
+      // 提供更详细的错误信息
       if (err.message && err.message.includes('Invalid login credentials')) {
         setError('手机号或密码错误，请检查后重试');
       } else if (err.message && err.message.includes('Email not confirmed')) {
         setError('账户未激活，请联系管理员');
+      } else if (err.message && err.message.includes('timeout')) {
+        setError('网络连接超时，请检查网络后重试');
+      } else if (err.message && err.message.includes('网络')) {
+        setError('网络连接异常，请稍后重试');
+      } else if (err.message && err.message.includes('资料')) {
+        setError('获取用户资料失败，已自动清理缓存，请重试');
       } else {
-        setError(err.message || '登录失败，请检查账号密码');
+        setError(err.message || '登录失败，请稍后重试');
+      }
+
+      // 如果是网络相关错误，建议用户清除缓存
+      if (err.message && (
+        err.message.includes('timeout') ||
+        err.message.includes('网络') ||
+        err.message.includes('资料')
+      )) {
+        setTimeout(() => {
+          if (!error.includes('清除缓存')) {
+            setError(prev => prev + '\n\n如果问题持续，请尝试清除浏览器缓存后重试');
+          }
+        }, 2000);
       }
     } finally {
       setIsLoading(false);
@@ -56,31 +80,43 @@ const LoginForm: React.FC = () => {
 
   const handleDebug = async () => {
     console.log('=== DEBUG INFO ===');
+
+    // 测试环境变量
+    console.log('Environment variables:');
+    console.log('VITE_SUPABASE_URL:', import.meta.env.VITE_SUPABASE_URL ? '✓' : '✗');
+    console.log('VITE_SUPABASE_ANON_KEY:', import.meta.env.VITE_SUPABASE_ANON_KEY ? '✓' : '✗');
+
+    // 测试数据库连接
     console.log('Testing database connection...');
-    
+    const connectionTest = await testSupabaseConnection();
+    if (connectionTest.success) {
+      console.log('✓ Database connection successful');
+    } else {
+      console.error('✗ Database connection failed:', connectionTest.error);
+    }
+
+    // 检查认证状态
+    console.log('Checking auth state...');
     try {
-      const { data, error } = await supabase.from('profiles').select('count').limit(1);
+      const { data: { session }, error } = await supabase.auth.getSession();
       if (error) {
-        console.error('Database connection failed:', error);
+        console.error('Get session error:', error);
       } else {
-        console.log('Database connection successful');
+        console.log('Current session:', session?.user ? '✓ exists' : '✗ none');
+        if (session?.user) {
+          console.log('User ID:', session.user.id);
+          console.log('User email:', session.user.email);
+        }
       }
     } catch (err) {
-      console.error('Database test failed:', err);
+      console.error('Auth check failed:', err);
     }
-    
-    console.log('Listing all users...');
-    try {
-      const { data, error } = await supabase.from('profiles').select('id, phone, nickname, created_at').limit(10);
-      if (error) {
-        console.error('User query failed:', error);
-      } else {
-        console.log('Users:', data);
-      }
-    } catch (err) {
-      console.error('User query failed:', err);
-    }
-    
+
+    // 检查 localStorage
+    console.log('Checking localStorage...');
+    const keys = Object.keys(localStorage).filter(key => key.includes('supabase') || key.startsWith('sb-'));
+    console.log('Supabase localStorage keys:', keys);
+
     console.log('=== END DEBUG ===');
   };
 
