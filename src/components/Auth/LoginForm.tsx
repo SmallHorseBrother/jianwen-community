@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Phone, Lock, Eye, EyeOff, Settings } from 'lucide-react';
+import { Phone, Lock, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import { supabase, testSupabaseConnection } from '../../lib/supabase';
 import MathCaptcha from '../Common/MathCaptcha';
 
 const LoginForm: React.FC = () => {
@@ -62,62 +61,7 @@ const LoginForm: React.FC = () => {
     }
   };
 
-  const handleDebug = async () => {
-    console.log('=== DEBUG INFO ===');
-
-    // 测试环境变量
-    console.log('Environment variables:');
-    console.log('VITE_SUPABASE_URL:', import.meta.env.VITE_SUPABASE_URL ? '✓' : '✗');
-    console.log('VITE_SUPABASE_ANON_KEY:', import.meta.env.VITE_SUPABASE_ANON_KEY ? '✓' : '✗');
-
-    // 测试数据库连接
-    console.log('Testing database connection...');
-    const connectionTest = await testSupabaseConnection();
-    if (connectionTest.success) {
-      console.log('✓ Database connection successful');
-    } else {
-      console.error('✗ Database connection failed:', connectionTest.error);
-    }
-
-    // 检查认证状态
-    console.log('Checking auth state...');
-    try {
-      const { data: { session }, error } = await supabase.auth.getSession();
-      if (error) {
-        console.error('Get session error:', error);
-      } else {
-        console.log('Current session:', session?.user ? '✓ exists' : '✗ none');
-        if (session?.user) {
-          console.log('User ID:', session.user.id);
-          console.log('User email:', session.user.email);
-        }
-      }
-    } catch (err) {
-      console.error('Auth check failed:', err);
-    }
-
-    // 检查 localStorage
-    console.log('Checking localStorage...');
-    const keys = Object.keys(localStorage).filter(key => key.includes('supabase') || key.startsWith('sb-'));
-    console.log('Supabase localStorage keys:', keys);
-
-    console.log('=== END DEBUG ===');
-  };
-
-  const handleClearStorage = () => {
-    console.log('Clearing browser storage...');
-    localStorage.clear();
-    sessionStorage.clear();
-    window.location.reload();
-  };
-
-  const handleRetryLogin = async () => {
-    console.log('Retrying login...');
-    setError('');
-    setIsLoading(false);
-    // 重置验证码状态
-    setIsCaptchaValid(false);
-  };
+  // Removed debug functions - now handled by enhanced logging in AuthContext
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
@@ -125,9 +69,7 @@ const LoginForm: React.FC = () => {
         <div className="text-center">
           <h2 className="text-3xl font-bold text-gray-900">欢迎回来</h2>
           <p className="mt-2 text-gray-600">登录您的健学社区账户</p>
-          <div className="mt-4 text-sm text-gray-500 bg-blue-50 p-3 rounded-lg">
-            温馨提示：如果登录按钮无响应，请尝试更换浏览器或切换网络环境
-          </div>
+
         </div>
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -203,31 +145,6 @@ const LoginForm: React.FC = () => {
             </span>
           </div>
         </form>
-        
-        {/* 调试按钮 */}
-        <div className="mt-4 text-center space-y-2">
-          <button
-            onClick={handleDebug}
-            className="text-xs text-gray-400 hover:text-gray-600 flex items-center justify-center space-x-1"
-          >
-            <Settings className="w-3 h-3" />
-            <span>调试信息</span>
-          </button>
-          <div className="flex justify-center space-x-4">
-            <button
-              onClick={handleRetryLogin}
-              className="text-xs text-blue-400 hover:text-blue-600 flex items-center justify-center space-x-1"
-            >
-              <span>重试登录</span>
-            </button>
-            <button
-              onClick={handleClearStorage}
-              className="text-xs text-red-400 hover:text-red-600 flex items-center justify-center space-x-1"
-            >
-              <span>清除缓存</span>
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   );

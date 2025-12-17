@@ -1,7 +1,12 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import type { AuthChangeEvent, Session } from '@supabase/supabase-js';
 import { supabase, getCurrentSession, getUserProfile, createUserProfile, updateUserProfile } from '../lib/supabase.ts';
 import { User, AuthState } from '../types';
+import { withTimeout, TIMEOUT_CONFIG, isTimeoutError } from '../lib/timeoutManager';
+import { clearAuthCache, validateSessionCache, hasSessionInCache } from '../lib/cacheManager';
+import { getGlobalQueue } from '../lib/operationQueue';
+import { AuthStatus } from '../types/authState';
+import { logOperationStart, logStateChange, logError, logNetworkRequest, logWarning } from '../lib/authLogger';
 
 interface AuthContextType extends AuthState {
   login: (phone: string, password: string) => Promise<void>;
@@ -27,33 +32,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     isLoading: true,
   });
 
-  // 添加一个标志来避免竞态条件
-  const [isManualLogin, setIsManualLogin] = useState(false);
-
-  // 缓存清理辅助函数
-  const clearAuthCache = () => {
-    try {
-      // 清理 Supabase 相关的 localStorage 缓存
-      const keys = Object.keys(localStorage);
-      keys.forEach(key => {
-        if (key.startsWith('sb-') || key.includes('supabase')) {
-          localStorage.removeItem(key);
-        }
-      });
-
-      // 清理 sessionStorage
-      const sessionKeys = Object.keys(sessionStorage);
-      sessionKeys.forEach(key => {
-        if (key.startsWith('sb-') || key.includes('supabase')) {
-          sessionStorage.removeItem(key);
-        }
-      });
-
-      console.log('Auth cache cleared');
-    } catch (error) {
-      console.error('Failed to clear auth cache:', error);
-    }
-  };
+  // Use ref to track if we're in manual login to prevent listener interference
+  const isManualLoginRef = useRef(false);
+  const operationQueue = getGlobalQueue();
 
   const mapProfileToUser = (profile: any): User => ({
     id: profile.id,
@@ -82,51 +63,65 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     let isMounted = true;
 
     const hydrateSession = async () => {
+      logOperationStart('hydrateSession');
+      
       try {
-        // 初次加载：检查当前会话
+        // Validate cache first
+        const cacheValidation = await validateSessionCache();
+        
+        if (!cacheValidation.isValid) {
+          logWarning('Invalid cache detected during hydration', { reason: cacheValidation.reason });
+          if (cacheValidation.hasSession) {
+            // Clear corrupted cache
+            clearAuthCache('corrupted_session');
+          }
+          setState({ user: null, isAuthenticated: false, isLoading: false });
+          return;
+        }
+
+        // Get current session
         const session = await getCurrentSession();
         if (!isMounted) return;
 
         if (session?.user) {
           try {
-            // 添加超时控制到初始化
-            const profilePromise = getUserProfile(session.user.id);
-            const profileTimeoutPromise = new Promise((_, reject) => {
-              setTimeout(() => reject(new Error('初始化获取用户资料超时')), 10000);
-            });
-
-            const profile = await Promise.race([profilePromise, profileTimeoutPromise]) as any;
+            logNetworkRequest('getUserProfile', 'profiles', 'pending', { userId: session.user.id });
+            
+            // Add timeout protection to profile loading
+            const profile = await withTimeout(
+              getUserProfile(session.user.id),
+              TIMEOUT_CONFIG.INITIALIZATION,
+              'hydration-profile-load'
+            );
+            
             if (!isMounted) return;
 
             if (profile) {
               const user: User = mapProfileToUser(profile);
+              logNetworkRequest('getUserProfile', 'profiles', 'success');
               setState({ user, isAuthenticated: true, isLoading: false });
             } else {
-              // 如果有 session 但没有 profile，可能缓存损坏
-              console.warn('Session exists but profile not found, clearing auth cache');
-              clearAuthCache();
+              // Session exists but no profile - inconsistent state
+              logWarning('Session exists but profile not found');
+              clearAuthCache('missing_profile');
               setState({ user: null, isAuthenticated: false, isLoading: false });
             }
           } catch (err) {
-            console.error('初始化加载用户资料失败:', err);
-            // 如果是网络错误或超时，清理缓存
-            if (err.message && (
-              err.message.includes('timeout') ||
-              err.message.includes('fetch') ||
-              err.message.includes('network')
-            )) {
-              console.warn('Network error during init, clearing auth cache');
-              clearAuthCache();
+            logError(err, 'hydration-profile-load');
+            
+            // Handle timeout or network errors
+            if (isTimeoutError(err) || (err instanceof Error && err.message.includes('network'))) {
+              clearAuthCache('network_error');
             }
+            
             setState({ user: null, isAuthenticated: false, isLoading: false });
           }
         } else {
           setState({ user: null, isAuthenticated: false, isLoading: false });
         }
       } catch (err) {
-        console.error('初始化会话失败:', err);
-        // 如果初始化失败，清理可能的损坏缓存
-        clearAuthCache();
+        logError(err, 'hydrateSession');
+        clearAuthCache('corrupted_session');
         setState({ user: null, isAuthenticated: false, isLoading: false });
       }
     };
@@ -134,19 +129,34 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     hydrateSession();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event: AuthChangeEvent, session: Session | null) => {
-      console.log('Auth state change:', event, session?.user?.id, 'isManualLogin:', isManualLogin);
+      logStateChange(AuthStatus.IDLE, AuthStatus.IDLE, `auth-state-change-${event}`, { 
+        hasSession: !!session,
+        isManualLogin: isManualLoginRef.current 
+      });
 
       if (!isMounted) return;
 
-      // 如果是手动登录过程中的状态变化，跳过自动处理
-      if (isManualLogin && event === 'SIGNED_IN') {
-        console.log('Skipping auth state change during manual login');
+      // Skip listener updates during manual login to prevent race conditions
+      if (isManualLoginRef.current && event === 'SIGNED_IN') {
+        logWarning('Skipping auth state listener during manual login');
         return;
       }
 
-      if (session?.user) {
+      // Handle logout events
+      if (event === 'SIGNED_OUT') {
+        setState({ user: null, isAuthenticated: false, isLoading: false });
+        return;
+      }
+
+      // Handle sign-in events from listener (e.g., token refresh)
+      if (session?.user && event !== 'SIGNED_IN') {
         try {
-          const profile = await getUserProfile(session.user.id);
+          const profile = await withTimeout(
+            getUserProfile(session.user.id),
+            TIMEOUT_CONFIG.PROFILE_LOAD,
+            'listener-profile-load'
+          );
+          
           if (!isMounted) return;
 
           if (profile) {
@@ -156,11 +166,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             setState({ user: null, isAuthenticated: false, isLoading: false });
           }
         } catch (error) {
-          console.error('获取用户资料失败:', error);
+          logError(error, 'listener-profile-load');
           setState({ user: null, isAuthenticated: false, isLoading: false });
         }
-      } else {
-        setState({ user: null, isAuthenticated: false, isLoading: false });
       }
     });
 
@@ -168,85 +176,103 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       isMounted = false;
       subscription.unsubscribe();
     };
-  }, [isManualLogin]);
+  }, []);
 
   const login = async (phone: string, password: string) => {
-    try {
-      console.log('Attempting login with phone:', phone);
-
-      // 设置手动登录标志，避免 onAuthStateChange 干扰
-      setIsManualLogin(true);
-
-      // 设置加载状态
-      setState(prev => ({ ...prev, isLoading: true }));
-
-      // 使用手机号作为邮箱格式进行登录
-      const email = `${phone}@jianwen.community`;
-      console.log('Login email:', email);
-
-      // 直接调用登录，不使用 Promise.race（可能导致问题）
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      console.log('Login response:', { data, error });
+    // Use operation queue to prevent concurrent login attempts
+    return operationQueue.enqueue(async () => {
+      logOperationStart('login', { phone });
       
-      if (error) {
-        console.error('Supabase login error:', error);
+      try {
+        // Set manual login flag to prevent listener interference
+        isManualLoginRef.current = true;
+
+        // Set loading state
+        setState(prev => ({ ...prev, isLoading: true }));
+
+        const email = `${phone}@jianwen.community`;
+        
+        logNetworkRequest('signInWithPassword', 'auth', 'pending');
+
+        // Add timeout protection to login
+        const { data, error } = await withTimeout(
+          supabase.auth.signInWithPassword({ email, password }),
+          TIMEOUT_CONFIG.LOGIN,
+          'login-auth'
+        );
+
+        if (error) {
+          logError(error, 'login-auth');
+          setState(prev => ({ ...prev, isLoading: false }));
+          isManualLoginRef.current = false;
+          throw error;
+        }
+
+        if (!data.user) {
+          const err = new Error('登录失败：未返回用户数据');
+          logError(err, 'login-auth');
+          setState(prev => ({ ...prev, isLoading: false }));
+          isManualLoginRef.current = false;
+          throw err;
+        }
+
+        logNetworkRequest('signInWithPassword', 'auth', 'success', { userId: data.user.id });
+
+        // Load user profile with timeout protection
+        try {
+          logNetworkRequest('getUserProfile', 'profiles', 'pending', { userId: data.user.id });
+          
+          const profile = await withTimeout(
+            getUserProfile(data.user.id),
+            TIMEOUT_CONFIG.PROFILE_LOAD,
+            'login-profile-load'
+          );
+
+          if (!profile) {
+            throw new Error('未找到用户资料');
+          }
+          
+          const user: User = mapProfileToUser(profile);
+          
+          logNetworkRequest('getUserProfile', 'profiles', 'success');
+
+          // Atomic state update
+          setState({
+            user,
+            isAuthenticated: true,
+            isLoading: false,
+          });
+
+          logOperationStart('login-complete', { userId: user.id });
+          
+          // Reset manual login flag after a short delay
+          setTimeout(() => {
+            isManualLoginRef.current = false;
+          }, 500);
+          
+        } catch (profileError) {
+          logError(profileError, 'login-profile-load');
+          
+          // Clear cache and sign out on profile load failure
+          clearAuthCache('profile_load_failed');
+          await supabase.auth.signOut();
+          
+          setState({ user: null, isAuthenticated: false, isLoading: false });
+          isManualLoginRef.current = false;
+          
+          if (isTimeoutError(profileError)) {
+            throw new Error('加载用户资料超时，请检查网络后重试');
+          }
+          throw new Error('登录失败：无法加载用户资料，请稍后重试');
+        }
+
+      } catch (error: any) {
+        logError(error, 'login');
         setState(prev => ({ ...prev, isLoading: false }));
-        setIsManualLogin(false);
+        isManualLoginRef.current = false;
         throw error;
       }
-
-      if (!data.user) {
-        console.log('Login returned no user data');
-        setState(prev => ({ ...prev, isLoading: false }));
-        setIsManualLogin(false);
-        throw new Error('登录失败：未返回用户数据');
-      }
-
-      console.log('Login successful, user ID:', data.user.id);
-
-      // 直接获取并设置用户资料
-      try {
-        const profile = await getUserProfile(data.user.id);
-
-        if (!profile) {
-          throw new Error('未找到用户资料');
-        }
-        
-        const user: User = mapProfileToUser(profile);
-
-        // 确保状态设置是原子的
-        setState({
-          user,
-          isAuthenticated: true,
-          isLoading: false,
-        });
-
-        console.log('Login completed successfully');
-        
-        // 延迟重置手动登录标志
-        setTimeout(() => {
-          setIsManualLogin(false);
-        }, 500);
-        
-      } catch (profileError) {
-        console.error('获取登录用户资料失败:', profileError);
-        // 若获取资料失败则强制登出，提示用户重试
-        await supabase.auth.signOut();
-        setState({ user: null, isAuthenticated: false, isLoading: false });
-        setIsManualLogin(false);
-        throw new Error('登录失败：无法加载用户资料，请稍后重试');
-      }
-
-    } catch (error: any) {
-      console.error('Login error:', error);
-      setState(prev => ({ ...prev, isLoading: false }));
-      setIsManualLogin(false);
-      throw error;
-    }
+    }, 'login');
   };
 
   const register = async (phone: string, password: string, nickname: string) => {
@@ -313,25 +339,37 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = async () => {
-    try {
-      // 先清除本地状态
-      setState({
-        user: null,
-        isAuthenticated: false,
-        isLoading: false,
-      });
+    return operationQueue.enqueue(async () => {
+      logOperationStart('logout');
       
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
-    } catch (error: any) {
-      console.error('退出登录失败:', error);
-      // 即使退出失败，也清除本地状态
-      setState({
-        user: null,
-        isAuthenticated: false,
-        isLoading: false,
-      });
-    }
+      try {
+        // Clear local state first
+        setState({
+          user: null,
+          isAuthenticated: false,
+          isLoading: false,
+        });
+        
+        // Clear cache
+        clearAuthCache('logout');
+        
+        const { error } = await supabase.auth.signOut();
+        if (error) {
+          logError(error, 'logout');
+          throw error;
+        }
+        
+        logOperationStart('logout-complete');
+      } catch (error: any) {
+        logError(error, 'logout');
+        // Even if logout fails, clear local state
+        setState({
+          user: null,
+          isAuthenticated: false,
+          isLoading: false,
+        });
+      }
+    }, 'logout');
   };
 
   const updateProfile = async (updates: Partial<User>) => {
