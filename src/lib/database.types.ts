@@ -44,6 +44,8 @@ export interface Database {
           tags: string[];
           skills_offering: string | null;
           skills_seeking: string | null;
+          age: number | null;
+          gender: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -69,6 +71,8 @@ export interface Database {
           tags?: string[];
           skills_offering?: string | null;
           skills_seeking?: string | null;
+          age?: number | null;
+          gender?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -94,6 +98,8 @@ export interface Database {
           tags?: string[];
           skills_offering?: string | null;
           skills_seeking?: string | null;
+          age?: number | null;
+          gender?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -294,6 +300,82 @@ export interface Database {
           author_id?: string | null;
           author_name?: string;
           is_published?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      // V2.0 新增: 打卡系统
+      check_ins: {
+        Row: {
+          id: string;
+          user_id: string;
+          content: string | null;
+          image_urls: string[] | null;
+          category: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          content?: string | null;
+          image_urls?: string[] | null;
+          category?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          content?: string | null;
+          image_urls?: string[] | null;
+          category?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      check_in_likes: {
+        Row: {
+          id: string;
+          check_in_id: string;
+          user_id: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          check_in_id: string;
+          user_id: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          check_in_id?: string;
+          user_id?: string;
+          created_at?: string;
+        };
+      };
+      check_in_comments: {
+        Row: {
+          id: string;
+          check_in_id: string;
+          user_id: string;
+          content: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          check_in_id: string;
+          user_id: string;
+          content: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          check_in_id?: string;
+          user_id?: string;
+          content?: string;
           created_at?: string;
           updated_at?: string;
         };

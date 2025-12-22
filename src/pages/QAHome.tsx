@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { MessageCircle, Search, Tag, Star, ChevronRight, Send, User } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { getPublishedQuestions, submitQuestion, getAllTags } from '../services/questionService';
+import AppreciationCard from '../components/Common/AppreciationCard';
 import type { Database } from '../lib/database.types';
 
 type Question = Database['public']['Tables']['questions']['Row'];
@@ -21,6 +22,10 @@ const QAHome: React.FC = () => {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [offset, setOffset] = useState(0);
+  const [hasMore, setHasMore] = useState(false);
+  const PAGE_SIZE = 20;
 
   // 提问表单状态
   const [questionContent, setQuestionContent] = useState('');
@@ -32,26 +37,50 @@ const QAHome: React.FC = () => {
     loadData();
   }, [selectedTag, searchQuery]);
 
-  const loadData = async () => {
+  const loadData = async (isLoadMore = false) => {
     try {
-      setLoading(true);
+      if (isLoadMore) {
+        setLoadingMore(true);
+      } else {
+        setLoading(true);
+      }
+
+      const currentOffset = isLoadMore ? offset : 0;
+
       const [questionsResult, featuredResult, tagsResult] = await Promise.all([
         getPublishedQuestions({ 
-          limit: 20, 
+          limit: PAGE_SIZE, 
+          offset: currentOffset,
           tag: selectedTag || undefined,
           searchQuery: searchQuery || undefined 
         }),
-        getPublishedQuestions({ featuredOnly: true, limit: 5 }),
-        getAllTags(),
+        // Only fetch featured and tags on initial load
+        !isLoadMore ? getPublishedQuestions({ featuredOnly: true, limit: 5 }) : Promise.resolve(null),
+        !isLoadMore ? getAllTags() : Promise.resolve(null),
       ]);
-      setQuestions(questionsResult.questions);
-      setFeaturedQuestions(featuredResult.questions);
-      setTags(tagsResult);
+
+      if (isLoadMore) {
+        setQuestions(prev => [...prev, ...questionsResult.questions]);
+      } else {
+        setQuestions(questionsResult.questions);
+        if (featuredResult) setFeaturedQuestions(featuredResult.questions);
+        if (tagsResult) setTags(tagsResult);
+      }
+
+      // Check if there are more questions
+      setHasMore(currentOffset + questionsResult.questions.length < questionsResult.total);
+      setOffset(currentOffset + questionsResult.questions.length);
+
     } catch (error) {
       console.error('加载数据失败:', error);
     } finally {
       setLoading(false);
+      setLoadingMore(false);
     }
+  };
+
+  const handleLoadMore = () => {
+    loadData(true);
   };
 
   const handleSubmitQuestion = async (e: React.FormEvent) => {
@@ -187,6 +216,11 @@ const QAHome: React.FC = () => {
                   </div>
                 </div>
               )}
+
+              {/* 赞赏入口 */}
+              <div className="mt-6 pt-6 border-t border-gray-100">
+                <AppreciationCard mode="compact" />
+              </div>
             </div>
           </div>
 
@@ -301,6 +335,28 @@ const QAHome: React.FC = () => {
                       </div>
                     </Link>
                   ))}
+                </div>
+              )}
+
+              {/* 加载更多按钮 */}
+              {questions.length > 0 && hasMore && (
+                <div className="mt-8 text-center">
+                  <button
+                    onClick={handleLoadMore}
+                    disabled={loadingMore}
+                    className="px-6 py-2 bg-white border border-gray-200 text-gray-600 rounded-full hover:bg-gray-50 hover:border-blue-300 hover:text-blue-600 transition shadow-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 mx-auto"
+                  >
+                    {loadingMore ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-gray-400 border-t-blue-600 rounded-full animate-spin"></div>
+                        加载中...
+                      </>
+                    ) : (
+                      <>
+                        加载更多
+                      </>
+                    )}
+                  </button>
                 </div>
               )}
             </div>

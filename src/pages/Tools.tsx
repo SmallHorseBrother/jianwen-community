@@ -10,6 +10,7 @@ import React, { useState, useEffect } from 'react';
 import { Dumbbell, FileText, Sparkles, ExternalLink, MessageSquarePlus, X, Send, User, MessageCircle, UtensilsCrossed } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { submitSuggestion, getAllSuggestions } from '../services/suggestionService';
+import AppreciationCard from '../components/Common/AppreciationCard';
 import type { Database } from '../lib/database.types';
 
 type Suggestion = Database['public']['Tables']['suggestions']['Row'];
@@ -164,6 +165,9 @@ const SuggestionModal: React.FC<{
 };
 
 const SuggestionItem: React.FC<{ suggestion: Suggestion }> = ({ suggestion }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const isLongText = suggestion.description.length > 60;
+
   const getStatusBadge = (status: string) => {
     const styles = {
       pending: 'bg-gray-100 text-gray-600',
@@ -209,7 +213,22 @@ const SuggestionItem: React.FC<{ suggestion: Suggestion }> = ({ suggestion }) =>
         {getStatusBadge(suggestion.status || 'pending')}
       </div>
       
-      <p className="text-gray-600 text-sm mb-3 line-clamp-2">{suggestion.description}</p>
+      <div className="mb-3">
+        <p className={`text-gray-600 text-sm ${isExpanded ? 'whitespace-pre-wrap' : 'line-clamp-3'}`}>
+          {suggestion.description}
+        </p>
+        {isLongText && (
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsExpanded(!isExpanded);
+            }}
+            className="text-blue-600 text-xs mt-2 hover:underline focus:outline-none font-medium"
+          >
+            {isExpanded ? '收起 ▲' : '展开全文 ▼'}
+          </button>
+        )}
+      </div>
       
       <div className="flex items-center justify-between text-xs text-gray-400">
         <div className="flex items-center gap-1">
@@ -392,6 +411,14 @@ const Tools: React.FC = () => {
               </button>
             </div>
           )}
+        </div>
+
+        {/* 赞赏支持 */}
+        <div className="mt-12">
+          <AppreciationCard 
+            title="工具好用吗？" 
+            description="如果觉得这些工具对你有帮助，欢迎赞赏支持~"
+          />
         </div>
       </div>
 

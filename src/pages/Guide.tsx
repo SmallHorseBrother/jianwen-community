@@ -7,8 +7,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
   MessageCircle, Users, Wrench, User, Lightbulb, 
-  ArrowRight, CheckCircle, Sparkles, ExternalLink
+  ArrowRight, CheckCircle, Sparkles, Activity
 } from 'lucide-react';
+import AppreciationCard from '../components/Common/AppreciationCard';
 
 interface GuideStep {
   step: number;
@@ -51,18 +52,25 @@ const Guide: React.FC = () => {
 
   const features: Feature[] = [
     {
+      icon: <Activity className="w-6 h-6" />,
+      title: '每日打卡',
+      description: '分享你的日常成长：健身、学习、生活感悟。支持图文发布，与群友互动点赞评论，还有活跃榜单激励大家坚持！',
+      link: '/community',
+      color: 'from-orange-500 to-red-600'
+    },
+    {
       icon: <MessageCircle className="w-6 h-6" />,
       title: 'Q&A 数字大脑',
-      description: '向马健文提问，浏览精华问答。所有问答都会沉淀下来，随时可搜索查阅。',
-      link: '/qa',
+      description: '向马健文提问，浏览精华问答。所有问答都会沉淀下来，随时可搜索查阅。群友也可以帮忙回答问题。',
+      link: '/',
       color: 'from-blue-500 to-indigo-600'
     },
     {
       icon: <Users className="w-6 h-6" />,
-      title: '社区广场',
+      title: '找伙伴',
       description: '查看所有成员的社交名片，展示技能供需，找到志同道合的伙伴。点击名片可看完整信息。',
       link: '/community',
-      color: 'from-orange-500 to-red-500'
+      color: 'from-purple-500 to-pink-600'
     },
     {
       icon: <Wrench className="w-6 h-6" />,
@@ -76,7 +84,7 @@ const Guide: React.FC = () => {
       title: '个人档案',
       description: '管理个人信息：基础资料、健身数据、技能标签、社交链接等。完善资料让他人更好地了解你。',
       link: '/profile',
-      color: 'from-purple-500 to-pink-600'
+      color: 'from-teal-500 to-cyan-600'
     },
     {
       icon: <Lightbulb className="w-6 h-6" />,
@@ -88,10 +96,12 @@ const Guide: React.FC = () => {
   ];
 
   const tips = [
-    '完善个人资料后，你的名片才会出现在社区广场',
+    '每日打卡支持图文发布，不限健身或学习，贵在坚持',
+    '完善个人资料后，你的名片才会出现在社区广场的“找伙伴”页面',
     '可以填写"我能提供"和"正在寻找"让技能匹配更精准',
     '登录后查看他人名片可以看到微信号等联系方式',
-    '问答支持匿名提问，保护你的隐私',
+    '问答支持匿名提问，保护你的隐私；群友也可以帮忙回答',
+    '打卡后在活跃榜上冲榜，见证更好的自己',
     '工具箱里的 AI 工具都是免费使用的'
   ];
 
@@ -213,6 +223,14 @@ const Guide: React.FC = () => {
               返回首页
             </Link>
           </div>
+        </section>
+
+        {/* 赞赏支持 */}
+        <section className="mt-12">
+          <AppreciationCard 
+            title="觉得有帮助？" 
+            description="如果这份指南对你有用，欢迎请小马哥喝杯咖啡~"
+          />
         </section>
       </div>
     </div>

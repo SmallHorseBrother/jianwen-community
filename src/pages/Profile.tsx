@@ -4,9 +4,10 @@
  */
 
 import React, { useState, useCallback, useRef } from 'react';
-import { Shield, ExternalLink, Plus, MessageCircle, Sparkles, Target, Users, X, Check, Loader, User } from 'lucide-react';
+import { Shield, ExternalLink, Plus, MessageCircle, Sparkles, Target, Users, X, Check, Loader, User, Camera } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { GROUP_IDENTITIES } from '../types';
+import { uploadAvatar, updateUserAvatar } from '../services/avatarService';
 
 // 预设标签
 const PRESET_TAGS = [
@@ -30,6 +31,7 @@ const Profile: React.FC = () => {
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [customTag, setCustomTag] = useState('');
   const [newLinkPlatform, setNewLinkPlatform] = useState('');
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // 防抖保存函数
@@ -112,6 +114,26 @@ const Profile: React.FC = () => {
     }
   };
 
+  // 头像上传
+  const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !user) return;
+
+    setUploadingAvatar(true);
+    try {
+      const avatarUrl = await uploadAvatar(file, user.id);
+      if (avatarUrl) {
+        await updateUserAvatar(user.id, avatarUrl);
+        // 刷新用户数据
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error('上传头像失败:', error);
+    } finally {
+      setUploadingAvatar(false);
+    }
+  };
+
   if (!user) return null;
 
   return (
@@ -121,13 +143,41 @@ const Profile: React.FC = () => {
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
-                {user.avatar ? (
-                  <img src={user.avatar} alt={user.nickname} className="w-full h-full rounded-full object-cover" />
-                ) : (
-                  <span className="text-white text-2xl font-bold">{user.nickname?.charAt(0)}</span>
-                )}
+              {/* 头像上传区域 - 改进版 */}
+              <div className="flex flex-col items-center">
+                <div className="relative group cursor-pointer">
+                  <input 
+                    type="file" 
+                    accept="image/*" 
+                    onChange={handleAvatarChange}
+                    className="hidden"
+                    disabled={uploadingAvatar}
+                    id="avatar-upload"
+                  />
+                  <label htmlFor="avatar-upload" className="cursor-pointer block">
+                    <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center overflow-hidden ring-4 ring-white/30 hover:ring-white/50 transition-all">
+                      {user.avatar ? (
+                        <img src={user.avatar} alt={user.nickname} className="w-full h-full object-cover" />
+                      ) : (
+                        <span className="text-white text-3xl font-bold">{user.nickname?.charAt(0)}</span>
+                      )}
+                    </div>
+                    {/* 相机图标徽章 - 始终可见 */}
+                    <div className="absolute bottom-0 right-0 w-7 h-7 bg-blue-500 rounded-full flex items-center justify-center border-2 border-white shadow-lg group-hover:bg-blue-600 transition-colors">
+                      {uploadingAvatar ? (
+                        <Loader className="w-4 h-4 text-white animate-spin" />
+                      ) : (
+                        <Camera className="w-4 h-4 text-white" />
+                      )}
+                    </div>
+                  </label>
+                </div>
+                {/* 文字提示 */}
+                <label htmlFor="avatar-upload" className="text-white/80 text-xs mt-2 cursor-pointer hover:text-white transition-colors">
+                  点击上传头像
+                </label>
               </div>
+              
               <div className="text-white">
                 <h1 className="text-2xl font-bold">{user.nickname}</h1>
                 {user.groupIdentity && user.groupIdentity.length > 0 && (
@@ -182,6 +232,39 @@ const Profile: React.FC = () => {
                   placeholder="方便群友认出你"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
+              </div>
+            </div>
+
+            {/* 年龄和性别 (可选) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  年龄 <span className="text-xs text-gray-400">(可选)</span>
+                </label>
+                <input
+                  type="number"
+                  min="10"
+                  max="120"
+                  defaultValue={user.age || ''}
+                  onBlur={(e) => handleFieldChange('age', e.target.value ? parseInt(e.target.value) : null)}
+                  placeholder="例如: 25"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  性别 <span className="text-xs text-gray-400">(可选)</span>
+                </label>
+                <select
+                  defaultValue={user.gender || ''}
+                  onChange={(e) => handleFieldChange('gender', e.target.value || null)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                >
+                  <option value="">不显示</option>
+                  <option value="男">男</option>
+                  <option value="女">女</option>
+                  <option value="其他">其他</option>
+                </select>
               </div>
             </div>
 
