@@ -220,13 +220,20 @@ const LoginForm: React.FC = () => {
             </button>
           </div>
 
-          <div className="text-center">
-            <span className="text-sm text-gray-600">
-              还没有账户？
-              <Link to="/register" className="text-blue-600 hover:text-blue-500 ml-1">
-                立即注册
+          <div className="text-center space-y-2">
+            <div>
+              <span className="text-sm text-gray-600">
+                还没有账户？
+                <Link to="/register" className="text-blue-600 hover:text-blue-500 ml-1">
+                  立即注册
+                </Link>
+              </span>
+            </div>
+            <div>
+              <Link to="/forgot-password" className="text-sm text-gray-500 hover:text-blue-600">
+                忘记密码？
               </Link>
-            </span>
+            </div>
           </div>
         </form>
         

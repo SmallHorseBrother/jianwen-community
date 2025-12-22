@@ -7,7 +7,9 @@ import './lib/debugAuth';
 import Layout from './components/Layout/Layout';
 import LoginForm from './components/Auth/LoginForm';
 import RegisterForm from './components/Auth/RegisterForm';
+import ForgotPasswordForm from './components/Auth/ForgotPasswordForm';
 import Profile from './pages/Profile';
+
 
 // V2.0 新页面
 import QAHome from './pages/QAHome';
@@ -77,6 +79,7 @@ const AppRoutes: React.FC = () => {
       {/* 认证 */}
       <Route path="/login" element={<LoginForm />} />
       <Route path="/register" element={<RegisterForm />} />
+      <Route path="/forgot-password" element={<ForgotPasswordForm />} />
       
       {/* ========== 旧版页面 (归档) ========== */}
       {/* 旧主页重定向 */}
