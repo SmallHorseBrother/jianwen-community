@@ -25,6 +25,58 @@ export const useAuth = () => {
   return context;
 };
 
+// Helper function to safely parse potentially corrupted groupIdentity data
+const parseGroupIdentity = (data: any): string[] => {
+  if (!data) return [];
+  
+  // If already an array, return it
+  if (Array.isArray(data)) {
+    return data.filter(g => typeof g === 'string' && g.trim());
+  }
+  
+  // If it's a string, try to parse it
+  if (typeof data === 'string') {
+    let current = data.trim();
+    
+    // Base case: if it doesn't look like JSON, return empty or as single item
+    if (!current.startsWith('[') && !current.startsWith('"')) {
+      return current ? [current] : [];
+    }
+    
+    // Try to unwrap nested JSON strings (caused by repeated serialization)
+    let maxIterations = 10; // Prevent infinite loop
+    while (maxIterations > 0) {
+      try {
+        const parsed = JSON.parse(current);
+        
+        if (Array.isArray(parsed)) {
+          // Check if it's an array of valid strings
+          const validItems = parsed.filter(g => typeof g === 'string' && g.trim() && !g.startsWith('['));
+          if (validItems.length > 0) {
+            return validItems;
+          }
+          // If array items are still nested, continue parsing the first item
+          if (parsed.length > 0 && typeof parsed[0] === 'string') {
+            current = parsed[0];
+          } else {
+            return [];
+          }
+        } else if (typeof parsed === 'string') {
+          current = parsed;
+        } else {
+          return [];
+        }
+      } catch {
+        // Not valid JSON, return as single item if non-empty
+        return current && !current.includes('[') ? [current] : [];
+      }
+      maxIterations--;
+    }
+  }
+  
+  return [];
+};
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [state, setState] = useState<AuthState>({
     user: null,
@@ -45,7 +97,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     isPublic: profile.is_public,
     createdAt: new Date(profile.created_at),
     // 社交名片核心字段
-    groupIdentity: Array.isArray(profile.group_identity) ? profile.group_identity : (profile.group_identity ? [profile.group_identity] : []),
+    groupIdentity: parseGroupIdentity(profile.group_identity),
     groupNickname: profile.group_nickname ?? undefined,
     tags: profile.tags || [],
     skillsOffering: profile.skills_offering ?? undefined,
@@ -424,7 +476,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           deadlift: updatedProfile.deadlift || 0,
         },
         isPublic: updatedProfile.is_public,
-        groupIdentity: Array.isArray(updatedProfile.group_identity) ? updatedProfile.group_identity : (updatedProfile.group_identity ? [updatedProfile.group_identity] : []),
+        groupIdentity: parseGroupIdentity(updatedProfile.group_identity),
         profession: updatedProfile.profession ?? undefined,
         groupNickname: updatedProfile.group_nickname ?? undefined,
         specialties: updatedProfile.specialties || [],
