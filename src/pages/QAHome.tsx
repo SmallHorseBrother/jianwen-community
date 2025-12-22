@@ -289,6 +289,9 @@ const QAHome: React.FC = () => {
                             <span>·</span>
                             <span>{formatDate(q.answered_at || q.created_at)}</span>
                             <span>👁 {q.view_count}</span>
+                            {(q.community_answer_count ?? 0) > 0 && (
+                              <span className="text-orange-500">💬 {q.community_answer_count} 条帮答</span>
+                            )}
                             {q.tags?.slice(0, 3).map((tag) => (
                               <span key={tag} className="text-blue-500">#{tag}</span>
                             ))}

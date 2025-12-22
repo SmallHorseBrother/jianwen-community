@@ -112,6 +112,7 @@ export interface Database {
           view_count: number;
           is_featured: boolean;
           answered_at: string | null;
+          community_answer_count: number; // 群友回答数量
           created_at: string;
           updated_at: string;
         };
@@ -127,6 +128,7 @@ export interface Database {
           view_count?: number;
           is_featured?: boolean;
           answered_at?: string | null;
+          community_answer_count?: number;
           created_at?: string;
           updated_at?: string;
         };
@@ -142,6 +144,37 @@ export interface Database {
           view_count?: number;
           is_featured?: boolean;
           answered_at?: string | null;
+          community_answer_count?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      // 群友帮答
+      community_answers: {
+        Row: {
+          id: string;
+          question_id: string;
+          user_id: string | null;
+          user_nickname: string;
+          content: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          question_id: string;
+          user_id?: string | null;
+          user_nickname: string;
+          content: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          question_id?: string;
+          user_id?: string | null;
+          user_nickname?: string;
+          content?: string;
           created_at?: string;
           updated_at?: string;
         };

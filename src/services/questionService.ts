@@ -292,3 +292,63 @@ export const updateQuestion = async (
   if (error) throw error;
   return data;
 };
+
+// ==================== 群友帮答功能 ====================
+
+type CommunityAnswer = Database["public"]["Tables"]["community_answers"]["Row"];
+type CommunityAnswerInsert =
+  Database["public"]["Tables"]["community_answers"]["Insert"];
+
+/**
+ * 获取某问题的所有群友回答
+ */
+export const getCommunityAnswers = async (
+  questionId: string,
+): Promise<CommunityAnswer[]> => {
+  const { data, error } = await supabase
+    .from("community_answers")
+    .select("*")
+    .eq("question_id", questionId)
+    .order("created_at", { ascending: true });
+
+  if (error) throw error;
+  return data || [];
+};
+
+/**
+ * 提交群友回答
+ */
+export const submitCommunityAnswer = async (
+  questionId: string,
+  content: string,
+  userId: string,
+  userNickname: string,
+): Promise<CommunityAnswer> => {
+  const { data, error } = await supabase
+    .from("community_answers")
+    .insert({
+      question_id: questionId,
+      user_id: userId,
+      user_nickname: userNickname,
+      content,
+    })
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+};
+
+/**
+ * 删除群友回答（仅限本人）
+ */
+export const deleteCommunityAnswer = async (
+  answerId: string,
+): Promise<void> => {
+  const { error } = await supabase
+    .from("community_answers")
+    .delete()
+    .eq("id", answerId);
+
+  if (error) throw error;
+};
