@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   Brain, Users, Wrench, User, LogOut, AlertCircle, 
-  Menu, X, ChevronDown, Dumbbell, BookOpen, Settings 
+  Menu, X, ChevronDown, Dumbbell, BookOpen, Settings, HelpCircle
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { checkIsAdmin } from '../../services/questionService';
@@ -35,11 +35,11 @@ const Header: React.FC = () => {
     (!user.learningInterests || user.learningInterests.length === 0)
   ) : false;
 
-  // V2.0 主导航
   const navItems = [
     { to: '/', label: '数字大脑', icon: Brain },
     { to: '/community', label: '社区广场', icon: Users },
     { to: '/tools', label: '工具箱', icon: Wrench },
+    { to: '/guide', label: '使用指南', icon: HelpCircle },
   ];
 
   // 归档页面

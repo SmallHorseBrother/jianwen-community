@@ -7,7 +7,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Dumbbell, FileText, Sparkles, ExternalLink, MessageSquarePlus, X, Send, User, MessageCircle } from 'lucide-react';
+import { Dumbbell, FileText, Sparkles, ExternalLink, MessageSquarePlus, X, Send, User, MessageCircle, UtensilsCrossed } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { submitSuggestion, getAllSuggestions } from '../services/suggestionService';
 import type { Database } from '../lib/database.types';
@@ -290,13 +290,31 @@ const Tools: React.FC = () => {
     },
 
     {
-      title: '会议/长文总结',
-      description: 'AI 驱动的会议记录和长文章智能总结',
+      title: '会议总结助手',
+      description: 'AI 驱动的会议记录智能总结，快速生成会议纪要',
       icon: <FileText className="w-8 h-8" />,
-      link: '/tools/summary',
-      isExternal: false,
+      link: 'https://minutemaster-ai-394979688664.us-west1.run.app',
+      isExternal: true,
       color: 'from-blue-500 to-indigo-600',
-      status: 'coming',
+      status: 'active',
+    },
+    {
+      title: '食物分析助手',
+      description: 'AI 智能识别食物，估算重量和营养成分',
+      icon: <UtensilsCrossed className="w-8 h-8" />,
+      link: 'https://nutrilens-ai-food-weight-nutrition-estimator-394979688664.us-west1.run.app',
+      isExternal: true,
+      color: 'from-orange-500 to-red-600',
+      status: 'active',
+    },
+    {
+      title: '健身计划助手',
+      description: 'AI 辅助制定个性化健身训练计划',
+      icon: <Sparkles className="w-8 h-8" />,
+      link: 'https://ai-coachlink-394979688664.us-west1.run.app',
+      isExternal: true,
+      color: 'from-violet-500 to-purple-600',
+      status: 'active',
     },
     {
       title: 'AI 助手',
