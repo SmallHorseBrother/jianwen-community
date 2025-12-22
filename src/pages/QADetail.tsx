@@ -51,13 +51,18 @@ const QADetail: React.FC = () => {
 
   const handleShare = async () => {
     const url = window.location.href;
+    // 生成分享文案：品牌 + 问题标题 + 状态 + 链接
+    const shareText = question 
+      ? `【健文社区】\n「${question.content.length > 50 ? question.content.substring(0, 50) + '...' : question.content}」\n\n${question.answer ? '✅ 马健文已回答' : '⏳ 等待回答'}${(question.community_answer_count ?? 0) > 0 ? ` · ${question.community_answer_count}条群友帮答` : ''}\n👉 ${url}`
+      : url;
+    
     try {
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(shareText);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      const input = document.createElement('input');
-      input.value = url;
+      const input = document.createElement('textarea');
+      input.value = shareText;
       document.body.appendChild(input);
       input.select();
       document.execCommand('copy');
