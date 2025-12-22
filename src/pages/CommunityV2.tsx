@@ -3,7 +3,7 @@
  * 点击名片可查看完整社交手册
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Users, Search, Sparkles, Target, 
@@ -12,6 +12,7 @@ import {
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import type { Database } from '../lib/database.types';
+import { formatGroupIdentity, calculateProfileCompleteness } from '../utils/profileUtils';
 
 type Profile = Database['public']['Tables']['profiles']['Row'];
 
@@ -44,18 +45,28 @@ const CommunityV2: React.FC = () => {
     }
   };
 
-  const filteredProfiles = profiles.filter((profile) => {
-    if (!searchQuery) return true;
+  // 按资料完善度排序并过滤搜索
+  const filteredProfiles = useMemo(() => {
+    // 首先按完善度排序
+    const sortedProfiles = [...profiles].sort((a, b) => {
+      return calculateProfileCompleteness(b) - calculateProfileCompleteness(a);
+    });
+    
+    // 然后进行搜索过滤
+    if (!searchQuery) return sortedProfiles;
     const query = searchQuery.toLowerCase();
-    return (
-      profile.nickname?.toLowerCase().includes(query) ||
-      profile.group_nickname?.toLowerCase().includes(query) ||
-      profile.group_identity?.toLowerCase().includes(query) ||
-      profile.tags?.some((tag) => tag.toLowerCase().includes(query)) ||
-      profile.skills_offering?.toLowerCase().includes(query) ||
-      profile.skills_seeking?.toLowerCase().includes(query)
-    );
-  });
+    return sortedProfiles.filter((profile) => {
+      const groupText = formatGroupIdentity(profile.group_identity);
+      return (
+        profile.nickname?.toLowerCase().includes(query) ||
+        profile.group_nickname?.toLowerCase().includes(query) ||
+        groupText.toLowerCase().includes(query) ||
+        profile.tags?.some((tag) => tag.toLowerCase().includes(query)) ||
+        profile.skills_offering?.toLowerCase().includes(query) ||
+        profile.skills_seeking?.toLowerCase().includes(query)
+      );
+    });
+  }, [profiles, searchQuery]);
 
   // 生成渐变色
   const getGradient = (id: string) => {
@@ -154,10 +165,10 @@ const CommunityV2: React.FC = () => {
                     )}
                   </div>
 
-                  {profile.group_identity && (
+                  {formatGroupIdentity(profile.group_identity) && (
                     <p className="text-sm text-gray-500 mb-2 flex items-center gap-1">
                       <MapPin className="w-3 h-3" />
-                      {profile.group_identity}
+                      {formatGroupIdentity(profile.group_identity)}
                     </p>
                   )}
 
@@ -288,10 +299,10 @@ const ProfileModal: React.FC<{
           </div>
 
           {/* 所属群组 */}
-          {profile.group_identity && (
+          {formatGroupIdentity(profile.group_identity) && (
             <p className="text-gray-500 mb-3 flex items-center gap-1">
               <MapPin className="w-4 h-4" />
-              {profile.group_identity}
+              {formatGroupIdentity(profile.group_identity)}
             </p>
           )}
 
