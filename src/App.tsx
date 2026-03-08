@@ -9,6 +9,8 @@ import LoginForm from './components/Auth/LoginForm';
 import RegisterForm from './components/Auth/RegisterForm';
 import ForgotPasswordForm from './components/Auth/ForgotPasswordForm';
 import Profile from './pages/Profile';
+import PersonalBrandPublic from './pages/PersonalBrandPublic';
+import PersonalBrandAdmin from './pages/PersonalBrandAdmin';
 
 
 // V2.0 新页面
@@ -63,6 +65,10 @@ const AppRoutes: React.FC = () => {
       
       {/* 工具箱 */}
       <Route path="/tools" element={<Layout><Tools /></Layout>} />
+
+      {/* 关于我 / 数字分身 */}
+      <Route path="/about" element={<Layout><PersonalBrandPublic /></Layout>} />
+      <Route path="/about/admin" element={<ProtectedRoute><Layout><PersonalBrandAdmin /></Layout></ProtectedRoute>} />
       
       {/* 使用指南 */}
       <Route path="/guide" element={<Layout><Guide /></Layout>} />

@@ -1,7 +1,7 @@
 /**
- * Q&A 主页 - 马健文的数字大脑
- * 左侧: 向我提问
- * 右侧: 问答列表
+ * 公开问答主页
+ * 左侧: 提交给真人回答的问题
+ * 右侧: 已公开的问答沉淀
  */
 
 import React, { useState, useEffect } from 'react';
@@ -118,11 +118,22 @@ const QAHome: React.FC = () => {
       <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-12 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">
-            🧠 马健文的数字大脑
+            公开问答广场
           </h1>
-          <p className="text-blue-100 text-lg max-w-2xl mx-auto">
-            有问题？尽管问！这里是我的公开知识库，你的问题可能帮助更多人。
+          <p className="text-blue-100 text-lg max-w-3xl mx-auto">
+            这里收录的是我真人回答后公开发布的问答内容。你的提问会先进入待回答列表，整理后沉淀到知识广场。
           </p>
+          <div className="mt-5 inline-flex flex-wrap items-center justify-center gap-3 text-sm">
+            <span className="rounded-full bg-white/10 px-4 py-2 text-blue-50">
+              这里是真人回答，不是即时 AI 回复
+            </span>
+            <Link
+              to="/about"
+              className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-white hover:bg-white/15 transition"
+            >
+              想和 AI 分身即时聊天，去关于我
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -133,15 +144,19 @@ const QAHome: React.FC = () => {
             <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-4">
               <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
                 <MessageCircle className="w-5 h-5 text-blue-600" />
-                向我提问
+                向我提交问题
               </h2>
+              <div className="mb-4 rounded-xl border border-blue-100 bg-blue-50 p-4 text-sm text-blue-800 leading-6">
+                这里的问题会由我真人筛选和回答，整理后公开展示在知识广场。
+                如果你想立即得到基于我资料的回答，可以去关于我页面和 AI 分身聊天。
+              </div>
 
               {user ? (
                 <form onSubmit={handleSubmitQuestion}>
                   <textarea
                     value={questionContent}
                     onChange={(e) => setQuestionContent(e.target.value)}
-                    placeholder="输入你的问题...&#10;&#10;例如：考研如何平衡学习和健身？"
+                    placeholder="输入你希望我真人回答的问题...&#10;&#10;例如：你是怎么平衡科研、健身和创业的？"
                     className="w-full h-32 p-4 border border-gray-200 rounded-xl resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
                     maxLength={500}
                   />
@@ -169,20 +184,20 @@ const QAHome: React.FC = () => {
                     ) : (
                       <>
                         <Send className="w-4 h-4" />
-                        提交问题
+                        提交给真人回答
                       </>
                     )}
                   </button>
                   {submitSuccess && (
                     <p className="mt-3 text-green-600 text-sm text-center">
-                      ✅ 问题已提交，等待回答中...
+                      ✅ 问题已进入待回答列表，后续会整理后公开发布。
                     </p>
                   )}
                 </form>
               ) : (
                 <div className="text-center py-6">
                   <User className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                  <p className="text-gray-500 mb-4">登录后即可提问</p>
+                  <p className="text-gray-500 mb-4">登录后即可提交真人问答</p>
                   <Link
                     to="/login"
                     className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition"
@@ -270,7 +285,7 @@ const QAHome: React.FC = () => {
             {/* 问答列表 */}
             <div>
               <h2 className="text-lg font-bold text-gray-800 mb-4">
-                {selectedTag ? `#${selectedTag} 相关问答` : '知识广场'}
+                {selectedTag ? `#${selectedTag} 相关问答` : '公开知识广场'}
               </h2>
 
               {loading ? (
@@ -282,7 +297,7 @@ const QAHome: React.FC = () => {
                 <div className="text-center py-12 bg-white rounded-xl">
                   <MessageCircle className="w-12 h-12 text-gray-300 mx-auto mb-3" />
                   <p className="text-gray-500">
-                    {searchQuery ? '没有找到相关问答' : '暂无问答，快来提第一个问题吧！'}
+                    {searchQuery ? '没有找到相关问答' : '暂无公开问答，欢迎提交你的第一个问题。'}
                   </p>
                 </div>
               ) : (

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { 
-  Brain, Users, Wrench, User, LogOut, AlertCircle, 
-  Menu, X, ChevronDown, Dumbbell, BookOpen, Settings, HelpCircle
+import {
+  Brain, Users, Wrench, User, LogOut, AlertCircle,
+  Menu, X, ChevronDown, Dumbbell, BookOpen, Settings, HelpCircle, Sparkles
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { checkIsAdmin } from '../../services/questionService';
@@ -36,7 +36,8 @@ const Header: React.FC = () => {
   ) : false;
 
   const navItems = [
-    { to: '/', label: '数字大脑', icon: Brain },
+    { to: '/about', label: '关于我', icon: Sparkles },
+    { to: '/', label: '公开问答', icon: Brain },
     { to: '/community', label: '社区广场', icon: Users },
     { to: '/tools', label: '工具箱', icon: Wrench },
     { to: '/guide', label: '使用指南', icon: HelpCircle },
@@ -133,6 +134,17 @@ const Header: React.FC = () => {
                     </span>
                   )}
                 </Link>
+                <Link
+                  to="/about/admin"
+                  className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    isActive('/about/admin')
+                      ? 'text-blue-600 bg-blue-50'
+                      : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                  }`}
+                >
+                  <Sparkles className="w-4 h-4" />
+                  <span>主页后台</span>
+                </Link>
                 {isAdmin && (
                   <Link
                     to="/admin"
@@ -216,6 +228,14 @@ const Header: React.FC = () => {
                   >
                     <User className="w-5 h-5" />
                     <span>我的资料</span>
+                  </Link>
+                  <Link
+                    to="/about/admin"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center space-x-2 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50"
+                  >
+                    <Sparkles className="w-5 h-5" />
+                    <span>主页后台</span>
                   </Link>
                   {isAdmin && (
                     <Link
