@@ -56,8 +56,10 @@ const AppRoutes: React.FC = () => {
   return (
     <Routes>
       {/* ========== V2.0 核心路由 ========== */}
-      {/* 主页 - Q&A 数字大脑 */}
-      <Route path="/" element={<Layout><QAHome /></Layout>} />
+      {/* 默认页 - 关于我 */}
+      <Route path="/" element={<Navigate to="/about" replace />} />
+      {/* 公开问答主页 */}
+      <Route path="/qa" element={<Layout><QAHome /></Layout>} />
       <Route path="/qa/:id" element={<Layout><QADetail /></Layout>} />
       
       {/* 社区广场 */}

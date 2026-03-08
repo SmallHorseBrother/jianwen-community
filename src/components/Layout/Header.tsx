@@ -37,7 +37,7 @@ const Header: React.FC = () => {
 
   const navItems = [
     { to: '/about', label: '关于我', icon: Sparkles },
-    { to: '/', label: '公开问答', icon: Brain },
+    { to: '/qa', label: '公开问答', icon: Brain },
     { to: '/community', label: '社区广场', icon: Users },
     { to: '/tools', label: '工具箱', icon: Wrench },
     { to: '/guide', label: '使用指南', icon: HelpCircle },
@@ -59,7 +59,7 @@ const Header: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/about" className="flex items-center space-x-2">
             <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
               <span className="text-white text-lg">🧠</span>
             </div>

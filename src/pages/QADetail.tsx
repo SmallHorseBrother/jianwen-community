@@ -166,7 +166,7 @@ const QADetail: React.FC = () => {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <p className="text-gray-500 text-lg mb-4">问答不存在或已被删除</p>
-          <Link to="/" className="text-blue-600 hover:text-blue-700 font-medium">
+          <Link to="/qa" className="text-blue-600 hover:text-blue-700 font-medium">
             返回首页
           </Link>
         </div>
@@ -345,7 +345,7 @@ const QADetail: React.FC = () => {
                 {question.tags.map((tag) => (
                   <Link
                     key={tag}
-                    to={`/?tag=${tag}`}
+                    to={`/qa?tag=${tag}`}
                     className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm hover:bg-blue-100 transition"
                   >
                     #{tag}
@@ -360,7 +360,7 @@ const QADetail: React.FC = () => {
         <div className="text-center mt-8">
           <p className="text-gray-500 text-sm mb-3">还有问题想问？</p>
           <Link
-            to="/"
+            to="/qa"
             className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition"
           >
             去提问

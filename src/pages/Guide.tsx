@@ -62,7 +62,7 @@ const Guide: React.FC = () => {
       icon: <MessageCircle className="w-6 h-6" />,
       title: 'Q&A 数字大脑',
       description: '向马健文提问，浏览精华问答。所有问答都会沉淀下来，随时可搜索查阅。群友也可以帮忙回答问题。',
-      link: '/',
+      link: '/qa',
       color: 'from-blue-500 to-indigo-600'
     },
     {
@@ -217,7 +217,7 @@ const Guide: React.FC = () => {
               立即注册
             </Link>
             <Link
-              to="/"
+              to="/about"
               className="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-6 py-3 rounded-xl font-semibold hover:bg-white/10 transition-colors"
             >
               返回首页

@@ -312,7 +312,7 @@ const PersonalBrandPublic: React.FC = () => {
                 这里是 AI 分身即时回答，不会自动进入公开问答广场
               </span>
               <Link
-                to="/"
+                to="/qa"
                 className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-white hover:bg-white/15 transition"
               >
                 想提交真人回答的问题，去公开问答
