@@ -32,7 +32,6 @@ const SECTION_ORDER: PersonalEntryType[] = [
   'paper',
   'venture',
   'project',
-  'custom',
 ];
 
 const SECTION_META: Record<
