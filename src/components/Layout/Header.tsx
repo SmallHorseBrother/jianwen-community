@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Brain, Users, Wrench, User, LogOut, AlertCircle,
-  Menu, X, ChevronDown, Dumbbell, BookOpen, Settings, HelpCircle, Sparkles
+  Menu, X, ChevronDown, Dumbbell, BookOpen, Settings, HelpCircle, Sparkles, ListTodo
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { checkIsAdmin } from '../../services/questionService';
@@ -40,6 +40,7 @@ const Header: React.FC = () => {
     { to: '/qa', label: '公开问答', icon: Brain },
     { to: '/community', label: '社区广场', icon: Users },
     { to: '/tools', label: '工具箱', icon: Wrench },
+    { to: '/tasks', label: '任务面板', icon: ListTodo },
     { to: '/guide', label: '使用指南', icon: HelpCircle },
   ];
 
