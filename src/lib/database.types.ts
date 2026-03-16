@@ -18,6 +18,16 @@ export type SuggestionStatus =
   | "completed"
   | "rejected";
 
+export type TaskType = "group_summary" | "follow_up" | "todo" | "other";
+
+export type TaskStatus =
+  | "pending"
+  | "in_progress"
+  | "completed"
+  | "cancelled";
+
+export type TaskPriority = "low" | "medium" | "high" | "urgent";
+
 export interface Database {
   public: {
     Tables: {
@@ -256,6 +266,68 @@ export interface Database {
             | "completed"
             | "rejected";
           admin_notes?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      feedback_tasks: {
+        Row: {
+          id: string;
+          title: string;
+          summary: string | null;
+          type: TaskType;
+          status: TaskStatus;
+          priority: TaskPriority;
+          source_group: string;
+          source_session_id: string | null;
+          source_from: string | null;
+          source_to: string | null;
+          evidence_json: Json;
+          tags_json: Json;
+          owner: string | null;
+          progress_note: string | null;
+          is_public: boolean;
+          created_by: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          title: string;
+          summary?: string | null;
+          type?: TaskType;
+          status?: TaskStatus;
+          priority?: TaskPriority;
+          source_group: string;
+          source_session_id?: string | null;
+          source_from?: string | null;
+          source_to?: string | null;
+          evidence_json?: Json;
+          tags_json?: Json;
+          owner?: string | null;
+          progress_note?: string | null;
+          is_public?: boolean;
+          created_by?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          title?: string;
+          summary?: string | null;
+          type?: TaskType;
+          status?: TaskStatus;
+          priority?: TaskPriority;
+          source_group?: string;
+          source_session_id?: string | null;
+          source_from?: string | null;
+          source_to?: string | null;
+          evidence_json?: Json;
+          tags_json?: Json;
+          owner?: string | null;
+          progress_note?: string | null;
+          is_public?: boolean;
+          created_by?: string | null;
           created_at?: string;
           updated_at?: string;
         };

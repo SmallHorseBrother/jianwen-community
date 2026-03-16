@@ -21,6 +21,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import CommunityV2 from './pages/CommunityV2';
 import Tools from './pages/Tools';
 import Guide from './pages/Guide';
+import Tasks from './pages/Tasks';
 
 // 旧页面 (归档)
 import Home from './pages/Home';
@@ -74,6 +75,7 @@ const AppRoutes: React.FC = () => {
       
       {/* 使用指南 */}
       <Route path="/guide" element={<Layout><Guide /></Layout>} />
+      <Route path="/tasks" element={<Layout><Tasks /></Layout>} />
       
       {/* 个人资料 */}
       <Route path="/profile" element={<ProtectedRoute><Layout><Profile /></Layout></ProtectedRoute>} />
