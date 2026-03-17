@@ -5,6 +5,10 @@ type TaskType = 'group_summary' | 'follow_up' | 'todo' | 'other'
 type TaskStatus = 'pending' | 'in_progress' | 'completed' | 'cancelled'
 type TaskPriority = 'low' | 'medium' | 'high' | 'urgent'
 
+type TaskExecutionMode = 'manual' | 'ai_assist' | 'auto_code'
+type CodingAgent = 'codex' | 'claude'
+type TaskExecutionStatus = 'not_ready' | 'ready' | 'queued' | 'running' | 'review_required' | 'done' | 'failed'
+
 interface TaskMutationPayload {
   action?: 'create' | 'update' | 'delete'
   id?: string
@@ -19,6 +23,11 @@ interface TaskMutationPayload {
   source_to?: string | null
   owner?: string | null
   progress_note?: string | null
+  project_name?: string | null
+  project_path?: string | null
+  execution_mode?: string | null
+  coding_agent?: string | null
+  execution_status?: string | null
   is_public?: boolean | null
 }
 
@@ -31,6 +40,9 @@ const corsHeaders = {
 const allowedTypes = new Set<TaskType>(['group_summary', 'follow_up', 'todo', 'other'])
 const allowedStatuses = new Set<TaskStatus>(['pending', 'in_progress', 'completed', 'cancelled'])
 const allowedPriorities = new Set<TaskPriority>(['low', 'medium', 'high', 'urgent'])
+const allowedExecutionModes = new Set<TaskExecutionMode>(['manual', 'ai_assist', 'auto_code'])
+const allowedCodingAgents = new Set<CodingAgent>(['codex', 'claude'])
+const allowedExecutionStatuses = new Set<TaskExecutionStatus>(['not_ready', 'ready', 'queued', 'running', 'review_required', 'done', 'failed'])
 
 const jsonResponse = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), {
@@ -60,6 +72,24 @@ const normalizePriority = (value: unknown, fallback: TaskPriority = 'medium'): T
   const candidate = asTrimmedString(value)
   if (!candidate) return fallback
   return allowedPriorities.has(candidate as TaskPriority) ? (candidate as TaskPriority) : null
+}
+
+const normalizeExecutionMode = (value: unknown, fallback: TaskExecutionMode = 'manual'): TaskExecutionMode | null => {
+  const candidate = asTrimmedString(value)
+  if (!candidate) return fallback
+  return allowedExecutionModes.has(candidate as TaskExecutionMode) ? (candidate as TaskExecutionMode) : null
+}
+
+const normalizeCodingAgent = (value: unknown): CodingAgent | null => {
+  const candidate = asTrimmedString(value)
+  if (!candidate) return null
+  return allowedCodingAgents.has(candidate as CodingAgent) ? (candidate as CodingAgent) : null
+}
+
+const normalizeExecutionStatus = (value: unknown, fallback: TaskExecutionStatus = 'not_ready'): TaskExecutionStatus | null => {
+  const candidate = asTrimmedString(value)
+  if (!candidate) return fallback
+  return allowedExecutionStatuses.has(candidate as TaskExecutionStatus) ? (candidate as TaskExecutionStatus) : null
 }
 
 serve(async (req) => {
@@ -114,6 +144,15 @@ serve(async (req) => {
         return jsonResponse({ error: 'is_public must be a boolean' }, 400)
       }
 
+      const executionMode = normalizeExecutionMode(body.execution_mode)
+      if (!executionMode) return jsonResponse({ error: 'Invalid execution mode' }, 400)
+      const codingAgent = body.coding_agent === undefined ? null : normalizeCodingAgent(body.coding_agent)
+      if (body.coding_agent !== undefined && body.coding_agent !== null && !codingAgent) {
+        return jsonResponse({ error: 'Invalid coding agent' }, 400)
+      }
+      const executionStatus = normalizeExecutionStatus(body.execution_status)
+      if (!executionStatus) return jsonResponse({ error: 'Invalid execution status' }, 400)
+
       const insertPayload = {
         title,
         summary: asTrimmedString(body.summary),
@@ -126,6 +165,11 @@ serve(async (req) => {
         source_to: asTrimmedString(body.source_to),
         owner: asTrimmedString(body.owner),
         progress_note: asTrimmedString(body.progress_note),
+        project_name: asTrimmedString(body.project_name),
+        project_path: asTrimmedString(body.project_path),
+        execution_mode: executionMode,
+        coding_agent: codingAgent,
+        execution_status: executionStatus,
         is_public: typeof body.is_public === 'boolean' ? body.is_public : true,
         created_by: null,
       }
@@ -185,6 +229,23 @@ serve(async (req) => {
     }
     if (body.owner !== undefined) updates.owner = asTrimmedString(body.owner)
     if (body.progress_note !== undefined) updates.progress_note = asTrimmedString(body.progress_note)
+    if (body.project_name !== undefined) updates.project_name = asTrimmedString(body.project_name)
+    if (body.project_path !== undefined) updates.project_path = asTrimmedString(body.project_path)
+    if (body.execution_mode !== undefined) {
+      const executionMode = normalizeExecutionMode(body.execution_mode)
+      if (!executionMode) return jsonResponse({ error: 'Invalid execution mode' }, 400)
+      updates.execution_mode = executionMode
+    }
+    if (body.coding_agent !== undefined) {
+      const codingAgent = body.coding_agent === null ? null : normalizeCodingAgent(body.coding_agent)
+      if (body.coding_agent !== null && !codingAgent) return jsonResponse({ error: 'Invalid coding agent' }, 400)
+      updates.coding_agent = codingAgent
+    }
+    if (body.execution_status !== undefined) {
+      const executionStatus = normalizeExecutionStatus(body.execution_status)
+      if (!executionStatus) return jsonResponse({ error: 'Invalid execution status' }, 400)
+      updates.execution_status = executionStatus
+    }
     if (body.is_public !== undefined) {
       if (typeof body.is_public !== 'boolean') {
         return jsonResponse({ error: 'is_public must be a boolean' }, 400)

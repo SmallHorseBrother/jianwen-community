@@ -27,6 +27,16 @@ export type TaskStatus =
   | "cancelled";
 
 export type TaskPriority = "low" | "medium" | "high" | "urgent";
+export type TaskExecutionMode = "manual" | "ai_assist" | "auto_code";
+export type CodingAgent = "codex" | "claude";
+export type TaskExecutionStatus =
+  | "not_ready"
+  | "ready"
+  | "queued"
+  | "running"
+  | "review_required"
+  | "done"
+  | "failed";
 
 export interface Database {
   public: {
@@ -286,6 +296,11 @@ export interface Database {
           tags_json: Json;
           owner: string | null;
           progress_note: string | null;
+          project_name: string | null;
+          project_path: string | null;
+          execution_mode: TaskExecutionMode;
+          coding_agent: CodingAgent | null;
+          execution_status: TaskExecutionStatus;
           is_public: boolean;
           created_by: string | null;
           created_at: string;
@@ -306,6 +321,11 @@ export interface Database {
           tags_json?: Json;
           owner?: string | null;
           progress_note?: string | null;
+          project_name?: string | null;
+          project_path?: string | null;
+          execution_mode?: TaskExecutionMode;
+          coding_agent?: CodingAgent | null;
+          execution_status?: TaskExecutionStatus;
           is_public?: boolean;
           created_by?: string | null;
           created_at?: string;
@@ -326,6 +346,11 @@ export interface Database {
           tags_json?: Json;
           owner?: string | null;
           progress_note?: string | null;
+          project_name?: string | null;
+          project_path?: string | null;
+          execution_mode?: TaskExecutionMode;
+          coding_agent?: CodingAgent | null;
+          execution_status?: TaskExecutionStatus;
           is_public?: boolean;
           created_by?: string | null;
           created_at?: string;

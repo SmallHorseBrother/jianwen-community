@@ -11,7 +11,10 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "task-runner": "node scripts/task-runner.mjs",
+    "task-runner:once": "node scripts/task-runner.mjs --once",
+    "task-runner:dry": "node scripts/task-runner.mjs --once --dry-run"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.50.3",

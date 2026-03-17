@@ -1,18 +1,41 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { AlertCircle, ListTodo, Plus, RefreshCw, Save, Trash2, X } from 'lucide-react';
+import { AlertCircle, ListTodo, Plus, RefreshCw, Save, Trash2, X, Bot, Copy } from 'lucide-react';
 import { supabase } from '../lib/supabase';
-import type { Database, TaskPriority, TaskStatus, TaskType } from '../lib/database.types';
+import type {
+  CodingAgent,
+  Database,
+  TaskExecutionMode,
+  TaskExecutionStatus,
+  TaskPriority,
+  TaskStatus,
+  TaskType,
+} from '../lib/database.types';
 
 type TaskRow = Database['public']['Tables']['feedback_tasks']['Row'];
 
 type EditableTaskFields = Pick<
   TaskRow,
-  'title' | 'summary' | 'type' | 'status' | 'priority' | 'owner' | 'progress_note' | 'is_public'
+  | 'title'
+  | 'summary'
+  | 'type'
+  | 'status'
+  | 'priority'
+  | 'owner'
+  | 'progress_note'
+  | 'project_name'
+  | 'project_path'
+  | 'execution_mode'
+  | 'coding_agent'
+  | 'execution_status'
+  | 'is_public'
 >;
 
 const statusOptions: TaskStatus[] = ['pending', 'in_progress', 'completed', 'cancelled'];
 const priorityOptions: TaskPriority[] = ['low', 'medium', 'high', 'urgent'];
 const typeOptions: TaskType[] = ['group_summary', 'follow_up', 'todo', 'other'];
+const executionModeOptions: TaskExecutionMode[] = ['manual', 'ai_assist', 'auto_code'];
+const codingAgentOptions: CodingAgent[] = ['codex', 'claude'];
+const executionStatusOptions: TaskExecutionStatus[] = ['not_ready', 'ready', 'queued', 'running', 'review_required', 'done', 'failed'];
 
 const statusClassMap: Record<string, string> = {
   pending: 'bg-yellow-100 text-yellow-800',
@@ -58,6 +81,11 @@ const buildDraftFromTask = (task: TaskRow): EditableTaskFields => ({
   priority: task.priority,
   owner: task.owner,
   progress_note: task.progress_note,
+  project_name: task.project_name,
+  project_path: task.project_path,
+  execution_mode: task.execution_mode,
+  coding_agent: task.coding_agent,
+  execution_status: task.execution_status,
   is_public: task.is_public,
 });
 
@@ -66,6 +94,14 @@ const taskUpdateToken = import.meta.env.VITE_TASK_UPDATE_TOKEN as string | undef
 
 const sortTasks = (rows: TaskRow[]) =>
   [...rows].sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime());
+
+const buildExecutionPrompt = (task: EditableTaskFields, selectedTask: TaskRow) => {
+  const projectName = task.project_name ?? '未指定项目';
+  const projectPath = task.project_path ?? '未指定路径';
+  const codingAgent = task.coding_agent ?? '未指定代理';
+
+  return `你现在要处理一个来自任务系统的开发任务。\n\n任务标题：${task.title}\n任务摘要：${task.summary ?? '无'}\n任务类型：${task.type}\n优先级：${task.priority}\n负责人：${task.owner ?? '未指定'}\n所属项目：${projectName}\n项目路径：${projectPath}\n建议代理：${codingAgent}\n任务 ID：${selectedTask.id}\n来源群：${selectedTask.source_group}\n\n请先阅读并理解项目结构，只在该项目路径内工作。完成后请输出：\n1. 修改了哪些文件\n2. 为什么这样改\n3. 如何验证\n4. 是否还有风险或待人工确认项\n\n如果需求不清晰，先列出你的理解与假设，再开始改动。`;
+};
 
 const Tasks: React.FC = () => {
   const [tasks, setTasks] = useState<TaskRow[]>([]);
@@ -147,6 +183,11 @@ const Tasks: React.FC = () => {
       draft.priority !== selectedTask.priority ||
       (draft.owner ?? null) !== (selectedTask.owner ?? null) ||
       (draft.progress_note ?? null) !== (selectedTask.progress_note ?? null) ||
+      (draft.project_name ?? null) !== (selectedTask.project_name ?? null) ||
+      (draft.project_path ?? null) !== (selectedTask.project_path ?? null) ||
+      draft.execution_mode !== selectedTask.execution_mode ||
+      (draft.coding_agent ?? null) !== (selectedTask.coding_agent ?? null) ||
+      draft.execution_status !== selectedTask.execution_status ||
       draft.is_public !== selectedTask.is_public
     );
   }, [draft, selectedTask]);
@@ -190,6 +231,11 @@ const Tasks: React.FC = () => {
       priority: draft.priority,
       owner: normalizeOptionalText(draft.owner ?? ''),
       progress_note: normalizeOptionalText(draft.progress_note ?? ''),
+      project_name: normalizeOptionalText(draft.project_name ?? ''),
+      project_path: normalizeOptionalText(draft.project_path ?? ''),
+      execution_mode: draft.execution_mode,
+      coding_agent: draft.coding_agent,
+      execution_status: draft.execution_status,
       is_public: draft.is_public,
     };
 
@@ -226,6 +272,11 @@ const Tasks: React.FC = () => {
         source_group: 'manual',
         owner: '',
         progress_note: '',
+        project_name: '',
+        project_path: '',
+        execution_mode: 'manual',
+        coding_agent: null,
+        execution_status: 'not_ready',
         is_public: true,
       });
 
@@ -284,6 +335,32 @@ const Tasks: React.FC = () => {
     if (!selectedTask) return;
     setDraft(buildDraftFromTask(selectedTask));
     setSaveMessage(null);
+  };
+
+  const applyAgentPreset = (agent: CodingAgent) => {
+    setDraft((current) =>
+      current
+        ? {
+            ...current,
+            execution_mode: 'auto_code',
+            coding_agent: agent,
+            execution_status: current.project_path ? 'ready' : 'not_ready',
+          }
+        : current,
+    );
+    setSaveMessage(agent === 'codex' ? '已填入 Codex 执行配置，记得保存。' : '已填入 Claude 执行配置，记得保存。');
+  };
+
+  const handleCopyPrompt = async () => {
+    if (!selectedTask || !draft) return;
+
+    try {
+      const prompt = buildExecutionPrompt(draft, selectedTask);
+      await navigator.clipboard.writeText(prompt);
+      setSaveMessage('执行提示词已复制');
+    } catch (error) {
+      setSaveMessage(`复制失败：${error instanceof Error ? error.message : '未知错误'}`);
+    }
   };
 
   return (
@@ -368,6 +445,9 @@ const Tasks: React.FC = () => {
                           <div className="text-xs text-gray-500 mt-2 flex flex-wrap gap-x-4 gap-y-1">
                             <span>类型：{task.type}</span>
                             <span>负责人：{task.owner ?? '-'}</span>
+                            <span>项目：{task.project_name ?? '-'}</span>
+                            <span>执行：{task.execution_mode}</span>
+                            <span>状态：{task.execution_status}</span>
                             <span>群：{task.source_group ?? '-'}</span>
                             <span>{task.is_public ? '公开' : '私有'}</span>
                           </div>
@@ -514,6 +594,126 @@ const Tasks: React.FC = () => {
                           </option>
                         ))}
                       </select>
+                    </div>
+                  </div>
+
+                  <div className="border-t border-gray-200 pt-5 space-y-4">
+                    <div className="flex items-center justify-between gap-3 flex-wrap">
+                      <h3 className="text-sm font-semibold text-gray-900">项目归属与执行配置</h3>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <button
+                          type="button"
+                          onClick={() => applyAgentPreset('codex')}
+                          className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-300 text-sm text-gray-700 hover:bg-gray-50"
+                        >
+                          <Bot className="w-4 h-4" />
+                          交给 Codex
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => applyAgentPreset('claude')}
+                          className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-300 text-sm text-gray-700 hover:bg-gray-50"
+                        >
+                          <Bot className="w-4 h-4" />
+                          交给 Claude
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            void handleCopyPrompt();
+                          }}
+                          className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-300 text-sm text-gray-700 hover:bg-gray-50"
+                        >
+                          <Copy className="w-4 h-4" />
+                          复制执行提示词
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">所属项目</label>
+                        <input
+                          type="text"
+                          value={draft.project_name ?? ''}
+                          onChange={(e) => updateDraft('project_name', e.target.value)}
+                          placeholder="例如：jianwen-community"
+                          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">项目路径</label>
+                        <input
+                          type="text"
+                          value={draft.project_path ?? ''}
+                          onChange={(e) => updateDraft('project_path', e.target.value)}
+                          placeholder="例如：D:/files/jianwen-community"
+                          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">执行模式</label>
+                        <select
+                          value={draft.execution_mode}
+                          onChange={(e) => updateDraft('execution_mode', e.target.value as TaskExecutionMode)}
+                          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-base bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          style={{ fontSize: '16px' }}
+                        >
+                          {executionModeOptions.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Coding Agent</label>
+                        <select
+                          value={draft.coding_agent ?? ''}
+                          onChange={(e) => updateDraft('coding_agent', (e.target.value || null) as CodingAgent | null)}
+                          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-base bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          style={{ fontSize: '16px' }}
+                        >
+                          <option value="">未指定</option>
+                          {codingAgentOptions.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div className="md:col-span-2">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">执行状态</label>
+                        <select
+                          value={draft.execution_status}
+                          onChange={(e) => updateDraft('execution_status', e.target.value as TaskExecutionStatus)}
+                          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-base bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          style={{ fontSize: '16px' }}
+                        >
+                          {executionStatusOptions.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="rounded-xl bg-gray-50 border border-gray-200 p-4">
+                      <div className="flex items-center justify-between gap-3 mb-2">
+                        <h4 className="text-sm font-semibold text-gray-900">执行提示词预览</h4>
+                        <span className="text-xs text-gray-500">当前仅生成提示词与执行配置，下一步再接本地 runner</span>
+                      </div>
+                      <textarea
+                        readOnly
+                        value={selectedTask && draft ? buildExecutionPrompt(draft, selectedTask) : ''}
+                        rows={10}
+                        className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700"
+                      />
                     </div>
                   </div>
 
