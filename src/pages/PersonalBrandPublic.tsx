@@ -259,32 +259,34 @@ const PersonalBrandPublic: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      <section className="rounded-[2rem] overflow-hidden bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 text-white">
-        <div className="px-6 py-10 md:px-10 md:py-14">
+      <section className="hero-cyber rounded-[2rem] text-white">
+        <div className="relative z-10 px-6 py-10 md:px-10 md:py-16">
           <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-sm text-blue-100 mb-5">
+            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-1.5 text-sm text-cyan-100 mb-5 shadow-lg shadow-cyan-950/20">
               <Sparkles className="w-4 h-4" />
               关于我与 AI 分身
             </div>
-            <h1 className="text-3xl md:text-5xl font-bold">{bundle.profile.displayName || '未命名主页'}</h1>
+            <h1 className="text-4xl md:text-6xl font-black tracking-tight bg-gradient-to-r from-white via-cyan-100 to-fuchsia-100 bg-clip-text text-transparent">
+              {bundle.profile.displayName || '未命名主页'}
+            </h1>
             {bundle.profile.headline && (
-              <p className="mt-4 text-lg md:text-xl text-blue-100">{bundle.profile.headline}</p>
+              <p className="mt-4 text-lg md:text-xl text-cyan-100/90">{bundle.profile.headline}</p>
             )}
             {bundle.profile.intro && (
-              <p className="mt-5 max-w-3xl text-blue-50/90 leading-8 whitespace-pre-wrap">
+              <p className="mt-5 max-w-3xl text-slate-200/90 leading-8 whitespace-pre-wrap">
                 {bundle.profile.intro}
               </p>
             )}
 
-            <div className="mt-6 flex flex-wrap gap-3 text-sm text-blue-100">
+            <div className="mt-6 flex flex-wrap gap-3 text-sm text-cyan-100">
               {bundle.profile.location && (
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/10 px-3 py-1.5">
                   <MapPin className="w-4 h-4" />
                   {bundle.profile.location}
                 </span>
               )}
               {bundle.profile.expertise.map((item) => (
-                <span key={item} className="rounded-full bg-white/10 px-3 py-1.5">
+                <span key={item} className="rounded-full border border-white/10 bg-white/10 px-3 py-1.5">
                   {item}
                 </span>
               ))}
@@ -298,7 +300,7 @@ const PersonalBrandPublic: React.FC = () => {
                     href={url}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm hover:bg-white/15 transition"
+                    className="inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-sm hover:bg-cyan-300/15 transition"
                   >
                     <ExternalLink className="w-4 h-4" />
                     {label}
@@ -308,12 +310,12 @@ const PersonalBrandPublic: React.FC = () => {
             )}
 
             <div className="mt-6 flex flex-wrap gap-3 text-sm">
-              <span className="rounded-full bg-white/10 px-4 py-2 text-blue-50">
+              <span className="rounded-full border border-white/10 bg-white/10 px-4 py-2 text-slate-100">
                 这里是 AI 分身即时回答，不会自动进入公开问答广场
               </span>
               <Link
                 to="/qa"
-                className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-white hover:bg-white/15 transition"
+                className="rounded-full border border-cyan-300/30 bg-white/10 px-4 py-2 text-cyan-50 hover:bg-cyan-300/15 transition"
               >
                 想提交真人回答的问题，去公开问答
               </Link>

@@ -113,23 +113,23 @@ const QAHome: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+    <div className="page-aurora min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-12 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">
+      <div className="hero-cyber rounded-[2rem] text-white py-12 px-4">
+        <div className="relative z-10 max-w-6xl mx-auto text-center">
+          <h1 className="text-3xl md:text-5xl font-black tracking-tight mb-4 bg-gradient-to-r from-white via-cyan-100 to-fuchsia-100 bg-clip-text text-transparent">
             公开问答广场
           </h1>
-          <p className="text-blue-100 text-lg max-w-3xl mx-auto">
+          <p className="text-slate-200 text-lg max-w-3xl mx-auto">
             这里收录的是我真人回答后公开发布的问答内容。你的提问会先进入待回答列表，整理后沉淀到知识广场。
           </p>
           <div className="mt-5 inline-flex flex-wrap items-center justify-center gap-3 text-sm">
-            <span className="rounded-full bg-white/10 px-4 py-2 text-blue-50">
+            <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-cyan-50">
               这里是真人回答，不是即时 AI 回复
             </span>
             <Link
               to="/about"
-              className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-white hover:bg-white/15 transition"
+              className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-white hover:bg-cyan-300/15 transition"
             >
               想和 AI 分身即时聊天，去关于我
             </Link>
@@ -141,7 +141,7 @@ const QAHome: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* 左侧: 提问区 */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-4">
+            <div className="glass-panel rounded-2xl p-6 sticky top-24">
               <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
                 <MessageCircle className="w-5 h-5 text-blue-600" />
                 向我提交问题
@@ -177,7 +177,7 @@ const QAHome: React.FC = () => {
                   <button
                     type="submit"
                     disabled={submitting || !questionContent.trim()}
-                    className="w-full mt-4 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white font-medium py-3 px-4 rounded-xl transition flex items-center justify-center gap-2"
+                    className="neon-button w-full mt-4 disabled:opacity-50 text-white font-semibold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2"
                   >
                     {submitting ? (
                       <span className="animate-spin">⏳</span>

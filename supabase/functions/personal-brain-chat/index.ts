@@ -152,7 +152,7 @@ serve(async (req: Request) => {
     const apiKey = Deno.env.get('DASHSCOPE_API_KEY');
     const baseUrl =
       Deno.env.get('DASHSCOPE_BASE_URL') ?? 'https://coding.dashscope.aliyuncs.com/v1';
-    const model = Deno.env.get('DASHSCOPE_MODEL') ?? 'kimi-k2.5';
+    const model = Deno.env.get('DASHSCOPE_MODEL')?.trim() || 'deepseek-v4-flash';
 
     if (!apiKey) {
       throw new Error('Missing DASHSCOPE_API_KEY secret');

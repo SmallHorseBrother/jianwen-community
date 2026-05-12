@@ -106,20 +106,19 @@ const Guide: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50 pb-20">
+    <div className="page-aurora min-h-screen pb-20">
       {/* Hero */}
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-700 text-white py-16 px-4 shadow-lg">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="text-6xl mb-6">📖</div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">
+      <div className="hero-cyber rounded-[2rem] text-white py-16 px-4">
+        <div className="relative z-10 max-w-4xl mx-auto text-center">
+          <h1 className="text-3xl md:text-5xl font-black tracking-tight mb-4 bg-gradient-to-r from-white via-cyan-100 to-fuchsia-100 bg-clip-text text-transparent">
             欢迎来到健文社区
           </h1>
-          <p className="text-indigo-100 text-lg mb-8 max-w-2xl mx-auto">
+          <p className="text-slate-200 text-lg mb-8 max-w-2xl mx-auto">
             这是马健文（枭马葛）粉丝的专属社区，让我们一起健身、学习、成长
           </p>
           <Link
             to="/register"
-            className="inline-flex items-center gap-2 bg-white text-indigo-600 px-6 py-3 rounded-xl font-semibold hover:bg-indigo-50 transition-colors shadow-lg"
+            className="neon-button inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all"
           >
             立即加入
             <ArrowRight className="w-5 h-5" />
@@ -206,7 +205,7 @@ const Guide: React.FC = () => {
         </section>
 
         {/* 底部 CTA */}
-        <section className="text-center bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-8 text-white">
+        <section className="hero-cyber text-center rounded-2xl p-8 text-white">
           <h2 className="text-2xl font-bold mb-4">准备好了吗？</h2>
           <p className="text-indigo-100 mb-6">注册账号，开始你的见闻社区之旅</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

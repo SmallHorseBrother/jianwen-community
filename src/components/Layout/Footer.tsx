@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-50 border-t border-gray-100 mt-auto">
+    <footer className="relative z-10 mt-auto border-t border-cyan-300/10 bg-slate-950/50 backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* 赞赏区域 */}
         <div className="flex flex-col items-center mb-6">
@@ -19,8 +19,8 @@ const Footer: React.FC = () => {
         </div>
 
         {/* 分割线 */}
-        <div className="border-t border-gray-200 pt-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
+        <div className="border-t border-cyan-300/10 pt-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-400">
             <div className="flex items-center gap-1">
               Made with <Heart className="w-4 h-4 text-pink-500 fill-pink-500" /> by 小马哥
             </div>
@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
                 href="https://space.bilibili.com/495933903" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 hover:text-blue-600 transition-colors"
+                className="flex items-center gap-1 hover:text-cyan-300 transition-colors"
               >
                 B站: 枭马葛
                 <ExternalLink className="w-3 h-3" />

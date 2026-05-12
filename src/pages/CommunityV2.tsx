@@ -116,21 +116,21 @@ const CommunityV2: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
+    <div className="page-aurora min-h-screen pb-20">
       {/* 顶部导航与Hero */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm">
+      <div className="sticky top-0 z-10 border-b border-cyan-300/10 bg-slate-950/55 shadow-2xl shadow-cyan-950/20 backdrop-blur-2xl">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex items-center justify-between py-4">
-            <h1 className="text-xl font-bold text-gray-900 hidden md:block">🤝 社区广场</h1>
+            <h1 className="text-xl font-black text-white hidden md:block">社区广场</h1>
             
             {/* Tab 切换 */}
-            <div className="flex bg-gray-100 p-1 rounded-xl mx-auto md:mx-0">
+            <div className="flex bg-white/10 p-1 rounded-2xl mx-auto md:mx-0 ring-1 ring-white/10">
               <button
                 onClick={() => setActiveTab('moments')}
                 className={`flex items-center gap-2 px-6 py-2 rounded-lg text-sm font-medium transition-all ${
                   activeTab === 'moments' 
-                    ? 'bg-white text-blue-600 shadow-sm' 
-                    : 'text-gray-500 hover:text-gray-900'
+                    ? 'bg-cyan-300/15 text-cyan-100 shadow-sm' 
+                    : 'text-slate-400 hover:text-white'
                 }`}
               >
                 <Activity className="w-4 h-4" />
@@ -140,8 +140,8 @@ const CommunityV2: React.FC = () => {
                 onClick={() => setActiveTab('partners')}
                 className={`flex items-center gap-2 px-6 py-2 rounded-lg text-sm font-medium transition-all ${
                   activeTab === 'partners' 
-                    ? 'bg-white text-purple-600 shadow-sm' 
-                    : 'text-gray-500 hover:text-gray-900'
+                    ? 'bg-fuchsia-300/15 text-fuchsia-100 shadow-sm' 
+                    : 'text-slate-400 hover:text-white'
                 }`}
               >
                 <Users className="w-4 h-4" />
@@ -153,7 +153,7 @@ const CommunityV2: React.FC = () => {
             {activeTab === 'moments' && (
               <button
                 onClick={() => user ? setShowCreateModal(true) : alert('请先登录')}
-                className="hidden md:flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors"
+                className="neon-button hidden md:flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all"
               >
                 <Camera className="w-4 h-4" />
                 发布打卡

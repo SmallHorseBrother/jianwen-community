@@ -115,8 +115,8 @@ const ForgotPasswordForm: React.FC = () => {
   // 成功页面
   if (step === 'success') {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 py-12 px-4">
-        <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center">
+      <div className="auth-shell flex items-center justify-center py-12 px-4">
+        <div className="glass-panel max-w-md w-full rounded-3xl p-8 text-center">
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <Check className="w-8 h-8 text-green-600" />
           </div>
@@ -126,7 +126,7 @@ const ForgotPasswordForm: React.FC = () => {
           </p>
           <button
             onClick={() => navigate('/login')}
-            className="w-full py-3 px-4 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition"
+            className="neon-button w-full py-3 px-4 font-semibold rounded-xl transition-all"
           >
             返回登录
           </button>
@@ -136,9 +136,9 @@ const ForgotPasswordForm: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 py-12 px-4">
+    <div className="auth-shell flex items-center justify-center py-12 px-4">
       <div className="max-w-md w-full">
-        <div className="bg-white rounded-2xl shadow-xl p-8">
+        <div className="glass-panel rounded-3xl p-8">
           {/* 返回按钮 */}
           <Link
             to="/login"
@@ -204,7 +204,7 @@ const ForgotPasswordForm: React.FC = () => {
               <button
                 type="submit"
                 disabled={isLoading || !captchaValid}
-                className="w-full py-3 px-4 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
+                className="neon-button w-full py-3 px-4 font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               >
                 {isLoading ? '验证中...' : '下一步'}
               </button>
@@ -270,7 +270,7 @@ const ForgotPasswordForm: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="flex-1 py-3 px-4 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
+                  className="neon-button flex-1 py-3 px-4 font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
                   {isLoading ? '重置中...' : '重置密码'}
                 </button>

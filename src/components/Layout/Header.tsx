@@ -56,27 +56,32 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-white shadow-lg border-b border-gray-200 sticky top-0 z-50">
+    <header className="sticky top-0 z-50 border-b border-cyan-300/10 bg-slate-950/55 shadow-2xl shadow-cyan-950/20 backdrop-blur-2xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/about" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white text-lg">🧠</span>
+          <Link to="/about" className="group flex items-center space-x-3">
+            <div className="relative w-10 h-10 rounded-2xl bg-gradient-to-br from-cyan-400 via-blue-500 to-fuchsia-500 p-[1px] shadow-lg shadow-cyan-500/30">
+              <div className="flex h-full w-full items-center justify-center rounded-2xl bg-slate-950/70">
+                <Sparkles className="h-5 w-5 text-cyan-200 transition-transform group-hover:rotate-12" />
+              </div>
             </div>
-            <span className="text-xl font-bold text-gray-900">马健文</span>
+            <div className="leading-tight">
+              <span className="block text-lg font-black tracking-wide text-white">马健文</span>
+              <span className="hidden text-[11px] uppercase tracking-[0.28em] text-cyan-200/70 sm:block">Jianwen OS</span>
+            </div>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center space-x-1">
+          <nav className="hidden md:flex items-center gap-1 rounded-2xl border border-white/10 bg-white/[0.04] p-1 shadow-inner shadow-white/5">
             {navItems.map(item => (
               <Link
                 key={item.to}
                 to={item.to}
-                className={`flex items-center space-x-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`flex items-center space-x-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all ${
                   isActive(item.to)
-                    ? 'text-blue-600 bg-blue-50'
-                    : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                    ? 'bg-cyan-300/15 text-cyan-100 shadow-sm shadow-cyan-500/10 ring-1 ring-cyan-300/20'
+                    : 'text-slate-300 hover:bg-white/10 hover:text-white'
                 }`}
               >
                 <item.icon className="w-4 h-4" />
@@ -89,18 +94,18 @@ const Header: React.FC = () => {
               <button
                 onClick={() => setArchiveMenuOpen(!archiveMenuOpen)}
                 onBlur={() => setTimeout(() => setArchiveMenuOpen(false), 150)}
-                className="flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-colors"
+                className="flex items-center space-x-1 px-3 py-2 rounded-xl text-sm font-medium text-slate-400 hover:bg-white/10 hover:text-white transition-colors"
               >
                 <span>归档</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${archiveMenuOpen ? 'rotate-180' : ''}`} />
               </button>
               {archiveMenuOpen && (
-                <div className="absolute top-full right-0 mt-1 w-40 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50">
+                <div className="absolute top-full right-0 mt-2 w-44 rounded-2xl border border-cyan-300/10 bg-slate-950/90 py-2 shadow-2xl shadow-cyan-950/30 backdrop-blur-xl z-50">
                   {archiveItems.map(item => (
                     <Link
                       key={item.to}
                       to={item.to}
-                      className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                      className="flex items-center space-x-2 px-4 py-2 text-sm text-slate-300 hover:bg-cyan-300/10 hover:text-cyan-100"
                     >
                       <item.icon className="w-4 h-4" />
                       <span>{item.label}</span>
@@ -117,10 +122,10 @@ const Header: React.FC = () => {
               <div className="hidden md:flex items-center space-x-3">
                 <Link
                   to="/profile"
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
+                  className={`flex items-center space-x-2 px-3 py-2 rounded-xl transition-all ${
                     isProfileIncomplete 
-                      ? 'text-yellow-600 hover:bg-yellow-50' 
-                      : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                      ? 'text-yellow-200 hover:bg-yellow-300/10' 
+                      : 'text-slate-300 hover:bg-white/10 hover:text-cyan-100'
                   }`}
                 >
                   {isProfileIncomplete ? (
@@ -130,17 +135,17 @@ const Header: React.FC = () => {
                   )}
                   <span>{user?.nickname}</span>
                   {isProfileIncomplete && (
-                    <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full">
+                    <span className="text-xs bg-yellow-300/15 text-yellow-100 px-2 py-0.5 rounded-full ring-1 ring-yellow-300/20">
                       待完善
                     </span>
                   )}
                 </Link>
                 <Link
                   to="/about/admin"
-                  className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`flex items-center space-x-1 px-3 py-2 rounded-xl text-sm font-medium transition-all ${
                     isActive('/about/admin')
-                      ? 'text-blue-600 bg-blue-50'
-                      : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                      ? 'text-cyan-100 bg-cyan-300/15'
+                      : 'text-slate-300 hover:text-cyan-100 hover:bg-white/10'
                   }`}
                 >
                   <Sparkles className="w-4 h-4" />
@@ -149,10 +154,10 @@ const Header: React.FC = () => {
                 {isAdmin && (
                   <Link
                     to="/admin"
-                    className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    className={`flex items-center space-x-1 px-3 py-2 rounded-xl text-sm font-medium transition-all ${
                       isActive('/admin')
-                        ? 'text-purple-600 bg-purple-50'
-                        : 'text-purple-600 hover:bg-purple-50'
+                        ? 'text-fuchsia-100 bg-fuchsia-300/15'
+                        : 'text-fuchsia-200 hover:bg-fuchsia-300/10'
                     }`}
                   >
                     <Settings className="w-4 h-4" />
@@ -161,7 +166,7 @@ const Header: React.FC = () => {
                 )}
                 <button
                   onClick={logout}
-                  className="flex items-center space-x-1 text-gray-500 hover:text-red-600 px-2 py-2 rounded-lg hover:bg-red-50 transition-colors"
+                  className="flex items-center space-x-1 text-slate-400 hover:text-red-200 px-2 py-2 rounded-xl hover:bg-red-500/10 transition-colors"
                 >
                   <LogOut className="w-4 h-4" />
                 </button>
@@ -169,7 +174,7 @@ const Header: React.FC = () => {
             ) : (
               <Link
                 to="/login"
-                className="hidden md:block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                className="neon-button hidden md:block px-4 py-2 rounded-xl transition-all text-sm font-semibold"
               >
                 登录
               </Link>
@@ -178,7 +183,7 @@ const Header: React.FC = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100"
+              className="md:hidden p-2 rounded-xl text-slate-200 hover:bg-white/10"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -187,17 +192,17 @@ const Header: React.FC = () => {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-100">
+          <div className="md:hidden py-4 border-t border-cyan-300/10">
             <nav className="space-y-1">
               {navItems.map(item => (
                 <Link
                   key={item.to}
                   to={item.to}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center space-x-2 px-4 py-3 rounded-lg text-sm font-medium ${
+                  className={`flex items-center space-x-2 px-4 py-3 rounded-xl text-sm font-medium ${
                     isActive(item.to)
-                      ? 'text-blue-600 bg-blue-50'
-                      : 'text-gray-700 hover:bg-gray-50'
+                      ? 'text-cyan-100 bg-cyan-300/15'
+                      : 'text-slate-300 hover:bg-white/10'
                   }`}
                 >
                   <item.icon className="w-5 h-5" />
@@ -205,14 +210,14 @@ const Header: React.FC = () => {
                 </Link>
               ))}
               
-              <div className="pt-2 mt-2 border-t border-gray-100">
-                <p className="px-4 py-2 text-xs text-gray-400 uppercase">归档</p>
+              <div className="pt-2 mt-2 border-t border-cyan-300/10">
+                <p className="px-4 py-2 text-xs text-slate-500 uppercase tracking-[0.24em]">归档</p>
                 {archiveItems.map(item => (
                   <Link
                     key={item.to}
                     to={item.to}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center space-x-2 px-4 py-3 text-sm text-gray-600 hover:bg-gray-50"
+                    className="flex items-center space-x-2 px-4 py-3 text-sm text-slate-300 hover:bg-white/10 rounded-xl"
                   >
                     <item.icon className="w-5 h-5" />
                     <span>{item.label}</span>
@@ -221,11 +226,11 @@ const Header: React.FC = () => {
               </div>
 
               {isAuthenticated ? (
-                <div className="pt-2 mt-2 border-t border-gray-100">
+                <div className="pt-2 mt-2 border-t border-cyan-300/10">
                   <Link
                     to="/profile"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center space-x-2 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50"
+                    className="flex items-center space-x-2 px-4 py-3 text-sm text-slate-300 hover:bg-white/10 rounded-xl"
                   >
                     <User className="w-5 h-5" />
                     <span>我的资料</span>
@@ -233,7 +238,7 @@ const Header: React.FC = () => {
                   <Link
                     to="/about/admin"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center space-x-2 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50"
+                    className="flex items-center space-x-2 px-4 py-3 text-sm text-slate-300 hover:bg-white/10 rounded-xl"
                   >
                     <Sparkles className="w-5 h-5" />
                     <span>主页后台</span>
@@ -242,7 +247,7 @@ const Header: React.FC = () => {
                     <Link
                       to="/admin/qa"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center space-x-2 px-4 py-3 text-sm text-purple-600 hover:bg-purple-50"
+                      className="flex items-center space-x-2 px-4 py-3 text-sm text-fuchsia-200 hover:bg-fuchsia-300/10 rounded-xl"
                     >
                       <Settings className="w-5 h-5" />
                       <span>管理后台</span>
@@ -250,18 +255,18 @@ const Header: React.FC = () => {
                   )}
                   <button
                     onClick={() => { logout(); setMobileMenuOpen(false); }}
-                    className="flex items-center space-x-2 px-4 py-3 text-sm text-red-600 hover:bg-red-50 w-full"
+                    className="flex items-center space-x-2 px-4 py-3 text-sm text-red-200 hover:bg-red-500/10 w-full rounded-xl"
                   >
                     <LogOut className="w-5 h-5" />
                     <span>退出登录</span>
                   </button>
                 </div>
               ) : (
-                <div className="pt-2 mt-2 border-t border-gray-100">
+                <div className="pt-2 mt-2 border-t border-cyan-300/10">
                   <Link
                     to="/login"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block mx-4 text-center bg-blue-600 text-white py-3 rounded-lg font-medium"
+                    className="neon-button block mx-4 text-center py-3 rounded-xl font-semibold"
                   >
                     登录
                   </Link>

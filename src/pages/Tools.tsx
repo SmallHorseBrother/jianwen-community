@@ -347,14 +347,14 @@ const Tools: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50 pb-20">
+    <div className="page-aurora min-h-screen pb-20">
       {/* Hero */}
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-700 text-white py-12 px-4 shadow-lg mb-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4 flex items-center justify-center gap-3">
-            <span role="img" aria-label="tools">🛠️</span> 工具箱
+      <div className="hero-cyber rounded-[2rem] text-white py-12 px-4 mb-8">
+        <div className="relative z-10 max-w-4xl mx-auto text-center">
+          <h1 className="text-3xl md:text-5xl font-black tracking-tight mb-4 flex items-center justify-center gap-3 bg-gradient-to-r from-white via-cyan-100 to-fuchsia-100 bg-clip-text text-transparent">
+            工具箱
           </h1>
-          <p className="text-indigo-100 text-lg opacity-90">
+          <p className="text-slate-200 text-lg opacity-90">
             实用工具集合，提升你的效率与体验
           </p>
         </div>
@@ -380,9 +380,9 @@ const Tools: React.FC = () => {
                 </span>
               </h2>
             </div>
-            <button
+          <button
               onClick={handleOpenModal}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-colors shadow-sm hover:shadow-md active:scale-95"
+              className="neon-button flex items-center gap-2 px-4 py-2 text-white rounded-xl transition-all active:scale-95"
             >
               <MessageSquarePlus className="w-4 h-4" />
               <span>我有好点子</span>
