@@ -14,19 +14,30 @@
     "test:coverage": "vitest run --coverage",
     "task-runner": "node scripts/task-runner.mjs",
     "task-runner:once": "node scripts/task-runner.mjs --once",
-    "task-runner:dry": "node scripts/task-runner.mjs --once --dry-run"
+    "task-runner:dry": "node scripts/task-runner.mjs --once --dry-run",
+    "import:question-planet": "node scripts/import-question-planet.mjs",
+    "import:question-planet:dry": "node scripts/import-question-planet.mjs --dry-run",
+    "questions:embed": "node scripts/generate-question-embeddings.mjs",
+    "questions:embed:dry": "node scripts/generate-question-embeddings.mjs --dry-run",
+    "questions:edges": "node scripts/build-question-edges.mjs",
+    "questions:edges:dry": "node scripts/build-question-edges.mjs --dry-run",
+    "questions:refresh": "node scripts/refresh-question-semantics.mjs",
+    "questions:refresh:dry": "node scripts/refresh-question-semantics.mjs --dry-run"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.50.3",
     "@types/react-router-dom": "^5.3.3",
+    "@types/three": "^0.184.1",
     "jszip": "^3.10.1",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^7.6.3"
+    "react-router-dom": "^7.6.3",
+    "three": "^0.184.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
+    "@tailwindcss/forms": "^0.5.11",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.1",
     "@testing-library/user-event": "^14.6.1",

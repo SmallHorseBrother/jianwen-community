@@ -1,136 +1,125 @@
-import React, { useState, useEffect } from 'react';
-import { RefreshCw } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Check, RefreshCw, ShieldCheck } from 'lucide-react';
 
 interface MathCaptchaProps {
   onVerify: (isValid: boolean) => void;
   className?: string;
 }
 
-const MathCaptcha: React.FC<MathCaptchaProps> = ({ onVerify, className = '' }) => {
-  const [problem, setProblem] = useState({ question: '', answer: 0 });
-  const [userAnswer, setUserAnswer] = useState('');
-  const [isValid, setIsValid] = useState(false);
-  const [showFeedback, setShowFeedback] = useState(false);
+const createTarget = () => Math.floor(Math.random() * 24) + 62;
 
-  // 生成随机数学题
-  const generateProblem = () => {
-    const operators = ['+', '-', '*'];
-    const operator = operators[Math.floor(Math.random() * operators.length)];
-    
-    let num1: number, num2: number, answer: number, question: string;
-    
-    switch (operator) {
-      case '+':
-        num1 = Math.floor(Math.random() * 50) + 1;
-        num2 = Math.floor(Math.random() * 50) + 1;
-        answer = num1 + num2;
-        question = `${num1} + ${num2}`;
-        break;
-      case '-':
-        num1 = Math.floor(Math.random() * 50) + 25; // 确保结果为正
-        num2 = Math.floor(Math.random() * 24) + 1;
-        answer = num1 - num2;
-        question = `${num1} - ${num2}`;
-        break;
-      case '*':
-        num1 = Math.floor(Math.random() * 12) + 1;
-        num2 = Math.floor(Math.random() * 12) + 1;
-        answer = num1 * num2;
-        question = `${num1} × ${num2}`;
-        break;
-      default:
-        num1 = 1;
-        num2 = 1;
-        answer = 2;
-        question = '1 + 1';
-    }
-    
-    setProblem({ question, answer });
-    setUserAnswer('');
+const MathCaptcha: React.FC<MathCaptchaProps> = ({ onVerify, className = '' }) => {
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const [target, setTarget] = useState(createTarget);
+  const [progress, setProgress] = useState(0);
+  const [dragging, setDragging] = useState(false);
+  const [isValid, setIsValid] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const resetChallenge = () => {
+    setTarget(createTarget());
+    setProgress(0);
+    setDragging(false);
     setIsValid(false);
-    setShowFeedback(false);
+    setStatus('idle');
     onVerify(false);
   };
 
-  // 验证答案
-  const checkAnswer = (value: string) => {
-    const numValue = parseInt(value);
-    if (isNaN(numValue)) {
-      setIsValid(false);
-      setShowFeedback(false);
-      onVerify(false);
-      return;
-    }
-    
-    const valid = numValue === problem.answer;
+  const getProgress = (clientX: number) => {
+    const rect = trackRef.current?.getBoundingClientRect();
+    if (!rect) return progress;
+
+    const nextProgress = ((clientX - rect.left) / rect.width) * 100;
+    return Math.min(100, Math.max(0, nextProgress));
+  };
+
+  const updateProgress = (clientX: number) => {
+    setProgress(getProgress(clientX));
+  };
+
+  const finishDrag = (clientX?: number) => {
+    if (!dragging || isValid) return;
+
+    const finalProgress = typeof clientX === 'number' ? getProgress(clientX) : progress;
+    const valid = Math.abs(finalProgress - target) <= 4.5;
+    setProgress(finalProgress);
+    setDragging(false);
     setIsValid(valid);
-    setShowFeedback(true);
+    setStatus(valid ? 'success' : 'error');
     onVerify(valid);
-    
-    // 3秒后隐藏反馈
-    setTimeout(() => setShowFeedback(false), 3000);
-  };
 
-  // 处理输入变化
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setUserAnswer(value);
-    
-    if (value.trim() !== '') {
-      checkAnswer(value);
-    } else {
-      setIsValid(false);
-      setShowFeedback(false);
-      onVerify(false);
+    if (!valid) {
+      window.setTimeout(() => {
+        setProgress(0);
+        setStatus('idle');
+      }, 650);
     }
   };
 
-  // 组件挂载时生成验证码
+  const startDrag = (event: React.PointerEvent<HTMLButtonElement>) => {
+    if (isValid) return;
+
+    event.currentTarget.setPointerCapture(event.pointerId);
+    setDragging(true);
+    setStatus('idle');
+    updateProgress(event.clientX);
+  };
+
+  const handleMove = (event: React.PointerEvent<HTMLButtonElement>) => {
+    if (!dragging || isValid) return;
+    updateProgress(event.clientX);
+  };
+
   useEffect(() => {
-    generateProblem();
-  }, []);
+    onVerify(isValid);
+  }, [isValid, onVerify]);
 
   return (
-    <div className={`space-y-2 ${className}`}>
-      <label className="block text-sm font-medium text-gray-700">
-        数学验证码
-      </label>
-      <div className="flex items-center space-x-2">
-        <div className="flex-1 flex items-center space-x-2">
-          <div className="bg-gray-100 px-4 py-2 rounded-lg border-2 border-dashed border-gray-300 font-mono text-lg font-bold text-gray-800 min-w-[120px] text-center">
-            {problem.question} = ?
-          </div>
-          <input
-            type="text"
-            value={userAnswer}
-            onChange={handleInputChange}
-            placeholder="答案"
-            className={`w-20 px-3 py-2 border rounded-lg text-center font-mono text-lg focus:outline-none focus:ring-2 ${
-              showFeedback
-                ? isValid
-                  ? 'border-green-500 bg-green-50 focus:ring-green-500'
-                  : 'border-red-500 bg-red-50 focus:ring-red-500'
-                : 'border-gray-300 focus:ring-blue-500'
-            }`}
-          />
-        </div>
+    <div className={`space-y-3 ${className}`}>
+      <div className="flex items-center justify-between gap-3">
+        <label className="auth-label">安全验证</label>
         <button
           type="button"
-          onClick={generateProblem}
-          className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-          title="刷新验证码"
+          onClick={resetChallenge}
+          className="captcha-mini-action"
+          title="刷新验证"
+          aria-label="刷新验证"
         >
           <RefreshCw className="w-4 h-4" />
         </button>
       </div>
-      
-      {showFeedback && (
-        <div className={`text-sm ${isValid ? 'text-green-600' : 'text-red-600'}`}>
-          {isValid ? '✓ 验证通过' : '✗ 答案错误，请重试'}
+
+      <div className={`captcha-slider ${status === 'success' ? 'is-success' : ''} ${status === 'error' ? 'is-error' : ''}`}>
+        <div ref={trackRef} className="captcha-track">
+          <div className="captcha-fill" style={{ width: `${progress}%` }} />
+          <div className="captcha-target" style={{ left: `${target}%` }} />
+          <div className="captcha-track-label">
+            {isValid ? '验证通过' : '拖到目标区'}
+          </div>
+          <button
+            type="button"
+            className="captcha-handle"
+            style={{ left: `${Math.min(94, Math.max(6, progress))}%` }}
+            onPointerDown={startDrag}
+            onPointerMove={handleMove}
+            onPointerUp={(event) => finishDrag(event.clientX)}
+            onPointerCancel={() => finishDrag()}
+            aria-label="拖动完成安全验证"
+          >
+            {isValid ? <Check className="w-5 h-5" /> : <ShieldCheck className="w-5 h-5" />}
+          </button>
         </div>
-      )}
+      </div>
+
+      <p className={`text-xs ${status === 'error' ? 'text-red-300' : status === 'success' ? 'text-emerald-300' : 'text-slate-400'}`}>
+        {status === 'error'
+          ? '没有对准目标区，请再试一次。'
+          : status === 'success'
+            ? '已确认是真人操作。'
+            : '将滑块停在蓝色高亮区域内即可继续。'}
+      </p>
     </div>
   );
 };
 
-export default MathCaptcha; 
+export default MathCaptcha;

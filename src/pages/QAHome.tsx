@@ -1,385 +1,679 @@
 /**
- * 公开问答主页
- * 左侧: 提交给真人回答的问题
- * 右侧: 已公开的问答沉淀
+ * 问题星球
+ * 视频引流入口 + 全渠道问题地图
  */
 
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { MessageCircle, Search, Tag, Star, ChevronRight, Send, User } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
-import { getPublishedQuestions, submitQuestion, getAllTags } from '../services/questionService';
-import AppreciationCard from '../components/Common/AppreciationCard';
-import type { Database } from '../lib/database.types';
+import React, { useEffect, useMemo, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import {
+	ArrowUpRight,
+	CheckCircle,
+	Clock,
+	Eye,
+	Filter,
+	MessageCircle,
+	Search,
+	Send,
+	Sparkles,
+	Tag,
+	Users,
+	Zap,
+} from "lucide-react";
+import { useAuth } from "../contexts/AuthContext";
+import MathCaptcha from "../components/Common/MathCaptcha";
+import QuestionStarMap from "../components/QA/QuestionStarMap";
+import {
+	QUESTION_TOPICS,
+	getAllTags,
+	getPublishedQuestions,
+	getQuestionStars,
+	getQuestionStats,
+	markSameQuestion,
+	normalizeQuestionTopic,
+	submitQuestion,
+	type QuestionEdge,
+	type QuestionStats,
+} from "../services/questionService";
+import type { Database } from "../lib/database.types";
+import { findSimilarQuestions, type SimilarQuestion } from "../utils/questionSimilarity";
 
-type Question = Database['public']['Tables']['questions']['Row'];
+type Question = Database["public"]["Tables"]["questions"]["Row"];
+
+const PAGE_SIZE = 24;
+const SUBMIT_RATE_KEY = "jw_question_submit_last_at";
+
+const topicCopy: Record<string, string> = {
+	"街头健身": "引体、双力臂、训练计划",
+	"疼痛康复": "肩肘腕腰与恢复策略",
+	"学习科研": "读博、英语、时间管理",
+	"个人成长": "执行力、MBTI、心态",
+	"AI/产品": "产品、工具、大模型",
+	"自媒体/创业": "账号、内容、流量",
+	"社区事务": "进群、咨询、协作",
+	"其他": "暂未归类的问题",
+};
+
+const topicAccent: Record<string, string> = {
+	"街头健身": "from-cyan-300/25 to-blue-500/10 text-cyan-100 border-cyan-300/25",
+	"疼痛康复": "from-emerald-300/20 to-teal-500/10 text-emerald-100 border-emerald-300/25",
+	"学习科研": "from-blue-300/20 to-indigo-500/10 text-blue-100 border-blue-300/25",
+	"个人成长": "from-pink-300/20 to-rose-500/10 text-pink-100 border-pink-300/25",
+	"AI/产品": "from-violet-300/22 to-purple-500/10 text-violet-100 border-violet-300/25",
+	"自媒体/创业": "from-amber-300/20 to-orange-500/10 text-amber-100 border-amber-300/25",
+	"社区事务": "from-rose-300/20 to-red-500/10 text-rose-100 border-rose-300/25",
+	"其他": "from-slate-300/15 to-slate-500/10 text-slate-100 border-slate-300/20",
+};
+
+const formatDate = (dateStr: string) => {
+	const date = new Date(dateStr);
+	return date.toLocaleDateString("zh-CN", { month: "short", day: "numeric" });
+};
+
+const compactNumber = (value: number) => {
+	if (value >= 10000) return `${(value / 10000).toFixed(1)}万`;
+	return value.toLocaleString("zh-CN");
+};
+
+const canSubmitNow = () => {
+	const last = Number(window.localStorage.getItem(SUBMIT_RATE_KEY) || 0);
+	return Date.now() - last > 60_000;
+};
 
 const QAHome: React.FC = () => {
-  const { user } = useAuth();
-  const [questions, setQuestions] = useState<Question[]>([]);
-  const [featuredQuestions, setFeaturedQuestions] = useState<Question[]>([]);
-  const [tags, setTags] = useState<string[]>([]);
-  const [selectedTag, setSelectedTag] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [loadingMore, setLoadingMore] = useState(false);
-  const [offset, setOffset] = useState(0);
-  const [hasMore, setHasMore] = useState(false);
-  const PAGE_SIZE = 20;
+	const { user } = useAuth();
+	const [searchParams, setSearchParams] = useSearchParams();
+	const initialTag = searchParams.get("tag");
 
-  // 提问表单状态
-  const [questionContent, setQuestionContent] = useState('');
-  const [isAnonymous, setIsAnonymous] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
+	const [questions, setQuestions] = useState<Question[]>([]);
+	const [stars, setStars] = useState<Question[]>([]);
+	const [starEdges, setStarEdges] = useState<QuestionEdge[]>([]);
+	const [tags, setTags] = useState<string[]>([]);
+	const [stats, setStats] = useState<QuestionStats | null>(null);
+	const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
+	const [selectedTag, setSelectedTag] = useState<string | null>(initialTag);
+	const [searchQuery, setSearchQuery] = useState("");
+	const [sort, setSort] = useState<"default" | "same" | "source" | "latest">(
+		"default",
+	);
+	const [loading, setLoading] = useState(true);
+	const [loadingMore, setLoadingMore] = useState(false);
+	const [offset, setOffset] = useState(0);
+	const [hasMore, setHasMore] = useState(false);
+	const [sameToast, setSameToast] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadData();
-  }, [selectedTag, searchQuery]);
+	const [questionContent, setQuestionContent] = useState("");
+	const [questionTopic, setQuestionTopic] = useState<string>("街头健身");
+	const [similarQuestions, setSimilarQuestions] = useState<SimilarQuestion[]>([]);
+	const [isAnonymous, setIsAnonymous] = useState(true);
+	const [captchaValid, setCaptchaValid] = useState(false);
+	const [honeypot, setHoneypot] = useState("");
+	const [submitting, setSubmitting] = useState(false);
+	const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  const loadData = async (isLoadMore = false) => {
-    try {
-      if (isLoadMore) {
-        setLoadingMore(true);
-      } else {
-        setLoading(true);
-      }
+	useEffect(() => {
+		loadInitialData();
+	}, []);
 
-      const currentOffset = isLoadMore ? offset : 0;
+	useEffect(() => {
+		loadQuestionData(false);
+	}, [selectedTopic, selectedTag, searchQuery, sort]);
 
-      const [questionsResult, featuredResult, tagsResult] = await Promise.all([
-        getPublishedQuestions({ 
-          limit: PAGE_SIZE, 
-          offset: currentOffset,
-          tag: selectedTag || undefined,
-          searchQuery: searchQuery || undefined 
-        }),
-        // Only fetch featured and tags on initial load
-        !isLoadMore ? getPublishedQuestions({ featuredOnly: true, limit: 5 }) : Promise.resolve(null),
-        !isLoadMore ? getAllTags() : Promise.resolve(null),
-      ]);
+	const loadInitialData = async () => {
+		try {
+			const [statsResult, tagsResult] = await Promise.all([
+				getQuestionStats(),
+				getAllTags(),
+			]);
+			setStats(statsResult);
+			setTags(tagsResult);
+		} catch (error) {
+			console.error("加载问题星球统计失败:", error);
+		}
+	};
 
-      if (isLoadMore) {
-        setQuestions(prev => [...prev, ...questionsResult.questions]);
-      } else {
-        setQuestions(questionsResult.questions);
-        if (featuredResult) setFeaturedQuestions(featuredResult.questions);
-        if (tagsResult) setTags(tagsResult);
-      }
+	useEffect(() => {
+		setSimilarQuestions(
+			findSimilarQuestions(questionContent, stars.concat(questions), {
+				topic: questionTopic,
+				tags: [questionTopic],
+				limit: 4,
+				minScore: 0.16,
+			}),
+		);
+	}, [questionContent, questionTopic, stars, questions]);
 
-      // Check if there are more questions
-      setHasMore(currentOffset + questionsResult.questions.length < questionsResult.total);
-      setOffset(currentOffset + questionsResult.questions.length);
+	const loadQuestionData = async (isLoadMore: boolean) => {
+		try {
+			if (isLoadMore) {
+				setLoadingMore(true);
+			} else {
+				setLoading(true);
+			}
 
-    } catch (error) {
-      console.error('加载数据失败:', error);
-    } finally {
-      setLoading(false);
-      setLoadingMore(false);
-    }
-  };
+			const currentOffset = isLoadMore ? offset : 0;
+			const [questionsResult, starsResult] = await Promise.all([
+				getPublishedQuestions({
+					limit: PAGE_SIZE,
+					offset: currentOffset,
+					topic: selectedTopic || undefined,
+					tag: selectedTag || undefined,
+					searchQuery: searchQuery || undefined,
+					sort,
+				}),
+				!isLoadMore
+					? getQuestionStars({
+						limit: 5000,
+						topic: selectedTopic || undefined,
+						tag: selectedTag || undefined,
+						searchQuery: searchQuery || undefined,
+					})
+					: Promise.resolve(null),
+			]);
 
-  const handleLoadMore = () => {
-    loadData(true);
-  };
+			if (isLoadMore) {
+				setQuestions((prev) => [...prev, ...questionsResult.questions]);
+			} else {
+				setQuestions(questionsResult.questions);
+				if (starsResult) {
+					setStars(starsResult.questions);
+					setStarEdges(starsResult.edges);
+				}
+			}
 
-  const handleSubmitQuestion = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!questionContent.trim()) return;
+			setHasMore(
+				currentOffset + questionsResult.questions.length < questionsResult.total,
+			);
+			setOffset(currentOffset + questionsResult.questions.length);
+		} catch (error) {
+			console.error("加载问题失败:", error);
+		} finally {
+			setLoading(false);
+			setLoadingMore(false);
+		}
+	};
 
-    try {
-      setSubmitting(true);
-      await submitQuestion(questionContent.trim(), {
-        isAnonymous,
-        askerId: user?.id,
-        askerNickname: user?.nickname || '用户',
-      });
-      setQuestionContent('');
-      setSubmitSuccess(true);
-      // 提交成功后刷新列表
-      loadData();
-      setTimeout(() => setSubmitSuccess(false), 3000);
-    } catch (error) {
-      console.error('提交问题失败:', error);
-      alert('提交失败，请稍后重试');
-    } finally {
-      setSubmitting(false);
-    }
-  };
+	const statCards = useMemo(
+		() => [
+			{ label: "收录问题", value: stats ? compactNumber(stats.total) : "2,800+" },
+			{ label: "来源渠道", value: stats ? compactNumber(Math.max(stats.sourcePlatformCount, 6)) : "6" },
+			{ label: "已点亮", value: stats ? compactNumber(stats.answered) : "0" },
+			{ label: "累计同问", value: stats ? compactNumber(stats.totalSameQuestions) : "0" },
+		],
+		[stats],
+	);
 
-  const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
-  };
+	const updateQuestionSameCount = (questionId: string) => {
+		const bump = (question: Question) =>
+			question.id === questionId
+				? {
+					...question,
+					same_question_count: (question.same_question_count || 0) + 1,
+				}
+				: question;
+		setQuestions((prev) => prev.map(bump));
+		setStars((prev) => prev.map(bump));
+		setStats((prev) =>
+			prev
+				? { ...prev, totalSameQuestions: prev.totalSameQuestions + 1 }
+				: prev,
+		);
+	};
 
-  return (
-    <div className="page-aurora min-h-screen">
-      {/* Hero Section */}
-      <div className="hero-cyber rounded-[2rem] text-white py-12 px-4">
-        <div className="relative z-10 max-w-6xl mx-auto text-center">
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight mb-4 bg-gradient-to-r from-white via-cyan-100 to-fuchsia-100 bg-clip-text text-transparent">
-            公开问答广场
-          </h1>
-          <p className="text-slate-200 text-lg max-w-3xl mx-auto">
-            这里收录的是我真人回答后公开发布的问答内容。你的提问会先进入待回答列表，整理后沉淀到知识广场。
-          </p>
-          <div className="mt-5 inline-flex flex-wrap items-center justify-center gap-3 text-sm">
-            <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-cyan-50">
-              这里是真人回答，不是即时 AI 回复
-            </span>
-            <Link
-              to="/about"
-              className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-white hover:bg-cyan-300/15 transition"
-            >
-              想和 AI 分身即时聊天，去关于我
-            </Link>
-          </div>
-        </div>
-      </div>
+	const handleSameQuestion = async (question: Question) => {
+		try {
+			const result = await markSameQuestion(question.id, user?.id);
+			if (result.inserted) {
+				updateQuestionSameCount(question.id);
+				setSameToast("已加入同问热度");
+			} else {
+				setSameToast("这个问题已经记录过你的同问");
+			}
+			setTimeout(() => setSameToast(null), 2200);
+		} catch (error) {
+			console.error("同问失败:", error);
+			setSameToast("同问记录失败，请稍后再试");
+			setTimeout(() => setSameToast(null), 2200);
+		}
+	};
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* 左侧: 提问区 */}
-          <div className="lg:col-span-1">
-            <div className="glass-panel rounded-2xl p-6 sticky top-24">
-              <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <MessageCircle className="w-5 h-5 text-blue-600" />
-                向我提交问题
-              </h2>
-              <div className="mb-4 rounded-xl border border-blue-100 bg-blue-50 p-4 text-sm text-blue-800 leading-6">
-                这里的问题会由我真人筛选和回答，整理后公开展示在知识广场。
-                如果你想立即得到基于我资料的回答，可以去关于我页面和 AI 分身聊天。
-              </div>
+	const handleTopicSelect = (topic: string | null) => {
+		setSelectedTopic(topic);
+		setSelectedTag(null);
+		setSearchParams({});
+	};
 
-              {user ? (
-                <form onSubmit={handleSubmitQuestion}>
-                  <textarea
-                    value={questionContent}
-                    onChange={(e) => setQuestionContent(e.target.value)}
-                    placeholder="输入你希望我真人回答的问题...&#10;&#10;例如：你是怎么平衡科研、健身和创业的？"
-                    className="w-full h-32 p-4 border border-gray-200 rounded-xl resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                    maxLength={500}
-                  />
-                  <div className="flex items-center justify-between mt-3">
-                    <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={isAnonymous}
-                        onChange={(e) => setIsAnonymous(e.target.checked)}
-                        className="rounded text-blue-600 focus:ring-blue-500"
-                      />
-                      匿名提问
-                    </label>
-                    <span className="text-xs text-gray-400">
-                      {questionContent.length}/500
-                    </span>
-                  </div>
-                  <button
-                    type="submit"
-                    disabled={submitting || !questionContent.trim()}
-                    className="neon-button w-full mt-4 disabled:opacity-50 text-white font-semibold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2"
-                  >
-                    {submitting ? (
-                      <span className="animate-spin">⏳</span>
-                    ) : (
-                      <>
-                        <Send className="w-4 h-4" />
-                        提交给真人回答
-                      </>
-                    )}
-                  </button>
-                  {submitSuccess && (
-                    <p className="mt-3 text-green-600 text-sm text-center">
-                      ✅ 问题已进入待回答列表，后续会整理后公开发布。
-                    </p>
-                  )}
-                </form>
-              ) : (
-                <div className="text-center py-6">
-                  <User className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                  <p className="text-gray-500 mb-4">登录后即可提交真人问答</p>
-                  <Link
-                    to="/login"
-                    className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition"
-                  >
-                    去登录
-                  </Link>
-                </div>
-              )}
+	const handleTagSelect = (tag: string | null) => {
+		setSelectedTag(tag);
+		if (tag) setSearchParams({ tag });
+		else setSearchParams({});
+	};
 
-              {/* 热门标签 */}
-              {tags.length > 0 && (
-                <div className="mt-6 pt-6 border-t border-gray-100">
-                  <h3 className="text-sm font-medium text-gray-600 mb-3 flex items-center gap-1">
-                    <Tag className="w-4 h-4" />
-                    热门话题
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {tags.slice(0, 10).map((tag) => (
-                      <button
-                        key={tag}
-                        onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
-                        className={`px-3 py-1 rounded-full text-sm transition ${
-                          selectedTag === tag
-                            ? 'bg-blue-600 text-white'
-                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                        }`}
-                      >
-                        #{tag}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
+	const handleSubmitQuestion = async (event: React.FormEvent) => {
+		event.preventDefault();
+		if (!questionContent.trim() || submitting) return;
+		if (honeypot.trim()) return;
+		if (!captchaValid) {
+			alert("请先完成验证码");
+			return;
+		}
+		if (similarQuestions[0]?.score >= 0.42) {
+			const ok = confirm("这个问题可能已经有人问过了。仍然要提交一个新问题吗？");
+			if (!ok) return;
+		}
+		if (!canSubmitNow()) {
+			alert("提交太频繁了，稍等一分钟再试");
+			return;
+		}
 
-              {/* 赞赏入口 */}
-              <div className="mt-6 pt-6 border-t border-gray-100">
-                <AppreciationCard mode="compact" />
-              </div>
-            </div>
-          </div>
+		try {
+			setSubmitting(true);
+			await submitQuestion(questionContent.trim(), {
+				isAnonymous,
+				askerId: user?.id,
+				askerNickname: user?.nickname || "访客",
+				tags: [questionTopic],
+				topic: questionTopic,
+			});
+			window.localStorage.setItem(SUBMIT_RATE_KEY, String(Date.now()));
+			setQuestionContent("");
+			setSubmitSuccess(true);
+			await Promise.all([loadInitialData(), loadQuestionData(false)]);
+			setTimeout(() => setSubmitSuccess(false), 3000);
+		} catch (error) {
+			console.error("提交问题失败:", error);
+			alert("提交失败，请稍后重试");
+		} finally {
+			setSubmitting(false);
+		}
+	};
 
-          {/* 右侧: 问答列表 */}
-          <div className="lg:col-span-2">
-            {/* 搜索栏 */}
-            <div className="mb-6">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="搜索问答..."
-                  className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                />
-              </div>
-            </div>
+	return (
+		<div className="min-h-screen pb-10">
+			<section className="overflow-hidden rounded-[2rem] border border-cyan-300/15 bg-slate-950/70 shadow-2xl shadow-cyan-950/30">
+				<div className="relative px-5 py-8 md:px-10 md:py-10">
+					<div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_12%,rgba(34,211,238,0.24),transparent_28%),radial-gradient(circle_at_86%_8%,rgba(236,72,153,0.18),transparent_32%)]" />
+					<div className="relative z-10 grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)] lg:items-end">
+						<div>
+							<div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-sm font-semibold text-cyan-100">
+								<Sparkles className="h-4 w-4" />
+								健文社区问题宇宙
+							</div>
+							<h1 className="mt-5 text-4xl font-black leading-tight text-white md:text-6xl">
+								问题星空
+							</h1>
+							<p className="mt-5 max-w-2xl text-base leading-8 text-slate-300 md:text-lg">
+								从评论区、平台私信、微信群聊、网站和腾讯文档里沉淀出的 3D 问题宇宙。相似问题会彼此连线，重复问题会自动提示。
+							</p>
+							<div className="mt-6 flex flex-wrap gap-3">
+								<a
+									href="#question-submit"
+									className="neon-button inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-sm font-bold"
+								>
+									提交新问题
+									<Send className="h-4 w-4" />
+								</a>
+								<a
+									href="#question-cosmos"
+									className="inline-flex items-center gap-2 rounded-2xl border border-white/15 bg-white/8 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/12"
+								>
+									进入星空
+									<ArrowUpRight className="h-4 w-4" />
+								</a>
+							</div>
+						</div>
 
-            {/* 精选问答 */}
-            {featuredQuestions.length > 0 && !selectedTag && !searchQuery && (
-              <div className="mb-8">
-                <h2 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                  <Star className="w-5 h-5 text-yellow-500" />
-                  精选问答
-                </h2>
-                <div className="grid gap-4">
-                  {featuredQuestions.map((q) => (
-                    <Link
-                      key={q.id}
-                      to={`/qa/${q.id}`}
-                      className="block bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-xl p-4 hover:shadow-md transition"
-                    >
-                      <p className="font-medium text-gray-800 line-clamp-2">{q.content}</p>
-                      <div className="flex items-center gap-2 mt-2 text-sm text-gray-500">
-                        <span>{formatDate(q.answered_at || q.created_at)}</span>
-                        {q.tags?.slice(0, 2).map((tag) => (
-                          <span key={tag} className="text-yellow-600">#{tag}</span>
-                        ))}
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
+						<div className="grid grid-cols-2 gap-3">
+							{statCards.map((item) => (
+								<div
+									key={item.label}
+									className="rounded-3xl border border-white/10 bg-white/[0.06] p-5 backdrop-blur"
+								>
+									<p className="text-2xl font-black text-white md:text-3xl">
+										{item.value}
+									</p>
+									<p className="mt-2 text-sm text-slate-400">{item.label}</p>
+								</div>
+							))}
+						</div>
+					</div>
+				</div>
+			</section>
 
-            {/* 问答列表 */}
-            <div>
-              <h2 className="text-lg font-bold text-gray-800 mb-4">
-                {selectedTag ? `#${selectedTag} 相关问答` : '公开知识广场'}
-              </h2>
+			<section id="question-cosmos" className="mt-8">
+				<QuestionStarMap
+					questions={stars}
+					semanticEdges={starEdges}
+					loading={loading && stars.length === 0}
+					onSameQuestion={handleSameQuestion}
+				/>
+			</section>
 
-              {loading ? (
-                <div className="text-center py-12">
-                  <div className="animate-spin w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full mx-auto"></div>
-                  <p className="text-gray-500 mt-3">加载中...</p>
-                </div>
-              ) : questions.length === 0 ? (
-                <div className="text-center py-12 bg-white rounded-xl">
-                  <MessageCircle className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                  <p className="text-gray-500">
-                    {searchQuery ? '没有找到相关问答' : '暂无公开问答，欢迎提交你的第一个问题。'}
-                  </p>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {questions.map((q) => (
-                    <Link
-                      key={q.id}
-                      to={`/qa/${q.id}`}
-                      className={`block rounded-xl p-5 hover:shadow-lg transition group ${
-                        q.status === 'pending' 
-                          ? 'bg-yellow-50 border-2 border-yellow-200 border-dashed' 
-                          : 'bg-white'
-                      }`}
-                    >
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2">
-                            <p className="font-medium text-gray-800 group-hover:text-blue-600 transition line-clamp-2">
-                              {q.content}
-                            </p>
-                            {q.status === 'pending' && (
-                              <span className="flex-shrink-0 text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full">
-                                ⏳ 待回答
-                              </span>
-                            )}
-                          </div>
-                          {q.answer ? (
-                            <p className="text-gray-500 text-sm mt-2 line-clamp-2">
-                              {q.answer.replace(/[#*`]/g, '').substring(0, 100)}...
-                            </p>
-                          ) : (
-                            <p className="text-yellow-600 text-sm mt-2 italic">
-                              期待马健文的回答...
-                            </p>
-                          )}
-                          <div className="flex items-center gap-3 mt-3 text-sm text-gray-400">
-                            <span>{q.is_anonymous ? '匿名' : q.asker_nickname || '用户'}</span>
-                            <span>·</span>
-                            <span>{formatDate(q.answered_at || q.created_at)}</span>
-                            <span>👁 {q.view_count}</span>
-                            {(q.community_answer_count ?? 0) > 0 && (
-                              <span className="text-orange-500">💬 {q.community_answer_count} 条帮答</span>
-                            )}
-                            {q.tags?.slice(0, 3).map((tag) => (
-                              <span key={tag} className="text-blue-500">#{tag}</span>
-                            ))}
-                          </div>
-                        </div>
-                        <ChevronRight className="w-5 h-5 text-gray-300 group-hover:text-blue-500 transition flex-shrink-0" />
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              )}
+			<section className="mt-8">
+				<div className="mb-4 flex items-center justify-between gap-4">
+					<h2 className="flex items-center gap-2 text-xl font-black text-white">
+						<Filter className="h-5 w-5 text-cyan-200" />
+						问题星座
+					</h2>
+					<button
+						type="button"
+						onClick={() => handleTopicSelect(null)}
+						className="rounded-full border border-white/10 px-3 py-1.5 text-sm text-slate-300 transition hover:bg-white/10"
+					>
+						全部星区
+					</button>
+				</div>
+				<div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+					{QUESTION_TOPICS.map((topic) => {
+						const active = selectedTopic === topic;
+						const count = stats?.byTopic[topic] || 0;
+						return (
+							<button
+								key={topic}
+								type="button"
+								onClick={() => handleTopicSelect(active ? null : topic)}
+								className={`rounded-3xl border bg-gradient-to-br p-4 text-left transition hover:-translate-y-1 ${
+									topicAccent[topic]
+								} ${active ? "ring-2 ring-white/60" : ""}`}
+							>
+								<div className="flex items-center justify-between gap-3">
+									<p className="font-black">{topic}</p>
+									<span className="rounded-full bg-white/10 px-2 py-0.5 text-xs">
+										{count || "·"}
+									</span>
+								</div>
+								<p className="mt-2 text-sm opacity-80">{topicCopy[topic]}</p>
+							</button>
+						);
+					})}
+				</div>
+			</section>
 
-              {/* 加载更多按钮 */}
-              {questions.length > 0 && hasMore && (
-                <div className="mt-8 text-center">
-                  <button
-                    onClick={handleLoadMore}
-                    disabled={loadingMore}
-                    className="px-6 py-2 bg-white border border-gray-200 text-gray-600 rounded-full hover:bg-gray-50 hover:border-blue-300 hover:text-blue-600 transition shadow-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 mx-auto"
-                  >
-                    {loadingMore ? (
-                      <>
-                        <div className="w-4 h-4 border-2 border-gray-400 border-t-blue-600 rounded-full animate-spin"></div>
-                        加载中...
-                      </>
-                    ) : (
-                      <>
-                        加载更多
-                      </>
-                    )}
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+			<section className="mt-8 grid gap-8 lg:grid-cols-[minmax(320px,0.78fr)_minmax(0,1.22fr)]">
+				<aside id="question-submit" className="space-y-6">
+					<form
+						onSubmit={handleSubmitQuestion}
+						className="rounded-3xl border border-white/10 bg-slate-950/65 p-6 shadow-xl shadow-slate-950/25"
+					>
+						<h2 className="flex items-center gap-2 text-xl font-black text-white">
+							<MessageCircle className="h-5 w-5 text-cyan-200" />
+							把你的问题送上星球
+						</h2>
+						<div className="mt-5 grid gap-3">
+							<select
+								value={questionTopic}
+								onChange={(event) => setQuestionTopic(event.target.value)}
+								className="rounded-2xl border border-white/10 bg-slate-900/80 px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-cyan-400"
+							>
+								{QUESTION_TOPICS.map((topic) => (
+									<option key={topic} value={topic}>
+										{topic}
+									</option>
+								))}
+							</select>
+							<textarea
+								value={questionContent}
+								onChange={(event) => setQuestionContent(event.target.value)}
+								placeholder="写下一个你真正卡住的问题"
+								className="min-h-36 rounded-2xl border border-white/10 bg-slate-900/80 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-500 focus:ring-2 focus:ring-cyan-400"
+								maxLength={500}
+							/>
+							{similarQuestions.length > 0 && (
+								<div className="rounded-2xl border border-amber-300/20 bg-amber-300/10 p-4">
+									<div className="flex items-center gap-2 text-sm font-semibold text-amber-100">
+										<Search className="h-4 w-4" />
+										可能已经有人问过
+									</div>
+									<div className="mt-3 space-y-2">
+										{similarQuestions.map(({ question, score, reasons }) => (
+											<Link
+												key={question.id}
+												to={`/qa/${question.id}`}
+												className="block rounded-xl border border-white/10 bg-slate-950/45 p-3 text-sm text-slate-200 transition hover:bg-slate-900/80"
+											>
+												<div className="line-clamp-2 font-semibold">
+													{question.content}
+												</div>
+												<div className="mt-2 flex flex-wrap gap-2 text-xs text-slate-400">
+													<span>{Math.round(score * 100)}% 相似</span>
+													{reasons.slice(0, 3).map((reason) => (
+														<span key={reason}>· {reason}</span>
+													))}
+												</div>
+											</Link>
+										))}
+									</div>
+									<p className="mt-3 text-xs text-amber-100/75">
+										如果已有问题很接近，点进去“我也想问”会比重复提交更容易把它推上回答优先级。
+									</p>
+								</div>
+							)}
+							<input
+								value={honeypot}
+								onChange={(event) => setHoneypot(event.target.value)}
+								tabIndex={-1}
+								autoComplete="off"
+								className="hidden"
+								aria-hidden="true"
+							/>
+							<div className="flex items-center justify-between text-xs text-slate-400">
+								<label className="flex cursor-pointer items-center gap-2">
+									<input
+										type="checkbox"
+										checked={isAnonymous}
+										onChange={(event) => setIsAnonymous(event.target.checked)}
+										className="rounded border-slate-600 bg-slate-900"
+									/>
+									匿名展示
+								</label>
+								<span>{questionContent.length}/500</span>
+							</div>
+							<MathCaptcha onVerify={setCaptchaValid} />
+							<button
+								type="submit"
+								disabled={
+									submitting || !questionContent.trim() || !captchaValid
+								}
+								className="neon-button inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 text-sm font-bold disabled:cursor-not-allowed disabled:opacity-50"
+							>
+								{submitting ? "提交中..." : "提交到待回答星区"}
+								<Send className="h-4 w-4" />
+							</button>
+							{submitSuccess && (
+								<p className="text-center text-sm text-emerald-200">
+									问题已进入待审核列表。
+								</p>
+							)}
+						</div>
+					</form>
+
+					<div className="rounded-3xl border border-white/10 bg-slate-950/65 p-6">
+						<h3 className="flex items-center gap-2 text-base font-bold text-white">
+							<Tag className="h-4 w-4 text-cyan-200" />
+							热门标签
+						</h3>
+						<div className="mt-4 flex flex-wrap gap-2">
+							{tags.slice(0, 18).map((tag) => (
+								<button
+									key={tag}
+									type="button"
+									onClick={() => handleTagSelect(selectedTag === tag ? null : tag)}
+									className={`rounded-full border px-3 py-1.5 text-xs transition ${
+										selectedTag === tag
+											? "border-cyan-300/50 bg-cyan-300/15 text-cyan-50"
+											: "border-white/10 bg-white/5 text-slate-300 hover:bg-white/10"
+									}`}
+								>
+									#{tag}
+								</button>
+							))}
+						</div>
+					</div>
+				</aside>
+
+				<section id="question-list" className="min-w-0">
+					<div className="rounded-3xl border border-white/10 bg-slate-950/65 p-5">
+						<div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_190px]">
+							<div className="relative">
+								<Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" />
+								<input
+									type="text"
+									value={searchQuery}
+									onChange={(event) => setSearchQuery(event.target.value)}
+									placeholder="搜索问题、回答、标签"
+									className="w-full rounded-2xl border border-white/10 bg-slate-900/80 py-3 pl-12 pr-4 text-sm text-white outline-none transition placeholder:text-slate-500 focus:ring-2 focus:ring-cyan-400"
+								/>
+							</div>
+							<select
+								value={sort}
+								onChange={(event) => setSort(event.target.value as typeof sort)}
+								className="rounded-2xl border border-white/10 bg-slate-900/80 px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-cyan-400"
+							>
+								<option value="default">综合优先</option>
+								<option value="same">同问优先</option>
+								<option value="source">来源优先</option>
+								<option value="latest">最新优先</option>
+							</select>
+						</div>
+
+						<div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-slate-400">
+							<span>当前星区：</span>
+							<span className="rounded-full bg-white/8 px-3 py-1 text-slate-200">
+								{selectedTopic || selectedTag || "全部问题"}
+							</span>
+							{(selectedTopic || selectedTag || searchQuery) && (
+								<button
+									type="button"
+									onClick={() => {
+										setSelectedTopic(null);
+										handleTagSelect(null);
+										setSearchQuery("");
+									}}
+									className="text-cyan-200 hover:text-cyan-100"
+								>
+									清空筛选
+								</button>
+							)}
+						</div>
+					</div>
+
+					<div className="mt-5">
+						{loading ? (
+							<div className="rounded-3xl border border-white/10 bg-slate-950/65 py-16 text-center">
+								<div className="mx-auto h-9 w-9 animate-spin rounded-full border-2 border-cyan-300 border-t-transparent" />
+								<p className="mt-3 text-slate-400">问题星区加载中...</p>
+							</div>
+						) : questions.length === 0 ? (
+							<div className="rounded-3xl border border-white/10 bg-slate-950/65 py-16 text-center">
+								<Sparkles className="mx-auto h-10 w-10 text-slate-500" />
+								<p className="mt-3 text-slate-400">没有找到匹配的问题。</p>
+							</div>
+						) : (
+							<div className="space-y-3">
+								{questions.map((question) => {
+									const topic = normalizeQuestionTopic(question.topic);
+									const isAnswered = Boolean(question.answer);
+									return (
+										<article
+											key={question.id}
+											className="rounded-3xl border border-white/10 bg-slate-950/65 p-5 transition hover:border-cyan-300/25 hover:bg-slate-900/70"
+										>
+											<div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+												<div className="min-w-0 flex-1">
+													<div className="flex flex-wrap items-center gap-2">
+														<span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-slate-300">
+															{topic}
+														</span>
+														{isAnswered ? (
+															<span className="inline-flex items-center gap-1 rounded-full bg-emerald-300/10 px-2.5 py-1 text-xs text-emerald-200">
+																<CheckCircle className="h-3.5 w-3.5" />
+																已点亮
+															</span>
+														) : (
+															<span className="inline-flex items-center gap-1 rounded-full bg-amber-300/10 px-2.5 py-1 text-xs text-amber-200">
+																<Clock className="h-3.5 w-3.5" />
+																待回答
+															</span>
+														)}
+													</div>
+													<Link
+														to={`/qa/${question.id}`}
+														className="mt-3 block text-lg font-bold leading-snug text-white transition hover:text-cyan-100"
+													>
+														{question.content}
+													</Link>
+													{question.answer && (
+														<p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-400">
+															{question.answer.replace(/[#*`]/g, "").slice(0, 110)}
+															...
+														</p>
+													)}
+													<div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-slate-500">
+														<span className="inline-flex items-center gap-1">
+															<Users className="h-3.5 w-3.5" />
+															{question.same_question_count || 0} 人同问
+														</span>
+														<span className="inline-flex items-center gap-1">
+															<Zap className="h-3.5 w-3.5" />
+															{question.source_count || 1} 次来源
+														</span>
+														<span className="inline-flex items-center gap-1">
+															<Eye className="h-3.5 w-3.5" />
+															{question.view_count || 0}
+														</span>
+														<span>{formatDate(question.answered_at || question.created_at)}</span>
+														{question.tags?.slice(0, 3).map((tag) => (
+															<span key={tag} className="text-cyan-300/80">
+																#{tag}
+															</span>
+														))}
+													</div>
+												</div>
+												<div className="flex shrink-0 gap-2 md:flex-col">
+													<button
+														type="button"
+														onClick={() => handleSameQuestion(question)}
+														className="rounded-2xl border border-cyan-300/25 bg-cyan-300/10 px-4 py-2 text-sm font-semibold text-cyan-50 transition hover:bg-cyan-300/18"
+													>
+														我也想问
+													</button>
+													<Link
+														to={`/qa/${question.id}`}
+														className="inline-flex items-center justify-center gap-1 rounded-2xl border border-white/10 px-4 py-2 text-sm font-semibold text-slate-200 transition hover:bg-white/10"
+													>
+														详情
+														<ArrowUpRight className="h-4 w-4" />
+													</Link>
+												</div>
+											</div>
+										</article>
+									);
+								})}
+							</div>
+						)}
+
+						{questions.length > 0 && hasMore && (
+							<div className="mt-7 text-center">
+								<button
+									type="button"
+									onClick={() => loadQuestionData(true)}
+									disabled={loadingMore}
+									className="rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-slate-200 transition hover:bg-white/10 disabled:opacity-50"
+								>
+									{loadingMore ? "加载中..." : "加载更多问题"}
+								</button>
+							</div>
+						)}
+					</div>
+				</section>
+			</section>
+
+			{sameToast && (
+				<div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-full border border-cyan-300/25 bg-slate-950/90 px-5 py-3 text-sm font-semibold text-cyan-50 shadow-2xl shadow-cyan-950/40 backdrop-blur">
+					{sameToast}
+				</div>
+			)}
+		</div>
+	);
 };
 
 export default QAHome;

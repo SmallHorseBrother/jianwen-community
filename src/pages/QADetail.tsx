@@ -5,8 +5,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Calendar, Eye, Tag, Share2, Star, User, Send, Users, Trash2 } from 'lucide-react';
-import { getQuestionById, getCommunityAnswers, submitCommunityAnswer, deleteCommunityAnswer } from '../services/questionService';
+import { ArrowLeft, Calendar, CheckCircle, Eye, Tag, Share2, Star, User, Send, Users, Trash2, Sparkles, Zap } from 'lucide-react';
+import { getQuestionById, getCommunityAnswers, submitCommunityAnswer, deleteCommunityAnswer, markSameQuestion, normalizeQuestionTopic } from '../services/questionService';
 import { useAuth } from '../contexts/AuthContext';
 import type { Database } from '../lib/database.types';
 
@@ -22,6 +22,7 @@ const QADetail: React.FC = () => {
   const [communityAnswers, setCommunityAnswers] = useState<CommunityAnswer[]>([]);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [sameFeedback, setSameFeedback] = useState<string | null>(null);
   
   // 回答表单
   const [answerContent, setAnswerContent] = useState('');
@@ -53,7 +54,7 @@ const QADetail: React.FC = () => {
     const url = window.location.href;
     // 生成分享文案：品牌 + 问题标题 + 状态 + 链接
     const shareText = question 
-      ? `【健文社区】\n「${question.content.length > 50 ? question.content.substring(0, 50) + '...' : question.content}」\n\n${question.answer ? '✅ 马健文已回答' : '⏳ 等待回答'}${(question.community_answer_count ?? 0) > 0 ? ` · ${question.community_answer_count}条群友帮答` : ''}\n👉 ${url}`
+      ? `【健文问题星球】\n「${question.content.length > 58 ? question.content.substring(0, 58) + '...' : question.content}」\n\n${question.answer ? '✅ 已点亮，马健文已回答' : '⏳ 等待点亮'} · ${question.same_question_count || 0}人同问\n👉 ${url}`
       : url;
     
     try {
@@ -69,6 +70,27 @@ const QADetail: React.FC = () => {
       document.body.removeChild(input);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const handleSameQuestion = async () => {
+    if (!question) return;
+    try {
+      const result = await markSameQuestion(question.id, user?.id);
+      if (result.inserted) {
+        setQuestion({
+          ...question,
+          same_question_count: (question.same_question_count || 0) + 1,
+        });
+        setSameFeedback('已加入同问热度');
+      } else {
+        setSameFeedback('这个问题已经记录过你的同问');
+      }
+      setTimeout(() => setSameFeedback(null), 2200);
+    } catch (error) {
+      console.error('同问失败:', error);
+      setSameFeedback('同问记录失败，请稍后再试');
+      setTimeout(() => setSameFeedback(null), 2200);
     }
   };
 
@@ -135,7 +157,7 @@ const QADetail: React.FC = () => {
         return <br key={index} />;
       }
       
-      let processed = line
+      const processed = line
         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
         .replace(/\*(.+?)\*/g, '<em>$1</em>')
         .replace(/`(.+?)`/g, '<code class="bg-gray-100 px-1 rounded">$1</code>');
@@ -174,6 +196,9 @@ const QADetail: React.FC = () => {
     );
   }
 
+  const topic = normalizeQuestionTopic(question.topic);
+  const isAnswered = Boolean(question.answer);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 pb-12">
       {/* 顶部导航 */}
@@ -199,13 +224,29 @@ const QADetail: React.FC = () => {
       <div className="max-w-3xl mx-auto px-4 py-8">
         <article className="bg-white rounded-2xl shadow-lg overflow-hidden">
           {/* 问题区 */}
-          <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-6 md:p-8">
+          <div className="bg-gradient-to-r from-slate-950 via-blue-950 to-indigo-950 text-white p-6 md:p-8">
             {question.is_featured && (
               <div className="flex items-center gap-1 text-yellow-300 text-sm mb-3">
                 <Star className="w-4 h-4 fill-current" />
                 <span>精选问答</span>
               </div>
             )}
+            <div className="mb-4 flex flex-wrap items-center gap-2">
+              <span className="rounded-full border border-cyan-300/25 bg-cyan-300/10 px-3 py-1 text-xs text-cyan-50">
+                {topic}
+              </span>
+              {isAnswered ? (
+                <span className="inline-flex items-center gap-1 rounded-full border border-emerald-300/25 bg-emerald-300/10 px-3 py-1 text-xs text-emerald-100">
+                  <CheckCircle className="h-3.5 w-3.5" />
+                  已点亮
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1 rounded-full border border-amber-300/25 bg-amber-300/10 px-3 py-1 text-xs text-amber-100">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  等待点亮
+                </span>
+              )}
+            </div>
             <h1 className="text-xl md:text-2xl font-bold leading-relaxed">
               {question.content}
             </h1>
@@ -222,11 +263,38 @@ const QADetail: React.FC = () => {
                 <Eye className="w-4 h-4" />
                 {question.view_count} 次浏览
               </span>
+              <span className="flex items-center gap-1">
+                <Users className="w-4 h-4" />
+                {question.same_question_count || 0} 人同问
+              </span>
+              <span className="flex items-center gap-1">
+                <Zap className="w-4 h-4" />
+                {question.source_count || 1} 次来源
+              </span>
             </div>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={handleSameQuestion}
+                className="rounded-full border border-cyan-300/35 bg-cyan-300/12 px-4 py-2 text-sm font-semibold text-cyan-50 hover:bg-cyan-300/20 transition"
+              >
+                我也想问
+              </button>
+              <button
+                type="button"
+                onClick={handleShare}
+                className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/15 transition"
+              >
+                {copied ? '已复制分享文案' : '分享这颗星'}
+              </button>
+            </div>
+            {sameFeedback && (
+              <p className="mt-3 text-sm text-cyan-100">{sameFeedback}</p>
+            )}
           </div>
 
           {/* 马健文回答区 */}
-          {question.answer && (
+          {question.answer ? (
             <div className="p-6 md:p-8 border-b border-gray-100">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold">
@@ -242,6 +310,18 @@ const QADetail: React.FC = () => {
 
               <div className="prose prose-blue max-w-none text-gray-700 leading-relaxed">
                 {renderMarkdown(question.answer)}
+              </div>
+            </div>
+          ) : (
+            <div className="p-6 md:p-8 border-b border-gray-100">
+              <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5">
+                <div className="flex items-center gap-2 text-amber-700 font-semibold">
+                  <Sparkles className="w-5 h-5" />
+                  等待点亮
+                </div>
+                <p className="mt-2 text-sm leading-6 text-amber-800">
+                  这个问题已经进入问题星球。更多同问会提高它进入正式回答和视频选题的优先级。
+                </p>
               </div>
             </div>
           )}
@@ -351,6 +431,13 @@ const QADetail: React.FC = () => {
                     #{tag}
                   </Link>
                 ))}
+              </div>
+            </div>
+          )}
+          {question.source_platforms && question.source_platforms.length > 0 && (
+            <div className="px-6 md:px-8 pb-6 border-t border-gray-100 pt-6">
+              <div className="text-sm text-gray-500">
+                来源：{question.source_platforms.slice(0, 6).join(' / ')}
               </div>
             </div>
           )}

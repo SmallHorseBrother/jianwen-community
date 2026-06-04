@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Brain, Users, Wrench, User, LogOut, AlertCircle,
-  Menu, X, ChevronDown, Dumbbell, BookOpen, Settings, HelpCircle, Sparkles, ListTodo
+  Menu, X, Settings, Sparkles
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { checkIsAdmin } from '../../services/questionService';
@@ -11,7 +11,6 @@ const Header: React.FC = () => {
   const { user, isAuthenticated, logout } = useAuth();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [archiveMenuOpen, setArchiveMenuOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
   // 检查是否是管理员
@@ -37,17 +36,9 @@ const Header: React.FC = () => {
 
   const navItems = [
     { to: '/about', label: '关于我', icon: Sparkles },
-    { to: '/qa', label: '公开问答', icon: Brain },
+    { to: '/qa', label: '问题星球', icon: Brain },
     { to: '/community', label: '社区广场', icon: Users },
     { to: '/tools', label: '工具箱', icon: Wrench },
-    { to: '/tasks', label: '任务面板', icon: ListTodo },
-    { to: '/guide', label: '使用指南', icon: HelpCircle },
-  ];
-
-  // 归档页面
-  const archiveItems = [
-    { to: '/fitness', label: '健身', icon: Dumbbell },
-    { to: '/learning', label: '学习', icon: BookOpen },
   ];
 
   const isActive = (path: string) => {
@@ -89,31 +80,6 @@ const Header: React.FC = () => {
               </Link>
             ))}
 
-            {/* 归档菜单 */}
-            <div className="relative">
-              <button
-                onClick={() => setArchiveMenuOpen(!archiveMenuOpen)}
-                onBlur={() => setTimeout(() => setArchiveMenuOpen(false), 150)}
-                className="flex items-center space-x-1 px-3 py-2 rounded-xl text-sm font-medium text-slate-400 hover:bg-white/10 hover:text-white transition-colors"
-              >
-                <span>归档</span>
-                <ChevronDown className={`w-4 h-4 transition-transform ${archiveMenuOpen ? 'rotate-180' : ''}`} />
-              </button>
-              {archiveMenuOpen && (
-                <div className="absolute top-full right-0 mt-2 w-44 rounded-2xl border border-cyan-300/10 bg-slate-950/90 py-2 shadow-2xl shadow-cyan-950/30 backdrop-blur-xl z-50">
-                  {archiveItems.map(item => (
-                    <Link
-                      key={item.to}
-                      to={item.to}
-                      className="flex items-center space-x-2 px-4 py-2 text-sm text-slate-300 hover:bg-cyan-300/10 hover:text-cyan-100"
-                    >
-                      <item.icon className="w-4 h-4" />
-                      <span>{item.label}</span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
           </nav>
 
           {/* Right Side */}
@@ -209,22 +175,6 @@ const Header: React.FC = () => {
                   <span>{item.label}</span>
                 </Link>
               ))}
-              
-              <div className="pt-2 mt-2 border-t border-cyan-300/10">
-                <p className="px-4 py-2 text-xs text-slate-500 uppercase tracking-[0.24em]">归档</p>
-                {archiveItems.map(item => (
-                  <Link
-                    key={item.to}
-                    to={item.to}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center space-x-2 px-4 py-3 text-sm text-slate-300 hover:bg-white/10 rounded-xl"
-                  >
-                    <item.icon className="w-5 h-5" />
-                    <span>{item.label}</span>
-                  </Link>
-                ))}
-              </div>
-
               {isAuthenticated ? (
                 <div className="pt-2 mt-2 border-t border-cyan-300/10">
                   <Link

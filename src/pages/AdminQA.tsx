@@ -17,10 +17,13 @@ import {
   updateQuestionStatus,
   toggleFeatured,
   deleteQuestion,
+  QUESTION_TOPICS,
+  normalizeQuestionTopic,
 } from '../services/questionService';
 import type { Database, QuestionStatus } from '../lib/database.types';
 
 type Question = Database['public']['Tables']['questions']['Row'];
+type AdminSort = 'latest' | 'same' | 'source' | 'high_unanswered';
 
 const AdminQA: React.FC = () => {
   const { user } = useAuth();
@@ -29,11 +32,14 @@ const AdminQA: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [filterStatus, setFilterStatus] = useState<QuestionStatus | 'all'>('pending');
+  const [filterTopic, setFilterTopic] = useState<string>('all');
+  const [sortMode, setSortMode] = useState<AdminSort>('high_unanswered');
   
   // 编辑状态
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editAnswer, setEditAnswer] = useState('');
   const [editTags, setEditTags] = useState('');
+  const [editTopic, setEditTopic] = useState<string>('其他');
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -74,12 +80,14 @@ const AdminQA: React.FC = () => {
     setEditingId(question.id);
     setEditAnswer(question.answer || '');
     setEditTags(question.tags?.join(', ') || '');
+    setEditTopic(normalizeQuestionTopic(question.topic));
   };
 
   const handleCancelEdit = () => {
     setEditingId(null);
     setEditAnswer('');
     setEditTags('');
+    setEditTopic('其他');
   };
 
   const handleSaveAnswer = async (questionId: string) => {
@@ -95,7 +103,9 @@ const AdminQA: React.FC = () => {
         .map((t) => t.trim())
         .filter((t) => t);
       
-      await answerQuestion(questionId, editAnswer.trim(), tags);
+      await answerQuestion(questionId, editAnswer.trim(), tags, {
+        topic: editTopic,
+      });
       await loadQuestions();
       handleCancelEdit();
     } catch (error) {
@@ -186,6 +196,30 @@ const AdminQA: React.FC = () => {
   }
 
   const pendingCount = questions.filter((q) => q.status === 'pending').length;
+  const visibleQuestions = questions
+    .filter((question) => filterTopic === 'all' || normalizeQuestionTopic(question.topic) === filterTopic)
+    .sort((left, right) => {
+      if (sortMode === 'same') {
+        return (right.same_question_count || 0) - (left.same_question_count || 0);
+      }
+      if (sortMode === 'source') {
+        return (right.source_count || 0) - (left.source_count || 0);
+      }
+      if (sortMode === 'high_unanswered') {
+        const leftScore =
+          (left.answer ? 0 : 100000) +
+          (left.audience_value === 'high' ? 10000 : 0) +
+          (left.same_question_count || 0) * 100 +
+          (left.source_count || 0);
+        const rightScore =
+          (right.answer ? 0 : 100000) +
+          (right.audience_value === 'high' ? 10000 : 0) +
+          (right.same_question_count || 0) * 100 +
+          (right.source_count || 0);
+        return rightScore - leftScore;
+      }
+      return new Date(right.created_at).getTime() - new Date(left.created_at).getTime();
+    });
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -208,7 +242,7 @@ const AdminQA: React.FC = () => {
 
       <div className="max-w-5xl mx-auto px-4 py-6">
         {/* 筛选器 */}
-        <div className="flex items-center gap-2 mb-6">
+        <div className="flex flex-wrap items-center gap-2 mb-6">
           <Filter className="w-4 h-4 text-gray-400" />
           <span className="text-sm text-gray-500">筛选:</span>
           {(['all', 'pending', 'published', 'ignored'] as const).map((status) => (
@@ -226,17 +260,37 @@ const AdminQA: React.FC = () => {
                status === 'published' ? '已发布' : '已忽略'}
             </button>
           ))}
+          <select
+            value={filterTopic}
+            onChange={(event) => setFilterTopic(event.target.value)}
+            className="px-3 py-1 rounded-full text-sm bg-white text-gray-600 border border-gray-200"
+          >
+            <option value="all">全部分类</option>
+            {QUESTION_TOPICS.map((topic) => (
+              <option key={topic} value={topic}>{topic}</option>
+            ))}
+          </select>
+          <select
+            value={sortMode}
+            onChange={(event) => setSortMode(event.target.value as AdminSort)}
+            className="px-3 py-1 rounded-full text-sm bg-white text-gray-600 border border-gray-200"
+          >
+            <option value="high_unanswered">高价值未回答</option>
+            <option value="same">同问最多</option>
+            <option value="source">来源最多</option>
+            <option value="latest">最新提交</option>
+          </select>
         </div>
 
         {/* 问题列表 */}
-        {questions.length === 0 ? (
+        {visibleQuestions.length === 0 ? (
           <div className="text-center py-12 bg-white rounded-xl">
             <MessageCircle className="w-12 h-12 text-gray-300 mx-auto mb-3" />
             <p className="text-gray-500">暂无问题</p>
           </div>
         ) : (
           <div className="space-y-4">
-            {questions.map((question) => (
+            {visibleQuestions.map((question) => (
               <div
                 key={question.id}
                 className="bg-white rounded-xl shadow-sm overflow-hidden"
@@ -258,6 +312,9 @@ const AdminQA: React.FC = () => {
                             精选
                           </span>
                         )}
+                        <span className="text-blue-500">#{normalizeQuestionTopic(question.topic)}</span>
+                        <span>同问 {question.same_question_count || 0}</span>
+                        <span>来源 {question.source_count || 1}</span>
                       </div>
                     </div>
                   </div>
@@ -273,6 +330,15 @@ const AdminQA: React.FC = () => {
                       className="w-full h-48 p-4 border border-gray-200 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                     <div className="mt-3">
+                      <select
+                        value={editTopic}
+                        onChange={(e) => setEditTopic(e.target.value)}
+                        className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-3"
+                      >
+                        {QUESTION_TOPICS.map((topic) => (
+                          <option key={topic} value={topic}>{topic}</option>
+                        ))}
+                      </select>
                       <input
                         type="text"
                         value={editTags}

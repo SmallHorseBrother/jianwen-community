@@ -45,7 +45,11 @@ function normalizeText(value) {
 }
 
 function buildPrompt(task) {
-  return `你现在要处理一个来自任务系统的开发任务。下面这段就是完整任务说明，不需要再去仓库里寻找 TASK.md、工单文件、todo 文件或额外需求文档；也不要向用户追问补充信息。\n\n任务标题：${task.title}\n任务摘要：${task.summary ?? '无'}\n任务类型：${task.type}\n优先级：${task.priority}\n负责人：${task.owner ?? '未指定'}\n所属项目：${task.project_name ?? '未指定项目'}\n项目路径：${task.project_path ?? '未指定路径'}\n建议代理：${task.coding_agent ?? '未指定代理'}\n任务 ID：${task.id}\n来源群：${task.source_group}\n\n强制要求：\n- 只在该项目路径内工作。\n- 先快速理解相关页面与组件，然后直接开始实现。\n- 不要以“缺少任务文件/工单文件/验收文档”为理由停下。\n- 不要回头向用户提问；如果信息不完整，基于当前任务摘要做最合理、最保守的实现。\n- 必须产出实际代码改动，不要只给分析或建议。\n- 优先改动与任务直接相关的页面、组件、样式和必要的 supporting 逻辑。\n- 改完后运行相关检查、构建或测试（如果项目里有）。\n- 自查 diff，确认没有明显多余改动。\n- 最后 commit 并 push 到当前 Git 分支，让现有部署流程自动部署。\n\n如果最终没有产生代码改动，这次任务就算失败，不要把“仓库里没任务文件”当作结果。\n\n完成后请输出：\n1. 修改了哪些文件\n2. 为什么这样改\n3. 如何验证\n4. 是否还有风险或待人工确认项`; 
+  const testBranchInstructions = String(task.title || '').includes('[TEST]')
+    ? `\n测试分支要求：\n- 这是测试任务，不要直接在主分支上开发。\n- 请先从当前分支切出一个新的测试分支，再在该分支上修改。\n- 完成后 push 新分支到远端。\n- 不要自动合并回主分支；最终由人类确认后再决定如何合并。\n`
+    : '';
+
+  return `你现在要处理一个来自任务系统的开发任务。下面这段就是完整任务说明，不需要再去仓库里寻找 TASK.md、工单文件、todo 文件或额外需求文档；也不要向用户追问补充信息。\n\n任务标题：${task.title}\n任务摘要：${task.summary ?? '无'}\n任务类型：${task.type}\n优先级：${task.priority}\n负责人：${task.owner ?? '未指定'}\n所属项目：${task.project_name ?? '未指定项目'}\n项目路径：${task.project_path ?? '未指定路径'}\n建议代理：${task.coding_agent ?? '未指定代理'}\n任务 ID：${task.id}\n来源群：${task.source_group}\n\n强制要求：\n- 只在该项目路径内工作。\n- 先快速理解相关页面与组件，然后直接开始实现。\n- 不要以“缺少任务文件/工单文件/验收文档”为理由停下。\n- 不要回头向用户提问；如果信息不完整，基于当前任务摘要做最合理、最保守的实现。\n- 必须产出实际代码改动，不要只给分析或建议。\n- 优先改动与任务直接相关的页面、组件、样式和必要的 supporting 逻辑。\n- 改完后运行相关检查、构建或测试（如果项目里有）。\n- 自查 diff，确认没有明显多余改动。\n- 最后 commit 并 push 到当前 Git 分支，让现有部署流程自动部署。${testBranchInstructions}\n如果最终没有产生代码改动，这次任务就算失败，不要把“仓库里没任务文件”当作结果。\n\n完成后请输出：\n1. 修改了哪些文件\n2. 为什么这样改\n3. 如何验证\n4. 是否还有风险或待人工确认项`; 
 }
 
 function truncate(text, maxChars = RUNNER_MAX_OUTPUT_CHARS) {

@@ -1,9 +1,8 @@
 /**
- * 工具箱页面
+ * 工具箱页面 / 产品实验室
  * 集成提议功能：
- * 1. 原有工具列表
- * 2. 新增"提议"按钮/卡片
- * 3. 公开的提议列表
+ * 1. 展示个人产品与项目入口
+ * 2. 保留社区共创反馈
  */
 
 import React, { useState, useEffect } from 'react';
@@ -299,8 +298,26 @@ const Tools: React.FC = () => {
 
   const tools: ToolCard[] = [
     {
-      title: '健身工具',
-      description: '引体向上指数计算、1RM估算等健身相关工具',
+      title: 'Jianwen OS',
+      description: '我的个人主页、AI 分身和公开资料中心，适合快速了解我正在做什么。',
+      icon: <Sparkles className="w-8 h-8" />,
+      link: '/about',
+      isExternal: false,
+      color: 'from-cyan-500 to-blue-600',
+      status: 'active',
+    },
+    {
+      title: '问题星球',
+      description: '粉丝提问、真人回答和群友帮答的内容社区，也是后续内容输出的选题池。',
+      icon: <MessageCircle className="w-8 h-8" />,
+      link: '/qa',
+      isExternal: false,
+      color: 'from-fuchsia-500 to-pink-600',
+      status: 'active',
+    },
+    {
+      title: 'Pull-up Index',
+      description: '引体向上指数、1RM 估算等训练数据工具，服务健身方向的内容和咨询。',
       icon: <Dumbbell className="w-8 h-8" />,
       link: 'https://pullupindex.top',
       isExternal: true,
@@ -309,8 +326,8 @@ const Tools: React.FC = () => {
     },
 
     {
-      title: '会议总结助手',
-      description: 'AI 驱动的会议记录智能总结，快速生成会议纪要',
+      title: 'MinuteMaster AI',
+      description: 'AI 会议总结助手，将会议记录快速整理成结构化纪要和待办。',
       icon: <FileText className="w-8 h-8" />,
       link: 'https://minutemaster-ai-394979688664.us-west1.run.app',
       isExternal: true,
@@ -318,8 +335,8 @@ const Tools: React.FC = () => {
       status: 'active',
     },
     {
-      title: '食物分析助手',
-      description: 'AI 智能识别食物，估算重量和营养成分',
+      title: 'NutriLens AI',
+      description: 'AI 食物识别与营养估算工具，用来辅助饮食记录和健身管理。',
       icon: <UtensilsCrossed className="w-8 h-8" />,
       link: 'https://nutrilens-ai-food-weight-nutrition-estimator-394979688664.us-west1.run.app',
       isExternal: true,
@@ -327,22 +344,13 @@ const Tools: React.FC = () => {
       status: 'active',
     },
     {
-      title: '健身计划助手',
-      description: 'AI 辅助制定个性化健身训练计划',
+      title: 'AI CoachLink',
+      description: 'AI 健身计划助手，围绕目标、训练经验和可用时间生成训练建议。',
       icon: <Sparkles className="w-8 h-8" />,
       link: 'https://ai-coachlink-394979688664.us-west1.run.app',
       isExternal: true,
       color: 'from-violet-500 to-purple-600',
       status: 'active',
-    },
-    {
-      title: 'AI 助手',
-      description: '更多 AI 工具正在开发中...',
-      icon: <Sparkles className="w-8 h-8" />,
-      link: '/tools/ai',
-      isExternal: false,
-      color: 'from-purple-500 to-pink-600',
-      status: 'coming',
     },
   ];
 
@@ -352,10 +360,10 @@ const Tools: React.FC = () => {
       <div className="hero-cyber rounded-[2rem] text-white py-12 px-4 mb-8">
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <h1 className="text-3xl md:text-5xl font-black tracking-tight mb-4 flex items-center justify-center gap-3 bg-gradient-to-r from-white via-cyan-100 to-fuchsia-100 bg-clip-text text-transparent">
-            工具箱
+            产品实验室
           </h1>
           <p className="text-slate-200 text-lg opacity-90">
-            实用工具集合，提升你的效率与体验
+            这里集中放我自己做的产品、实验项目和社区入口。好用的留下，没用的继续迭代。
           </p>
         </div>
       </div>
@@ -374,9 +382,9 @@ const Tools: React.FC = () => {
             <div className="flex items-center gap-3">
               <MessageCircle className="w-6 h-6 text-blue-600" />
               <h2 className="text-2xl font-bold text-gray-800">
-                社区心声
+                产品共创反馈
                 <span className="hidden md:inline-block ml-3 text-sm font-normal text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
-                  大家正在期待这些功能
+                  告诉我哪些产品值得继续做
                 </span>
               </h2>
             </div>
@@ -417,7 +425,7 @@ const Tools: React.FC = () => {
         <div className="mt-12">
           <AppreciationCard 
             title="工具好用吗？" 
-            description="如果觉得这些工具对你有帮助，欢迎赞赏支持~"
+            description="如果这些产品对你有帮助，欢迎赞赏支持我继续迭代。"
           />
         </div>
       </div>

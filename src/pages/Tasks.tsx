@@ -344,11 +344,34 @@ const Tasks: React.FC = () => {
             ...current,
             execution_mode: 'auto_code',
             coding_agent: agent,
-            execution_status: current.project_path ? 'ready' : 'not_ready',
+            execution_status: 'not_ready',
           }
         : current,
     );
-    setSaveMessage(agent === 'codex' ? '已填入 Codex 执行配置，记得保存。' : '已填入 Claude 执行配置，记得保存。');
+    setSaveMessage(
+      agent === 'codex'
+        ? '已填入 Codex 执行配置；默认仍为 not_ready，需要人工确认后再改为 ready。'
+        : '已填入 Claude 执行配置；默认仍为 not_ready，需要人工确认后再改为 ready。',
+    );
+  };
+
+  const canMarkReady = Boolean(
+    draft && draft.execution_mode === 'auto_code' && draft.coding_agent && normalizeOptionalText(draft.project_path ?? ''),
+  );
+
+  const markExecutionReady = () => {
+    if (!canMarkReady) {
+      setSaveMessage('要标记为 ready，必须先补全 project_path、execution_mode=auto_code 和 coding_agent。');
+      return;
+    }
+
+    updateDraft('execution_status', 'ready');
+    setSaveMessage('已标记为 ready，记得保存；保存后本地 runner 才会接管。');
+  };
+
+  const revokeExecutionReady = () => {
+    updateDraft('execution_status', 'not_ready');
+    setSaveMessage('已撤回为 not_ready，记得保存。');
   };
 
   const handleCopyPrompt = async () => {
@@ -599,7 +622,10 @@ const Tasks: React.FC = () => {
 
                   <div className="border-t border-gray-200 pt-5 space-y-4">
                     <div className="flex items-center justify-between gap-3 flex-wrap">
-                      <h3 className="text-sm font-semibold text-gray-900">项目归属与执行配置</h3>
+                      <div>
+                        <h3 className="text-sm font-semibold text-gray-900">项目归属与执行配置</h3>
+                        <p className="text-xs text-gray-500 mt-1">自动提取入站后的任务，默认先人工整理；只有人工确认后才应切到 ready。</p>
+                      </div>
                       <div className="flex items-center gap-2 flex-wrap">
                         <button
                           type="button"
@@ -607,7 +633,7 @@ const Tasks: React.FC = () => {
                           className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-300 text-sm text-gray-700 hover:bg-gray-50"
                         >
                           <Bot className="w-4 h-4" />
-                          交给 Codex
+                          交给 Codex（先不执行）
                         </button>
                         <button
                           type="button"
@@ -615,7 +641,22 @@ const Tasks: React.FC = () => {
                           className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-300 text-sm text-gray-700 hover:bg-gray-50"
                         >
                           <Bot className="w-4 h-4" />
-                          交给 Claude
+                          交给 Claude（先不执行）
+                        </button>
+                        <button
+                          type="button"
+                          onClick={markExecutionReady}
+                          disabled={!canMarkReady}
+                          className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-green-300 text-sm text-green-700 hover:bg-green-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          标记为 ready
+                        </button>
+                        <button
+                          type="button"
+                          onClick={revokeExecutionReady}
+                          className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-amber-300 text-sm text-amber-700 hover:bg-amber-50"
+                        >
+                          撤回为 not_ready
                         </button>
                         <button
                           type="button"
@@ -700,6 +741,9 @@ const Tasks: React.FC = () => {
                             </option>
                           ))}
                         </select>
+                        <p className="text-xs text-gray-500 mt-2">
+                          建议流程：先保持 <code>not_ready</code>，补清需求、项目路径和代理后，再由人工手动切成 <code>ready</code>。
+                        </p>
                       </div>
                     </div>
 

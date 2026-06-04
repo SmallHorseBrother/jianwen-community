@@ -1,5 +1,5 @@
 /**
- * 忘记密码表单 - 通过手机号 + 数学验证码重置密码
+ * 忘记密码表单 - 通过手机号 + 安全验证重置密码
  */
 
 import React, { useState } from 'react';
@@ -43,7 +43,7 @@ const ForgotPasswordForm: React.FC = () => {
     }
 
     if (!captchaValid) {
-      setError('请完成数学验证码');
+      setError('请完成安全验证');
       return;
     }
 
@@ -116,12 +116,12 @@ const ForgotPasswordForm: React.FC = () => {
   if (step === 'success') {
     return (
       <div className="auth-shell flex items-center justify-center py-12 px-4">
-        <div className="glass-panel max-w-md w-full rounded-3xl p-8 text-center">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Check className="w-8 h-8 text-green-600" />
+        <div className="auth-card max-w-md w-full p-8 text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-emerald-300/30 bg-emerald-950/35">
+            <Check className="w-8 h-8 text-emerald-200" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">密码重置成功！</h2>
-          <p className="text-gray-600 mb-6">
+          <h2 className="auth-title mb-2 text-2xl">密码重置成功！</h2>
+          <p className="auth-subtitle mb-6">
             您的密码已成功重置，请使用新密码登录。
           </p>
           <button
@@ -138,11 +138,11 @@ const ForgotPasswordForm: React.FC = () => {
   return (
     <div className="auth-shell flex items-center justify-center py-12 px-4">
       <div className="max-w-md w-full">
-        <div className="glass-panel rounded-3xl p-8">
+        <div className="auth-card p-7 sm:p-8">
           {/* 返回按钮 */}
           <Link
             to="/login"
-            className="inline-flex items-center text-gray-600 hover:text-gray-900 mb-6"
+            className="auth-subtitle mb-6 inline-flex items-center text-sm transition hover:text-cyan-200"
           >
             <ArrowLeft className="w-4 h-4 mr-1" />
             返回登录
@@ -150,8 +150,9 @@ const ForgotPasswordForm: React.FC = () => {
 
           {/* 标题 */}
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-gray-900">忘记密码</h1>
-            <p className="text-gray-600 mt-2">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-cyan-200/80">Account Recovery</p>
+            <h1 className="auth-title text-2xl">忘记密码</h1>
+            <p className="auth-subtitle mt-2">
               {step === 'verify' ? '输入您的手机号验证身份' : '设置新密码'}
             </p>
           </div>
@@ -159,13 +160,13 @@ const ForgotPasswordForm: React.FC = () => {
           {/* 步骤指示器 */}
           <div className="flex items-center justify-center mb-8">
             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-              step === 'verify' ? 'bg-blue-600 text-white' : 'bg-green-500 text-white'
+              step === 'verify' ? 'auth-step-active' : 'auth-step-done'
             }`}>
               {step === 'verify' ? '1' : '✓'}
             </div>
-            <div className={`w-16 h-1 ${step === 'reset' ? 'bg-blue-600' : 'bg-gray-200'}`} />
+            <div className={`h-1 w-16 ${step === 'reset' ? 'bg-cyan-500' : 'bg-slate-700'}`} />
             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-              step === 'reset' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'
+              step === 'reset' ? 'auth-step-active' : 'auth-step'
             }`}>
               2
             </div>
@@ -173,7 +174,7 @@ const ForgotPasswordForm: React.FC = () => {
 
           {/* 错误提示 */}
           {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-center text-red-700">
+            <div className="auth-alert mb-4 flex items-center p-3">
               <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0" />
               <span className="text-sm">{error}</span>
             </div>
@@ -183,18 +184,18 @@ const ForgotPasswordForm: React.FC = () => {
           {step === 'verify' && (
             <form onSubmit={handleVerifyPhone} className="space-y-6">
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="phone" className="auth-label mb-1">
                   手机号
                 </label>
-                <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <div className="auth-input-wrap">
+                  <Phone className="auth-input-icon" />
                   <input
                     id="phone"
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="请输入注册时使用的手机号"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="auth-input pl-10 pr-4"
                   />
                 </div>
               </div>
@@ -214,28 +215,29 @@ const ForgotPasswordForm: React.FC = () => {
           {/* 步骤2：设置新密码 */}
           {step === 'reset' && (
             <form onSubmit={handleResetPassword} className="space-y-6">
-              <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg text-blue-700 text-sm">
+              <div className="auth-info p-3 text-sm">
                 正在为手机号 <strong>{phone}</strong> 重置密码
               </div>
 
               <div>
-                <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="newPassword" className="auth-label mb-1">
                   新密码
                 </label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <div className="auth-input-wrap">
+                  <Lock className="auth-input-icon" />
                   <input
                     id="newPassword"
                     type={showPassword ? 'text' : 'password'}
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                     placeholder="请输入新密码（至少6位）"
-                    className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="auth-input pl-10 pr-10"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 transition hover:text-cyan-200"
+                    aria-label={showPassword ? '隐藏密码' : '显示密码'}
                   >
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
@@ -243,18 +245,18 @@ const ForgotPasswordForm: React.FC = () => {
               </div>
 
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="confirmPassword" className="auth-label mb-1">
                   确认密码
                 </label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <div className="auth-input-wrap">
+                  <Lock className="auth-input-icon" />
                   <input
                     id="confirmPassword"
                     type={showPassword ? 'text' : 'password'}
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="请再次输入新密码"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="auth-input pl-10 pr-4"
                   />
                 </div>
               </div>
@@ -263,7 +265,7 @@ const ForgotPasswordForm: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setStep('verify')}
-                  className="flex-1 py-3 px-4 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition"
+                  className="flex-1 rounded-xl border border-slate-600/70 px-4 py-3 font-medium text-slate-200 transition hover:border-cyan-300/50 hover:bg-cyan-950/30"
                 >
                   上一步
                 </button>
