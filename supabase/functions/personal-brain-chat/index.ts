@@ -149,13 +149,12 @@ serve(async (req: Request) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '',
     );
 
-    const apiKey = Deno.env.get('DASHSCOPE_API_KEY');
-    const baseUrl =
-      Deno.env.get('DASHSCOPE_BASE_URL') ?? 'https://coding.dashscope.aliyuncs.com/v1';
-    const model = Deno.env.get('DASHSCOPE_MODEL')?.trim() || 'deepseek-v4-flash';
+    const apiKey = Deno.env.get('DEEPSEEK_API_KEY');
+    const baseUrl = Deno.env.get('DEEPSEEK_BASE_URL') ?? 'https://api.deepseek.com';
+    const model = Deno.env.get('DEEPSEEK_MODEL')?.trim() || 'deepseek-v4-flash';
 
     if (!apiKey) {
-      throw new Error('Missing DASHSCOPE_API_KEY secret');
+      throw new Error('Missing DEEPSEEK_API_KEY secret');
     }
 
     const { slug, messages } = (await req.json()) as {
@@ -234,7 +233,7 @@ serve(async (req: Request) => {
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(`DashScope request failed: ${response.status} ${errorText}`);
+      throw new Error(`DeepSeek request failed: ${response.status} ${errorText}`);
     }
 
     const data = await response.json();
