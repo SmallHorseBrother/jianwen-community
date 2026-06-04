@@ -4,26 +4,30 @@
  */
 
 import React, { useState } from 'react';
-import { Heart, MessageCircle, X, Image as ImageIcon, Send, Trash2 } from 'lucide-react';
+import { Heart, MessageCircle, Send, Share2 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { toggleLike, addComment, CheckIn } from '../../services/checkInService';
+import CheckInShareModal from './CheckInShareModal';
 
 interface CheckInCardProps {
   checkIn: CheckIn;
   onUpdate: () => void; // 状态更新回调
+  highlighted?: boolean;
 }
 
-const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate }) => {
+const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighted = false }) => {
   const { user } = useAuth();
   const [isCommenting, setIsCommenting] = useState(false);
   const [commentContent, setCommentContent] = useState('');
   const [submittingComment, setSubmittingComment] = useState(false);
   const [likeAnimating, setLikeAnimating] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
 
   // 判断当前用户是否已点赞
   const isLiked = checkIn.likes?.some(like => like.user_id === user?.id);
   const likesCount = checkIn.likes?.length || 0;
   const commentsCount = checkIn.comments?.length || 0;
+  const canShareCheckIn = Boolean(user?.id && checkIn.user_id === user.id);
 
   // 处理点赞
   const handleLike = async () => {
@@ -76,7 +80,14 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate }) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-4 hover:shadow-md transition-shadow">
+    <div
+      id={`check-in-${checkIn.id}`}
+      className={`bg-white rounded-2xl p-5 mb-4 transition-all ${
+        highlighted
+          ? 'border-2 border-cyan-300 shadow-xl shadow-cyan-200/40 ring-4 ring-cyan-100'
+          : 'border border-gray-100 shadow-sm hover:shadow-md'
+      }`}
+    >
       {/* 头部：用户信息 */}
       <div className="flex items-start gap-3 mb-3">
         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center text-white overflow-hidden flex-shrink-0">
@@ -155,6 +166,16 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate }) => {
             <MessageCircle className="w-5 h-5" />
             <span>{commentsCount > 0 ? commentsCount : '评论'}</span>
           </button>
+
+          {canShareCheckIn && (
+            <button
+              onClick={() => setShowShareModal(true)}
+              className="flex items-center gap-1.5 text-gray-500 hover:text-cyan-300 transition-colors text-sm"
+            >
+              <Share2 className="w-5 h-5" />
+              <span>分享图</span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -195,6 +216,13 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate }) => {
             </form>
           )}
         </div>
+      )}
+
+      {showShareModal && canShareCheckIn && (
+        <CheckInShareModal
+          checkIn={checkIn}
+          onClose={() => setShowShareModal(false)}
+        />
       )}
     </div>
   );

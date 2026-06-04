@@ -162,6 +162,22 @@ describe('CacheManager', () => {
       expect(result.reason).toContain('Session expired');
     });
 
+    it('should return valid for expired access token with refresh token', async () => {
+      const sessionData = {
+        access_token: 'token123',
+        refresh_token: 'refresh123',
+        user: { id: 'user123' },
+        expires_at: Math.floor(Date.now() / 1000) - 3600, // 1 hour ago
+      };
+      
+      localStorage.setItem('sb-auth-token', JSON.stringify(sessionData));
+      
+      const result = await validateSessionCache();
+      
+      expect(result.isValid).toBe(true);
+      expect(result.hasSession).toBe(true);
+    });
+
     it('should handle nested session structure', async () => {
       const sessionData = {
         session: {

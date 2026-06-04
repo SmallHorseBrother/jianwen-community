@@ -111,6 +111,32 @@ export async function getCheckIns(limit = 20) {
 }
 
 /**
+ * 根据通知或分享链接定位单条打卡。
+ */
+export async function getCheckInById(checkInId: string) {
+    const { data, error } = await supabase
+        .from("check_ins")
+        .select(`
+      *,
+      profiles:user_id (*),
+      likes:check_in_likes(*),
+      comments:check_in_comments(
+        *,
+        profiles:user_id(*)
+      )
+    `)
+        .eq("id", checkInId)
+        .single();
+
+    if (error) {
+        if (error.code === "PGRST116") return null;
+        throw error;
+    }
+
+    return data;
+}
+
+/**
  * 点赞/取消点赞
  */
 export async function toggleLike(checkInId: string, userId: string) {

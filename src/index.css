@@ -19,11 +19,13 @@
 
   html {
     background: var(--jw-bg);
+    overflow-x: hidden;
   }
 
   body {
     margin: 0;
     min-width: 320px;
+    overflow-x: hidden;
     background:
       radial-gradient(circle at 12% 4%, rgba(34, 211, 238, 0.2), transparent 28rem),
       radial-gradient(circle at 78% 0%, rgba(139, 92, 246, 0.28), transparent 30rem),

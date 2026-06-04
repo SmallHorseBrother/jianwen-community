@@ -22,6 +22,7 @@ import CommunityV2 from './pages/CommunityV2';
 import Tools from './pages/Tools';
 import Guide from './pages/Guide';
 import Tasks from './pages/Tasks';
+import Notifications from './pages/Notifications';
 
 // 旧页面 (归档)
 import Home from './pages/Home';
@@ -79,6 +80,7 @@ const AppRoutes: React.FC = () => {
       
       {/* 个人资料 */}
       <Route path="/profile" element={<ProtectedRoute><Layout><Profile /></Layout></ProtectedRoute>} />
+      <Route path="/notifications" element={<ProtectedRoute><Layout><Notifications /></Layout></ProtectedRoute>} />
       
       {/* 管理后台 */}
       <Route path="/admin" element={<ProtectedRoute><Layout><AdminDashboard /></Layout></ProtectedRoute>} />

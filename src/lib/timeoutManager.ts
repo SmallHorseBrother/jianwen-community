@@ -82,8 +82,11 @@ export async function withTimeout<T>(
       reject(error);
     }, timeoutMs);
     
-    // Clean up timeout if promise resolves first
-    promise.finally(() => clearTimeout(timeoutId));
+    // Clean up timeout if the wrapped promise settles first
+    promise.then(
+      () => clearTimeout(timeoutId),
+      () => clearTimeout(timeoutId),
+    );
   });
   
   // Race between the actual promise and the timeout

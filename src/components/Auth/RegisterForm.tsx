@@ -42,8 +42,8 @@ const RegisterForm: React.FC = () => {
     try {
       console.log('Submitting registration form...', { phone, nickname });
       await register(phone, password, nickname);
-      console.log('Registration successful, navigating to login...');
-      navigate('/login');
+      console.log('Registration successful, navigating to profile onboarding...');
+      navigate('/profile?flow=register', { replace: true, state: { from } });
     } catch (err) {
       console.error('Registration form error:', err);
       setError(err instanceof Error ? err.message : '注册失败，请重试');

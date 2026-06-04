@@ -221,10 +221,10 @@ const QADetail: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto px-4 py-8">
+      <div className="max-w-3xl mx-auto px-0 py-5 sm:px-4 sm:py-8">
         <article className="bg-white rounded-2xl shadow-lg overflow-hidden">
           {/* 问题区 */}
-          <div className="bg-gradient-to-r from-slate-950 via-blue-950 to-indigo-950 text-white p-6 md:p-8">
+          <div className="bg-gradient-to-r from-slate-950 via-blue-950 to-indigo-950 text-white p-5 md:p-8">
             {question.is_featured && (
               <div className="flex items-center gap-1 text-yellow-300 text-sm mb-3">
                 <Star className="w-4 h-4 fill-current" />
@@ -247,10 +247,10 @@ const QADetail: React.FC = () => {
                 </span>
               )}
             </div>
-            <h1 className="text-xl md:text-2xl font-bold leading-relaxed">
+            <h1 className="text-lg md:text-2xl font-bold leading-relaxed">
               {question.content}
             </h1>
-            <div className="flex flex-wrap items-center gap-4 mt-4 text-blue-100 text-sm">
+            <div className="mt-4 grid grid-cols-2 gap-3 text-sm text-blue-100 sm:flex sm:flex-wrap sm:items-center sm:gap-4">
               <span className="flex items-center gap-1">
                 <User className="w-4 h-4" />
                 {question.is_anonymous ? '匿名用户' : question.asker_nickname || '用户'}
@@ -272,7 +272,7 @@ const QADetail: React.FC = () => {
                 {question.source_count || 1} 次来源
               </span>
             </div>
-            <div className="mt-5 flex flex-wrap gap-3">
+            <div className="mt-5 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
               <button
                 type="button"
                 onClick={handleSameQuestion}
@@ -295,7 +295,7 @@ const QADetail: React.FC = () => {
 
           {/* 马健文回答区 */}
           {question.answer ? (
-            <div className="p-6 md:p-8 border-b border-gray-100">
+            <div className="p-5 md:p-8 border-b border-gray-100">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold">
                   马
@@ -313,7 +313,7 @@ const QADetail: React.FC = () => {
               </div>
             </div>
           ) : (
-            <div className="p-6 md:p-8 border-b border-gray-100">
+            <div className="p-5 md:p-8 border-b border-gray-100">
               <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5">
                 <div className="flex items-center gap-2 text-amber-700 font-semibold">
                   <Sparkles className="w-5 h-5" />
@@ -327,7 +327,7 @@ const QADetail: React.FC = () => {
           )}
 
           {/* 群友帮答区 */}
-          <div className="p-6 md:p-8">
+          <div className="p-5 md:p-8">
             <div className="flex items-center gap-2 mb-6">
               <Users className="w-5 h-5 text-orange-500" />
               <h2 className="text-lg font-bold text-gray-800">
@@ -393,7 +393,7 @@ const QADetail: React.FC = () => {
                   <button
                     type="submit"
                     disabled={submitting || !answerContent.trim()}
-                    className="flex items-center gap-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 disabled:bg-gray-300 text-white rounded-lg text-sm font-medium transition"
+                    className="flex w-full items-center justify-center gap-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 disabled:bg-gray-300 text-white rounded-lg text-sm font-medium transition sm:w-auto"
                   >
                     {submitting ? '提交中...' : (
                       <>

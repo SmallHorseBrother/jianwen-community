@@ -45,7 +45,9 @@ describe('TimeoutManager', () => {
     });
 
     it('should reject when promise rejects before timeout', async () => {
-      const promise = Promise.reject(new Error('failed')).catch(e => Promise.reject(e));
+      const promise = new Promise<never>((_, reject) => {
+        setTimeout(() => reject(new Error('failed')), 0);
+      });
       
       await expect(
         withTimeout(promise, 1000, 'testOp')
@@ -134,7 +136,9 @@ describe('TimeoutManager', () => {
     });
 
     it('should throw non-timeout errors', async () => {
-      const promise = Promise.reject(new Error('network error')).catch(e => Promise.reject(e));
+      const promise = new Promise<never>((_, reject) => {
+        setTimeout(() => reject(new Error('network error')), 0);
+      });
       
       await expect(
         withTimeoutAndFallback(promise, 1000, 'testOp', 'fallback')

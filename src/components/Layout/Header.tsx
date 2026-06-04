@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Brain, Users, Wrench, User, LogOut, AlertCircle,
-  Menu, X, Settings, Sparkles
+  Menu, X, Settings, Sparkles, Bell
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { checkIsAdmin } from '../../services/questionService';
+import NotificationBell from './NotificationBell';
 
 const Header: React.FC = () => {
   const { user, isAuthenticated, logout } = useAuth();
@@ -86,6 +87,10 @@ const Header: React.FC = () => {
           <div className="flex items-center space-x-3">
             {isAuthenticated ? (
               <div className="hidden md:flex items-center space-x-3">
+                <NotificationBell
+                  isAdmin={isAdmin}
+                  includeProfileReminder={isProfileIncomplete}
+                />
                 <Link
                   to="/profile"
                   className={`flex items-center space-x-2 px-3 py-2 rounded-xl transition-all ${
@@ -184,6 +189,14 @@ const Header: React.FC = () => {
                   >
                     <User className="w-5 h-5" />
                     <span>我的资料</span>
+                  </Link>
+                  <Link
+                    to="/notifications"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center space-x-2 px-4 py-3 text-sm text-slate-300 hover:bg-white/10 rounded-xl"
+                  >
+                    <Bell className="w-5 h-5" />
+                    <span>通知中心</span>
                   </Link>
                   <Link
                     to="/about/admin"

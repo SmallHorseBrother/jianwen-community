@@ -14,8 +14,8 @@ export interface User {
   skillsSeeking?: string; // 我正在寻找
   wechatId?: string; // 微信号
   socialLinks: { [key: string]: string }; // 社交链接
-  age?: number; // 年龄 (可选)
-  gender?: string; // 性别 (可选)
+  age?: number | null; // 年龄 (可选)
+  gender?: string | null; // 性别 (可选)
   // 废弃字段 (保留兼容性)
   powerData?: {
     bench: number;
@@ -30,6 +30,8 @@ export interface User {
 
 // 群身份选项
 export const GROUP_IDENTITIES = [
+  "枭马葛健身群",
+  "枭马葛学习群",
   "健身一群",
   "健身二群",
   "健身三群",

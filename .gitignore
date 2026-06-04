@@ -13,6 +13,10 @@ dist-ssr
 *.local
 .tmp_*.cjs
 supabase/.temp/
+test-results/
+playwright-report/
+reports/ui-test-agent/
+.task-runner-logs/
 
 # Editor directories and files
 .vscode/*

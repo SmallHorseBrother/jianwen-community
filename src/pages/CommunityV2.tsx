@@ -5,7 +5,7 @@
  */
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { 
   Users, Search, Sparkles, Target, 
   MessageCircle, X, ExternalLink, MapPin, 
@@ -15,7 +15,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import type { Database } from '../lib/database.types';
 import { formatGroupIdentity, calculateProfileCompleteness } from '../utils/profileUtils';
-import { getCheckIns, CheckIn } from '../services/checkInService';
+import { getCheckInById, getCheckIns, CheckIn } from '../services/checkInService';
 
 // 组件
 import CheckInCard from '../components/Community/CheckInCard';
@@ -26,6 +26,8 @@ type Profile = Database['public']['Tables']['profiles']['Row'];
 
 const CommunityV2: React.FC = () => {
   const { user } = useAuth();
+  const [searchParams] = useSearchParams();
+  const targetCheckInId = searchParams.get('checkIn');
   
   // Tab 状态
   const [activeTab, setActiveTab] = useState<'moments' | 'partners'>('moments');
@@ -48,14 +50,40 @@ const CommunityV2: React.FC = () => {
     } else {
       loadProfiles();
     }
-  }, [activeTab]);
+  }, [activeTab, targetCheckInId]);
+
+  useEffect(() => {
+    if (targetCheckInId) {
+      setActiveTab('moments');
+    }
+  }, [targetCheckInId]);
+
+  useEffect(() => {
+    if (!targetCheckInId || loadingCheckIns) return;
+
+    const targetElement = document.getElementById(`check-in-${targetCheckInId}`);
+    if (!targetElement) return;
+
+    window.setTimeout(() => {
+      targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
+  }, [targetCheckInId, loadingCheckIns, checkIns]);
 
   // 加载打卡列表
   const loadCheckIns = async () => {
     try {
       setLoadingCheckIns(true);
       const data = await getCheckIns(20);
-      setCheckIns(data || []);
+      let nextCheckIns = data || [];
+
+      if (targetCheckInId && !nextCheckIns.some((checkIn) => checkIn.id === targetCheckInId)) {
+        const targetCheckIn = await getCheckInById(targetCheckInId);
+        if (targetCheckIn) {
+          nextCheckIns = [targetCheckIn, ...nextCheckIns];
+        }
+      }
+
+      setCheckIns(nextCheckIns);
     } catch (error) {
       console.error('加载打卡失败', error);
     } finally {
@@ -206,6 +234,7 @@ const CommunityV2: React.FC = () => {
                       key={checkIn.id} 
                       checkIn={checkIn} 
                       onUpdate={loadCheckIns} 
+                      highlighted={checkIn.id === targetCheckInId}
                     />
                   ))}
                   

@@ -1021,7 +1021,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 
 	if (!questions.length) {
 		return (
-			<section className="rounded-[2rem] border border-white/10 bg-slate-950/55 p-10 text-center">
+			<section className="rounded-2xl border border-white/10 bg-slate-950/55 p-6 text-center sm:rounded-[2rem] sm:p-10">
 				<Sparkles className="mx-auto h-10 w-10 text-slate-500" />
 				<p className="mt-3 text-slate-300">
 					{loading ? "正在生成问题星图..." : "这个星区暂时没有问题。"}
@@ -1038,7 +1038,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 						position: "fixed",
 						inset: 0,
 						width: "100vw",
-						height: "100vh",
+						height: "100svh",
 						margin: 0,
 					}
 					: undefined
@@ -1046,7 +1046,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 			className={`overflow-hidden border shadow-2xl shadow-cyan-950/30 transition-all duration-300 ${
 				isFullscreen
 					? "fixed inset-0 z-[100] rounded-none border-transparent bg-black"
-					: "relative rounded-[2rem] border-cyan-300/15 bg-slate-950/70"
+					: "relative rounded-2xl border-cyan-300/15 bg-slate-950/70 sm:rounded-[2rem]"
 			}`}
 		>
 			<div
@@ -1059,52 +1059,58 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 			<div
 				className={`relative grid ${
 					isFullscreen
-						? "h-screen min-h-screen"
-						: "min-h-[680px] lg:grid-cols-[minmax(0,1fr)_390px]"
+						? "h-[100svh] min-h-[100svh]"
+						: "grid-rows-[minmax(560px,68svh)_auto] lg:min-h-[760px] lg:grid-cols-[minmax(0,1fr)_390px] lg:grid-rows-1"
 				}`}
 			>
-				<div className={`relative ${isFullscreen ? "min-h-screen" : "min-h-[600px] lg:min-h-[760px]"}`}>
+				<div className={`relative ${isFullscreen ? "min-h-[100svh]" : "min-h-[560px] lg:min-h-[760px]"}`}>
 					<div ref={mountRef} className="absolute inset-0" />
-					<div className="pointer-events-none absolute left-5 top-5 flex flex-wrap gap-2">
-						<span className="inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-slate-950/70 px-3 py-1.5 text-xs text-cyan-100 backdrop-blur">
+					<div className="pointer-events-none absolute left-3 right-3 top-3 z-20 flex flex-wrap gap-2 sm:left-5 sm:right-5 sm:top-5">
+						<span className="inline-flex min-w-0 items-center gap-2 rounded-full border border-cyan-300/20 bg-slate-950/75 px-2.5 py-1.5 text-[11px] text-cyan-100 backdrop-blur sm:px-3 sm:text-xs">
 							<MousePointer2 className="h-3.5 w-3.5" />
-							{interactionMode === "pan"
-								? `平移模式 · 拖拽移动 · 滚轮缩放 ${zoomLabel}`
-								: `拖拽旋转 · Shift 拖拽平移 · 滚轮缩放 ${zoomLabel}`}
+							<span className="sm:hidden">
+								{interactionMode === "pan" ? `平移 · ${zoomLabel}` : `旋转 · ${zoomLabel}`}
+							</span>
+							<span className="hidden sm:inline">
+								{interactionMode === "pan"
+									? `平移模式 · 拖拽移动 · 滚轮缩放 ${zoomLabel}`
+									: `拖拽旋转 · Shift 拖拽平移 · 滚轮缩放 ${zoomLabel}`}
+							</span>
 						</span>
-						<span className="inline-flex items-center gap-2 rounded-full border border-fuchsia-300/20 bg-slate-950/70 px-3 py-1.5 text-xs text-fuchsia-100 backdrop-blur">
+						<span className="inline-flex items-center gap-2 rounded-full border border-fuchsia-300/20 bg-slate-950/75 px-2.5 py-1.5 text-[11px] text-fuchsia-100 backdrop-blur sm:px-3 sm:text-xs">
 							<Network className="h-3.5 w-3.5" />
-							{nodes.length} 颗可见星 · {edges.length} 条相似连线
+							<span className="sm:hidden">{nodes.length} 星 · {edges.length} 线</span>
+							<span className="hidden sm:inline">{nodes.length} 颗可见星 · {edges.length} 条相似连线</span>
 						</span>
 						{clusteredQuestionCount > 0 && (
-							<span className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-slate-950/70 px-3 py-1.5 text-xs text-amber-100 backdrop-blur">
+							<span className="hidden items-center gap-2 rounded-full border border-amber-300/20 bg-slate-950/75 px-3 py-1.5 text-xs text-amber-100 backdrop-blur sm:inline-flex">
 								<Layers3 className="h-3.5 w-3.5" />
 								已折叠 {clusteredQuestionCount} 个相似问题
 							</span>
 						)}
 					</div>
-					<div className="absolute left-5 top-[4.65rem] z-20 flex flex-wrap gap-2 rounded-2xl border border-white/10 bg-slate-950/70 p-1.5 shadow-xl shadow-slate-950/30 backdrop-blur">
+					<div className="absolute left-3 right-3 top-[3.35rem] z-20 grid grid-cols-3 gap-1 rounded-2xl border border-white/10 bg-slate-950/75 p-1.5 shadow-xl shadow-slate-950/30 backdrop-blur sm:left-5 sm:right-auto sm:top-[4.65rem] sm:flex sm:flex-wrap sm:gap-2">
 						{granularityOptions.map((option) => (
 							<button
 								key={option.mode}
 								type="button"
 								onClick={() => setGranularity(option.mode)}
-								className={`rounded-xl px-3 py-2 text-left text-xs transition ${
+								className={`min-w-0 rounded-xl px-2 py-2 text-center text-[11px] transition sm:px-3 sm:text-left sm:text-xs ${
 									granularity === option.mode
 										? "bg-cyan-300/18 text-cyan-50"
 										: "text-slate-300 hover:bg-white/8 hover:text-white"
 								}`}
 							>
 								<span className="block font-bold">{option.label}</span>
-								<span className="block text-[10px] opacity-70">{option.description}</span>
+								<span className="hidden text-[10px] opacity-70 sm:block">{option.description}</span>
 							</button>
 						))}
 					</div>
 					<button
 						type="button"
 						onClick={() => setResetSignal((value) => value + 1)}
-						className={`absolute right-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-slate-950/75 px-3 py-2 text-xs font-semibold text-cyan-50 shadow-xl shadow-slate-950/40 backdrop-blur transition hover:bg-cyan-300/10 ${
-							isFullscreen ? "top-16 z-30" : "top-16"
+						className={`absolute right-3 inline-flex items-center gap-1.5 rounded-full border border-cyan-300/20 bg-slate-950/78 px-2.5 py-2 text-[11px] font-semibold text-cyan-50 shadow-xl shadow-slate-950/40 backdrop-blur transition hover:bg-cyan-300/10 sm:right-5 sm:gap-2 sm:px-3 sm:text-xs ${
+							isFullscreen ? "top-[7.25rem] z-30 sm:top-16" : "top-[7.25rem] sm:top-16"
 						}`}
 					>
 						<RotateCcw className="h-4 w-4" />
@@ -1115,11 +1121,11 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 						onClick={() =>
 							setInteractionMode((mode) => (mode === "pan" ? "rotate" : "pan"))
 						}
-						className={`absolute right-5 inline-flex items-center gap-2 rounded-full border px-3 py-2 text-xs font-semibold shadow-xl shadow-slate-950/40 backdrop-blur transition ${
+						className={`absolute right-3 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-2 text-[11px] font-semibold shadow-xl shadow-slate-950/40 backdrop-blur transition sm:right-5 sm:gap-2 sm:px-3 sm:text-xs ${
 							interactionMode === "pan"
 								? "border-amber-300/35 bg-amber-300/15 text-amber-50 hover:bg-amber-300/22"
 								: "border-white/15 bg-slate-950/75 text-white hover:bg-white/10"
-						} ${isFullscreen ? "top-[6.75rem] z-30" : "top-[6.75rem]"}`}
+						} ${isFullscreen ? "top-[10rem] z-30 sm:top-[6.75rem]" : "top-[10rem] sm:top-[6.75rem]"}`}
 					>
 						<Move className="h-4 w-4" />
 						{interactionMode === "pan" ? "旋转模式" : "平移模式"}
@@ -1127,7 +1133,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 					<button
 						type="button"
 						onClick={() => setIsFullscreen((value) => !value)}
-						className={`absolute right-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-slate-950/75 px-3 py-2 text-xs font-semibold text-white shadow-xl shadow-slate-950/40 backdrop-blur transition hover:bg-white/10 ${
+						className={`absolute right-3 top-[12.75rem] inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-slate-950/78 px-2.5 py-2 text-[11px] font-semibold text-white shadow-xl shadow-slate-950/40 backdrop-blur transition hover:bg-white/10 sm:right-5 sm:top-5 sm:gap-2 sm:px-3 sm:text-xs ${
 							isFullscreen ? "z-30" : ""
 						}`}
 					>
@@ -1144,12 +1150,12 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 						)}
 					</button>
 					{isFullscreen && !isDetailOpen && (
-						<div className="pointer-events-none absolute left-5 top-24 max-w-xs rounded-2xl border border-white/10 bg-slate-950/58 p-3 text-xs leading-5 text-slate-300 backdrop-blur">
+						<div className="pointer-events-none absolute left-3 right-3 top-[15.5rem] rounded-2xl border border-white/10 bg-slate-950/58 p-3 text-xs leading-5 text-slate-300 backdrop-blur sm:left-5 sm:right-auto sm:top-24 sm:max-w-xs">
 							点击任意一颗星，查看问题、回答和相似问题。
 						</div>
 					)}
 					<div
-						className={`pointer-events-none absolute left-5 right-5 grid gap-2 rounded-2xl border border-white/10 bg-slate-950/66 p-3 text-xs text-slate-300 backdrop-blur md:left-auto md:max-w-lg ${
+						className={`pointer-events-none absolute left-3 right-3 hidden gap-2 rounded-2xl border border-white/10 bg-slate-950/66 p-3 text-xs text-slate-300 backdrop-blur sm:grid md:left-auto md:max-w-lg ${
 							isFullscreen ? "bottom-5 z-20" : "bottom-5"
 						}`}
 					>
@@ -1173,9 +1179,9 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 				</div>
 
 				<aside
-					className={`border-white/10 bg-slate-950/72 p-5 backdrop-blur-xl ${
+					className={`border-white/10 bg-slate-950/72 p-4 backdrop-blur-xl sm:p-5 ${
 						isFullscreen
-							? `${isDetailOpen ? "absolute" : "hidden"} bottom-5 right-5 top-20 z-20 w-[min(460px,calc(100vw-2.5rem))] overflow-auto rounded-[1.5rem] border bg-slate-950/72 shadow-2xl shadow-black/40`
+							? `${isDetailOpen ? "absolute" : "hidden"} inset-x-3 bottom-3 top-auto z-20 max-h-[58svh] overflow-auto rounded-2xl border bg-slate-950/82 shadow-2xl shadow-black/40 sm:bottom-5 sm:right-5 sm:left-auto sm:top-20 sm:max-h-none sm:w-[min(460px,calc(100vw-2.5rem))] sm:rounded-[1.5rem]`
 							: "relative border-t lg:border-l lg:border-t-0"
 					}`}
 				>
@@ -1193,7 +1199,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 									</button>
 								</div>
 							)}
-							<div className="flex items-center justify-between gap-3">
+							<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 								<div className="flex flex-wrap items-center gap-2">
 									<span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-semibold text-cyan-50">
 										{activeTopic}
@@ -1224,7 +1230,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 									</div>
 								</div>
 							)}
-							<h3 className="mt-5 text-2xl font-black leading-snug text-white">
+							<h3 className="mt-5 text-xl font-black leading-snug text-white sm:text-2xl">
 								{activeQuestion.content}
 							</h3>
 							{hovered && hovered.id !== activeQuestion.id && (
@@ -1243,7 +1249,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 									</span>
 								))}
 							</div>
-							<div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm text-slate-300">
+							<div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.03] p-3 text-sm text-slate-300 sm:p-4">
 								{activeQuestion.answer ? (
 									<div>
 										<div className="flex items-center gap-2 text-emerald-200">
@@ -1262,7 +1268,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 								)}
 							</div>
 							{relatedQuestions.length > 0 && (
-								<div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.035] p-4">
+								<div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.035] p-3 sm:p-4">
 									<div className="flex items-center justify-between gap-3">
 										<h4 className="flex items-center gap-2 text-sm font-bold text-white">
 											<Network className="h-4 w-4 text-cyan-200" />
@@ -1311,7 +1317,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 									</div>
 								</div>
 							)}
-							<div className="mt-auto flex flex-col gap-3 pt-6">
+							<div className="mt-auto grid gap-3 pt-6 sm:flex sm:flex-col">
 								<button
 									type="button"
 									onClick={() => onSameQuestion(activeQuestion)}

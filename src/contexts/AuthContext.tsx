@@ -3,7 +3,7 @@ import type { AuthChangeEvent, Session } from '@supabase/supabase-js';
 import { supabase, getCurrentSession, getUserProfile, createUserProfile, updateUserProfile } from '../lib/supabase.ts';
 import { User, AuthState } from '../types';
 import { withTimeout, TIMEOUT_CONFIG, isTimeoutError } from '../lib/timeoutManager';
-import { clearAuthCache, validateSessionCache, hasSessionInCache } from '../lib/cacheManager';
+import { clearAuthCache, validateSessionCache } from '../lib/cacheManager';
 import { getGlobalQueue } from '../lib/operationQueue';
 import { AuthStatus } from '../types/authState';
 import { logOperationStart, logStateChange, logError, logNetworkRequest, logWarning } from '../lib/authLogger';
@@ -104,6 +104,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     skillsSeeking: profile.skills_seeking ?? undefined,
     wechatId: profile.wechat_id ?? undefined,
     socialLinks: (profile.social_links as { [key: string]: string }) || {},
+    age: profile.age ?? undefined,
+    gender: profile.gender ?? undefined,
     // 废弃字段 (保留兼容性)
     powerData: {
       bench: profile.bench_press || 0,
@@ -129,9 +131,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         
         if (!cacheValidation.isValid) {
           logWarning('Invalid cache detected during hydration', { reason: cacheValidation.reason });
-          if (cacheValidation.hasSession) {
-            // Clear corrupted cache
-            clearAuthCache('corrupted_session');
+          const isCorruptedCache = cacheValidation.reason?.includes('Corrupted cache data');
+          if (isCorruptedCache || cacheValidation.hasSession) {
+            clearAuthCache(isCorruptedCache ? 'corrupted_session' : 'expired_session');
           }
           setState({ user: null, isAuthenticated: false, isLoading: false });
           return;
@@ -167,11 +169,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           } catch (err) {
             logError(err, 'hydration-profile-load');
             
-            // Handle timeout or network errors
-            if (isTimeoutError(err) || (err instanceof Error && err.message.includes('network'))) {
-              clearAuthCache('network_error');
-            }
-            
+            // Keep the stored session on transient profile-loading failures so
+            // Supabase can refresh/recover it on the next app load.
             setState({ user: null, isAuthenticated: false, isLoading: false });
           }
         } else {
@@ -179,7 +178,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
       } catch (err) {
         logError(err, 'hydrateSession');
-        clearAuthCache('corrupted_session');
         setState({ user: null, isAuthenticated: false, isLoading: false });
       }
     };
@@ -311,10 +309,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         } catch (profileError) {
           logError(profileError, 'login-profile-load');
           
-          // Clear cache and sign out on profile load failure
-          clearAuthCache('profile_load_failed');
-          await supabase.auth.signOut();
-          
+          if (profileError instanceof Error && profileError.message.includes('未找到用户资料')) {
+            clearAuthCache('missing_profile');
+            await supabase.auth.signOut();
+          }
+
+          // Keep the Supabase session for transient profile-loading failures.
+          // This lets users retry without forcing a fresh manual login.
           setState({ user: null, isAuthenticated: false, isLoading: false });
           isManualLoginRef.current = false;
           
@@ -365,7 +366,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
 
       // 3. 创建用户资料
-      await createUserProfile({
+      const profile = await createUserProfile({
         id: signUpData.user.id,
         phone,
         nickname,
@@ -381,6 +382,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         fitness_interests: [],
         learning_interests: [],
         social_links: {},
+        wechat_id: null,
+        tags: [],
+        skills_offering: null,
+        skills_seeking: null,
+        age: null,
+        gender: null,
+      });
+
+      setState({
+        user: mapProfileToUser(profile),
+        isAuthenticated: true,
+        isLoading: false,
       });
 
       console.log('Registration & profile creation completed successfully');
@@ -436,7 +449,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const profileUpdates: any = {};
       
-      if (updates.nickname) profileUpdates.nickname = updates.nickname;
+      if (updates.nickname !== undefined) profileUpdates.nickname = updates.nickname;
       if (updates.bio !== undefined) profileUpdates.bio = updates.bio;
       if (updates.avatar !== undefined) profileUpdates.avatar_url = updates.avatar;
       if (updates.isPublic !== undefined) profileUpdates.is_public = updates.isPublic;
@@ -449,6 +462,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (updates.fitnessInterests !== undefined) profileUpdates.fitness_interests = updates.fitnessInterests;
       if (updates.learningInterests !== undefined) profileUpdates.learning_interests = updates.learningInterests;
       if (updates.socialLinks !== undefined) profileUpdates.social_links = updates.socialLinks;
+      if (updates.age !== undefined) profileUpdates.age = updates.age;
+      if (updates.gender !== undefined) profileUpdates.gender = updates.gender;
       
       // V2.0 新增字段
       if (updates.wechatId !== undefined) profileUpdates.wechat_id = updates.wechatId;
@@ -483,6 +498,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         fitnessInterests: updatedProfile.fitness_interests || [],
         learningInterests: updatedProfile.learning_interests || [],
         socialLinks: (updatedProfile.social_links as { [key: string]: string }) || {},
+        age: (updatedProfile as any).age ?? undefined,
+        gender: (updatedProfile as any).gender ?? undefined,
         // V2.0 新增字段
         wechatId: (updatedProfile as any).wechat_id ?? undefined,
         tags: (updatedProfile as any).tags || [],

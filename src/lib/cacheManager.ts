@@ -27,6 +27,16 @@ export type CacheClearReason =
   | 'manual_clear'
   | 'logout';
 
+function getSessionExpiresAt(sessionData: any): number | null {
+  const expiresAt = sessionData?.expires_at ?? sessionData?.session?.expires_at;
+  return typeof expiresAt === 'number' ? expiresAt : null;
+}
+
+function hasRefreshToken(sessionData: any): boolean {
+  const refreshToken = sessionData?.refresh_token ?? sessionData?.session?.refresh_token;
+  return typeof refreshToken === 'string' && refreshToken.length > 0;
+}
+
 /**
  * Gets all Supabase-related cache keys from localStorage
  */
@@ -158,12 +168,13 @@ export async function validateSessionCache(): Promise<CacheValidationResult> {
       };
     }
 
-    // Check if session is expired
+    // An expired access token can still be recovered by Supabase when a refresh
+    // token is present. Do not clear that cache before getSession() can refresh it.
     if (sessionData) {
-      const expiresAt = sessionData.expires_at || sessionData.session?.expires_at;
+      const expiresAt = getSessionExpiresAt(sessionData);
       if (expiresAt) {
         const now = Math.floor(Date.now() / 1000);
-        if (expiresAt < now) {
+        if (expiresAt < now && !hasRefreshToken(sessionData)) {
           return {
             isValid: false,
             hasSession: true,

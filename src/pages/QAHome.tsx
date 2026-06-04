@@ -288,33 +288,33 @@ const QAHome: React.FC = () => {
 	};
 
 	return (
-		<div className="min-h-screen pb-10">
-			<section className="overflow-hidden rounded-[2rem] border border-cyan-300/15 bg-slate-950/70 shadow-2xl shadow-cyan-950/30">
-				<div className="relative px-5 py-8 md:px-10 md:py-10">
+		<div className="min-h-screen pb-8 sm:pb-10">
+			<section className="overflow-hidden rounded-2xl border border-cyan-300/15 bg-slate-950/70 shadow-2xl shadow-cyan-950/30 sm:rounded-[2rem]">
+				<div className="relative px-4 py-7 sm:px-5 md:px-10 md:py-10">
 					<div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_12%,rgba(34,211,238,0.24),transparent_28%),radial-gradient(circle_at_86%_8%,rgba(236,72,153,0.18),transparent_32%)]" />
 					<div className="relative z-10 grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)] lg:items-end">
 						<div>
-							<div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-sm font-semibold text-cyan-100">
+							<div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-2 text-xs font-semibold text-cyan-100 sm:px-4 sm:text-sm">
 								<Sparkles className="h-4 w-4" />
 								健文社区问题宇宙
 							</div>
-							<h1 className="mt-5 text-4xl font-black leading-tight text-white md:text-6xl">
+							<h1 className="mt-5 text-3xl font-black leading-tight text-white sm:text-4xl md:text-6xl">
 								问题星空
 							</h1>
-							<p className="mt-5 max-w-2xl text-base leading-8 text-slate-300 md:text-lg">
+							<p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base md:text-lg md:leading-8">
 								从评论区、平台私信、微信群聊、网站和腾讯文档里沉淀出的 3D 问题宇宙。相似问题会彼此连线，重复问题会自动提示。
 							</p>
-							<div className="mt-6 flex flex-wrap gap-3">
+							<div className="mt-6 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
 								<a
 									href="#question-submit"
-									className="neon-button inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-sm font-bold"
+									className="neon-button inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-bold sm:px-5"
 								>
 									提交新问题
 									<Send className="h-4 w-4" />
 								</a>
 								<a
 									href="#question-cosmos"
-									className="inline-flex items-center gap-2 rounded-2xl border border-white/15 bg-white/8 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/12"
+									className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/8 px-4 py-3 text-sm font-bold text-white transition hover:bg-white/12 sm:px-5"
 								>
 									进入星空
 									<ArrowUpRight className="h-4 w-4" />
@@ -322,13 +322,13 @@ const QAHome: React.FC = () => {
 							</div>
 						</div>
 
-						<div className="grid grid-cols-2 gap-3">
+						<div className="grid grid-cols-2 gap-2 sm:gap-3">
 							{statCards.map((item) => (
 								<div
 									key={item.label}
-									className="rounded-3xl border border-white/10 bg-white/[0.06] p-5 backdrop-blur"
+									className="rounded-2xl border border-white/10 bg-white/[0.06] p-4 backdrop-blur sm:rounded-3xl sm:p-5"
 								>
-									<p className="text-2xl font-black text-white md:text-3xl">
+									<p className="text-xl font-black text-white sm:text-2xl md:text-3xl">
 										{item.value}
 									</p>
 									<p className="mt-2 text-sm text-slate-400">{item.label}</p>
@@ -350,7 +350,7 @@ const QAHome: React.FC = () => {
 
 			<section className="mt-8">
 				<div className="mb-4 flex items-center justify-between gap-4">
-					<h2 className="flex items-center gap-2 text-xl font-black text-white">
+					<h2 className="flex items-center gap-2 text-lg font-black text-white sm:text-xl">
 						<Filter className="h-5 w-5 text-cyan-200" />
 						问题星座
 					</h2>
@@ -362,7 +362,7 @@ const QAHome: React.FC = () => {
 						全部星区
 					</button>
 				</div>
-				<div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+				<div className="grid gap-2 sm:grid-cols-2 sm:gap-3 lg:grid-cols-4">
 					{QUESTION_TOPICS.map((topic) => {
 						const active = selectedTopic === topic;
 						const count = stats?.byTopic[topic] || 0;
@@ -371,7 +371,7 @@ const QAHome: React.FC = () => {
 								key={topic}
 								type="button"
 								onClick={() => handleTopicSelect(active ? null : topic)}
-								className={`rounded-3xl border bg-gradient-to-br p-4 text-left transition hover:-translate-y-1 ${
+								className={`rounded-2xl border bg-gradient-to-br p-4 text-left transition hover:-translate-y-1 sm:rounded-3xl ${
 									topicAccent[topic]
 								} ${active ? "ring-2 ring-white/60" : ""}`}
 							>
@@ -388,11 +388,11 @@ const QAHome: React.FC = () => {
 				</div>
 			</section>
 
-			<section className="mt-8 grid gap-8 lg:grid-cols-[minmax(320px,0.78fr)_minmax(0,1.22fr)]">
+			<section className="mt-8 grid gap-5 lg:grid-cols-[minmax(320px,0.78fr)_minmax(0,1.22fr)] lg:gap-8">
 				<aside id="question-submit" className="space-y-6">
 					<form
 						onSubmit={handleSubmitQuestion}
-						className="rounded-3xl border border-white/10 bg-slate-950/65 p-6 shadow-xl shadow-slate-950/25"
+						className="rounded-2xl border border-white/10 bg-slate-950/65 p-4 shadow-xl shadow-slate-950/25 sm:rounded-3xl sm:p-6"
 					>
 						<h2 className="flex items-center gap-2 text-xl font-black text-white">
 							<MessageCircle className="h-5 w-5 text-cyan-200" />
@@ -486,7 +486,7 @@ const QAHome: React.FC = () => {
 						</div>
 					</form>
 
-					<div className="rounded-3xl border border-white/10 bg-slate-950/65 p-6">
+					<div className="rounded-2xl border border-white/10 bg-slate-950/65 p-4 sm:rounded-3xl sm:p-6">
 						<h3 className="flex items-center gap-2 text-base font-bold text-white">
 							<Tag className="h-4 w-4 text-cyan-200" />
 							热门标签
@@ -511,7 +511,7 @@ const QAHome: React.FC = () => {
 				</aside>
 
 				<section id="question-list" className="min-w-0">
-					<div className="rounded-3xl border border-white/10 bg-slate-950/65 p-5">
+					<div className="rounded-2xl border border-white/10 bg-slate-950/65 p-4 sm:rounded-3xl sm:p-5">
 						<div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_190px]">
 							<div className="relative">
 								<Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" />
@@ -558,12 +558,12 @@ const QAHome: React.FC = () => {
 
 					<div className="mt-5">
 						{loading ? (
-							<div className="rounded-3xl border border-white/10 bg-slate-950/65 py-16 text-center">
+							<div className="rounded-2xl border border-white/10 bg-slate-950/65 py-14 text-center sm:rounded-3xl sm:py-16">
 								<div className="mx-auto h-9 w-9 animate-spin rounded-full border-2 border-cyan-300 border-t-transparent" />
 								<p className="mt-3 text-slate-400">问题星区加载中...</p>
 							</div>
 						) : questions.length === 0 ? (
-							<div className="rounded-3xl border border-white/10 bg-slate-950/65 py-16 text-center">
+							<div className="rounded-2xl border border-white/10 bg-slate-950/65 py-14 text-center sm:rounded-3xl sm:py-16">
 								<Sparkles className="mx-auto h-10 w-10 text-slate-500" />
 								<p className="mt-3 text-slate-400">没有找到匹配的问题。</p>
 							</div>
@@ -575,7 +575,7 @@ const QAHome: React.FC = () => {
 									return (
 										<article
 											key={question.id}
-											className="rounded-3xl border border-white/10 bg-slate-950/65 p-5 transition hover:border-cyan-300/25 hover:bg-slate-900/70"
+											className="rounded-2xl border border-white/10 bg-slate-950/65 p-4 transition hover:border-cyan-300/25 hover:bg-slate-900/70 sm:rounded-3xl sm:p-5"
 										>
 											<div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
 												<div className="min-w-0 flex-1">
@@ -597,7 +597,7 @@ const QAHome: React.FC = () => {
 													</div>
 													<Link
 														to={`/qa/${question.id}`}
-														className="mt-3 block text-lg font-bold leading-snug text-white transition hover:text-cyan-100"
+														className="mt-3 block text-base font-bold leading-snug text-white transition hover:text-cyan-100 sm:text-lg"
 													>
 														{question.content}
 													</Link>
@@ -628,17 +628,17 @@ const QAHome: React.FC = () => {
 														))}
 													</div>
 												</div>
-												<div className="flex shrink-0 gap-2 md:flex-col">
+												<div className="grid shrink-0 grid-cols-2 gap-2 md:flex md:flex-col">
 													<button
 														type="button"
 														onClick={() => handleSameQuestion(question)}
-														className="rounded-2xl border border-cyan-300/25 bg-cyan-300/10 px-4 py-2 text-sm font-semibold text-cyan-50 transition hover:bg-cyan-300/18"
+														className="rounded-2xl border border-cyan-300/25 bg-cyan-300/10 px-3 py-2 text-sm font-semibold text-cyan-50 transition hover:bg-cyan-300/18 sm:px-4"
 													>
 														我也想问
 													</button>
 													<Link
 														to={`/qa/${question.id}`}
-														className="inline-flex items-center justify-center gap-1 rounded-2xl border border-white/10 px-4 py-2 text-sm font-semibold text-slate-200 transition hover:bg-white/10"
+														className="inline-flex items-center justify-center gap-1 rounded-2xl border border-white/10 px-3 py-2 text-sm font-semibold text-slate-200 transition hover:bg-white/10 sm:px-4"
 													>
 														详情
 														<ArrowUpRight className="h-4 w-4" />
@@ -668,7 +668,7 @@ const QAHome: React.FC = () => {
 			</section>
 
 			{sameToast && (
-				<div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-full border border-cyan-300/25 bg-slate-950/90 px-5 py-3 text-sm font-semibold text-cyan-50 shadow-2xl shadow-cyan-950/40 backdrop-blur">
+				<div className="fixed bottom-4 left-3 right-3 z-50 rounded-2xl border border-cyan-300/25 bg-slate-950/90 px-4 py-3 text-center text-sm font-semibold text-cyan-50 shadow-2xl shadow-cyan-950/40 backdrop-blur sm:bottom-6 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 sm:rounded-full sm:px-5">
 					{sameToast}
 				</div>
 			)}
