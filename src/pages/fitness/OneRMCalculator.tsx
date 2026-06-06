@@ -67,22 +67,22 @@ const FitnessToolbox: React.FC = () => {
 
       {/* Feature Highlights */}
       <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">工具特色</h2>
+        <h2 className="text-2xl font-bold text-slate-950 mb-6 text-center">工具特色</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="text-center">
             <Target className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">科学准确</h3>
-            <p className="text-gray-600 text-sm">使用经过验证的专业公式，确保计算结果的准确性</p>
+            <h3 className="text-lg font-semibold text-slate-950 mb-2">科学准确</h3>
+            <p className="text-slate-700 text-sm">使用经过验证的专业公式，确保计算结果的准确性</p>
           </div>
           <div className="text-center">
             <Calculator className="w-12 h-12 text-green-600 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">简单易用</h3>
-            <p className="text-gray-600 text-sm">直观的界面设计，无需专业知识即可轻松使用</p>
+            <h3 className="text-lg font-semibold text-slate-950 mb-2">简单易用</h3>
+            <p className="text-slate-700 text-sm">直观的界面设计，无需专业知识即可轻松使用</p>
           </div>
           <div className="text-center">
             <TrendingUp className="w-12 h-12 text-purple-600 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">训练指导</h3>
-            <p className="text-gray-600 text-sm">提供详细的训练建议和营养指导</p>
+            <h3 className="text-lg font-semibold text-slate-950 mb-2">训练指导</h3>
+            <p className="text-slate-700 text-sm">提供详细的训练建议和营养指导</p>
           </div>
         </div>
       </div>

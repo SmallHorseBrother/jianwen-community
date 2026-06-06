@@ -226,7 +226,7 @@ const LoginForm: React.FC = () => {
             <div>
               <span className="auth-subtitle text-sm">
                 还没有账户？
-                <Link to="/register" className="auth-link ml-1">
+                <Link to="/register" state={{ from }} className="auth-link ml-1">
                   立即注册
                 </Link>
               </span>

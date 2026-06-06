@@ -739,6 +739,8 @@ export interface Database {
           id: string;
           check_in_id: string;
           user_id: string;
+          parent_comment_id: string | null;
+          reply_to_user_id: string | null;
           content: string;
           created_at: string;
           updated_at: string;
@@ -747,6 +749,8 @@ export interface Database {
           id?: string;
           check_in_id: string;
           user_id: string;
+          parent_comment_id?: string | null;
+          reply_to_user_id?: string | null;
           content: string;
           created_at?: string;
           updated_at?: string;
@@ -755,6 +759,8 @@ export interface Database {
           id?: string;
           check_in_id?: string;
           user_id?: string;
+          parent_comment_id?: string | null;
+          reply_to_user_id?: string | null;
           content?: string;
           created_at?: string;
           updated_at?: string;

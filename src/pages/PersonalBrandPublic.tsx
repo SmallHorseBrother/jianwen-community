@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   BookOpen,
@@ -14,6 +14,7 @@ import {
   Phone,
   Send,
   Sparkles,
+  Trash2,
 } from 'lucide-react';
 import {
   askDigitalHuman,
@@ -34,6 +35,10 @@ const SECTION_ORDER: PersonalEntryType[] = [
   'project',
 ];
 
+const CHAT_HISTORY_STORAGE_PREFIX = 'jianwen-personal-brand-chat';
+const CHAT_HISTORY_MAX_MESSAGES = 40;
+const CHAT_CONTEXT_MAX_MESSAGES = 20;
+
 const SECTION_META: Record<
   PersonalEntryType,
   { title: string; icon: React.ComponentType<{ className?: string }> }
@@ -49,6 +54,56 @@ const formatPeriod = (entry: PersonalEntry) => {
   if (!entry.startDate && !entry.endDate && !entry.isOngoing) return '';
   const end = entry.isOngoing ? '至今' : entry.endDate || '';
   return [entry.startDate, end].filter(Boolean).join(' - ');
+};
+
+const getChatHistoryKey = (profileId: string, slug: string) =>
+  `${CHAT_HISTORY_STORAGE_PREFIX}:${slug || profileId}`;
+
+const getWelcomeMessage = (bundle: PersonalProfileBundle): DigitalHumanMessage => ({
+  role: 'assistant',
+  content:
+    bundle.profile.aiWelcomeMessage ||
+    '你好，我已经接入了这位作者的公开资料，你可以直接问我。',
+});
+
+const normalizeStoredMessages = (value: unknown): DigitalHumanMessage[] => {
+  if (!Array.isArray(value)) return [];
+
+  return value
+    .filter(
+      (message): message is DigitalHumanMessage =>
+        Boolean(
+          message &&
+            typeof message === 'object' &&
+            'role' in message &&
+            'content' in message &&
+            ((message as { role: unknown }).role === 'user' ||
+              (message as { role: unknown }).role === 'assistant') &&
+            typeof (message as { content: unknown }).content === 'string' &&
+            (message as { content: string }).content.trim(),
+        ),
+    )
+    .slice(-CHAT_HISTORY_MAX_MESSAGES);
+};
+
+const loadStoredMessages = (key: string): DigitalHumanMessage[] => {
+  try {
+    return normalizeStoredMessages(JSON.parse(localStorage.getItem(key) || '[]'));
+  } catch (storageError) {
+    console.warn('读取数字人历史对话失败:', storageError);
+    return [];
+  }
+};
+
+const saveStoredMessages = (key: string, nextMessages: DigitalHumanMessage[]) => {
+  try {
+    localStorage.setItem(
+      key,
+      JSON.stringify(nextMessages.slice(-CHAT_HISTORY_MAX_MESSAGES)),
+    );
+  } catch (storageError) {
+    console.warn('保存数字人历史对话失败:', storageError);
+  }
 };
 
 const PublicSection: React.FC<{
@@ -155,6 +210,7 @@ const PersonalBrandPublic: React.FC = () => {
   const [messages, setMessages] = useState<DigitalHumanMessage[]>([]);
   const [question, setQuestion] = useState('');
   const [answering, setAnswering] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const loadBundle = async () => {
@@ -163,14 +219,12 @@ const PersonalBrandPublic: React.FC = () => {
         const publicBundle = await getPublicPersonalProfileBundle();
         setBundle(publicBundle);
         if (publicBundle?.profile.aiEnabled) {
-          setMessages([
-            {
-              role: 'assistant',
-              content:
-                publicBundle.profile.aiWelcomeMessage ||
-                '你好，我已经接入了这位作者的公开资料，你可以直接问我。',
-            },
-          ]);
+          const historyKey = getChatHistoryKey(
+            publicBundle.profile.id,
+            publicBundle.profile.slug,
+          );
+          const storedMessages = loadStoredMessages(historyKey);
+          setMessages(storedMessages.length > 0 ? storedMessages : [getWelcomeMessage(publicBundle)]);
         }
       } catch (loadError) {
         console.error('加载个人主页失败:', loadError);
@@ -182,6 +236,19 @@ const PersonalBrandPublic: React.FC = () => {
 
     loadBundle();
   }, []);
+
+  useEffect(() => {
+    if (!bundle?.profile.aiEnabled || messages.length === 0) return;
+
+    saveStoredMessages(
+      getChatHistoryKey(bundle.profile.id, bundle.profile.slug),
+      messages,
+    );
+  }, [bundle?.profile.aiEnabled, bundle?.profile.id, bundle?.profile.slug, messages]);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ block: 'end', behavior: 'smooth' });
+  }, [answering, messages]);
 
   const groupedEntries = useMemo(() => {
     const groups = new Map<PersonalEntryType, PersonalEntry[]>();
@@ -213,7 +280,7 @@ const PersonalBrandPublic: React.FC = () => {
       setAnswering(true);
       const response = await askDigitalHuman({
         slug: bundle.profile.slug,
-        messages: nextMessages,
+        messages: nextMessages.slice(-CHAT_CONTEXT_MAX_MESSAGES),
       });
 
       setMessages([
@@ -235,6 +302,18 @@ const PersonalBrandPublic: React.FC = () => {
     } finally {
       setAnswering(false);
     }
+  };
+
+  const handleClearChat = () => {
+    if (!bundle) return;
+
+    const welcomeMessages = [getWelcomeMessage(bundle)];
+    setMessages(welcomeMessages);
+    setQuestion('');
+    saveStoredMessages(
+      getChatHistoryKey(bundle.profile.id, bundle.profile.slug),
+      welcomeMessages,
+    );
   };
 
   if (loading) {
@@ -486,9 +565,25 @@ const PersonalBrandPublic: React.FC = () => {
         <aside className="xl:sticky xl:top-24">
           <div className="about-chat-shell">
             <div className="about-chat-head px-6 py-5">
-              <div className="flex items-center gap-2 text-slate-50 font-semibold">
-                <MessageCircle className="w-5 h-5 text-cyan-300" />
-                和我的 AI 分身聊聊
+              <div className="flex items-start justify-between gap-4">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 text-slate-50 font-semibold">
+                    <MessageCircle className="w-5 h-5 text-cyan-300" />
+                    和我的 AI 分身聊聊
+                  </div>
+                  <div className="about-panel-muted mt-1 text-xs">本机保留历史</div>
+                </div>
+                {bundle.profile.aiEnabled && messages.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={handleClearChat}
+                    className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-slate-600/70 text-slate-300 transition hover:border-cyan-300/40 hover:bg-slate-800 hover:text-cyan-100"
+                    aria-label="清空历史对话"
+                    title="清空历史对话"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                )}
               </div>
               <p className="about-panel-muted mt-2 text-sm leading-6">
                 这里会基于公开资料即时回答关于经历、论文、创业和项目的问题，不代表我本人实时在线，也不会自动发布到公开问答广场。
@@ -522,6 +617,7 @@ const PersonalBrandPublic: React.FC = () => {
                       </div>
                     </div>
                   )}
+                  <div ref={messagesEndRef} />
                 </div>
 
                 <form onSubmit={handleAsk} className="border-t border-slate-700/60 p-4">

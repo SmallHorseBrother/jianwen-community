@@ -3,7 +3,7 @@
  * 视频引流入口 + 全渠道问题地图
  */
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import {
 	ArrowUpRight,
@@ -96,6 +96,7 @@ const QAHome: React.FC = () => {
 		"default",
 	);
 	const [loading, setLoading] = useState(true);
+	const [starLoading, setStarLoading] = useState(true);
 	const [loadingMore, setLoadingMore] = useState(false);
 	const [offset, setOffset] = useState(0);
 	const [hasMore, setHasMore] = useState(false);
@@ -109,6 +110,7 @@ const QAHome: React.FC = () => {
 	const [honeypot, setHoneypot] = useState("");
 	const [submitting, setSubmitting] = useState(false);
 	const [submitSuccess, setSubmitSuccess] = useState(false);
+	const questionRequestIdRef = useRef(0);
 
 	useEffect(() => {
 		loadInitialData();
@@ -143,41 +145,55 @@ const QAHome: React.FC = () => {
 	}, [questionContent, questionTopic, stars, questions]);
 
 	const loadQuestionData = async (isLoadMore: boolean) => {
+		const requestId = isLoadMore
+			? questionRequestIdRef.current
+			: questionRequestIdRef.current + 1;
+		if (!isLoadMore) questionRequestIdRef.current = requestId;
+
 		try {
 			if (isLoadMore) {
 				setLoadingMore(true);
 			} else {
 				setLoading(true);
-			}
-
-			const currentOffset = isLoadMore ? offset : 0;
-			const [questionsResult, starsResult] = await Promise.all([
-				getPublishedQuestions({
-					limit: PAGE_SIZE,
-					offset: currentOffset,
+				setLoadingMore(false);
+				setStarLoading(true);
+				void getQuestionStars({
+					limit: 5000,
 					topic: selectedTopic || undefined,
 					tag: selectedTag || undefined,
 					searchQuery: searchQuery || undefined,
-					sort,
-				}),
-				!isLoadMore
-					? getQuestionStars({
-						limit: 5000,
-						topic: selectedTopic || undefined,
-						tag: selectedTag || undefined,
-						searchQuery: searchQuery || undefined,
+				})
+					.then((starsResult) => {
+						if (questionRequestIdRef.current !== requestId) return;
+						setStars(starsResult.questions);
+						setStarEdges(starsResult.edges);
 					})
-					: Promise.resolve(null),
-			]);
+					.catch((error) => {
+						if (questionRequestIdRef.current !== requestId) return;
+						console.error("加载问题星图失败:", error);
+						setStars([]);
+						setStarEdges([]);
+					})
+					.finally(() => {
+						if (questionRequestIdRef.current === requestId) setStarLoading(false);
+					});
+			}
+
+			const currentOffset = isLoadMore ? offset : 0;
+			const questionsResult = await getPublishedQuestions({
+				limit: PAGE_SIZE,
+				offset: currentOffset,
+				topic: selectedTopic || undefined,
+				tag: selectedTag || undefined,
+				searchQuery: searchQuery || undefined,
+				sort,
+			});
+			if (questionRequestIdRef.current !== requestId) return;
 
 			if (isLoadMore) {
 				setQuestions((prev) => [...prev, ...questionsResult.questions]);
 			} else {
 				setQuestions(questionsResult.questions);
-				if (starsResult) {
-					setStars(starsResult.questions);
-					setStarEdges(starsResult.edges);
-				}
 			}
 
 			setHasMore(
@@ -185,10 +201,13 @@ const QAHome: React.FC = () => {
 			);
 			setOffset(currentOffset + questionsResult.questions.length);
 		} catch (error) {
+			if (questionRequestIdRef.current !== requestId) return;
 			console.error("加载问题失败:", error);
 		} finally {
-			setLoading(false);
-			setLoadingMore(false);
+			if (questionRequestIdRef.current === requestId) {
+				setLoading(false);
+				setLoadingMore(false);
+			}
 		}
 	};
 
@@ -343,7 +362,7 @@ const QAHome: React.FC = () => {
 				<QuestionStarMap
 					questions={stars}
 					semanticEdges={starEdges}
-					loading={loading && stars.length === 0}
+					loading={starLoading && stars.length === 0}
 					onSameQuestion={handleSameQuestion}
 				/>
 			</section>

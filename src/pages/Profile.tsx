@@ -297,9 +297,9 @@ const Profile: React.FC = () => {
   const isLastStep = currentStep === steps.length - 1;
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-6 text-gray-900">
-      <div className="overflow-hidden rounded-lg bg-white shadow-sm">
-        <div className="bg-gradient-to-r from-blue-600 via-cyan-600 to-emerald-500 px-6 py-7 text-white">
+    <div className="mx-auto w-full min-w-0 max-w-5xl px-2.5 py-4 text-gray-900 sm:px-4 sm:py-6">
+      <div className="min-w-0 overflow-hidden rounded-lg bg-white shadow-sm">
+        <div className="bg-gradient-to-r from-blue-600 via-cyan-600 to-emerald-500 px-4 py-6 text-white sm:px-6 sm:py-7">
           <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-4">
               <div className="relative">
@@ -342,7 +342,7 @@ const Profile: React.FC = () => {
               </div>
             </div>
 
-            <div className="min-w-40">
+            <div className="min-w-0 sm:min-w-40">
               <div className="flex items-center justify-between text-sm text-white/85">
                 <span>资料完整度</span>
                 <span>{completion}%</span>
@@ -370,7 +370,7 @@ const Profile: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid gap-0 md:grid-cols-[240px_1fr]">
+        <div className="grid min-w-0 gap-0 md:grid-cols-[240px_1fr]">
           <aside className="border-b border-gray-200 bg-gray-50 p-4 md:border-b-0 md:border-r">
             <div className="space-y-2">
               {steps.map((step, index) => {
@@ -406,7 +406,7 @@ const Profile: React.FC = () => {
             </div>
           </aside>
 
-          <div className="p-5 sm:p-7">
+          <div className="min-w-0 p-4 sm:p-7">
             <div className="mb-6 flex items-start gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
                 <StepIcon className="h-5 w-5" />
@@ -493,11 +493,11 @@ const Profile: React.FC = () => {
               <div className="space-y-6">
                 <div>
                   <label className="mb-3 block text-sm font-medium text-gray-700">所属群组</label>
-                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+                  <div className="grid min-w-0 grid-cols-[repeat(2,minmax(0,1fr))] gap-2 sm:grid-cols-3 lg:grid-cols-4">
                     {GROUP_IDENTITIES.map(group => (
                       <label
                         key={group}
-                        className={`flex cursor-pointer items-center gap-2 rounded-lg border p-3 transition ${
+                        className={`flex min-w-0 cursor-pointer items-start gap-2 rounded-lg border p-3 transition ${
                           formData.groupIdentity.includes(group)
                             ? 'border-blue-300 bg-blue-50 text-blue-700'
                             : 'border-gray-200 bg-white text-gray-600 hover:bg-gray-50'
@@ -507,9 +507,9 @@ const Profile: React.FC = () => {
                           type="checkbox"
                           checked={formData.groupIdentity.includes(group)}
                           onChange={() => toggleGroup(group)}
-                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          className="mt-0.5 shrink-0 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                         />
-                        <span className="text-sm">{group}</span>
+                        <span className="min-w-0 break-words text-sm leading-5">{group}</span>
                       </label>
                     ))}
                   </div>
@@ -517,12 +517,12 @@ const Profile: React.FC = () => {
 
                 <div>
                   <label className="mb-3 block text-sm font-medium text-gray-700">个人标签</label>
-                  <div className="mb-3 flex min-h-9 flex-wrap gap-2">
+                  <div className="mb-3 flex min-h-9 min-w-0 flex-wrap gap-2">
                     {formData.tags.length > 0 ? (
                       formData.tags.map(tag => (
-                        <span key={tag} className="inline-flex items-center rounded-full bg-purple-100 px-3 py-1 text-sm text-purple-700">
-                          {tag}
-                          <button type="button" onClick={() => removeTag(tag)} className="ml-2 hover:text-purple-950" aria-label={`移除 ${tag}`}>
+                        <span key={tag} className="inline-flex max-w-full min-w-0 items-center rounded-full bg-purple-100 px-3 py-1 text-sm leading-5 text-purple-700">
+                          <span className="min-w-0 break-words">{tag}</span>
+                          <button type="button" onClick={() => removeTag(tag)} className="ml-2 shrink-0 hover:text-purple-950" aria-label={`移除 ${tag}`}>
                             <X className="h-3.5 w-3.5" />
                           </button>
                         </span>
@@ -532,20 +532,20 @@ const Profile: React.FC = () => {
                     )}
                   </div>
 
-                  <div className="mb-3 flex flex-wrap gap-2">
+                  <div className="mb-3 grid min-w-0 grid-cols-[repeat(2,minmax(0,1fr))] gap-2 sm:flex sm:flex-wrap">
                     {PRESET_TAGS.filter(tag => !formData.tags.includes(tag)).map(tag => (
                       <button
                         key={tag}
                         type="button"
                         onClick={() => addTag(tag)}
-                        className="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-600 transition hover:bg-purple-100 hover:text-purple-700"
+                        className="min-w-0 rounded-full bg-gray-100 px-2.5 py-2 text-center text-sm leading-5 text-gray-600 transition hover:bg-purple-100 hover:text-purple-700 sm:px-3 sm:py-1"
                       >
                         + {tag}
                       </button>
                     ))}
                   </div>
 
-                  <div className="flex gap-2">
+                  <div className="flex min-w-0 flex-col gap-2 sm:flex-row">
                     <input
                       type="text"
                       value={customTag}
@@ -557,7 +557,7 @@ const Profile: React.FC = () => {
                           setCustomTag('');
                         }
                       }}
-                      className="flex-1 rounded-lg border border-gray-300 px-3 py-2 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+                      className="min-w-0 flex-1 rounded-lg border border-gray-300 px-3 py-2 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20"
                       placeholder="自定义标签"
                     />
                     <button
@@ -566,7 +566,7 @@ const Profile: React.FC = () => {
                         addTag(customTag);
                         setCustomTag('');
                       }}
-                      className="inline-flex items-center gap-1 rounded-lg bg-purple-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-purple-700"
+                      className="inline-flex w-full shrink-0 items-center justify-center gap-1 rounded-lg bg-purple-600 px-3 py-2 text-sm font-medium text-white transition hover:bg-purple-700 sm:w-auto sm:px-4"
                     >
                       <Plus className="h-4 w-4" />
                       添加
@@ -700,24 +700,24 @@ const Profile: React.FC = () => {
               </div>
             )}
 
-            <div className="mt-8 flex flex-col-reverse gap-3 border-t border-gray-200 pt-5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="mt-8 flex min-w-0 flex-col-reverse gap-3 border-t border-gray-200 pt-5 sm:flex-row sm:items-center sm:justify-between">
               <button
                 type="button"
                 onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
                 disabled={currentStep === 0 || saving}
-                className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
               >
                 <ArrowLeft className="h-4 w-4" />
                 上一步
               </button>
 
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center">
                 {current.optional && (
                   <button
                     type="button"
                     onClick={skipStep}
                     disabled={saving}
-                    className="rounded-lg px-4 py-2 text-sm font-medium text-gray-500 transition hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50"
+                    className="w-full rounded-lg px-4 py-2 text-sm font-medium text-gray-500 transition hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50 sm:w-auto"
                   >
                     {isLastStep ? '跳过并完成' : '跳过本步'}
                   </button>
@@ -726,7 +726,7 @@ const Profile: React.FC = () => {
                   type="button"
                   onClick={goNext}
                   disabled={saving}
-                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60"
+                  className="inline-flex w-full max-w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60 sm:w-auto"
                 >
                   {saving ? (
                     <Loader className="h-4 w-4 animate-spin" />

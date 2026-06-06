@@ -28,7 +28,7 @@ const CommunityProfiles: React.FC = () => {
       // 只显示信息相对完整的用户卡片
       const completeProfiles = publicProfiles.filter(profile => {
         // 至少要有群身份或专业信息
-        return profile.groupIdentity || profile.profession || 
+        return profile.groupIdentity.length > 0 || profile.profession || 
                (profile.specialties && profile.specialties.length > 0) ||
                (profile.fitnessInterests && profile.fitnessInterests.length > 0) ||
                (profile.learningInterests && profile.learningInterests.length > 0);
@@ -49,6 +49,7 @@ const CommunityProfiles: React.FC = () => {
       filtered = filtered.filter(profile =>
         profile.nickname.toLowerCase().includes(searchTerm.toLowerCase()) ||
         profile.groupNickname?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        profile.groupIdentity.some(group => group.toLowerCase().includes(searchTerm.toLowerCase())) ||
         profile.profession?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         profile.specialties.some(s => s.toLowerCase().includes(searchTerm.toLowerCase())) ||
         profile.fitnessInterests.some(f => f.toLowerCase().includes(searchTerm.toLowerCase())) ||
@@ -58,7 +59,7 @@ const CommunityProfiles: React.FC = () => {
 
     // 群身份过滤
     if (selectedGroup !== 'all') {
-      filtered = filtered.filter(profile => profile.groupIdentity === selectedGroup);
+      filtered = filtered.filter(profile => profile.groupIdentity.includes(selectedGroup));
     }
 
     // 专业过滤
@@ -70,7 +71,7 @@ const CommunityProfiles: React.FC = () => {
   };
 
   const getUniqueGroups = () => {
-    const groups = profiles.map(p => p.groupIdentity).filter(Boolean);
+    const groups = profiles.flatMap(p => p.groupIdentity).filter(Boolean);
     return [...new Set(groups)];
   };
 
@@ -81,39 +82,50 @@ const CommunityProfiles: React.FC = () => {
 
   const UserCard: React.FC<{ profile: User }> = ({ profile }) => {
     const isCurrentUser = currentUser?.id === profile.id;
+    const visibleGroups = profile.groupIdentity.slice(0, 2);
+    const hiddenGroupCount = Math.max(0, profile.groupIdentity.length - visibleGroups.length);
     
     return (
-      <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6">
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+      <div className="min-w-0 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-4 sm:p-6">
+        <div className="flex min-w-0 flex-col gap-3 mb-4 sm:flex-row sm:items-start sm:justify-between">
+          <div className="flex min-w-0 items-center space-x-3">
+            <div className="w-12 h-12 shrink-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
               <Users className="w-6 h-6 text-white" />
             </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900">
+            <div className="min-w-0">
+              <h3 className="break-words text-lg font-semibold text-gray-900">
                 {profile.nickname}
                 {isCurrentUser && <span className="text-sm text-blue-600 ml-2">(我)</span>}
               </h3>
               {profile.groupNickname && (
-                <p className="text-sm text-gray-600">群昵称：{profile.groupNickname}</p>
+                <p className="break-words text-sm text-gray-600">群昵称：{profile.groupNickname}</p>
               )}
             </div>
           </div>
-          {profile.groupIdentity && (
-            <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
-              {profile.groupIdentity}
-            </span>
+          {visibleGroups.length > 0 && (
+            <div className="flex min-w-0 flex-wrap gap-1 sm:max-w-[44%] sm:justify-end">
+              {visibleGroups.map((group) => (
+                <span key={group} className="max-w-full break-words rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-800">
+                  {group}
+                </span>
+              ))}
+              {hiddenGroupCount > 0 && (
+                <span className="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-600">
+                  +{hiddenGroupCount}
+                </span>
+              )}
+            </div>
           )}
         </div>
 
         {profile.bio && (
-          <p className="text-gray-600 text-sm mb-4">{profile.bio}</p>
+          <p className="break-words text-gray-600 text-sm mb-4">{profile.bio}</p>
         )}
 
         {profile.profession && (
-          <div className="flex items-center text-sm text-gray-600 mb-3">
-            <MapPin className="w-4 h-4 mr-1" />
-            <span>专业：{profile.profession}</span>
+          <div className="flex min-w-0 items-center text-sm text-gray-600 mb-3">
+            <MapPin className="w-4 h-4 mr-1 shrink-0" />
+            <span className="min-w-0 break-words">专业：{profile.profession}</span>
           </div>
         )}
 
@@ -126,7 +138,7 @@ const CommunityProfiles: React.FC = () => {
             </div>
             <div className="flex flex-wrap gap-1">
               {profile.specialties.slice(0, 3).map((specialty, index) => (
-                <span key={index} className="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded">
+                <span key={index} className="min-w-0 max-w-full break-words px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded">
                   {specialty}
                 </span>
               ))}
@@ -148,7 +160,7 @@ const CommunityProfiles: React.FC = () => {
             </div>
             <div className="flex flex-wrap gap-1">
               {profile.fitnessInterests.slice(0, 3).map((interest, index) => (
-                <span key={index} className="px-2 py-1 bg-green-50 text-green-700 text-xs rounded">
+                <span key={index} className="min-w-0 max-w-full break-words px-2 py-1 bg-green-50 text-green-700 text-xs rounded">
                   {interest}
                 </span>
               ))}
@@ -170,7 +182,7 @@ const CommunityProfiles: React.FC = () => {
             </div>
             <div className="flex flex-wrap gap-1">
               {profile.learningInterests.slice(0, 3).map((interest, index) => (
-                <span key={index} className="px-2 py-1 bg-purple-50 text-purple-700 text-xs rounded">
+                <span key={index} className="min-w-0 max-w-full break-words px-2 py-1 bg-purple-50 text-purple-700 text-xs rounded">
                   {interest}
                 </span>
               ))}

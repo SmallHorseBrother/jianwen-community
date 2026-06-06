@@ -150,7 +150,7 @@ const RegisterForm: React.FC = () => {
           <div className="text-center">
             <span className="auth-subtitle text-sm">
               已有账户？
-              <Link to="/login" className="auth-link ml-1">
+              <Link to="/login" state={{ from }} className="auth-link ml-1">
                 立即登录
               </Link>
             </span>

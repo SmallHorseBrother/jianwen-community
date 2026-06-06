@@ -36,12 +36,12 @@ const ToolCardComponent: React.FC<{ tool: ToolCard }> = ({ tool }) => {
       }`}
     >
       <div className={`h-2 bg-gradient-to-r ${tool.color}`} />
-      <div className="p-6">
-        <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${tool.color} flex items-center justify-center text-white mb-4`}>
+      <div className="p-5 sm:p-6">
+        <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br text-white sm:h-16 sm:w-16 ${tool.color}`}>
           {tool.icon}
         </div>
         <div className="flex items-center gap-2 mb-2">
-          <h3 className="text-lg font-bold text-gray-800">{tool.title}</h3>
+          <h3 className="text-base font-bold text-gray-800 sm:text-lg">{tool.title}</h3>
           {tool.isExternal && isActive && <ExternalLink className="w-4 h-4 text-gray-400" />}
         </div>
         <p className="text-gray-500 text-sm">{tool.description}</p>
@@ -357,31 +357,31 @@ const Tools: React.FC = () => {
   return (
     <div className="page-aurora min-h-screen pb-20">
       {/* Hero */}
-      <div className="hero-cyber rounded-[2rem] text-white py-12 px-4 mb-8">
+      <div className="hero-cyber mb-6 rounded-2xl px-4 py-9 text-white sm:mb-8 sm:rounded-[2rem] sm:py-12">
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <h1 className="text-3xl md:text-5xl font-black tracking-tight mb-4 flex items-center justify-center gap-3 bg-gradient-to-r from-white via-cyan-100 to-fuchsia-100 bg-clip-text text-transparent">
             产品实验室
           </h1>
-          <p className="text-slate-200 text-lg opacity-90">
+          <p className="text-base leading-7 text-slate-200 opacity-90 sm:text-lg">
             这里集中放我自己做的产品、实验项目和社区入口。好用的留下，没用的继续迭代。
           </p>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="mx-auto max-w-6xl px-1.5 sm:px-4">
         {/* 工具列表 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:mb-16 lg:grid-cols-4 lg:gap-6">
           {tools.map((tool) => (
             <ToolCardComponent key={tool.title} tool={tool} />
           ))}
         </div>
 
         {/* 公开建议区 - 瀑布流布局 */}
-        <div className="bg-white/50 backdrop-blur-sm rounded-3xl p-6 md:p-8 border border-white/60 shadow-sm">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 border-b border-gray-100 pb-4">
+        <div className="rounded-2xl border border-white/10 bg-slate-950/65 p-4 shadow-sm backdrop-blur-sm sm:rounded-3xl md:p-8">
+          <div className="mb-6 flex flex-col justify-between gap-4 border-b border-white/10 pb-4 md:mb-8 md:flex-row md:items-center">
             <div className="flex items-center gap-3">
               <MessageCircle className="w-6 h-6 text-blue-600" />
-              <h2 className="text-2xl font-bold text-gray-800">
+              <h2 className="text-xl font-bold text-white sm:text-2xl">
                 产品共创反馈
                 <span className="hidden md:inline-block ml-3 text-sm font-normal text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
                   告诉我哪些产品值得继续做

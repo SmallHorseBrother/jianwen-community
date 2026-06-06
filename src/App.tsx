@@ -19,6 +19,7 @@ import QADetail from './pages/QADetail';
 
 import AdminDashboard from './pages/AdminDashboard';
 import CommunityV2 from './pages/CommunityV2';
+import PartnerSharePage from './pages/PartnerSharePage';
 import Tools from './pages/Tools';
 import Guide from './pages/Guide';
 import Tasks from './pages/Tasks';
@@ -66,6 +67,7 @@ const AppRoutes: React.FC = () => {
       
       {/* 社区广场 */}
       <Route path="/community" element={<Layout><CommunityV2 /></Layout>} />
+      <Route path="/community/partner/:id" element={<Layout><PartnerSharePage /></Layout>} />
       
       {/* 工具箱 */}
       <Route path="/tools" element={<Layout><Tools /></Layout>} />

@@ -4,9 +4,9 @@
  */
 
 import React, { useState } from 'react';
-import { Heart, MessageCircle, Send, Share2 } from 'lucide-react';
+import { Heart, MessageCircle, Send, Share2, X } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import { toggleLike, addComment, CheckIn } from '../../services/checkInService';
+import { toggleLike, addComment, CheckIn, CheckInComment } from '../../services/checkInService';
 import CheckInShareModal from './CheckInShareModal';
 
 interface CheckInCardProps {
@@ -19,6 +19,7 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
   const { user } = useAuth();
   const [isCommenting, setIsCommenting] = useState(false);
   const [commentContent, setCommentContent] = useState('');
+  const [replyTarget, setReplyTarget] = useState<CheckInComment | null>(null);
   const [submittingComment, setSubmittingComment] = useState(false);
   const [likeAnimating, setLikeAnimating] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
@@ -28,6 +29,9 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
   const likesCount = checkIn.likes?.length || 0;
   const commentsCount = checkIn.comments?.length || 0;
   const canShareCheckIn = Boolean(user?.id && checkIn.user_id === user.id);
+  const sortedComments = [...(checkIn.comments || [])].sort(
+    (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+  );
 
   // 处理点赞
   const handleLike = async () => {
@@ -55,8 +59,14 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
 
     setSubmittingComment(true);
     try {
-      await addComment(checkIn.id, user.id, commentContent.trim());
+      await addComment(
+        checkIn.id,
+        user.id,
+        commentContent.trim(),
+        replyTarget ? { commentId: replyTarget.id, userId: replyTarget.user_id } : null
+      );
       setCommentContent('');
+      setReplyTarget(null);
       setIsCommenting(false);
       onUpdate(); // 刷新数据
     } catch (error) {
@@ -65,6 +75,29 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
     } finally {
       setSubmittingComment(false);
     }
+  };
+
+  const handleOpenComment = () => {
+    if (!user) {
+      alert('请先登录');
+      return;
+    }
+    setReplyTarget(null);
+    setIsCommenting(true);
+  };
+
+  const handleReply = (comment: CheckInComment) => {
+    if (!user) {
+      alert('请先登录');
+      return;
+    }
+    setReplyTarget(comment);
+    setIsCommenting(true);
+  };
+
+  const handleCancelReply = () => {
+    setReplyTarget(null);
+    setCommentContent('');
   };
 
   // 格式化时间
@@ -82,15 +115,15 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
   return (
     <div
       id={`check-in-${checkIn.id}`}
-      className={`bg-white rounded-2xl p-5 mb-4 transition-all ${
+      className={`mb-3 rounded-xl bg-white p-4 transition-all sm:mb-4 sm:rounded-2xl sm:p-5 ${
         highlighted
           ? 'border-2 border-cyan-300 shadow-xl shadow-cyan-200/40 ring-4 ring-cyan-100'
           : 'border border-gray-100 shadow-sm hover:shadow-md'
       }`}
     >
       {/* 头部：用户信息 */}
-      <div className="flex items-start gap-3 mb-3">
-        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center text-white overflow-hidden flex-shrink-0">
+      <div className="mb-3 flex items-start gap-3">
+        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 text-white">
           {checkIn.profiles?.avatar_url ? (
             <img 
               src={checkIn.profiles.avatar_url} 
@@ -102,10 +135,10 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
           )}
         </div>
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2">
-            <h3 className="font-bold text-gray-900">{checkIn.profiles?.nickname}</h3>
+          <div className="flex min-w-0 items-center gap-2">
+            <h3 className="truncate font-bold text-gray-900">{checkIn.profiles?.nickname}</h3>
             {checkIn.profiles?.group_nickname && (
-              <span className="text-xs text-gray-400 bg-gray-50 px-1.5 py-0.5 rounded">
+              <span className="shrink-0 rounded bg-gray-50 px-1.5 py-0.5 text-xs text-gray-400">
                 {checkIn.profiles.group_nickname}
               </span>
             )}
@@ -116,13 +149,13 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
 
       {/* 内容 */}
       <div className="mb-4">
-        <p className="text-gray-800 whitespace-pre-wrap leading-relaxed">{checkIn.content}</p>
+        <p className="whitespace-pre-wrap text-sm leading-7 text-gray-800 sm:text-base">{checkIn.content}</p>
       </div>
 
       {/* 图片网格 */}
       {checkIn.image_urls && checkIn.image_urls.length > 0 && (
-        <div className={`grid gap-2 mb-4 ${
-          checkIn.image_urls.length === 1 ? 'grid-cols-1 max-w-sm' : 
+        <div className={`mb-4 grid gap-1.5 sm:gap-2 ${
+          checkIn.image_urls.length === 1 ? 'grid-cols-1 sm:max-w-sm' : 
           checkIn.image_urls.length === 2 ? 'grid-cols-2' : 
           'grid-cols-3'
         }`}>
@@ -146,7 +179,7 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
 
       {/* 操作栏 */}
       <div className="flex items-center justify-between border-t border-gray-50 pt-3">
-        <div className="flex items-center gap-6">
+        <div className="flex flex-wrap items-center gap-3 sm:gap-6">
           <button 
             onClick={handleLike}
             className={`flex items-center gap-1.5 transition-all text-sm group ${
@@ -160,7 +193,7 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
           </button>
           
           <button 
-            onClick={() => setIsCommenting(!isCommenting)}
+            onClick={() => (isCommenting && !replyTarget ? setIsCommenting(false) : handleOpenComment())}
             className="flex items-center gap-1.5 text-gray-500 hover:text-gray-900 transition-colors text-sm"
           >
             <MessageCircle className="w-5 h-5" />
@@ -181,39 +214,77 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
 
       {/* 评论区 */}
       {(isCommenting || commentsCount > 0) && (
-        <div className="mt-4 bg-gray-50 rounded-xl p-3 animate-in fade-in slide-in-from-top-2">
-          {checkIn.comments && checkIn.comments.length > 0 && (
+        <div className="animate-in fade-in slide-in-from-top-2 mt-4 rounded-xl bg-gray-50 p-2.5 sm:p-3">
+          {sortedComments.length > 0 && (
             <div className="space-y-3 mb-4 max-h-60 overflow-y-auto custom-scrollbar">
-              {checkIn.comments.map((comment) => (
-                <div key={comment.id} className="flex gap-2">
-                  <span className="font-bold text-gray-800 text-sm whitespace-nowrap">
-                    {comment.profiles?.nickname}:
-                  </span>
-                  <span className="text-gray-600 text-sm">{comment.content}</span>
+              {sortedComments.map((comment) => (
+                <div key={comment.id} className="group flex items-start gap-2">
+                  <div className="flex-1 min-w-0 text-sm leading-relaxed">
+                    <span className="font-bold text-gray-800 whitespace-nowrap">
+                      {comment.profiles?.nickname || '群友'}
+                    </span>
+                    {comment.reply_to_profile && (
+                      <>
+                        <span className="mx-1 text-gray-400">回复</span>
+                        <span className="font-bold text-gray-800 whitespace-nowrap">
+                          {comment.reply_to_profile.nickname || '群友'}
+                        </span>
+                      </>
+                    )}
+                    <span className="text-gray-400">：</span>
+                    <span className="text-gray-600 break-words">{comment.content}</span>
+                  </div>
+                  {user && comment.user_id !== user.id && (
+                    <button
+                      type="button"
+                      onClick={() => handleReply(comment)}
+                      className="shrink-0 text-xs text-gray-400 opacity-0 transition-opacity hover:text-blue-600 group-hover:opacity-100"
+                    >
+                      回复
+                    </button>
+                  )}
                 </div>
               ))}
             </div>
           )}
 
           {isCommenting && (
-            <form onSubmit={handleComment} className="flex gap-2">
-              <input
-                type="text"
-                value={commentContent}
-                onChange={(e) => setCommentContent(e.target.value)}
-                placeholder="写下你的鼓励..."
-                className="flex-1 px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                autoFocus
-                disabled={!user}
-              />
-              <button 
-                type="submit"
-                disabled={!commentContent.trim() || submittingComment}
-                className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
-              >
-                <Send className="w-4 h-4" />
-              </button>
-            </form>
+            <div className="space-y-2">
+              {replyTarget && (
+                <div className="flex items-center justify-between rounded-lg bg-white px-3 py-2 text-xs text-gray-500">
+                  <span>
+                    回复 <span className="font-semibold text-gray-700">{replyTarget.profiles?.nickname || '群友'}</span>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handleCancelReply}
+                    className="rounded p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-700"
+                    aria-label="取消回复"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              )}
+              <form onSubmit={handleComment} className="flex gap-2">
+                <input
+                  type="text"
+                  value={commentContent}
+                  onChange={(e) => setCommentContent(e.target.value)}
+                  placeholder={replyTarget ? `回复 ${replyTarget.profiles?.nickname || '群友'}...` : '写下你的鼓励...'}
+                  className="flex-1 px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  autoFocus
+                  disabled={!user}
+                />
+                <button
+                  type="submit"
+                  disabled={!commentContent.trim() || submittingComment}
+                  className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                  aria-label={replyTarget ? '发送回复' : '发送评论'}
+                >
+                  <Send className="w-4 h-4" />
+                </button>
+              </form>
+            </div>
           )}
         </div>
       )}

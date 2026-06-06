@@ -108,12 +108,12 @@ const Guide: React.FC = () => {
   return (
     <div className="page-aurora min-h-screen pb-20">
       {/* Hero */}
-      <div className="hero-cyber rounded-[2rem] text-white py-16 px-4">
+      <div className="hero-cyber rounded-2xl px-4 py-10 text-white sm:rounded-[2rem] sm:py-16">
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <h1 className="text-3xl md:text-5xl font-black tracking-tight mb-4 bg-gradient-to-r from-white via-cyan-100 to-fuchsia-100 bg-clip-text text-transparent">
             欢迎来到健文社区
           </h1>
-          <p className="text-slate-200 text-lg mb-8 max-w-2xl mx-auto">
+          <p className="mx-auto mb-7 max-w-2xl text-base leading-7 text-slate-200 sm:mb-8 sm:text-lg">
             这是马健文（枭马葛）粉丝的专属社区，让我们一起健身、学习、成长
           </p>
           <Link
@@ -126,18 +126,18 @@ const Guide: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 py-12">
+      <div className="mx-auto max-w-5xl px-1.5 py-8 sm:px-4 sm:py-12">
         {/* 快速开始 */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 flex items-center gap-2">
+        <section className="mb-10 sm:mb-16">
+          <h2 className="mb-5 flex items-center gap-2 text-xl font-bold text-gray-900 sm:mb-8 sm:text-2xl">
             <Sparkles className="w-6 h-6 text-yellow-500" />
             三步快速上手
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
             {quickStartSteps.map((item) => (
               <div 
                 key={item.step}
-                className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
+                className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-shadow hover:shadow-md sm:p-6"
               >
                 <div className="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold mb-4">
                   {item.step}
@@ -159,8 +159,8 @@ const Guide: React.FC = () => {
         </section>
 
         {/* 功能介绍 */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">
+        <section className="mb-10 sm:mb-16">
+          <h2 className="mb-5 text-xl font-bold text-gray-900 sm:mb-8 sm:text-2xl">
             🎯 核心功能
           </h2>
           <div className="space-y-4">
@@ -168,7 +168,7 @@ const Guide: React.FC = () => {
               <Link
                 key={index}
                 to={feature.link}
-                className="block bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md hover:border-indigo-100 transition-all group"
+                className="group block rounded-xl border border-gray-100 bg-white p-4 shadow-sm transition-all hover:border-indigo-100 hover:shadow-md sm:p-5"
               >
                 <div className="flex items-start gap-4">
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center text-white flex-shrink-0 group-hover:scale-110 transition-transform`}>
@@ -179,7 +179,7 @@ const Guide: React.FC = () => {
                       <h3 className="text-lg font-semibold text-gray-900">{feature.title}</h3>
                       <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-indigo-500 group-hover:translate-x-1 transition-all" />
                     </div>
-                    <p className="text-gray-500 text-sm">{feature.description}</p>
+                    <p className="text-sm leading-6 text-gray-500">{feature.description}</p>
                   </div>
                 </div>
               </Link>
@@ -188,11 +188,11 @@ const Guide: React.FC = () => {
         </section>
 
         {/* 使用小贴士 */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">
+        <section className="mb-10 sm:mb-16">
+          <h2 className="mb-5 text-xl font-bold text-gray-900 sm:mb-8 sm:text-2xl">
             💡 使用小贴士
           </h2>
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-6">
             <ul className="space-y-3">
               {tips.map((tip, index) => (
                 <li key={index} className="flex items-start gap-3">

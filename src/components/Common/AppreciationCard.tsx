@@ -47,7 +47,7 @@ const AppreciationCard: React.FC<AppreciationCardProps> = ({
       <>
         <button
           onClick={() => setShowModal(true)}
-          className={`inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-red-500 text-white px-5 py-2.5 rounded-xl font-medium hover:from-pink-600 hover:to-red-600 transition-all shadow-lg hover:shadow-xl hover:scale-105 ${className}`}
+          className={`inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-pink-500 to-red-500 px-4 py-2.5 text-sm font-medium text-white shadow-lg transition-all hover:scale-105 hover:from-pink-600 hover:to-red-600 hover:shadow-xl sm:px-5 sm:text-base ${className}`}
         >
           <Heart className="w-5 h-5" />
           {title}
@@ -59,13 +59,13 @@ const AppreciationCard: React.FC<AppreciationCardProps> = ({
 
   // 内嵌模式
   return (
-    <div className={`bg-gradient-to-br from-pink-50 to-orange-50 rounded-2xl p-6 border border-pink-100 ${className}`}>
-      <div className="flex flex-col md:flex-row items-center gap-6">
+    <div className={`rounded-2xl border border-pink-100 bg-gradient-to-br from-pink-50 to-orange-50 p-4 sm:p-6 ${className}`}>
+      <div className="flex flex-col items-center gap-4 sm:gap-6 md:flex-row">
         <div className="flex-shrink-0">
           <img
             src="/appreciation-qr.png"
             alt="赞赏码"
-            className="w-40 h-40 rounded-xl shadow-md"
+            className="h-32 w-32 rounded-xl shadow-md sm:h-40 sm:w-40"
           />
         </div>
         <div className="text-center md:text-left">

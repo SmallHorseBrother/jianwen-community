@@ -12,15 +12,15 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="relative z-10 mt-auto border-t border-cyan-300/10 bg-slate-950/50 backdrop-blur-xl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
         {/* 赞赏区域 */}
-        <div className="flex flex-col items-center mb-6">
+        <div className="mb-5 flex flex-col items-center sm:mb-6">
           <AppreciationCard mode="button" title="请我喝杯咖啡" />
         </div>
 
         {/* 分割线 */}
         <div className="border-t border-cyan-300/10 pt-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-400">
+          <div className="flex flex-col items-center justify-between gap-3 text-center text-xs text-slate-400 sm:text-sm md:flex-row">
             <div className="flex items-center gap-1">
               Made with <Heart className="w-4 h-4 text-pink-500 fill-pink-500" /> by 小马哥
             </div>

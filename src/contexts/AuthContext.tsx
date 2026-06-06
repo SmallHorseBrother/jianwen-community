@@ -130,7 +130,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const cacheValidation = await validateSessionCache();
         
         if (!cacheValidation.isValid) {
-          logWarning('Invalid cache detected during hydration', { reason: cacheValidation.reason });
+          const isAnonymousEmptyCache =
+            cacheValidation.reason === 'No cache keys found' ||
+            cacheValidation.reason === 'No valid session found in cache';
+          if (!isAnonymousEmptyCache) {
+            logWarning('Invalid cache detected during hydration', { reason: cacheValidation.reason });
+          }
           const isCorruptedCache = cacheValidation.reason?.includes('Corrupted cache data');
           if (isCorruptedCache || cacheValidation.hasSession) {
             clearAuthCache(isCorruptedCache ? 'corrupted_session' : 'expired_session');

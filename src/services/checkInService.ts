@@ -14,6 +14,7 @@ export type CheckInComment =
     & Database["public"]["Tables"]["check_in_comments"]["Row"]
     & {
         profiles?: Database["public"]["Tables"]["profiles"]["Row"];
+        reply_to_profile?: Database["public"]["Tables"]["profiles"]["Row"] | null;
     };
 
 export type CheckInLike =
@@ -21,6 +22,23 @@ export type CheckInLike =
     & {
         profiles?: Database["public"]["Tables"]["profiles"]["Row"];
     };
+
+export interface UserCheckInStats {
+    totalCount: number;
+    currentStreak: number;
+    longestStreak: number;
+    monthCount: number;
+}
+
+type LeaderboardProfile = Pick<
+    Database["public"]["Tables"]["profiles"]["Row"],
+    "nickname" | "avatar_url" | "group_nickname"
+>;
+
+type LeaderboardRow = {
+    user_id: string;
+    profiles: LeaderboardProfile | null;
+};
 
 const BUCKET_NAME = "check-in-images";
 
@@ -107,7 +125,7 @@ export async function getCheckIns(limit = 20) {
     // 为了简化 MVP，我们在前端/Service 层处理。
     // 注意：Supabase JS 客户端会自动把关联表的数据嵌套进来
 
-    return data || [];
+    return hydrateCommentReplyProfiles(data || []);
 }
 
 /**
@@ -133,7 +151,32 @@ export async function getCheckInById(checkInId: string) {
         throw error;
     }
 
-    return data;
+    const [hydrated] = await hydrateCommentReplyProfiles([data]);
+    return hydrated;
+}
+
+/**
+ * 获取用户打卡统计，用于分享图和个人成长展示。
+ */
+export async function getUserCheckInStats(userId: string): Promise<UserCheckInStats> {
+    const { data, error, count } = await supabase
+        .from("check_ins")
+        .select("created_at", { count: "exact" })
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false });
+
+    if (error) throw error;
+
+    const dateKeys = Array.from(new Set((data || []).map((item) => toChinaDateKey(item.created_at)))).sort();
+    const todayKey = toChinaDateKey(new Date().toISOString());
+    const monthPrefix = todayKey.slice(0, 7);
+
+    return {
+        totalCount: count || data?.length || 0,
+        currentStreak: calculateCurrentStreak(dateKeys, todayKey),
+        longestStreak: calculateLongestStreak(dateKeys),
+        monthCount: dateKeys.filter((key) => key.startsWith(monthPrefix)).length,
+    };
 }
 
 /**
@@ -176,22 +219,125 @@ export async function addComment(
     checkInId: string,
     userId: string,
     content: string,
+    replyTo?: { commentId: string; userId: string } | null,
 ) {
+    const insertPayload = {
+        check_in_id: checkInId,
+        user_id: userId,
+        content,
+        parent_comment_id: replyTo?.commentId ?? null,
+        reply_to_user_id: replyTo?.userId ?? null,
+    };
+
     const { data, error } = await supabase
         .from("check_in_comments")
-        .insert({
-            check_in_id: checkInId,
-            user_id: userId,
-            content,
-        })
+        .insert(insertPayload)
         .select(`
       *,
       profiles:user_id (*)
     `)
         .single();
 
+    if (error && isMissingReplyColumnError(error)) {
+        const { data: fallbackData, error: fallbackError } = await supabase
+            .from("check_in_comments")
+            .insert({
+            check_in_id: checkInId,
+            user_id: userId,
+            content,
+        })
+            .select(`
+      *,
+      profiles:user_id (*)
+    `)
+            .single();
+
+        if (fallbackError) throw fallbackError;
+        return fallbackData;
+    }
+
     if (error) throw error;
     return data;
+}
+
+function isMissingReplyColumnError(error: { message?: string; code?: string }) {
+    const message = error.message || "";
+    return (
+        error.code === "PGRST204" ||
+        message.includes("parent_comment_id") ||
+        message.includes("reply_to_user_id")
+    );
+}
+
+async function hydrateCommentReplyProfiles<T extends CheckIn>(checkIns: T[]): Promise<T[]> {
+    const replyUserIds = new Set<string>();
+
+    checkIns.forEach((checkIn) => {
+        checkIn.comments?.forEach((comment) => {
+            if (comment.reply_to_user_id) replyUserIds.add(comment.reply_to_user_id);
+        });
+    });
+
+    if (replyUserIds.size === 0) return checkIns;
+
+    const { data: profiles, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .in("id", Array.from(replyUserIds));
+
+    if (error) {
+        console.warn("回复用户资料加载失败:", error);
+        return checkIns;
+    }
+
+    const profilesById = new Map((profiles || []).map((profile) => [profile.id, profile]));
+
+    return checkIns.map((checkIn) => ({
+        ...checkIn,
+        comments: checkIn.comments?.map((comment) => ({
+            ...comment,
+            reply_to_profile: comment.reply_to_user_id ? profilesById.get(comment.reply_to_user_id) || null : null,
+        })),
+    }));
+}
+
+function toChinaDateKey(dateStr: string) {
+    return new Date(dateStr).toLocaleDateString("en-CA", { timeZone: "Asia/Shanghai" });
+}
+
+function addDays(dateKey: string, days: number) {
+    const [year, month, day] = dateKey.split("-").map(Number);
+    const date = new Date(Date.UTC(year, month - 1, day));
+    date.setUTCDate(date.getUTCDate() + days);
+    return date.toISOString().slice(0, 10);
+}
+
+function calculateCurrentStreak(sortedDateKeys: string[], todayKey: string) {
+    const dates = new Set(sortedDateKeys);
+    const startKey = dates.has(todayKey) ? todayKey : addDays(todayKey, -1);
+    if (!dates.has(startKey)) return 0;
+
+    let streak = 0;
+    let cursor = startKey;
+    while (dates.has(cursor)) {
+        streak += 1;
+        cursor = addDays(cursor, -1);
+    }
+    return streak;
+}
+
+function calculateLongestStreak(sortedDateKeys: string[]) {
+    let longest = 0;
+    let current = 0;
+    let previous: string | null = null;
+
+    for (const key of sortedDateKeys) {
+        current = previous && addDays(previous, 1) === key ? current + 1 : 1;
+        longest = Math.max(longest, current);
+        previous = key;
+    }
+
+    return longest;
 }
 
 /**
@@ -214,9 +360,9 @@ export async function getLeaderboard() {
     if (error) throw error;
 
     // 聚合计数
-    const counts: Record<string, { count: number; user: any }> = {};
+    const counts: Record<string, { count: number; user: LeaderboardProfile }> = {};
 
-    data?.forEach((item: any) => {
+    (data as LeaderboardRow[] | null)?.forEach((item) => {
         if (!item.profiles) return;
         const uid = item.user_id;
         if (!counts[uid]) {

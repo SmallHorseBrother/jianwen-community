@@ -2,7 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import QRCode from 'qrcode';
 import { Check, Copy, Download, RefreshCw, Share2, X } from 'lucide-react';
-import type { CheckIn } from '../../services/checkInService';
+import { getUserCheckInStats } from '../../services/checkInService';
+import type { CheckIn, UserCheckInStats } from '../../services/checkInService';
 
 interface CheckInShareModalProps {
   checkIn: CheckIn;
@@ -43,13 +44,16 @@ const CheckInShareModal: React.FC<CheckInShareModalProps> = ({ checkIn, onClose 
   const [isRendering, setIsRendering] = useState(true);
   const [isDownloading, setIsDownloading] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [checkInStats, setCheckInStats] = useState<UserCheckInStats | null>(null);
 
   const shareUrl = useMemo(() => {
     if (typeof window === 'undefined') return SHARE_PATH;
-    return new URL(SHARE_PATH, window.location.origin).toString();
-  }, []);
+    const url = new URL(SHARE_PATH, window.location.origin);
+    url.searchParams.set('checkIn', checkIn.id);
+    return url.toString();
+  }, [checkIn.id]);
 
-  const posterData = useMemo(() => buildPosterData(checkIn), [checkIn]);
+  const posterData = useMemo(() => buildPosterData(checkIn, checkInStats), [checkIn, checkInStats]);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -63,7 +67,15 @@ const CheckInShareModal: React.FC<CheckInShareModalProps> = ({ checkIn, onClose 
     let alive = true;
 
     setIsRendering(true);
-    renderPoster(checkIn, shareUrl, 'dataUrl')
+    getUserCheckInStats(checkIn.user_id)
+      .catch((error) => {
+        console.warn('打卡统计加载失败，将使用当前打卡生成分享图:', error);
+        return null;
+      })
+      .then((stats) => {
+        if (alive) setCheckInStats(stats);
+        return renderPoster(checkIn, shareUrl, 'dataUrl', stats);
+      })
       .then((url) => {
         if (alive) setPosterUrl(url);
       })
@@ -83,7 +95,8 @@ const CheckInShareModal: React.FC<CheckInShareModalProps> = ({ checkIn, onClose 
   const handleDownload = async () => {
     setIsDownloading(true);
     try {
-      const blob = await renderPoster(checkIn, shareUrl, 'blob');
+      const stats = checkInStats || await getUserCheckInStats(checkIn.user_id).catch(() => null);
+      const blob = await renderPoster(checkIn, shareUrl, 'blob', stats);
       downloadBlob(blob, createDownloadFileName(checkIn.created_at));
     } catch (error) {
       console.error('生成分享图失败:', error);
@@ -106,7 +119,7 @@ const CheckInShareModal: React.FC<CheckInShareModalProps> = ({ checkIn, onClose 
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-950/86 px-4 py-5 backdrop-blur-xl" onClick={onClose}>
       <div
-        className="grid max-h-[94vh] w-full max-w-6xl grid-cols-1 overflow-hidden rounded-3xl border border-cyan-200/10 bg-slate-950 shadow-2xl shadow-black/60 lg:grid-cols-[minmax(0,480px)_minmax(0,1fr)]"
+        className="grid max-h-[94vh] w-full max-w-6xl grid-cols-1 overflow-hidden rounded-3xl border border-cyan-200/10 bg-slate-950 pb-20 shadow-2xl shadow-black/60 lg:grid-cols-[minmax(0,480px)_minmax(0,1fr)] lg:pb-0"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="relative flex min-h-0 items-center justify-center overflow-y-auto border-b border-white/10 bg-slate-950 p-4 lg:border-b-0 lg:border-r sm:p-6">
@@ -160,12 +173,13 @@ const CheckInShareModal: React.FC<CheckInShareModalProps> = ({ checkIn, onClose 
             <InfoRow label="内容类型" value={posterData.images.length > 0 ? `${posterData.images.length} 张图文动态` : '纯文字动态'} />
             <InfoRow label="分享主题" value={posterData.themeLabel} />
             <InfoRow label="正文处理" value={posterData.wasTrimmed ? '正文较长，已做海报级摘要' : '正文完整进入海报'} />
+            <InfoRow label="平台累计" value={`${posterData.stats.totalCount} 次打卡 · 连续 ${posterData.stats.currentStreak} 天`} />
           </div>
 
           <div className="grid grid-cols-3 gap-3">
-            <MetricCard label="完成项" value={String(posterData.completedCount)} />
-            <MetricCard label="图片" value={String(posterData.images.length)} />
-            <MetricCard label="成就块" value={String(posterData.achievements.length)} />
+            <MetricCard label="累计打卡" value={String(posterData.stats.totalCount)} />
+            <MetricCard label="连续天数" value={String(posterData.stats.currentStreak)} />
+            <MetricCard label="本月打卡" value={String(posterData.stats.monthCount)} />
           </div>
 
           <div className="mt-auto flex flex-col gap-3 sm:flex-row">
@@ -173,6 +187,7 @@ const CheckInShareModal: React.FC<CheckInShareModalProps> = ({ checkIn, onClose 
               type="button"
               onClick={handleDownload}
               disabled={isDownloading || isRendering || !posterUrl}
+              aria-label="下载打卡分享图 PNG"
               className="neon-button inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl px-5 text-sm font-black disabled:cursor-wait disabled:opacity-60"
             >
               <Download className="h-4 w-4" />
@@ -184,15 +199,41 @@ const CheckInShareModal: React.FC<CheckInShareModalProps> = ({ checkIn, onClose 
               className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-5 text-sm font-bold text-slate-100 transition hover:bg-white/10"
             >
               {copied ? <Check className="h-4 w-4 text-emerald-300" /> : <Copy className="h-4 w-4" />}
-              {copied ? '已复制' : '复制社区链接'}
+              {copied ? '已复制' : '复制打卡链接'}
             </button>
           </div>
 
           <div className="flex items-center gap-2 text-xs text-slate-500">
             <Share2 className="h-3.5 w-3.5" />
-            <span>适合发微信群、朋友圈和小红书，二维码指向社区广场。</span>
+            <span>适合发微信群、朋友圈和小红书，二维码指向这条打卡。</span>
           </div>
         </aside>
+      </div>
+
+      <div
+        className="fixed inset-x-4 bottom-4 z-[10000] rounded-2xl border border-cyan-200/20 bg-slate-950/92 p-2 shadow-2xl shadow-black/70 backdrop-blur-xl lg:hidden"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="grid grid-cols-[1fr_auto] gap-2">
+          <button
+            type="button"
+            onClick={handleDownload}
+            disabled={isDownloading || isRendering || !posterUrl}
+            aria-label="下载打卡分享图 PNG"
+            className="neon-button inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-4 text-sm font-black disabled:cursor-wait disabled:opacity-60"
+          >
+            <Download className="h-4 w-4" />
+            {isDownloading ? '生成中...' : '下载 PNG'}
+          </button>
+          <button
+            type="button"
+            onClick={handleCopy}
+            aria-label="复制打卡链接"
+            className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-100 transition hover:bg-white/10"
+          >
+            {copied ? <Check className="h-4 w-4 text-emerald-300" /> : <Copy className="h-4 w-4" />}
+          </button>
+        </div>
       </div>
     </div>,
     document.body,
@@ -213,7 +254,7 @@ const MetricCard: React.FC<{ label: string; value: string }> = ({ label, value }
   </div>
 );
 
-function buildPosterData(checkIn: CheckIn) {
+function buildPosterData(checkIn: CheckIn, stats: UserCheckInStats | null = null) {
   const content = checkIn.content?.trim() || '';
   const lines = content.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
   const achievements = extractAchievements(lines);
@@ -241,6 +282,12 @@ function buildPosterData(checkIn: CheckIn) {
     narrative,
     heroMetric,
     completedCount,
+    stats: stats || {
+      totalCount: 1,
+      currentStreak: 1,
+      longestStreak: 1,
+      monthCount: 1,
+    },
     themeLabel,
     wasTrimmed: narrativeRaw.length !== narrative.length,
   };
@@ -315,10 +362,10 @@ function downloadBlob(blob: Blob, fileName: string) {
   }, 60000);
 }
 
-async function renderPoster(checkIn: CheckIn, shareUrl: string, output: 'dataUrl'): Promise<string>;
-async function renderPoster(checkIn: CheckIn, shareUrl: string, output: 'blob'): Promise<Blob>;
-async function renderPoster(checkIn: CheckIn, shareUrl: string, output: 'dataUrl' | 'blob') {
-  const data = buildPosterData(checkIn);
+async function renderPoster(checkIn: CheckIn, shareUrl: string, output: 'dataUrl', stats?: UserCheckInStats | null): Promise<string>;
+async function renderPoster(checkIn: CheckIn, shareUrl: string, output: 'blob', stats?: UserCheckInStats | null): Promise<Blob>;
+async function renderPoster(checkIn: CheckIn, shareUrl: string, output: 'dataUrl' | 'blob', stats?: UserCheckInStats | null) {
+  const data = buildPosterData(checkIn, stats || null);
   const canvas = await renderPosterCanvas(data, shareUrl);
 
   if (output === 'dataUrl') return canvas.toDataURL('image/png');
@@ -473,42 +520,40 @@ function drawImageStory(ctx: CanvasRenderingContext2D, data: PosterData, images:
   const width = 952;
   const height = 508;
   drawRoundedRect(ctx, x, y, width, height, 34, 'rgba(2, 6, 23, 0.76)', 'rgba(148, 163, 184, 0.18)');
+  drawAlbumBackdrop(ctx, x, y, width, height);
 
   ctx.save();
-  roundedClip(ctx, x + 16, y + 16, width - 32, height - 32, 24);
+  roundedClip(ctx, x + 16, y + 16, width - 32, height - 32, 26);
 
   if (images.length === 1) {
-    drawImageCover(ctx, images[0], x + 16, y + 16, width - 32, height - 32);
+    drawPhotoFrame(ctx, images[0], x + 58, y + 36, width - 116, height - 86, 0, 28, true, true);
   } else {
-    const gap = 12;
-    const leftWidth = 572;
-    const rightWidth = width - 32 - leftWidth - gap;
-    drawImageCover(ctx, images[0], x + 16, y + 16, leftWidth, height - 32);
-    const cellHeight = (height - 32 - gap) / 2;
-    drawImageCover(ctx, images[1], x + 16 + leftWidth + gap, y + 16, rightWidth, cellHeight);
+    drawPhotoFrame(ctx, images[0], x + 42, y + 56, 548, 380, -3.8, 26, true, true);
+    drawTape(ctx, x + 126, y + 38, -7);
+    drawTape(ctx, x + 432, y + 418, -7);
+
+    drawPhotoFrame(ctx, images[1], x + 596, y + 46, 300, 202, 3.4, 22);
+    drawTape(ctx, x + 706, y + 28, 8);
+
     if (images[2]) {
-      drawImageCover(ctx, images[2], x + 16 + leftWidth + gap, y + 16 + cellHeight + gap, rightWidth, cellHeight);
+      drawPhotoFrame(ctx, images[2], x + 632, y + 260, 282, 186, -2.2, 22);
+      drawTape(ctx, x + 734, y + 246, -5);
     } else {
-      drawMiniQuote(ctx, data.heroMetric, x + 16 + leftWidth + gap, y + 16 + cellHeight + gap, rightWidth, cellHeight);
+      drawMiniQuote(ctx, data.heroMetric, x + 638, y + 274, 268, 158);
     }
+
     if (data.images.length > 3) {
-      ctx.fillStyle = 'rgba(2, 6, 23, 0.62)';
-      ctx.fillRect(x + 16 + leftWidth + gap, y + 16 + cellHeight + gap, rightWidth, cellHeight);
-      ctx.fillStyle = COLORS.text;
-      ctx.font = font(58, 900);
-      ctx.textAlign = 'center';
-      ctx.fillText(`+${data.images.length - 3}`, x + 16 + leftWidth + gap + rightWidth / 2, y + 16 + cellHeight + gap + cellHeight / 2 + 20);
-      ctx.textAlign = 'left';
+      drawImageCountBadge(ctx, `+${data.images.length - 3}`, x + 812, y + 392);
     }
   }
 
   const overlay = ctx.createLinearGradient(0, y + height - 210, 0, y + height - 16);
   overlay.addColorStop(0, 'rgba(2, 6, 23, 0)');
-  overlay.addColorStop(1, 'rgba(2, 6, 23, 0.72)');
+  overlay.addColorStop(1, 'rgba(2, 6, 23, 0.86)');
   ctx.fillStyle = overlay;
-  ctx.fillRect(x + 16, y + height - 220, width - 32, 204);
+  ctx.fillRect(x + 16, y + height - 238, width - 32, 222);
 
-  drawRoundedRect(ctx, x + 34, y + height - 142, width - 68, 104, 24, 'rgba(2, 6, 23, 0.68)', 'rgba(248, 250, 252, 0.16)');
+  drawRoundedRect(ctx, x + 34, y + height - 142, width - 68, 104, 24, 'rgba(2, 6, 23, 0.72)', 'rgba(248, 250, 252, 0.16)');
   ctx.fillStyle = COLORS.text;
   ctx.font = font(27, 900);
   wrapText(ctx, data.narrative, x + 60, y + height - 100, width - 120, 34, 2);
@@ -546,13 +591,144 @@ function drawMiniQuote(ctx: CanvasRenderingContext2D, text: string, x: number, y
   const gradient = ctx.createLinearGradient(x, y, x + width, y + height);
   gradient.addColorStop(0, 'rgba(34, 211, 238, 0.28)');
   gradient.addColorStop(1, 'rgba(217, 70, 239, 0.22)');
-  ctx.fillStyle = gradient;
-  ctx.fillRect(x, y, width, height);
+  drawRoundedRect(ctx, x, y, width, height, 24, gradient, 'rgba(248, 250, 252, 0.12)');
   ctx.fillStyle = COLORS.text;
   ctx.font = font(38, 900);
   ctx.textAlign = 'center';
   ctx.fillText(text, x + width / 2, y + height / 2 + 14);
   ctx.textAlign = 'left';
+}
+
+function drawAlbumBackdrop(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number) {
+  const albumGradient = ctx.createLinearGradient(x, y, x + width, y + height);
+  albumGradient.addColorStop(0, 'rgba(15, 23, 42, 0.88)');
+  albumGradient.addColorStop(0.5, 'rgba(17, 24, 39, 0.42)');
+  albumGradient.addColorStop(1, 'rgba(8, 47, 73, 0.34)');
+  drawRoundedRect(ctx, x + 16, y + 16, width - 32, height - 32, 26, albumGradient);
+
+  ctx.save();
+  roundedClip(ctx, x + 16, y + 16, width - 32, height - 32, 26);
+  ctx.strokeStyle = 'rgba(248, 250, 252, 0.06)';
+  ctx.lineWidth = 2;
+  for (let lineY = y + 38; lineY < y + height - 26; lineY += 34) {
+    ctx.beginPath();
+    ctx.moveTo(x + 34, lineY);
+    ctx.lineTo(x + width - 34, lineY + 26);
+    ctx.stroke();
+  }
+
+  ctx.fillStyle = 'rgba(34, 211, 238, 0.1)';
+  ctx.beginPath();
+  ctx.arc(x + 804, y + 92, 112, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = 'rgba(217, 70, 239, 0.08)';
+  ctx.beginPath();
+  ctx.arc(x + 198, y + 374, 130, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+
+  ctx.save();
+  ctx.fillStyle = 'rgba(248, 250, 252, 0.34)';
+  ctx.font = font(18, 900);
+  ctx.fillText('ALBUM', x + 48, y + 56);
+  ctx.fillStyle = 'rgba(159, 176, 200, 0.54)';
+  ctx.font = font(15, 800);
+  ctx.fillText('daily fragments', x + 126, y + 56);
+  ctx.restore();
+}
+
+function drawPhotoFrame(
+  ctx: CanvasRenderingContext2D,
+  image: HTMLImageElement,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  rotationDeg: number,
+  radius: number,
+  featured = false,
+  preserveFullImage = false,
+) {
+  const angle = rotationDeg * Math.PI / 180;
+  const border = featured ? 18 : 13;
+  const captionHeight = featured ? 34 : 24;
+
+  ctx.save();
+  ctx.translate(x + width / 2, y + height / 2);
+  ctx.rotate(angle);
+  ctx.translate(-width / 2, -height / 2);
+
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.42)';
+  ctx.shadowBlur = featured ? 34 : 24;
+  ctx.shadowOffsetY = featured ? 22 : 15;
+  drawRoundedRect(ctx, 0, 0, width, height, radius, 'rgba(248, 250, 252, 0.94)');
+  ctx.shadowColor = 'transparent';
+  ctx.shadowBlur = 0;
+  ctx.shadowOffsetY = 0;
+
+  drawRoundedRect(ctx, border, border, width - border * 2, height - border * 2 - captionHeight, Math.max(12, radius - 10), '#0f172a');
+
+  ctx.save();
+  roundedClip(ctx, border, border, width - border * 2, height - border * 2 - captionHeight, Math.max(12, radius - 10));
+  if (preserveFullImage) {
+    drawImageSoftContain(ctx, image, border, border, width - border * 2, height - border * 2 - captionHeight);
+  } else {
+    drawImageCover(ctx, image, border, border, width - border * 2, height - border * 2 - captionHeight);
+  }
+  drawPhotoVignette(ctx, border, border, width - border * 2, height - border * 2 - captionHeight);
+  ctx.restore();
+
+  ctx.fillStyle = '#172033';
+  ctx.font = font(featured ? 16 : 13, 900);
+  ctx.fillText(featured ? 'TODAY / MAIN SHOT' : 'MOMENT', border, height - 17);
+  ctx.fillStyle = 'rgba(15, 23, 42, 0.36)';
+  ctx.font = font(featured ? 15 : 12, 800);
+  ctx.textAlign = 'right';
+  ctx.fillText(rotationDeg > 0 ? 'keep going' : 'shown up', width - border, height - 17);
+  ctx.textAlign = 'left';
+
+  ctx.restore();
+}
+
+function drawPhotoVignette(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number) {
+  const gradient = ctx.createLinearGradient(0, y, 0, y + height);
+  gradient.addColorStop(0, 'rgba(2, 6, 23, 0.06)');
+  gradient.addColorStop(0.64, 'rgba(2, 6, 23, 0)');
+  gradient.addColorStop(1, 'rgba(2, 6, 23, 0.34)');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(x, y, width, height);
+}
+
+function drawTape(ctx: CanvasRenderingContext2D, x: number, y: number, rotationDeg: number) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(rotationDeg * Math.PI / 180);
+  ctx.globalAlpha = 0.78;
+  drawRoundedRect(ctx, -54, -13, 108, 26, 8, 'rgba(186, 230, 253, 0.7)', 'rgba(255, 255, 255, 0.18)');
+  ctx.strokeStyle = 'rgba(8, 47, 73, 0.18)';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(-42, 0);
+  ctx.lineTo(42, 0);
+  ctx.stroke();
+  ctx.globalAlpha = 1;
+  ctx.restore();
+}
+
+function drawImageCountBadge(ctx: CanvasRenderingContext2D, text: string, x: number, y: number) {
+  ctx.save();
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.36)';
+  ctx.shadowBlur = 18;
+  ctx.shadowOffsetY = 10;
+  drawRoundedRect(ctx, x, y, 106, 64, 24, 'rgba(2, 6, 23, 0.78)', 'rgba(248, 250, 252, 0.2)');
+  ctx.shadowColor = 'transparent';
+  ctx.fillStyle = COLORS.text;
+  ctx.font = font(30, 900);
+  ctx.textAlign = 'center';
+  ctx.fillText(text, x + 53, y + 42);
+  ctx.textAlign = 'left';
+  ctx.restore();
 }
 
 function drawStatsPanel(ctx: CanvasRenderingContext2D, data: PosterData, y: number) {
@@ -563,30 +739,40 @@ function drawStatsPanel(ctx: CanvasRenderingContext2D, data: PosterData, y: numb
 
   ctx.fillStyle = COLORS.dim;
   ctx.font = font(22, 900);
-  ctx.fillText('TODAY PROGRESS', x + 42, y + 58);
+  ctx.fillText('COMMUNITY PROGRESS', x + 42, y + 58);
   ctx.fillStyle = COLORS.text;
-  ctx.font = font(72, 900);
-  ctx.fillText(data.heroMetric, x + 42, y + 136);
+  ctx.font = font(68, 900);
+  ctx.fillText(`${data.stats.totalCount} 次打卡`, x + 42, y + 136);
 
-  const achievements = data.achievements.length > 0
-    ? data.achievements.slice(0, 4)
-    : [
-      { label: '状态', value: data.themeLabel },
-      { label: '记录', value: '完成打卡' },
-    ];
+  ctx.save();
+  ctx.textAlign = 'right';
+  ctx.fillStyle = COLORS.amber;
+  ctx.font = font(28, 900);
+  ctx.fillText(data.heroMetric, x + width - 42, y + 96);
+  ctx.fillStyle = COLORS.dim;
+  ctx.font = font(18, 800);
+  ctx.fillText('本条记录', x + width - 42, y + 126);
+  ctx.restore();
 
-  achievements.forEach((item, index) => {
+  const statItems = [
+    { label: '连续打卡', value: `${data.stats.currentStreak} 天`, color: COLORS.cyan },
+    { label: '本月打卡', value: `${data.stats.monthCount} 天`, color: COLORS.green },
+    { label: '最长连续', value: `${data.stats.longestStreak} 天`, color: COLORS.amber },
+    { label: '本条完成', value: data.completedCount > 0 ? `${data.completedCount} 项` : data.themeLabel, color: COLORS.fuchsia },
+  ];
+
+  statItems.forEach((item, index) => {
     const col = index % 2;
     const row = Math.floor(index / 2);
     const chipX = x + 42 + col * 456;
     const chipY = y + 166 + row * 68;
     drawRoundedRect(ctx, chipX, chipY, 412, 52, 18, 'rgba(30, 41, 59, 0.78)', 'rgba(125, 211, 252, 0.12)');
-    ctx.fillStyle = index % 2 === 0 ? COLORS.cyan : COLORS.amber;
+    ctx.fillStyle = item.color;
     ctx.font = font(18, 900);
     ctx.fillText(item.label, chipX + 20, chipY + 33);
     ctx.fillStyle = COLORS.text;
-    ctx.font = font(22, 900);
-    ctx.fillText(clampCanvasText(ctx, item.value, 214), chipX + 132, chipY + 33);
+    ctx.font = font(24, 900);
+    ctx.fillText(clampCanvasText(ctx, item.value, 190), chipX + 154, chipY + 34);
   });
 }
 
@@ -666,6 +852,31 @@ function drawImageCover(ctx: CanvasRenderingContext2D, image: HTMLImageElement, 
   ctx.drawImage(image, x + (width - drawWidth) / 2, y + (height - drawHeight) / 2, drawWidth, drawHeight);
 }
 
+function drawImageSoftContain(ctx: CanvasRenderingContext2D, image: HTMLImageElement, x: number, y: number, width: number, height: number) {
+  ctx.save();
+  ctx.filter = 'blur(18px) saturate(1.08) brightness(0.82)';
+  drawImageCover(ctx, image, x - 24, y - 24, width + 48, height + 48);
+  ctx.restore();
+
+  ctx.fillStyle = 'rgba(2, 6, 23, 0.26)';
+  ctx.fillRect(x, y, width, height);
+
+  const ratio = Math.min(width / image.naturalWidth, height / image.naturalHeight);
+  const drawWidth = image.naturalWidth * ratio;
+  const drawHeight = image.naturalHeight * ratio;
+  const drawX = x + (width - drawWidth) / 2;
+  const drawY = y + (height - drawHeight) / 2;
+
+  ctx.save();
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.28)';
+  ctx.shadowBlur = 14;
+  ctx.shadowOffsetY = 8;
+  drawRoundedRect(ctx, drawX - 2, drawY - 2, drawWidth + 4, drawHeight + 4, 16, 'rgba(248, 250, 252, 0.08)');
+  ctx.shadowColor = 'transparent';
+  ctx.drawImage(image, drawX, drawY, drawWidth, drawHeight);
+  ctx.restore();
+}
+
 function drawRoundedRect(
   ctx: CanvasRenderingContext2D,
   x: number,
@@ -673,7 +884,7 @@ function drawRoundedRect(
   width: number,
   height: number,
   radius: number,
-  fill: string,
+  fill: string | CanvasGradient,
   stroke?: string,
 ) {
   ctx.beginPath();

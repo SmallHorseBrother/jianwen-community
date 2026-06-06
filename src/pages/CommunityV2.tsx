@@ -9,13 +9,15 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { 
   Users, Search, Sparkles, Target, 
   MessageCircle, X, ExternalLink, MapPin, 
-  Camera, Trophy, Activity
+  Camera, Activity, Share2, Check, Lock, UserPlus
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { supabase } from '../lib/supabase';
 import type { Database } from '../lib/database.types';
+import type { User as AppUser } from '../types';
 import { formatGroupIdentity, calculateProfileCompleteness } from '../utils/profileUtils';
+import { getPartnerGradient, getPartnerSharePath, sharePartnerProfile } from '../utils/partnerShare';
 import { getCheckInById, getCheckIns, CheckIn } from '../services/checkInService';
+import { getPublicPartnerProfiles } from '../services/partnerService';
 
 // 组件
 import CheckInCard from '../components/Community/CheckInCard';
@@ -42,6 +44,7 @@ const CommunityV2: React.FC = () => {
   const [loadingProfiles, setLoadingProfiles] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
+  const [copiedProfileId, setCopiedProfileId] = useState<string | null>(null);
 
   // 初始化加载
   useEffect(() => {
@@ -95,18 +98,23 @@ const CommunityV2: React.FC = () => {
   const loadProfiles = async () => {
     try {
       setLoadingProfiles(true);
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('is_public', true)
-        .order('updated_at', { ascending: false });
-
-      if (error) throw error;
-      setProfiles(data || []);
+      const data = await getPublicPartnerProfiles();
+      setProfiles(data);
     } catch (error) {
       console.error('加载用户失败:', error);
     } finally {
       setLoadingProfiles(false);
+    }
+  };
+
+  const handleShareProfile = async (profile: Profile) => {
+    try {
+      await sharePartnerProfile(profile);
+      setCopiedProfileId(profile.id);
+      window.setTimeout(() => setCopiedProfileId(null), 1800);
+    } catch (error) {
+      if (error instanceof DOMException && error.name === 'AbortError') return;
+      console.error('分享伙伴名片失败:', error);
     }
   };
 
@@ -131,31 +139,19 @@ const CommunityV2: React.FC = () => {
     });
   }, [profiles, searchQuery]);
 
-  // 辅助函数: 生成渐变色
-  const getGradient = (id: string) => {
-    const gradients = [
-      'from-blue-400 to-indigo-500',
-      'from-purple-400 to-pink-500',
-      'from-green-400 to-teal-500',
-      'from-orange-400 to-red-500',
-    ];
-    const index = id.charCodeAt(0) % gradients.length;
-    return gradients[index];
-  };
-
   return (
-    <div className="page-aurora min-h-screen pb-20">
+    <div className="page-aurora min-h-screen pb-16 sm:pb-20">
       {/* 顶部导航与Hero */}
-      <div className="sticky top-0 z-10 border-b border-cyan-300/10 bg-slate-950/55 shadow-2xl shadow-cyan-950/20 backdrop-blur-2xl">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex items-center justify-between py-4">
+      <div className="sticky top-14 z-10 -mx-2.5 border-b border-cyan-300/10 bg-slate-950/72 shadow-2xl shadow-cyan-950/20 backdrop-blur-2xl sm:top-16 sm:mx-0">
+        <div className="mx-auto max-w-6xl px-2.5 sm:px-4">
+          <div className="flex items-center justify-between py-3 sm:py-4">
             <h1 className="text-xl font-black text-white hidden md:block">社区广场</h1>
             
             {/* Tab 切换 */}
-            <div className="flex bg-white/10 p-1 rounded-2xl mx-auto md:mx-0 ring-1 ring-white/10">
+            <div className="mx-auto flex w-full max-w-sm rounded-2xl bg-white/10 p-1 ring-1 ring-white/10 md:mx-0 md:w-auto">
               <button
                 onClick={() => setActiveTab('moments')}
-                className={`flex items-center gap-2 px-6 py-2 rounded-lg text-sm font-medium transition-all ${
+                className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-all sm:gap-2 sm:px-6 ${
                   activeTab === 'moments' 
                     ? 'bg-cyan-300/15 text-cyan-100 shadow-sm' 
                     : 'text-slate-400 hover:text-white'
@@ -166,7 +162,7 @@ const CommunityV2: React.FC = () => {
               </button>
               <button
                 onClick={() => setActiveTab('partners')}
-                className={`flex items-center gap-2 px-6 py-2 rounded-lg text-sm font-medium transition-all ${
+                className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-all sm:gap-2 sm:px-6 ${
                   activeTab === 'partners' 
                     ? 'bg-fuchsia-300/15 text-fuchsia-100 shadow-sm' 
                     : 'text-slate-400 hover:text-white'
@@ -191,21 +187,21 @@ const CommunityV2: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-6">
+      <div className="mx-auto max-w-6xl px-1.5 py-4 sm:px-4 sm:py-6">
         {/* ==================== 动态 Tab ==================== */}
         {activeTab === 'moments' && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 lg:gap-8">
             {/* 左侧：动态流 */}
             <div className="lg:col-span-2">
               {/* 移动端发布入口 */}
-              <div className="md:hidden mb-4 bg-white p-4 rounded-xl flex items-center gap-3 shadow-sm" onClick={() => user ? setShowCreateModal(true) : alert('请先登录')}>
-                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+              <div className="mb-4 flex items-center gap-3 rounded-xl border border-white/10 bg-slate-950/65 p-3 shadow-sm md:hidden" onClick={() => user ? setShowCreateModal(true) : alert('请先登录')}>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
                    <UserAvatar user={user} />
                 </div>
-                <div className="flex-1 bg-gray-50 h-10 rounded-full flex items-center px-4 text-gray-400 text-sm">
+                <div className="flex h-10 flex-1 items-center rounded-full bg-white/8 px-4 text-sm text-slate-400">
                   分享今天的健身/学习心得...
                 </div>
-                <div className="text-blue-600">
+                <div className="text-cyan-200">
                   <Camera className="w-6 h-6" />
                 </div>
               </div>
@@ -228,7 +224,7 @@ const CommunityV2: React.FC = () => {
                   </button>
                 </div>
               ) : (
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {checkIns.map((checkIn) => (
                     <CheckInCard 
                       key={checkIn.id} 
@@ -238,7 +234,7 @@ const CommunityV2: React.FC = () => {
                     />
                   ))}
                   
-                  <p className="text-center text-gray-400 text-sm py-8">
+                  <p className="py-6 text-center text-sm text-slate-400 sm:py-8">
                     - 只管去做，你的潜力超乎你的想象 -
                   </p>
                 </div>
@@ -266,15 +262,15 @@ const CommunityV2: React.FC = () => {
         {activeTab === 'partners' && (
           <div>
             {/* 搜索栏 */}
-            <div className="mb-6">
-              <div className="relative max-w-md mx-auto">
+            <div className="mb-5 sm:mb-6">
+              <div className="relative mx-auto max-w-md">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="搜索昵称、标签、技能..."
-                  className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition shadow-sm"
+                  className="w-full rounded-xl border border-white/10 bg-slate-950/65 py-3 pl-12 pr-4 text-slate-100 shadow-sm transition placeholder:text-slate-500 focus:border-transparent focus:ring-2 focus:ring-purple-500"
                 />
               </div>
             </div>
@@ -293,13 +289,15 @@ const CommunityV2: React.FC = () => {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
                 {filteredProfiles.map((profile) => (
                   <ProfileCard 
                     key={profile.id} 
                     profile={profile} 
                     onSelect={() => setSelectedProfile(profile)} 
-                    gradient={getGradient(profile.id)} 
+                    onShare={() => handleShareProfile(profile)}
+                    gradient={getPartnerGradient(profile.id)}
+                    shareCopied={copiedProfileId === profile.id}
                   />
                 ))}
               </div>
@@ -325,7 +323,9 @@ const CommunityV2: React.FC = () => {
           profile={selectedProfile}
           isLoggedIn={!!user}
           onClose={() => setSelectedProfile(null)}
-          gradient={getGradient(selectedProfile.id)}
+          onShare={() => handleShareProfile(selectedProfile)}
+          gradient={getPartnerGradient(selectedProfile.id)}
+          shareCopied={copiedProfileId === selectedProfile.id}
         />
       )}
     </div>
@@ -333,7 +333,13 @@ const CommunityV2: React.FC = () => {
 };
 
 // 小组件：名片卡片
-const ProfileCard: React.FC<{ profile: Profile, onSelect: () => void, gradient: string }> = ({ profile, onSelect, gradient }) => (
+const ProfileCard: React.FC<{
+  profile: Profile;
+  onSelect: () => void;
+  onShare: () => void;
+  gradient: string;
+  shareCopied: boolean;
+}> = ({ profile, onSelect, onShare, gradient, shareCopied }) => (
   <div
     onClick={onSelect}
     className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden group"
@@ -351,11 +357,25 @@ const ProfileCard: React.FC<{ profile: Profile, onSelect: () => void, gradient: 
       </div>
     </div>
     <div className="p-5 pt-2">
-      <div className="flex items-center gap-2 mb-1">
-        <h3 className="font-bold text-gray-800 text-lg">{profile.nickname}</h3>
+      <div className="flex items-start gap-2 mb-1">
+        <div className="min-w-0 flex-1">
+          <h3 className="font-bold text-gray-800 text-lg truncate">{profile.nickname}</h3>
+        </div>
         {profile.group_nickname && (
-          <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded">{profile.group_nickname}</span>
+          <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded shrink-0">{profile.group_nickname}</span>
         )}
+        <button
+          type="button"
+          onClick={(event) => {
+            event.stopPropagation();
+            onShare();
+          }}
+          className="shrink-0 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gray-100 text-gray-500 transition hover:bg-purple-50 hover:text-purple-600"
+          aria-label="分享伙伴名片"
+          title="分享伙伴名片"
+        >
+          {shareCopied ? <Check className="w-4 h-4" /> : <Share2 className="w-4 h-4" />}
+        </button>
       </div>
       {formatGroupIdentity(profile.group_identity) && (
         <p className="text-sm text-gray-500 mb-2 flex items-center gap-1">
@@ -388,7 +408,14 @@ const ProfileCard: React.FC<{ profile: Profile, onSelect: () => void, gradient: 
 );
 
 // 小组件：名片详情弹窗
-const ProfileModal: React.FC<{ profile: Profile, isLoggedIn: boolean, onClose: () => void, gradient: string }> = ({ profile, isLoggedIn, onClose, gradient }) => (
+const ProfileModal: React.FC<{
+  profile: Profile;
+  isLoggedIn: boolean;
+  onClose: () => void;
+  onShare: () => void;
+  gradient: string;
+  shareCopied: boolean;
+}> = ({ profile, isLoggedIn, onClose, onShare, gradient, shareCopied }) => (
   <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={onClose}>
     <div className="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
       <div className={`h-24 bg-gradient-to-r ${gradient} relative`}>
@@ -408,9 +435,20 @@ const ProfileModal: React.FC<{ profile: Profile, isLoggedIn: boolean, onClose: (
         </div>
       </div>
       <div className="p-6 pt-4">
-        <div className="flex items-center gap-2 mb-1">
-          <h2 className="text-2xl font-bold text-gray-800">{profile.nickname}</h2>
-          {profile.group_nickname && <span className="text-sm text-gray-500 bg-gray-100 px-2 py-0.5 rounded">{profile.group_nickname}</span>}
+        <div className="flex items-start gap-3 mb-1">
+          <div className="min-w-0 flex-1">
+            <h2 className="text-2xl font-bold text-gray-800 break-words">{profile.nickname}</h2>
+            {profile.group_nickname && <span className="inline-flex mt-1 text-sm text-gray-500 bg-gray-100 px-2 py-0.5 rounded">{profile.group_nickname}</span>}
+          </div>
+          <button
+            type="button"
+            onClick={onShare}
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-purple-50 text-purple-600 transition hover:bg-purple-100"
+            aria-label="分享伙伴名片"
+            title="分享伙伴名片"
+          >
+            {shareCopied ? <Check className="w-5 h-5" /> : <Share2 className="w-5 h-5" />}
+          </button>
         </div>
         {formatGroupIdentity(profile.group_identity) && (
           <p className="text-gray-500 mb-3 flex items-center gap-1"><MapPin className="w-4 h-4" /> {formatGroupIdentity(profile.group_identity)}</p>
@@ -444,9 +482,9 @@ const ProfileModal: React.FC<{ profile: Profile, isLoggedIn: boolean, onClose: (
             <p className="text-blue-800 font-mono">{profile.wechat_id}</p>
           </div>
         )}
-        {profile.social_links && Object.keys(profile.social_links as object).length > 0 && (
+        {isLoggedIn && profile.social_links && Object.keys(profile.social_links as object).length > 0 && (
           <div>
-            <h3 className="text-sm font-medium text-gray-500 mb-2">🔗 社交链接</h3>
+            <h3 className="text-sm font-medium text-gray-500 mb-2">社交链接</h3>
             <div className="flex flex-wrap gap-2">
               {Object.entries(profile.social_links as Record<string, string>).map(([key, value]) => value && (
                 <a key={key} href={value} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm text-gray-700 transition">
@@ -456,9 +494,34 @@ const ProfileModal: React.FC<{ profile: Profile, isLoggedIn: boolean, onClose: (
             </div>
           </div>
         )}
-        {!isLoggedIn && profile.wechat_id && (
-          <div className="mt-4 p-3 bg-gray-50 rounded-lg text-center">
-            <p className="text-sm text-gray-500"><Link to="/login" className="text-blue-600 hover:underline">登录</Link> 后可查看微信号</p>
+        {!isLoggedIn && (
+          <div className="mt-5 rounded-xl border border-cyan-200/40 bg-cyan-50 p-4">
+            <div className="flex items-start gap-3">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-cyan-100 text-cyan-700">
+                <Lock className="w-5 h-5" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <h3 className="font-semibold text-cyan-900">注册后查看联系方式</h3>
+                <p className="mt-1 text-sm text-cyan-800">加入社区后可查看微信号、社交链接，并继续完善自己的伙伴名片。</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <Link
+                    to="/register"
+                    state={{ from: getPartnerSharePath(profile.id) }}
+                    className="inline-flex items-center gap-2 rounded-lg bg-cyan-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-cyan-700"
+                  >
+                    <UserPlus className="w-4 h-4" />
+                    注册加入
+                  </Link>
+                  <Link
+                    to="/login"
+                    state={{ from: getPartnerSharePath(profile.id) }}
+                    className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-cyan-700 ring-1 ring-cyan-200 transition hover:bg-cyan-50"
+                  >
+                    已有账号登录
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>
@@ -466,9 +529,9 @@ const ProfileModal: React.FC<{ profile: Profile, isLoggedIn: boolean, onClose: (
   </div>
 );
 
-const UserAvatar: React.FC<{ user: any }> = ({ user }) => {
-  if (user?.avatar_url) {
-    return <img src={user.avatar_url} alt="" className="w-full h-full rounded-full object-cover" />;
+const UserAvatar: React.FC<{ user: AppUser | null }> = ({ user }) => {
+  if (user?.avatar) {
+    return <img src={user.avatar} alt="" className="w-full h-full rounded-full object-cover" />;
   }
   return <span className="font-bold text-gray-400">{user?.nickname?.charAt(0) || '?'}</span>;
 };

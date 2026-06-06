@@ -50,16 +50,16 @@ const Header: React.FC = () => {
   return (
     <header className="sticky top-0 z-50 border-b border-cyan-300/10 bg-slate-950/55 shadow-2xl shadow-cyan-950/20 backdrop-blur-2xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-14 sm:h-16">
           {/* Logo */}
           <Link to="/about" className="group flex items-center space-x-3">
-            <div className="relative w-10 h-10 rounded-2xl bg-gradient-to-br from-cyan-400 via-blue-500 to-fuchsia-500 p-[1px] shadow-lg shadow-cyan-500/30">
-              <div className="flex h-full w-full items-center justify-center rounded-2xl bg-slate-950/70">
-                <Sparkles className="h-5 w-5 text-cyan-200 transition-transform group-hover:rotate-12" />
+            <div className="relative h-8 w-8 rounded-xl bg-gradient-to-br from-cyan-400 via-blue-500 to-fuchsia-500 p-[1px] shadow-lg shadow-cyan-500/30 sm:h-10 sm:w-10 sm:rounded-2xl">
+              <div className="flex h-full w-full items-center justify-center rounded-xl bg-slate-950/70 sm:rounded-2xl">
+                <Sparkles className="h-4 w-4 text-cyan-200 transition-transform group-hover:rotate-12 sm:h-5 sm:w-5" />
               </div>
             </div>
             <div className="leading-tight">
-              <span className="block text-lg font-black tracking-wide text-white">马健文</span>
+              <span className="block text-base font-black tracking-wide text-white sm:text-lg">马健文</span>
               <span className="hidden text-[11px] uppercase tracking-[0.28em] text-cyan-200/70 sm:block">Jianwen OS</span>
             </div>
           </Link>
@@ -156,7 +156,7 @@ const Header: React.FC = () => {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2 rounded-xl text-slate-200 hover:bg-white/10"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6" /> : <Menu className="h-5 w-5 sm:h-6 sm:w-6" />}
             </button>
           </div>
         </div>
