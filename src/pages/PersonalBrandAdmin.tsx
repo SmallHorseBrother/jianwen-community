@@ -33,7 +33,7 @@ import {
   type PersonalProfile,
 } from '../types/personalBrand';
 
-const SOCIAL_FIELDS = ['website', 'github', 'linkedin', 'xiaohongshu', 'bilibili', 'zhihu'];
+const SOCIAL_FIELDS = ['website', 'github', 'linkedin', 'xiaohongshu', 'bilibili', 'zhihu', 'douyin'];
 
 const ENTRY_TYPE_ICONS: Record<
   PersonalEntryType,

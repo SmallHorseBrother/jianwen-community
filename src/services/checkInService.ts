@@ -100,6 +100,42 @@ export async function createCheckIn(
 }
 
 /**
+ * 编辑自己的打卡内容。
+ */
+export async function updateCheckIn(
+    checkInId: string,
+    userId: string,
+    content: string,
+) {
+    const { data, error } = await supabase
+        .from("check_ins")
+        .update({
+            content,
+            updated_at: new Date().toISOString(),
+        })
+        .eq("id", checkInId)
+        .eq("user_id", userId)
+        .select()
+        .single();
+
+    if (error) throw error;
+    return data;
+}
+
+/**
+ * 删除自己的打卡。
+ */
+export async function deleteCheckIn(checkInId: string, userId: string) {
+    const { error } = await supabase
+        .from("check_ins")
+        .delete()
+        .eq("id", checkInId)
+        .eq("user_id", userId);
+
+    if (error) throw error;
+}
+
+/**
  * 获取打卡列表
  */
 export async function getCheckIns(limit = 20) {

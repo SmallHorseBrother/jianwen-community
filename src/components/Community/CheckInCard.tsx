@@ -4,9 +4,16 @@
  */
 
 import React, { useState } from 'react';
-import { Heart, MessageCircle, Send, Share2, X } from 'lucide-react';
+import { Loader2, Heart, MessageCircle, Pencil, Send, Share2, Trash2, X } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import { toggleLike, addComment, CheckIn, CheckInComment } from '../../services/checkInService';
+import {
+  toggleLike,
+  addComment,
+  updateCheckIn,
+  deleteCheckIn,
+  CheckIn,
+  CheckInComment,
+} from '../../services/checkInService';
 import CheckInShareModal from './CheckInShareModal';
 
 interface CheckInCardProps {
@@ -23,12 +30,17 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
   const [submittingComment, setSubmittingComment] = useState(false);
   const [likeAnimating, setLikeAnimating] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editContent, setEditContent] = useState(checkIn.content || '');
+  const [savingEdit, setSavingEdit] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   // 判断当前用户是否已点赞
   const isLiked = checkIn.likes?.some(like => like.user_id === user?.id);
   const likesCount = checkIn.likes?.length || 0;
   const commentsCount = checkIn.comments?.length || 0;
   const canShareCheckIn = Boolean(user?.id && checkIn.user_id === user.id);
+  const canManageCheckIn = Boolean(user?.id && checkIn.user_id === user.id);
   const sortedComments = [...(checkIn.comments || [])].sort(
     (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
   );
@@ -100,6 +112,59 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
     setCommentContent('');
   };
 
+  const handleStartEdit = () => {
+    setEditContent(checkIn.content || '');
+    setIsEditing(true);
+  };
+
+  const handleCancelEdit = () => {
+    setEditContent(checkIn.content || '');
+    setIsEditing(false);
+  };
+
+  const handleSaveEdit = async () => {
+    if (!user) {
+      alert('请先登录');
+      return;
+    }
+    if (!editContent.trim() && !(checkIn.image_urls?.length)) {
+      alert('打卡内容不能为空');
+      return;
+    }
+
+    setSavingEdit(true);
+    try {
+      await updateCheckIn(checkIn.id, user.id, editContent.trim());
+      setIsEditing(false);
+      onUpdate();
+    } catch (error) {
+      console.error('编辑打卡失败', error);
+      alert('编辑失败: ' + getErrorMessage(error));
+    } finally {
+      setSavingEdit(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!user) {
+      alert('请先登录');
+      return;
+    }
+    const confirmed = window.confirm('确定删除这条打卡吗？删除后无法恢复。');
+    if (!confirmed) return;
+
+    setDeleting(true);
+    try {
+      await deleteCheckIn(checkIn.id, user.id);
+      onUpdate();
+    } catch (error) {
+      console.error('删除打卡失败', error);
+      alert('删除失败: ' + getErrorMessage(error));
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   // 格式化时间
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
@@ -145,11 +210,66 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
           </div>
           <p className="text-xs text-gray-400">{formatDate(checkIn.created_at)} · 坚持打卡</p>
         </div>
+        {canManageCheckIn && (
+          <div className="flex shrink-0 items-center gap-1">
+            <button
+              type="button"
+              onClick={handleStartEdit}
+              disabled={isEditing || deleting}
+              className="rounded-full p-2 text-gray-400 transition-colors hover:bg-gray-50 hover:text-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
+              aria-label="编辑打卡"
+              title="编辑打卡"
+            >
+              <Pencil className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={handleDelete}
+              disabled={deleting || savingEdit}
+              className="rounded-full p-2 text-gray-400 transition-colors hover:bg-red-50 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50"
+              aria-label="删除打卡"
+              title="删除打卡"
+            >
+              {deleting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+            </button>
+          </div>
+        )}
       </div>
 
       {/* 内容 */}
       <div className="mb-4">
-        <p className="whitespace-pre-wrap text-sm leading-7 text-gray-800 sm:text-base">{checkIn.content}</p>
+        {isEditing ? (
+          <div className="space-y-3">
+            <textarea
+              value={editContent}
+              onChange={(e) => setEditContent(e.target.value)}
+              className="min-h-28 w-full resize-y rounded-xl border border-blue-100 bg-blue-50/40 px-3 py-2 text-sm leading-7 text-gray-800 outline-none transition focus:border-blue-300 focus:bg-white focus:ring-2 focus:ring-blue-100 sm:text-base"
+              autoFocus
+              disabled={savingEdit}
+            />
+            <div className="flex justify-end gap-2">
+              <button
+                type="button"
+                onClick={handleCancelEdit}
+                disabled={savingEdit}
+                className="rounded-lg px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                取消
+              </button>
+              <button
+                type="button"
+                onClick={handleSaveEdit}
+                disabled={savingEdit || (!editContent.trim() && !(checkIn.image_urls?.length))}
+                className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {savingEdit && <Loader2 className="h-4 w-4 animate-spin" />}
+                保存
+              </button>
+            </div>
+          </div>
+        ) : (
+          <p className="whitespace-pre-wrap text-sm leading-7 text-gray-800 sm:text-base">{checkIn.content}</p>
+        )}
       </div>
 
       {/* 图片网格 */}
@@ -298,5 +418,9 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
     </div>
   );
 };
+
+function getErrorMessage(error: unknown) {
+  return error instanceof Error ? error.message : '请重试';
+}
 
 export default CheckInCard;

@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Dumbbell, FileText, Sparkles, ExternalLink, MessageSquarePlus, X, Send, User, MessageCircle, UtensilsCrossed } from 'lucide-react';
+import { Dumbbell, Sparkles, ExternalLink, MessageSquarePlus, X, Send, User, MessageCircle, UtensilsCrossed } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { submitSuggestion, getAllSuggestions } from '../services/suggestionService';
 import AppreciationCard from '../components/Common/AppreciationCard';
@@ -298,58 +298,30 @@ const Tools: React.FC = () => {
 
   const tools: ToolCard[] = [
     {
-      title: 'Jianwen OS',
-      description: '我的个人主页、AI 分身和公开资料中心，适合快速了解我正在做什么。',
-      icon: <Sparkles className="w-8 h-8" />,
-      link: '/about',
-      isExternal: false,
-      color: 'from-cyan-500 to-blue-600',
-      status: 'active',
-    },
-    {
-      title: '问题星球',
-      description: '粉丝提问、真人回答和群友帮答的内容社区，也是后续内容输出的选题池。',
-      icon: <MessageCircle className="w-8 h-8" />,
-      link: '/qa',
-      isExternal: false,
-      color: 'from-fuchsia-500 to-pink-600',
-      status: 'active',
-    },
-    {
-      title: 'Pull-up Index',
-      description: '引体向上指数、1RM 估算等训练数据工具，服务健身方向的内容和咨询。',
-      icon: <Dumbbell className="w-8 h-8" />,
-      link: 'https://pullupindex.top',
-      isExternal: true,
-      color: 'from-green-500 to-emerald-600',
-      status: 'active',
-    },
-
-    {
-      title: 'MinuteMaster AI',
-      description: 'AI 会议总结助手，将会议记录快速整理成结构化纪要和待办。',
-      icon: <FileText className="w-8 h-8" />,
-      link: 'https://minutemaster-ai-394979688664.us-west1.run.app',
-      isExternal: true,
-      color: 'from-blue-500 to-indigo-600',
-      status: 'active',
-    },
-    {
-      title: 'NutriLens AI',
-      description: 'AI 食物识别与营养估算工具，用来辅助饮食记录和健身管理。',
+      title: '食探',
+      description: 'AI 饮食识别与营养估算小程序，围绕拍照记录、热量估算和日常饮食管理持续迭代。',
       icon: <UtensilsCrossed className="w-8 h-8" />,
-      link: 'https://nutrilens-ai-food-weight-nutrition-estimator-394979688664.us-west1.run.app',
+      link: 'https://healthymax.cn/',
       isExternal: true,
       color: 'from-orange-500 to-red-600',
       status: 'active',
     },
     {
-      title: 'AI CoachLink',
-      description: 'AI 健身计划助手，围绕目标、训练经验和可用时间生成训练建议。',
+      title: '教链',
+      description: '面向健身教练和学员的小程序与网页版平台，聚焦计划、反馈、学员管理和线上教学工作流。',
       icon: <Sparkles className="w-8 h-8" />,
-      link: 'https://ai-coachlink-394979688664.us-west1.run.app',
+      link: 'https://coachlink.fit/',
       isExternal: true,
-      color: 'from-violet-500 to-purple-600',
+      color: 'from-cyan-500 to-blue-600',
+      status: 'active',
+    },
+    {
+      title: 'Pull-up Index',
+      description: '引体向上指数、1RM 估算等训练数据工具，现已融入教链，作为训练评估能力的一部分。',
+      icon: <Dumbbell className="w-8 h-8" />,
+      link: 'https://pullupindex.top/',
+      isExternal: true,
+      color: 'from-green-500 to-emerald-600',
       status: 'active',
     },
   ];
@@ -363,14 +335,14 @@ const Tools: React.FC = () => {
             产品实验室
           </h1>
           <p className="text-base leading-7 text-slate-200 opacity-90 sm:text-lg">
-            这里集中放我自己做的产品、实验项目和社区入口。好用的留下，没用的继续迭代。
+            这里集中放最近重点推进的产品。食探做饮食记录，教链做线上教学，Pull-up Index 已并入教链的训练评估体系。
           </p>
         </div>
       </div>
 
       <div className="mx-auto max-w-6xl px-1.5 sm:px-4">
         {/* 工具列表 */}
-        <div className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:mb-16 lg:grid-cols-4 lg:gap-6">
+        <div className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-3 lg:mb-16 lg:gap-6">
           {tools.map((tool) => (
             <ToolCardComponent key={tool.title} tool={tool} />
           ))}

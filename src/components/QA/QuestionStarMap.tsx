@@ -22,6 +22,11 @@ import { scoreBetweenQuestions } from "../../utils/questionSimilarity";
 
 type Question = Database["public"]["Tables"]["questions"]["Row"];
 type GranularityMode = "constellation" | "cluster" | "raw";
+const MAX_RENDERED_QUESTIONS_BY_MODE: Record<GranularityMode, number> = {
+	constellation: 260,
+	cluster: 420,
+	raw: 520,
+};
 
 const topicColors: Record<string, number> = {
 	"街头健身": 0x20e8ff,
@@ -347,8 +352,14 @@ const buildNodes = (
 	questions: Question[],
 	semanticEdges: QuestionEdge[],
 	mode: GranularityMode,
-): StarNode[] =>
-	buildQuestionGroups(questions, semanticEdges, mode).map(({ question, members }) => {
+): StarNode[] => {
+	const visibleQuestions = questions.slice(0, MAX_RENDERED_QUESTIONS_BY_MODE[mode]);
+	const visibleIds = new Set(visibleQuestions.map((question) => question.id));
+	const visibleEdges = semanticEdges.filter(
+		(edge) => visibleIds.has(edge.question_id) && visibleIds.has(edge.related_question_id),
+	);
+
+	return buildQuestionGroups(visibleQuestions, visibleEdges, mode).map(({ question, members }) => {
 		const topic = normalizeQuestionTopic(question.topic);
 		const seed = hashString(`${question.id}-${question.content}`);
 		const center = topicCenters[topic] || topicCenters["其他"];
@@ -377,6 +388,7 @@ const buildNodes = (
 			color: colorForNode(baseColor, seed, importance, question),
 		};
 	});
+};
 
 const buildEdges = (nodes: StarNode[]): StarEdge[] => {
 	const priorityNodes = nodes

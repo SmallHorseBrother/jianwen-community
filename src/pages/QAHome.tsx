@@ -41,6 +41,8 @@ type Question = Database["public"]["Tables"]["questions"]["Row"];
 
 const PAGE_SIZE = 24;
 const SUBMIT_RATE_KEY = "jw_question_submit_last_at";
+const DESKTOP_STAR_MAP_LIMIT = 240;
+const MOBILE_STAR_MAP_LIMIT = 160;
 
 const topicCopy: Record<string, string> = {
 	"街头健身": "引体、双力臂、训练计划",
@@ -79,6 +81,13 @@ const canSubmitNow = () => {
 	return Date.now() - last > 60_000;
 };
 
+const getInitialStarMapLimit = () => {
+	if (typeof window === "undefined") return DESKTOP_STAR_MAP_LIMIT;
+	return window.matchMedia("(max-width: 640px)").matches
+		? MOBILE_STAR_MAP_LIMIT
+		: DESKTOP_STAR_MAP_LIMIT;
+};
+
 const QAHome: React.FC = () => {
 	const { user } = useAuth();
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -113,7 +122,10 @@ const QAHome: React.FC = () => {
 	const questionRequestIdRef = useRef(0);
 
 	useEffect(() => {
-		loadInitialData();
+		const timer = window.setTimeout(() => {
+			void loadInitialData();
+		}, 450);
+		return () => window.clearTimeout(timer);
 	}, []);
 
 	useEffect(() => {
@@ -158,10 +170,11 @@ const QAHome: React.FC = () => {
 				setLoadingMore(false);
 				setStarLoading(true);
 				void getQuestionStars({
-					limit: 5000,
+					limit: getInitialStarMapLimit(),
 					topic: selectedTopic || undefined,
 					tag: selectedTag || undefined,
 					searchQuery: searchQuery || undefined,
+					includeEdges: false,
 				})
 					.then((starsResult) => {
 						if (questionRequestIdRef.current !== requestId) return;

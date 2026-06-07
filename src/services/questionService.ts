@@ -235,6 +235,7 @@ export const getQuestionStars = async (options?: {
 	topic?: string;
 	tag?: string;
 	searchQuery?: string;
+	includeEdges?: boolean;
 }): Promise<QuestionStarMapData> => {
 	const limit = options?.limit || 5000;
 	const pageSize = 1000;
@@ -276,7 +277,7 @@ export const getQuestionStars = async (options?: {
 	const questionIds = questions.map((question) => question.id);
 	let edges: QuestionEdge[] = [];
 
-	if (questionIds.length) {
+	if (questionIds.length && options?.includeEdges !== false) {
 		try {
 			const idSet = new Set(questionIds);
 			const edgeMap = new Map<string, QuestionEdge>();
