@@ -22,13 +22,13 @@ const POSTER_HEIGHT = 1440;
 const SHARE_PATH = '/community';
 
 const COLORS = {
-  bg: '#050816',
-  bg2: '#09111f',
-  panel: '#0f172a',
-  panel2: '#111c33',
+  bg: '#07111f',
+  bg2: '#0d1b2e',
+  panel: '#13233b',
+  panel2: '#172a45',
   text: '#f8fafc',
-  muted: '#9fb0c8',
-  dim: '#64748b',
+  muted: '#b7c5d8',
+  dim: '#7c8ea7',
   cyan: '#22d3ee',
   cyanSoft: 'rgba(34, 211, 238, 0.18)',
   blue: '#3b82f6',
@@ -258,9 +258,9 @@ function buildPosterData(checkIn: CheckIn, stats: UserCheckInStats | null = null
   const content = checkIn.content?.trim() || '';
   const lines = content.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
   const achievements = extractAchievements(lines);
-  const narrativeRaw = lines.filter((line) => !isAchievementLine(line)).join('\n') || content || '今天也完成了一次认真打卡。';
+  const narrativeRaw = content || lines.filter((line) => !isAchievementLine(line)).join('\n') || '今天也完成了一次认真打卡。';
   const hasImages = (checkIn.image_urls?.length || 0) > 0;
-  const narrative = clampText(narrativeRaw, hasImages ? 92 : 150);
+  const narrative = clampText(narrativeRaw, hasImages ? 220 : 220);
   const completedCount = achievements.filter((item) => /完成|已做|打卡|Done|done/i.test(item.value) && !/未完成|没完成/.test(item.value)).length;
   const themeLabel = inferTheme(content, achievements);
   const heroMetric = completedCount > 0
@@ -524,39 +524,12 @@ function drawImageStory(ctx: CanvasRenderingContext2D, data: PosterData, images:
 
   ctx.save();
   roundedClip(ctx, x + 16, y + 16, width - 32, height - 32, 26);
+  drawPhotoLayout(ctx, data, images, x, y, width, height);
 
-  if (images.length === 1) {
-    drawPhotoFrame(ctx, images[0], x + 58, y + 36, width - 116, height - 86, 0, 28, true, true);
-  } else {
-    drawPhotoFrame(ctx, images[0], x + 42, y + 56, 548, 380, -3.8, 26, true, true);
-    drawTape(ctx, x + 126, y + 38, -7);
-    drawTape(ctx, x + 432, y + 418, -7);
-
-    drawPhotoFrame(ctx, images[1], x + 596, y + 46, 300, 202, 3.4, 22);
-    drawTape(ctx, x + 706, y + 28, 8);
-
-    if (images[2]) {
-      drawPhotoFrame(ctx, images[2], x + 632, y + 260, 282, 186, -2.2, 22);
-      drawTape(ctx, x + 734, y + 246, -5);
-    } else {
-      drawMiniQuote(ctx, data.heroMetric, x + 638, y + 274, 268, 158);
-    }
-
-    if (data.images.length > 3) {
-      drawImageCountBadge(ctx, `+${data.images.length - 3}`, x + 812, y + 392);
-    }
-  }
-
-  const overlay = ctx.createLinearGradient(0, y + height - 210, 0, y + height - 16);
-  overlay.addColorStop(0, 'rgba(2, 6, 23, 0)');
-  overlay.addColorStop(1, 'rgba(2, 6, 23, 0.86)');
-  ctx.fillStyle = overlay;
-  ctx.fillRect(x + 16, y + height - 238, width - 32, 222);
-
-  drawRoundedRect(ctx, x + 34, y + height - 142, width - 68, 104, 24, 'rgba(2, 6, 23, 0.72)', 'rgba(248, 250, 252, 0.16)');
+  drawRoundedRect(ctx, x + 34, y + height - 166, width - 68, 142, 24, 'rgba(2, 6, 23, 0.84)', 'rgba(248, 250, 252, 0.16)');
   ctx.fillStyle = COLORS.text;
-  ctx.font = font(27, 900);
-  wrapText(ctx, data.narrative, x + 60, y + height - 100, width - 120, 34, 2);
+  ctx.font = font(24, 900);
+  drawPreservedLineExcerpt(ctx, data.narrative, x + 60, y + height - 132, width - 120, 32, 4);
   ctx.restore();
 
   return y + height;
@@ -587,16 +560,155 @@ function drawTextStory(ctx: CanvasRenderingContext2D, data: PosterData) {
   return y + height;
 }
 
-function drawMiniQuote(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, width: number, height: number) {
-  const gradient = ctx.createLinearGradient(x, y, x + width, y + height);
-  gradient.addColorStop(0, 'rgba(34, 211, 238, 0.28)');
-  gradient.addColorStop(1, 'rgba(217, 70, 239, 0.22)');
-  drawRoundedRect(ctx, x, y, width, height, 24, gradient, 'rgba(248, 250, 252, 0.12)');
-  ctx.fillStyle = COLORS.text;
-  ctx.font = font(38, 900);
-  ctx.textAlign = 'center';
-  ctx.fillText(text, x + width / 2, y + height / 2 + 14);
-  ctx.textAlign = 'left';
+function drawPhotoLayout(
+  ctx: CanvasRenderingContext2D,
+  data: PosterData,
+  images: HTMLImageElement[],
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+) {
+  const count = Math.min(images.length, 4);
+  if (count === 1) {
+    drawSinglePhotoLayout(ctx, images[0], x, y, width, height);
+    return;
+  }
+  if (count === 2) {
+    drawTwoPhotoLayout(ctx, images.slice(0, 2), x, y, width, height);
+    return;
+  }
+  if (count === 3) {
+    drawThreePhotoLayout(ctx, images.slice(0, 3), x, y, width, height);
+    return;
+  }
+
+  drawFourPhotoLayout(ctx, images.slice(0, 4), x, y, width, height);
+  if (data.images.length > 4) {
+    drawImageCountBadge(ctx, `+${data.images.length - 4}`, x + width - 158, y + height - 246);
+  }
+}
+
+function drawSinglePhotoLayout(ctx: CanvasRenderingContext2D, image: HTMLImageElement, x: number, y: number, width: number, height: number) {
+  const shape = getImageShape(image);
+  if (shape === 'portrait') {
+    drawAdaptivePhotoFrame(ctx, image, x + 248, y + 24, 456, height - 188, -1.8, 28, true);
+    drawTape(ctx, x + 444, y + 18, -7);
+    return;
+  }
+
+  if (shape === 'wide') {
+    drawAdaptivePhotoFrame(ctx, image, x + 72, y + 42, width - 144, height - 220, 1.4, 28, true);
+    drawTape(ctx, x + 222, y + 42, -5);
+    drawTape(ctx, x + width - 238, y + 42, 6);
+    return;
+  }
+
+  drawAdaptivePhotoFrame(ctx, image, x + 218, y + 28, 516, height - 210, -2.4, 28, true);
+  drawTape(ctx, x + 324, y + 28, -7);
+}
+
+function drawTwoPhotoLayout(ctx: CanvasRenderingContext2D, images: HTMLImageElement[], x: number, y: number, width: number, height: number) {
+  const shapes = images.map(getImageShape);
+
+  if (shapes.every((shape) => shape === 'wide')) {
+    drawAdaptivePhotoFrame(ctx, images[0], x + 76, y + 34, width - 152, 144, -1.2, 22, true);
+    drawAdaptivePhotoFrame(ctx, images[1], x + 112, y + 180, width - 224, 144, 1.5, 22, false);
+    drawTape(ctx, x + 212, y + 28, -5);
+    drawTape(ctx, x + width - 260, y + 180, 6);
+    return;
+  }
+
+  if (shapes.every((shape) => shape === 'portrait')) {
+    drawAdaptivePhotoFrame(ctx, images[0], x + 92, y + 26, 380, height - 188, -3.4, 24, true);
+    drawAdaptivePhotoFrame(ctx, images[1], x + 480, y + 28, 380, height - 188, 3.2, 24, true);
+    drawTape(ctx, x + 212, y + 28, -7);
+    drawTape(ctx, x + 618, y + 30, 7);
+    return;
+  }
+
+  drawAdaptivePhotoFrame(ctx, images[0], x + 54, y + 38, 552, height - 210, -3.2, 26, true);
+  drawAdaptivePhotoFrame(ctx, images[1], x + 612, y + 42, 314, height - 206, 3.8, 22, false);
+  drawTape(ctx, x + 166, y + 36, -7);
+  drawTape(ctx, x + 726, y + 44, 8);
+}
+
+function drawThreePhotoLayout(ctx: CanvasRenderingContext2D, images: HTMLImageElement[], x: number, y: number, width: number, height: number) {
+  const shapes = images.map(getImageShape);
+
+  if (shapes.every((shape) => shape === 'portrait')) {
+    drawAdaptivePhotoFrame(ctx, images[0], x + 54, y + 30, 280, height - 196, -4.2, 22, false);
+    drawAdaptivePhotoFrame(ctx, images[1], x + 336, y + 24, 280, height - 184, 1.5, 22, true);
+    drawAdaptivePhotoFrame(ctx, images[2], x + 618, y + 30, 280, height - 196, 4.2, 22, false);
+    drawTape(ctx, x + 142, y + 30, -8);
+    drawTape(ctx, x + 434, y + 24, 5);
+    drawTape(ctx, x + 702, y + 30, 8);
+    return;
+  }
+
+  drawAdaptivePhotoFrame(ctx, images[0], x + 44, y + 36, 526, height - 206, -3.6, 26, true);
+  drawAdaptivePhotoFrame(ctx, images[1], x + 592, y + 32, 316, 148, 3.4, 20, false);
+  drawAdaptivePhotoFrame(ctx, images[2], x + 620, y + 190, 292, 148, -2.8, 20, false);
+  drawTape(ctx, x + 146, y + 40, -7);
+  drawTape(ctx, x + 706, y + 28, 8);
+  drawTape(ctx, x + 730, y + 192, -6);
+}
+
+function drawFourPhotoLayout(ctx: CanvasRenderingContext2D, images: HTMLImageElement[], x: number, y: number, width: number, height: number) {
+  const tileWidth = 382;
+  const tileHeight = 148;
+  const left = x + 78;
+  const right = x + width - 78 - tileWidth;
+  const top = y + 42;
+  const bottom = y + height - 326;
+
+  drawAdaptivePhotoFrame(ctx, images[0], left, top - 8, tileWidth, tileHeight + 40, -2.2, 18, false);
+  drawAdaptivePhotoFrame(ctx, images[1], right, top, tileWidth, tileHeight + 36, 2.4, 18, false);
+  drawAdaptivePhotoFrame(ctx, images[2], left + 20, bottom, tileWidth, tileHeight + 30, 2.1, 18, false);
+  drawAdaptivePhotoFrame(ctx, images[3], right - 18, bottom - 8, tileWidth, tileHeight + 34, -2.8, 18, false);
+  drawTape(ctx, left + 92, top - 12, -7);
+  drawTape(ctx, right + 194, top - 4, 7);
+  drawTape(ctx, left + 144, bottom - 12, 6);
+  drawTape(ctx, right + 152, bottom - 20, -6);
+}
+
+function getImageShape(image: HTMLImageElement): 'portrait' | 'square' | 'wide' {
+  const ratio = image.naturalWidth / image.naturalHeight;
+  if (ratio < 0.78) return 'portrait';
+  if (ratio > 1.45) return 'wide';
+  return 'square';
+}
+
+function drawAdaptivePhotoFrame(
+  ctx: CanvasRenderingContext2D,
+  image: HTMLImageElement,
+  boxX: number,
+  boxY: number,
+  boxWidth: number,
+  boxHeight: number,
+  rotationDeg: number,
+  radius: number,
+  featured = false,
+) {
+  const border = featured ? 18 : 13;
+  const captionHeight = featured ? 34 : 24;
+  const imageRatio = Math.max(0.3, Math.min(3.2, image.naturalWidth / image.naturalHeight || 1));
+  const maxImageWidth = Math.max(80, boxWidth - border * 2);
+  const maxImageHeight = Math.max(80, boxHeight - border * 2 - captionHeight);
+  const boxRatio = maxImageWidth / maxImageHeight;
+
+  let imageWidth = maxImageWidth;
+  let imageHeight = imageWidth / imageRatio;
+  if (imageRatio < boxRatio) {
+    imageHeight = maxImageHeight;
+    imageWidth = imageHeight * imageRatio;
+  }
+
+  const frameWidth = imageWidth + border * 2;
+  const frameHeight = imageHeight + border * 2 + captionHeight;
+  const frameX = boxX + (boxWidth - frameWidth) / 2;
+  const frameY = boxY + (boxHeight - frameHeight) / 2;
+  drawPhotoFrame(ctx, image, frameX, frameY, frameWidth, frameHeight, rotationDeg, radius, featured, true);
 }
 
 function drawAlbumBackdrop(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number) {
@@ -679,14 +791,17 @@ function drawPhotoFrame(
   drawPhotoVignette(ctx, border, border, width - border * 2, height - border * 2 - captionHeight);
   ctx.restore();
 
+  const compactCaption = width < 280;
   ctx.fillStyle = '#172033';
-  ctx.font = font(featured ? 16 : 13, 900);
-  ctx.fillText(featured ? 'TODAY / MAIN SHOT' : 'MOMENT', border, height - 17);
-  ctx.fillStyle = 'rgba(15, 23, 42, 0.36)';
-  ctx.font = font(featured ? 15 : 12, 800);
-  ctx.textAlign = 'right';
-  ctx.fillText(rotationDeg > 0 ? 'keep going' : 'shown up', width - border, height - 17);
-  ctx.textAlign = 'left';
+  ctx.font = font(featured ? compactCaption ? 13 : 16 : compactCaption ? 12 : 13, 900);
+  ctx.fillText(featured ? compactCaption ? 'MAIN' : 'TODAY / MAIN SHOT' : 'MOMENT', border, height - 17);
+  if (!compactCaption) {
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.36)';
+    ctx.font = font(featured ? 15 : 12, 800);
+    ctx.textAlign = 'right';
+    ctx.fillText(rotationDeg > 0 ? 'keep going' : 'shown up', width - border, height - 17);
+    ctx.textAlign = 'left';
+  }
 
   ctx.restore();
 }
@@ -948,6 +1063,27 @@ function wrapText(
   if (line && lineCount < maxLines) {
     ctx.fillText(line, x, y + lineCount * lineHeight);
   }
+}
+
+function drawPreservedLineExcerpt(
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  x: number,
+  y: number,
+  maxWidth: number,
+  lineHeight: number,
+  maxLines: number,
+) {
+  const lines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+  if (lines.length <= 1) {
+    wrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines);
+    return;
+  }
+
+  lines.slice(0, maxLines).forEach((line, index) => {
+    const suffix = index === maxLines - 1 && lines.length > maxLines ? '…' : '';
+    ctx.fillText(clampCanvasText(ctx, `${line}${suffix}`, maxWidth), x, y + index * lineHeight);
+  });
 }
 
 function clampCanvasText(ctx: CanvasRenderingContext2D, text: string, maxWidth: number) {

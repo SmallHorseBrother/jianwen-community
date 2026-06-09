@@ -25,6 +25,9 @@ import CreateCheckInModal from '../components/Community/CreateCheckInModal';
 import Leaderboard from '../components/Community/Leaderboard';
 
 type Profile = Database['public']['Tables']['profiles']['Row'];
+type LoadCheckInsOptions = {
+  showLoading?: boolean;
+};
 
 const CommunityV2: React.FC = () => {
   const { user } = useAuth();
@@ -73,9 +76,11 @@ const CommunityV2: React.FC = () => {
   }, [targetCheckInId, loadingCheckIns, checkIns]);
 
   // 加载打卡列表
-  const loadCheckIns = async () => {
+  const loadCheckIns = async ({ showLoading = true }: LoadCheckInsOptions = {}) => {
     try {
-      setLoadingCheckIns(true);
+      if (showLoading) {
+        setLoadingCheckIns(true);
+      }
       const data = await getCheckIns(20);
       let nextCheckIns = data || [];
 
@@ -90,8 +95,14 @@ const CommunityV2: React.FC = () => {
     } catch (error) {
       console.error('加载打卡失败', error);
     } finally {
-      setLoadingCheckIns(false);
+      if (showLoading) {
+        setLoadingCheckIns(false);
+      }
     }
+  };
+
+  const refreshCheckIns = () => {
+    void loadCheckIns({ showLoading: false });
   };
 
   // 加载用户列表
@@ -150,6 +161,7 @@ const CommunityV2: React.FC = () => {
             {/* Tab 切换 */}
             <div className="mx-auto flex w-full max-w-sm rounded-2xl bg-white/10 p-1 ring-1 ring-white/10 md:mx-0 md:w-auto">
               <button
+                type="button"
                 onClick={() => setActiveTab('moments')}
                 className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-all sm:gap-2 sm:px-6 ${
                   activeTab === 'moments' 
@@ -161,6 +173,7 @@ const CommunityV2: React.FC = () => {
                 看动态
               </button>
               <button
+                type="button"
                 onClick={() => setActiveTab('partners')}
                 className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-all sm:gap-2 sm:px-6 ${
                   activeTab === 'partners' 
@@ -176,6 +189,7 @@ const CommunityV2: React.FC = () => {
             {/* 发布按钮 (仅在动态Tab显示) */}
             {activeTab === 'moments' && (
               <button
+                type="button"
                 onClick={() => user ? setShowCreateModal(true) : alert('请先登录')}
                 className="neon-button hidden md:flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all"
               >
@@ -217,6 +231,7 @@ const CommunityV2: React.FC = () => {
                   <h3 className="text-lg font-medium text-gray-900">暂无动态</h3>
                   <p className="text-gray-500 mb-6">快来发布第一条打卡，抢占沙发！</p>
                   <button
+                    type="button"
                     onClick={() => user ? setShowCreateModal(true) : alert('请先登录')}
                     className="bg-blue-600 text-white px-6 py-2 rounded-xl hover:bg-blue-700 transition"
                   >
@@ -229,7 +244,7 @@ const CommunityV2: React.FC = () => {
                     <CheckInCard 
                       key={checkIn.id} 
                       checkIn={checkIn} 
-                      onUpdate={loadCheckIns} 
+                      onUpdate={refreshCheckIns} 
                       highlighted={checkIn.id === targetCheckInId}
                     />
                   ))}

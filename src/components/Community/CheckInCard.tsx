@@ -301,6 +301,7 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
       <div className="flex items-center justify-between border-t border-gray-50 pt-3">
         <div className="flex flex-wrap items-center gap-3 sm:gap-6">
           <button 
+            type="button"
             onClick={handleLike}
             className={`flex items-center gap-1.5 transition-all text-sm group ${
               isLiked ? 'text-pink-500 font-medium' : 'text-gray-500 hover:text-gray-900'
@@ -313,6 +314,7 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
           </button>
           
           <button 
+            type="button"
             onClick={() => (isCommenting && !replyTarget ? setIsCommenting(false) : handleOpenComment())}
             className="flex items-center gap-1.5 text-gray-500 hover:text-gray-900 transition-colors text-sm"
           >
@@ -322,6 +324,7 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
 
           {canShareCheckIn && (
             <button
+              type="button"
               onClick={() => setShowShareModal(true)}
               className="flex items-center gap-1.5 text-gray-500 hover:text-cyan-300 transition-colors text-sm"
             >
