@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import QRCode from 'qrcode';
 import { Check, Copy, Download, RefreshCw, Share2, X } from 'lucide-react';
+import { generateCheckInBoostLine, type CheckInBoostLineSource } from '../../services/checkInBoostService';
 import { getUserCheckInStats } from '../../services/checkInService';
 import type { CheckIn, UserCheckInStats } from '../../services/checkInService';
 
@@ -17,7 +18,7 @@ interface AchievementRow {
 
 type PosterData = ReturnType<typeof buildPosterData>;
 
-const POSTER_WIDTH = 1080;
+const POSTER_WIDTH = 900;
 const POSTER_HEIGHT = 1440;
 const SHARE_PATH = '/community';
 
@@ -45,6 +46,8 @@ const CheckInShareModal: React.FC<CheckInShareModalProps> = ({ checkIn, onClose 
   const [isDownloading, setIsDownloading] = useState(false);
   const [copied, setCopied] = useState(false);
   const [checkInStats, setCheckInStats] = useState<UserCheckInStats | null>(null);
+  const [boostLine, setBoostLine] = useState<string | null>(null);
+  const [boostLineSource, setBoostLineSource] = useState<CheckInBoostLineSource | 'local'>('local');
 
   const shareUrl = useMemo(() => {
     if (typeof window === 'undefined') return SHARE_PATH;
@@ -53,7 +56,7 @@ const CheckInShareModal: React.FC<CheckInShareModalProps> = ({ checkIn, onClose 
     return url.toString();
   }, [checkIn.id]);
 
-  const posterData = useMemo(() => buildPosterData(checkIn, checkInStats), [checkIn, checkInStats]);
+  const posterData = useMemo(() => buildPosterData(checkIn, checkInStats, boostLine), [checkIn, checkInStats, boostLine]);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -66,19 +69,33 @@ const CheckInShareModal: React.FC<CheckInShareModalProps> = ({ checkIn, onClose 
   useEffect(() => {
     let alive = true;
 
-    setIsRendering(true);
-    getUserCheckInStats(checkIn.user_id)
-      .catch((error) => {
+    const renderPreview = async () => {
+      setIsRendering(true);
+      setPosterUrl('');
+      setCheckInStats(null);
+      setBoostLine(null);
+      setBoostLineSource('local');
+
+      const stats = await getUserCheckInStats(checkIn.user_id).catch((error) => {
         console.warn('打卡统计加载失败，将使用当前打卡生成分享图:', error);
         return null;
-      })
-      .then((stats) => {
-        if (alive) setCheckInStats(stats);
-        return renderPoster(checkIn, shareUrl, 'dataUrl', stats);
-      })
-      .then((url) => {
-        if (alive) setPosterUrl(url);
-      })
+      });
+      if (alive) setCheckInStats(stats);
+
+      const generated = await requestCheckInBoostLine(checkIn, stats).catch((error) => {
+        console.warn('AI 打气短句生成失败，将使用本地兜底文案:', error);
+        return null;
+      });
+      if (alive) {
+        setBoostLine(generated?.boostLine || null);
+        setBoostLineSource(generated?.source || 'local');
+      }
+
+      const url = await renderPoster(checkIn, shareUrl, 'dataUrl', stats, generated?.boostLine || null);
+      if (alive) setPosterUrl(url);
+    };
+
+    renderPreview()
       .catch((error) => {
         console.error('生成分享图预览失败:', error);
         if (alive) setPosterUrl('');
@@ -95,8 +112,18 @@ const CheckInShareModal: React.FC<CheckInShareModalProps> = ({ checkIn, onClose 
   const handleDownload = async () => {
     setIsDownloading(true);
     try {
-      const stats = checkInStats || await getUserCheckInStats(checkIn.user_id).catch(() => null);
-      const blob = await renderPoster(checkIn, shareUrl, 'blob', stats);
+      const stats = checkInStats || (await getUserCheckInStats(checkIn.user_id).catch(() => null));
+      let lineForPoster = boostLine;
+      if (!lineForPoster) {
+        const generated = await requestCheckInBoostLine(checkIn, stats).catch(() => null);
+        lineForPoster = generated?.boostLine || null;
+        if (generated) {
+          setBoostLine(generated.boostLine);
+          setBoostLineSource(generated.source);
+        }
+      }
+
+      const blob = await renderPoster(checkIn, shareUrl, 'blob', stats, lineForPoster);
       downloadBlob(blob, createDownloadFileName(checkIn.created_at));
     } catch (error) {
       console.error('生成分享图失败:', error);
@@ -128,10 +155,10 @@ const CheckInShareModal: React.FC<CheckInShareModalProps> = ({ checkIn, onClose 
           <div className="relative w-full max-w-[390px]">
             <div className="mb-3 flex items-center justify-between text-xs text-slate-400">
               <span>真实 PNG 预览</span>
-              <span>1080 x 1440</span>
+              <span>900 x 1440</span>
             </div>
             <div className="overflow-hidden rounded-[28px] border border-white/10 bg-slate-900 shadow-2xl shadow-cyan-950/30">
-              <div className="relative aspect-[3/4]">
+              <div className="relative aspect-[5/8]">
                 {isRendering ? (
                   <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-slate-950 text-slate-300">
                     <RefreshCw className="h-6 w-6 animate-spin text-cyan-200" />
@@ -172,6 +199,7 @@ const CheckInShareModal: React.FC<CheckInShareModalProps> = ({ checkIn, onClose 
             <InfoRow label="社区识别" value="健文社区 / 马健文 / 枭马葛" />
             <InfoRow label="内容类型" value={posterData.images.length > 0 ? `${posterData.images.length} 张图文动态` : '纯文字动态'} />
             <InfoRow label="分享主题" value={posterData.themeLabel} />
+            <InfoRow label="马哥打气" value={boostLineSource === 'deepseek' ? 'DeepSeek 实时生成' : isRendering && !boostLine ? '正在生成' : '固定句式兜底'} />
             <InfoRow label="正文处理" value={posterData.wasTrimmed ? '正文较长，已做海报级摘要' : '正文完整进入海报'} />
             <InfoRow label="平台累计" value={`${posterData.stats.totalCount} 次打卡 · 连续 ${posterData.stats.currentStreak} 天`} />
           </div>
@@ -254,15 +282,29 @@ const MetricCard: React.FC<{ label: string; value: string }> = ({ label, value }
   </div>
 );
 
-function buildPosterData(checkIn: CheckIn, stats: UserCheckInStats | null = null) {
+async function requestCheckInBoostLine(checkIn: CheckIn, stats: UserCheckInStats | null) {
+  const seedData = buildPosterData(checkIn, stats);
+  return generateCheckInBoostLine({
+    content: checkIn.content?.trim() || '',
+    achievements: seedData.achievements,
+    themeLabel: seedData.themeLabel,
+    completedCount: seedData.completedCount,
+    stats: seedData.stats,
+    nickname: seedData.nickname,
+    groupName: seedData.groupName,
+  });
+}
+
+function buildPosterData(checkIn: CheckIn, stats: UserCheckInStats | null = null, boostLineOverride?: string | null) {
   const content = checkIn.content?.trim() || '';
   const lines = content.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
   const achievements = extractAchievements(lines);
   const narrativeRaw = content || lines.filter((line) => !isAchievementLine(line)).join('\n') || '今天也完成了一次认真打卡。';
   const hasImages = (checkIn.image_urls?.length || 0) > 0;
-  const narrative = clampText(narrativeRaw, hasImages ? 220 : 220);
+  const narrative = clampText(narrativeRaw, hasImages ? 520 : 680);
   const completedCount = achievements.filter((item) => /完成|已做|打卡|Done|done/i.test(item.value) && !/未完成|没完成/.test(item.value)).length;
   const themeLabel = inferTheme(content, achievements);
+  const dateParts = formatPosterDateParts(checkIn.created_at);
   const heroMetric = completedCount > 0
     ? `${completedCount} 项完成`
     : achievements.length > 0
@@ -270,16 +312,21 @@ function buildPosterData(checkIn: CheckIn, stats: UserCheckInStats | null = null
       : hasImages
         ? '图文打卡'
         : '今日打卡';
+  const fallbackBoostLine = buildBoostLine(content, achievements, themeLabel, completedCount);
 
   return {
     nickname: checkIn.profiles?.nickname || '社区伙伴',
     groupName: checkIn.profiles?.group_nickname || '健文社区成员',
     avatarUrl: checkIn.profiles?.avatar_url,
     dateText: formatDisplayDate(checkIn.created_at),
+    dayText: dateParts.day,
+    monthText: dateParts.month,
+    timeText: dateParts.time,
     fileDate: formatFileDate(checkIn.created_at),
     images: checkIn.image_urls || [],
     achievements,
     narrative,
+    boostLine: normalizePosterBoostLine(boostLineOverride) || fallbackBoostLine,
     heroMetric,
     completedCount,
     stats: stats || {
@@ -319,14 +366,68 @@ function inferTheme(content: string, achievements: AchievementRow[]) {
   return '长期主义';
 }
 
+function buildBoostLine(content: string, achievements: AchievementRow[], themeLabel: string, completedCount: number) {
+  const text = `${content}\n${achievements.map((item) => `${item.label}:${item.value}`).join('\n')}`;
+  const doneText = completedCount > 0 ? `今天完成 ${completedCount} 项，` : '';
+
+  if (/静静的顿河|读书|阅读|书/.test(text)) {
+    return `${doneText}这不是鸡汤式坚持，是把阅读量变成可追踪的长期复利。`;
+  }
+  if (/单词|英语|背词|anki/i.test(text)) {
+    return `${doneText}单词这种事别靠感觉，靠重复、反馈和下一次还能捡起来。`;
+  }
+  if (/练字|写字|字帖/.test(text)) {
+    return `${doneText}练字的价值不在今天多漂亮，而在手感每天都被校准一次。`;
+  }
+  if (/深蹲|卧推|硬拉|引体|训练|力量|有氧|公里|跑/.test(text)) {
+    return `${doneText}训练不要拼情绪，把动作、次数、恢复记录清楚，下次才知道怎么加码。`;
+  }
+  if (/饮食|睡眠|早睡|冥想|情绪|饮水/.test(text)) {
+    return `${doneText}习惯不是喊口号，能被记录、复盘、调整，才会真的长在身上。`;
+  }
+  if (themeLabel === '学习成长') {
+    return `${doneText}学习打卡的本质，是给明天的自己留一份可复用的反馈。`;
+  }
+  if (themeLabel === '健身成长') {
+    return `${doneText}健身不是热血叙事，是训练量、恢复和执行力的长期校准。`;
+  }
+  return `${doneText}长期主义不是感动自己，是每天多交一份可以被验证的证据。`;
+}
+
+function normalizePosterBoostLine(value?: string | null) {
+  if (!value) return '';
+  return clampText(value.replace(/\s+/g, ' ').trim(), 72);
+}
+
 function clampText(text: string, maxLength: number) {
   const normalized = text.replace(/\n{3,}/g, '\n\n').trim();
   if (normalized.length <= maxLength) return normalized;
   return `${normalized.slice(0, maxLength - 1).trim()}…`;
 }
 
+function formatPosterDateParts(dateStr: string) {
+  const date = new Date(dateStr);
+  const day = new Intl.DateTimeFormat('zh-CN', {
+    timeZone: 'Asia/Shanghai',
+    day: '2-digit',
+  }).format(date);
+  const month = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Shanghai',
+    month: 'short',
+    year: 'numeric',
+  }).format(date);
+  const time = new Intl.DateTimeFormat('zh-CN', {
+    timeZone: 'Asia/Shanghai',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(date);
+  return { day, month, time };
+}
+
 function formatDisplayDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('zh-CN', {
+    timeZone: 'Asia/Shanghai',
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -334,7 +435,14 @@ function formatDisplayDate(dateStr: string) {
 }
 
 function formatFileDate(dateStr: string) {
-  return new Date(dateStr).toISOString().slice(0, 10);
+  const parts = new Intl.DateTimeFormat('zh-CN', {
+    timeZone: 'Asia/Shanghai',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(new Date(dateStr));
+  const getPart = (type: string) => parts.find((part) => part.type === type)?.value || '';
+  return `${getPart('year')}-${getPart('month')}-${getPart('day')}`;
 }
 
 function createDownloadFileName(createdAt: string) {
@@ -362,10 +470,10 @@ function downloadBlob(blob: Blob, fileName: string) {
   }, 60000);
 }
 
-async function renderPoster(checkIn: CheckIn, shareUrl: string, output: 'dataUrl', stats?: UserCheckInStats | null): Promise<string>;
-async function renderPoster(checkIn: CheckIn, shareUrl: string, output: 'blob', stats?: UserCheckInStats | null): Promise<Blob>;
-async function renderPoster(checkIn: CheckIn, shareUrl: string, output: 'dataUrl' | 'blob', stats?: UserCheckInStats | null) {
-  const data = buildPosterData(checkIn, stats || null);
+async function renderPoster(checkIn: CheckIn, shareUrl: string, output: 'dataUrl', stats?: UserCheckInStats | null, boostLine?: string | null): Promise<string>;
+async function renderPoster(checkIn: CheckIn, shareUrl: string, output: 'blob', stats?: UserCheckInStats | null, boostLine?: string | null): Promise<Blob>;
+async function renderPoster(checkIn: CheckIn, shareUrl: string, output: 'dataUrl' | 'blob', stats?: UserCheckInStats | null, boostLine?: string | null) {
+  const data = buildPosterData(checkIn, stats || null, boostLine);
   const canvas = await renderPosterCanvas(data, shareUrl);
 
   if (output === 'dataUrl') return canvas.toDataURL('image/png');
@@ -388,9 +496,9 @@ async function renderPosterCanvas(data: PosterData, shareUrl: string) {
   const [avatarImage, qrUrl] = await Promise.all([
     data.avatarUrl ? loadImage(data.avatarUrl) : Promise.resolve(null),
     QRCode.toDataURL(shareUrl, {
-      width: 260,
+      width: 220,
       margin: 1,
-      color: { dark: COLORS.bg, light: '#f8fafc' },
+      color: { dark: '#111827', light: '#fffdf4' },
     }),
   ]);
   const [qrImage, ...images] = await Promise.all([
@@ -399,41 +507,57 @@ async function renderPosterCanvas(data: PosterData, shareUrl: string) {
   ]);
   const validImages = images.filter((image): image is HTMLImageElement => Boolean(image));
 
-  drawBackground(ctx);
-  drawBrandHeader(ctx);
+  drawBackground(ctx, validImages[0] || null);
+  drawBrandHeader(ctx, data);
   drawProfileStrip(ctx, data, avatarImage);
 
   const contentBottom = validImages.length > 0
     ? drawImageStory(ctx, data, validImages)
     : drawTextStory(ctx, data);
 
-  drawStatsPanel(ctx, data, contentBottom + 34);
+  drawStatsPanel(ctx, data, Math.min(contentBottom + 18, 1160));
   drawFooter(ctx, data, qrImage, shareUrl);
 
   return canvas;
 }
 
-function drawBackground(ctx: CanvasRenderingContext2D) {
+function drawBackground(ctx: CanvasRenderingContext2D, image: HTMLImageElement | null) {
   const gradient = ctx.createLinearGradient(0, 0, POSTER_WIDTH, POSTER_HEIGHT);
-  gradient.addColorStop(0, COLORS.bg);
-  gradient.addColorStop(0.56, COLORS.bg2);
-  gradient.addColorStop(1, '#150b2d');
+  gradient.addColorStop(0, '#0b1f2a');
+  gradient.addColorStop(0.58, '#172033');
+  gradient.addColorStop(1, '#221236');
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, POSTER_WIDTH, POSTER_HEIGHT);
 
-  drawRadialGlow(ctx, 128, 90, 520, 'rgba(34, 211, 238, 0.26)');
-  drawRadialGlow(ctx, 940, 140, 540, 'rgba(217, 70, 239, 0.24)');
-  drawRadialGlow(ctx, 820, 980, 620, 'rgba(59, 130, 246, 0.18)');
+  if (image) {
+    ctx.save();
+    ctx.globalAlpha = 0.5;
+    ctx.filter = 'blur(26px) saturate(1.18) brightness(0.72)';
+    drawImageCover(ctx, image, -34, -34, POSTER_WIDTH + 68, POSTER_HEIGHT + 68);
+    ctx.restore();
+
+    const wash = ctx.createLinearGradient(0, 0, 0, POSTER_HEIGHT);
+    wash.addColorStop(0, 'rgba(2, 6, 23, 0.46)');
+    wash.addColorStop(0.38, 'rgba(2, 6, 23, 0.18)');
+    wash.addColorStop(0.74, 'rgba(2, 6, 23, 0.48)');
+    wash.addColorStop(1, 'rgba(2, 6, 23, 0.82)');
+    ctx.fillStyle = wash;
+    ctx.fillRect(0, 0, POSTER_WIDTH, POSTER_HEIGHT);
+  }
+
+  drawRadialGlow(ctx, 110, 92, 420, 'rgba(34, 211, 238, 0.18)');
+  drawRadialGlow(ctx, 790, 160, 460, 'rgba(217, 70, 239, 0.18)');
+  drawRadialGlow(ctx, 730, 1040, 520, 'rgba(59, 130, 246, 0.12)');
 
   ctx.strokeStyle = 'rgba(148, 163, 184, 0.07)';
   ctx.lineWidth = 1;
-  for (let x = 44; x < POSTER_WIDTH; x += 52) {
+  for (let x = 36; x < POSTER_WIDTH; x += 48) {
     ctx.beginPath();
     ctx.moveTo(x, 0);
     ctx.lineTo(x, POSTER_HEIGHT);
     ctx.stroke();
   }
-  for (let y = 44; y < POSTER_HEIGHT; y += 52) {
+  for (let y = 36; y < POSTER_HEIGHT; y += 48) {
     ctx.beginPath();
     ctx.moveTo(0, y);
     ctx.lineTo(POSTER_WIDTH, y);
@@ -443,13 +567,13 @@ function drawBackground(ctx: CanvasRenderingContext2D) {
   ctx.strokeStyle = 'rgba(34, 211, 238, 0.18)';
   ctx.lineWidth = 3;
   ctx.beginPath();
-  ctx.arc(900, 260, 360, Math.PI * 0.86, Math.PI * 1.36);
+  ctx.arc(760, 260, 310, Math.PI * 0.86, Math.PI * 1.36);
   ctx.stroke();
 
   ctx.fillStyle = 'rgba(248, 250, 252, 0.55)';
   const points = [
-    [118, 244], [236, 78], [478, 138], [968, 392], [782, 564],
-    [126, 808], [996, 822], [204, 1192], [756, 1274], [948, 1128],
+    [96, 214], [218, 78], [430, 138], [806, 392], [716, 564],
+    [108, 808], [828, 822], [184, 1192], [682, 1274], [820, 1128],
   ];
   points.forEach(([x, y], index) => {
     ctx.globalAlpha = index % 3 === 0 ? 0.7 : 0.36;
@@ -468,94 +592,105 @@ function drawRadialGlow(ctx: CanvasRenderingContext2D, x: number, y: number, rad
   ctx.fillRect(x - radius, y - radius, radius * 2, radius * 2);
 }
 
-function drawBrandHeader(ctx: CanvasRenderingContext2D) {
-  drawPill(ctx, 64, 54, 244, 58, '健文社区', COLORS.cyan);
+function drawBrandHeader(ctx: CanvasRenderingContext2D, data: PosterData) {
   ctx.fillStyle = COLORS.text;
-  ctx.font = font(42, 900);
-  ctx.fillText('社区打卡战报', 64, 172);
-  ctx.fillStyle = COLORS.muted;
-  ctx.font = font(22, 700);
-  ctx.fillText('马健文 / 枭马葛 · 健身、学习、成长的长期主义社区', 64, 212);
+  ctx.font = font(86, 500);
+  ctx.fillText(data.dayText, 52, 132);
+  ctx.fillStyle = 'rgba(248, 250, 252, 0.78)';
+  ctx.font = font(24, 500);
+  ctx.fillText(data.monthText, 56, 174);
+
+  ctx.fillStyle = COLORS.amber;
+  ctx.font = font(15, 900);
+  ctx.fillText('马哥打气', 52, 207);
+  ctx.fillStyle = 'rgba(248, 250, 252, 0.94)';
+  ctx.font = font(28, 500);
+  drawPosterTextLines(ctx, data.boostLine, 52, 238, 760, 38, 2);
 
   ctx.save();
   ctx.textAlign = 'right';
-  ctx.fillStyle = 'rgba(248, 250, 252, 0.36)';
+  ctx.fillStyle = 'rgba(248, 250, 252, 0.82)';
   ctx.font = font(22, 900);
-  ctx.fillText('JIANWEN OS', 1016, 92);
-  ctx.font = font(18, 800);
-  ctx.fillStyle = COLORS.cyan;
-  ctx.fillText('KEEP SHOWING UP', 1016, 124);
+  ctx.fillText('健文社区', 848, 76);
+  ctx.fillStyle = 'rgba(248, 250, 252, 0.56)';
+  ctx.font = font(16, 800);
+  ctx.fillText('SHOW UP, THEN ITERATE', 848, 106);
   ctx.restore();
 }
 
 function drawProfileStrip(ctx: CanvasRenderingContext2D, data: PosterData, avatarImage: HTMLImageElement | null) {
-  const x = 64;
-  const y = 246;
-  const width = 952;
-  const height = 118;
-  drawRoundedRect(ctx, x, y, width, height, 30, 'rgba(15, 23, 42, 0.78)', 'rgba(125, 211, 252, 0.18)');
-  drawCircleAvatar(ctx, avatarImage, data.nickname, x + 26, y + 22, 74);
+  const x = 52;
+  const y = 282;
+  const width = 796;
+  const height = 74;
+  drawRoundedRect(ctx, x, y, width, height, 22, 'rgba(15, 23, 42, 0.5)', 'rgba(248, 250, 252, 0.14)');
+  drawCircleAvatar(ctx, avatarImage, data.nickname, x + 16, y + 13, 48);
 
   ctx.fillStyle = COLORS.text;
-  ctx.font = font(30, 900);
-  ctx.fillText(data.nickname, x + 116, y + 52);
+  ctx.font = font(24, 900);
+  ctx.fillText(data.nickname, x + 78, y + 31);
   ctx.fillStyle = COLORS.muted;
-  ctx.font = font(21, 700);
-  ctx.fillText(`${data.groupName} · ${data.dateText}`, x + 116, y + 86);
+  ctx.font = font(16, 700);
+  ctx.fillText(`${data.groupName} · ${data.dateText} ${data.timeText}`, x + 78, y + 57);
 
   ctx.save();
   ctx.textAlign = 'right';
-  ctx.fillStyle = COLORS.amber;
-  ctx.font = font(22, 900);
-  ctx.fillText(data.themeLabel, x + width - 30, y + 52);
-  ctx.fillStyle = COLORS.dim;
-  ctx.font = font(18, 700);
-  ctx.fillText('今日主题', x + width - 30, y + 84);
+  ctx.fillStyle = 'rgba(248, 250, 252, 0.92)';
+  ctx.font = font(18, 900);
+  ctx.fillText(data.themeLabel, x + width - 22, y + 32);
+  ctx.fillStyle = 'rgba(248, 250, 252, 0.5)';
+  ctx.font = font(13, 700);
+  ctx.fillText('今日主题', x + width - 22, y + 55);
   ctx.restore();
 }
 
 function drawImageStory(ctx: CanvasRenderingContext2D, data: PosterData, images: HTMLImageElement[]) {
-  const x = 64;
-  const y = 396;
-  const width = 952;
-  const height = 508;
-  drawRoundedRect(ctx, x, y, width, height, 34, 'rgba(2, 6, 23, 0.76)', 'rgba(148, 163, 184, 0.18)');
-  drawAlbumBackdrop(ctx, x, y, width, height);
+  const x = 48;
+  const y = 382;
+  const width = 804;
+  const mediaHeight = 500;
+  const noteY = y + mediaHeight + 22;
+  const noteHeight = 250;
+  drawRoundedRect(ctx, x, y, width, mediaHeight, 28, 'rgba(2, 6, 23, 0.32)', 'rgba(248, 250, 252, 0.14)');
 
   ctx.save();
-  roundedClip(ctx, x + 16, y + 16, width - 32, height - 32, 26);
-  drawPhotoLayout(ctx, data, images, x, y, width, height);
-
-  drawRoundedRect(ctx, x + 34, y + height - 166, width - 68, 142, 24, 'rgba(2, 6, 23, 0.84)', 'rgba(248, 250, 252, 0.16)');
-  ctx.fillStyle = COLORS.text;
-  ctx.font = font(24, 900);
-  drawPreservedLineExcerpt(ctx, data.narrative, x + 60, y + height - 132, width - 120, 32, 4);
+  roundedClip(ctx, x + 12, y + 12, width - 24, mediaHeight - 24, 22);
+  drawAlbumBackdrop(ctx, x, y, width, mediaHeight);
+  drawPhotoLayout(ctx, data, images, x + 20, y + 20, width - 40, mediaHeight - 40);
   ctx.restore();
 
-  return y + height;
+  drawRoundedRect(ctx, x, noteY, width, noteHeight, 28, 'rgba(2, 6, 23, 0.56)', 'rgba(248, 250, 252, 0.16)');
+  ctx.fillStyle = 'rgba(248, 250, 252, 0.56)';
+  ctx.font = font(15, 900);
+  ctx.fillText('TODAY RECORD', x + 30, noteY + 38);
+  ctx.fillStyle = COLORS.text;
+  ctx.font = font(22, 800);
+  drawPosterTextLines(ctx, data.narrative, x + 30, noteY + 74, width - 60, 28, 7);
+
+  return noteY + noteHeight;
 }
 
 function drawTextStory(ctx: CanvasRenderingContext2D, data: PosterData) {
-  const x = 64;
-  const y = 404;
-  const width = 952;
-  const height = 432;
-  drawRoundedRect(ctx, x, y, width, height, 34, 'rgba(15, 23, 42, 0.84)', 'rgba(125, 211, 252, 0.22)');
+  const x = 48;
+  const y = 382;
+  const width = 804;
+  const height = 738;
+  drawRoundedRect(ctx, x, y, width, height, 34, 'rgba(15, 23, 42, 0.58)', 'rgba(248, 250, 252, 0.16)');
 
-  ctx.fillStyle = COLORS.cyan;
-  ctx.font = font(24, 900);
-  ctx.fillText('TODAY NOTE', x + 48, y + 68);
+  ctx.fillStyle = 'rgba(248, 250, 252, 0.56)';
+  ctx.font = font(16, 900);
+  ctx.fillText('TODAY NOTE', x + 42, y + 60);
 
-  ctx.strokeStyle = COLORS.cyan;
-  ctx.lineWidth = 5;
+  ctx.strokeStyle = 'rgba(248, 250, 252, 0.26)';
+  ctx.lineWidth = 3;
   ctx.beginPath();
-  ctx.moveTo(x + 48, y + 104);
-  ctx.lineTo(x + 48, y + 346);
+  ctx.moveTo(x + 42, y + 86);
+  ctx.lineTo(x + 42, y + height - 54);
   ctx.stroke();
 
   ctx.fillStyle = COLORS.text;
-  ctx.font = font(52, 900);
-  wrapText(ctx, data.narrative, x + 84, y + 138, width - 138, 70, 4);
+  ctx.font = font(34, 800);
+  drawPosterTextLines(ctx, data.narrative, x + 72, y + 126, width - 120, 48, 11);
 
   return y + height;
 }
@@ -592,84 +727,92 @@ function drawPhotoLayout(
 function drawSinglePhotoLayout(ctx: CanvasRenderingContext2D, image: HTMLImageElement, x: number, y: number, width: number, height: number) {
   const shape = getImageShape(image);
   if (shape === 'portrait') {
-    drawAdaptivePhotoFrame(ctx, image, x + 248, y + 24, 456, height - 188, -1.8, 28, true);
-    drawTape(ctx, x + 444, y + 18, -7);
+    drawAdaptivePhotoFrame(ctx, image, x + 170, y + 0, width - 340, height, 0, 28, true);
     return;
   }
 
   if (shape === 'wide') {
-    drawAdaptivePhotoFrame(ctx, image, x + 72, y + 42, width - 144, height - 220, 1.4, 28, true);
-    drawTape(ctx, x + 222, y + 42, -5);
-    drawTape(ctx, x + width - 238, y + 42, 6);
+    drawAdaptivePhotoFrame(ctx, image, x + 0, y + 50, width, height - 100, 0, 28, true);
     return;
   }
 
-  drawAdaptivePhotoFrame(ctx, image, x + 218, y + 28, 516, height - 210, -2.4, 28, true);
-  drawTape(ctx, x + 324, y + 28, -7);
+  drawAdaptivePhotoFrame(ctx, image, x + 110, y + 0, width - 220, height, 0, 28, true);
 }
 
 function drawTwoPhotoLayout(ctx: CanvasRenderingContext2D, images: HTMLImageElement[], x: number, y: number, width: number, height: number) {
   const shapes = images.map(getImageShape);
+  const gap = 14;
 
   if (shapes.every((shape) => shape === 'wide')) {
-    drawAdaptivePhotoFrame(ctx, images[0], x + 76, y + 34, width - 152, 144, -1.2, 22, true);
-    drawAdaptivePhotoFrame(ctx, images[1], x + 112, y + 180, width - 224, 144, 1.5, 22, false);
-    drawTape(ctx, x + 212, y + 28, -5);
-    drawTape(ctx, x + width - 260, y + 180, 6);
+    drawAdaptivePhotoFrame(ctx, images[0], x, y, width, (height - gap) / 2, 0, 22, true);
+    drawAdaptivePhotoFrame(ctx, images[1], x, y + (height + gap) / 2, width, (height - gap) / 2, 0, 22, false);
     return;
   }
 
   if (shapes.every((shape) => shape === 'portrait')) {
-    drawAdaptivePhotoFrame(ctx, images[0], x + 92, y + 26, 380, height - 188, -3.4, 24, true);
-    drawAdaptivePhotoFrame(ctx, images[1], x + 480, y + 28, 380, height - 188, 3.2, 24, true);
-    drawTape(ctx, x + 212, y + 28, -7);
-    drawTape(ctx, x + 618, y + 30, 7);
+    const tileWidth = (width - gap) / 2;
+    drawAdaptivePhotoFrame(ctx, images[0], x, y, tileWidth, height, 0, 24, true);
+    drawAdaptivePhotoFrame(ctx, images[1], x + tileWidth + gap, y, tileWidth, height, 0, 24, true);
     return;
   }
 
-  drawAdaptivePhotoFrame(ctx, images[0], x + 54, y + 38, 552, height - 210, -3.2, 26, true);
-  drawAdaptivePhotoFrame(ctx, images[1], x + 612, y + 42, 314, height - 206, 3.8, 22, false);
-  drawTape(ctx, x + 166, y + 36, -7);
-  drawTape(ctx, x + 726, y + 44, 8);
+  const firstIsPortrait = shapes[0] === 'portrait';
+  const mainWidth = firstIsPortrait ? Math.round(width * 0.42) : Math.round(width * 0.66);
+  drawAdaptivePhotoFrame(ctx, images[0], x, y, mainWidth, height, 0, 26, true);
+  drawAdaptivePhotoFrame(ctx, images[1], x + mainWidth + gap, y, width - mainWidth - gap, height, 0, 22, false);
 }
 
 function drawThreePhotoLayout(ctx: CanvasRenderingContext2D, images: HTMLImageElement[], x: number, y: number, width: number, height: number) {
   const shapes = images.map(getImageShape);
+  const gap = 14;
 
   if (shapes.every((shape) => shape === 'portrait')) {
-    drawAdaptivePhotoFrame(ctx, images[0], x + 54, y + 30, 280, height - 196, -4.2, 22, false);
-    drawAdaptivePhotoFrame(ctx, images[1], x + 336, y + 24, 280, height - 184, 1.5, 22, true);
-    drawAdaptivePhotoFrame(ctx, images[2], x + 618, y + 30, 280, height - 196, 4.2, 22, false);
-    drawTape(ctx, x + 142, y + 30, -8);
-    drawTape(ctx, x + 434, y + 24, 5);
-    drawTape(ctx, x + 702, y + 30, 8);
+    const tileWidth = (width - gap * 2) / 3;
+    images.forEach((image, index) => {
+      drawAdaptivePhotoFrame(ctx, image, x + index * (tileWidth + gap), y, tileWidth, height, 0, 22, index === 1);
+    });
     return;
   }
 
-  drawAdaptivePhotoFrame(ctx, images[0], x + 44, y + 36, 526, height - 206, -3.6, 26, true);
-  drawAdaptivePhotoFrame(ctx, images[1], x + 592, y + 32, 316, 148, 3.4, 20, false);
-  drawAdaptivePhotoFrame(ctx, images[2], x + 620, y + 190, 292, 148, -2.8, 20, false);
-  drawTape(ctx, x + 146, y + 40, -7);
-  drawTape(ctx, x + 706, y + 28, 8);
-  drawTape(ctx, x + 730, y + 192, -6);
+  const hasPortrait = shapes.includes('portrait');
+  const mainWidth = hasPortrait ? Math.round(width * 0.42) : Math.round(width * 0.62);
+  const sideWidth = width - mainWidth - gap;
+  const sideHeight = (height - gap) / 2;
+  drawAdaptivePhotoFrame(ctx, images[0], x, y, mainWidth, height, 0, 26, true);
+  drawAdaptivePhotoFrame(ctx, images[1], x + mainWidth + gap, y, sideWidth, sideHeight, 0, 20, false);
+  drawAdaptivePhotoFrame(ctx, images[2], x + mainWidth + gap, y + sideHeight + gap, sideWidth, sideHeight, 0, 20, false);
 }
 
 function drawFourPhotoLayout(ctx: CanvasRenderingContext2D, images: HTMLImageElement[], x: number, y: number, width: number, height: number) {
-  const tileWidth = 382;
-  const tileHeight = 148;
-  const left = x + 78;
-  const right = x + width - 78 - tileWidth;
-  const top = y + 42;
-  const bottom = y + height - 326;
+  const shapes = images.map(getImageShape);
+  const gap = 14;
+  const portraitIndexes = shapes
+    .map((shape, index) => shape === 'portrait' ? index : -1)
+    .filter((index) => index >= 0);
 
-  drawAdaptivePhotoFrame(ctx, images[0], left, top - 8, tileWidth, tileHeight + 40, -2.2, 18, false);
-  drawAdaptivePhotoFrame(ctx, images[1], right, top, tileWidth, tileHeight + 36, 2.4, 18, false);
-  drawAdaptivePhotoFrame(ctx, images[2], left + 20, bottom, tileWidth, tileHeight + 30, 2.1, 18, false);
-  drawAdaptivePhotoFrame(ctx, images[3], right - 18, bottom - 8, tileWidth, tileHeight + 34, -2.8, 18, false);
-  drawTape(ctx, left + 92, top - 12, -7);
-  drawTape(ctx, right + 194, top - 4, 7);
-  drawTape(ctx, left + 144, bottom - 12, 6);
-  drawTape(ctx, right + 152, bottom - 20, -6);
+  if (portraitIndexes.length >= 2) {
+    const portraitWidth = Math.round((width - gap * 3) * 0.26);
+    const sideWidth = width - portraitWidth * 2 - gap * 3;
+    const sideHeight = (height - gap) / 2;
+    const ordered = [
+      ...portraitIndexes.slice(0, 2),
+      ...images.map((_, index) => index).filter((index) => !portraitIndexes.slice(0, 2).includes(index)),
+    ].slice(0, 4);
+
+    drawAdaptivePhotoFrame(ctx, images[ordered[0]], x, y, portraitWidth, height, 0, 20, false, false);
+    drawAdaptivePhotoFrame(ctx, images[ordered[1]], x + portraitWidth + gap, y, portraitWidth, height, 0, 20, false, false);
+    drawAdaptivePhotoFrame(ctx, images[ordered[2]], x + portraitWidth * 2 + gap * 2, y, sideWidth, sideHeight, 0, 20, false, false);
+    drawAdaptivePhotoFrame(ctx, images[ordered[3]], x + portraitWidth * 2 + gap * 2, y + sideHeight + gap, sideWidth, sideHeight, 0, 20, false, false);
+    return;
+  }
+
+  const tileWidth = (width - gap) / 2;
+  const tileHeight = (height - gap) / 2;
+  images.forEach((image, index) => {
+    const col = index % 2;
+    const row = Math.floor(index / 2);
+    drawAdaptivePhotoFrame(ctx, image, x + col * (tileWidth + gap), y + row * (tileHeight + gap), tileWidth, tileHeight, 0, 20, false, false);
+  });
 }
 
 function getImageShape(image: HTMLImageElement): 'portrait' | 'square' | 'wide' {
@@ -689,12 +832,17 @@ function drawAdaptivePhotoFrame(
   rotationDeg: number,
   radius: number,
   featured = false,
+  frameFollowsImage = true,
 ) {
-  const border = featured ? 18 : 13;
-  const captionHeight = featured ? 34 : 24;
-  const imageRatio = Math.max(0.3, Math.min(3.2, image.naturalWidth / image.naturalHeight || 1));
+  const border = featured ? 10 : 8;
+  if (!frameFollowsImage) {
+    drawPhotoFrame(ctx, image, boxX, boxY, boxWidth, boxHeight, rotationDeg, radius, featured, true);
+    return;
+  }
+
+  const imageRatio = Math.max(0.28, Math.min(3.6, image.naturalWidth / image.naturalHeight || 1));
   const maxImageWidth = Math.max(80, boxWidth - border * 2);
-  const maxImageHeight = Math.max(80, boxHeight - border * 2 - captionHeight);
+  const maxImageHeight = Math.max(80, boxHeight - border * 2);
   const boxRatio = maxImageWidth / maxImageHeight;
 
   let imageWidth = maxImageWidth;
@@ -705,7 +853,7 @@ function drawAdaptivePhotoFrame(
   }
 
   const frameWidth = imageWidth + border * 2;
-  const frameHeight = imageHeight + border * 2 + captionHeight;
+  const frameHeight = imageHeight + border * 2;
   const frameX = boxX + (boxWidth - frameWidth) / 2;
   const frameY = boxY + (boxHeight - frameHeight) / 2;
   drawPhotoFrame(ctx, image, frameX, frameY, frameWidth, frameHeight, rotationDeg, radius, featured, true);
@@ -740,14 +888,6 @@ function drawAlbumBackdrop(ctx: CanvasRenderingContext2D, x: number, y: number, 
   ctx.fill();
   ctx.restore();
 
-  ctx.save();
-  ctx.fillStyle = 'rgba(248, 250, 252, 0.34)';
-  ctx.font = font(18, 900);
-  ctx.fillText('ALBUM', x + 48, y + 56);
-  ctx.fillStyle = 'rgba(159, 176, 200, 0.54)';
-  ctx.font = font(15, 800);
-  ctx.fillText('daily fragments', x + 126, y + 56);
-  ctx.restore();
 }
 
 function drawPhotoFrame(
@@ -763,18 +903,18 @@ function drawPhotoFrame(
   preserveFullImage = false,
 ) {
   const angle = rotationDeg * Math.PI / 180;
-  const border = featured ? 18 : 13;
-  const captionHeight = featured ? 34 : 24;
+  const border = featured ? 10 : 8;
+  const captionHeight = 0;
 
   ctx.save();
   ctx.translate(x + width / 2, y + height / 2);
   ctx.rotate(angle);
   ctx.translate(-width / 2, -height / 2);
 
-  ctx.shadowColor = 'rgba(0, 0, 0, 0.42)';
-  ctx.shadowBlur = featured ? 34 : 24;
-  ctx.shadowOffsetY = featured ? 22 : 15;
-  drawRoundedRect(ctx, 0, 0, width, height, radius, 'rgba(248, 250, 252, 0.94)');
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.32)';
+  ctx.shadowBlur = featured ? 24 : 18;
+  ctx.shadowOffsetY = featured ? 16 : 10;
+  drawRoundedRect(ctx, 0, 0, width, height, radius, 'rgba(248, 250, 252, 0.9)');
   ctx.shadowColor = 'transparent';
   ctx.shadowBlur = 0;
   ctx.shadowOffsetY = 0;
@@ -791,18 +931,6 @@ function drawPhotoFrame(
   drawPhotoVignette(ctx, border, border, width - border * 2, height - border * 2 - captionHeight);
   ctx.restore();
 
-  const compactCaption = width < 280;
-  ctx.fillStyle = '#172033';
-  ctx.font = font(featured ? compactCaption ? 13 : 16 : compactCaption ? 12 : 13, 900);
-  ctx.fillText(featured ? compactCaption ? 'MAIN' : 'TODAY / MAIN SHOT' : 'MOMENT', border, height - 17);
-  if (!compactCaption) {
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.36)';
-    ctx.font = font(featured ? 15 : 12, 800);
-    ctx.textAlign = 'right';
-    ctx.fillText(rotationDeg > 0 ? 'keep going' : 'shown up', width - border, height - 17);
-    ctx.textAlign = 'left';
-  }
-
   ctx.restore();
 }
 
@@ -813,22 +941,6 @@ function drawPhotoVignette(ctx: CanvasRenderingContext2D, x: number, y: number, 
   gradient.addColorStop(1, 'rgba(2, 6, 23, 0.34)');
   ctx.fillStyle = gradient;
   ctx.fillRect(x, y, width, height);
-}
-
-function drawTape(ctx: CanvasRenderingContext2D, x: number, y: number, rotationDeg: number) {
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(rotationDeg * Math.PI / 180);
-  ctx.globalAlpha = 0.78;
-  drawRoundedRect(ctx, -54, -13, 108, 26, 8, 'rgba(186, 230, 253, 0.7)', 'rgba(255, 255, 255, 0.18)');
-  ctx.strokeStyle = 'rgba(8, 47, 73, 0.18)';
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.moveTo(-42, 0);
-  ctx.lineTo(42, 0);
-  ctx.stroke();
-  ctx.globalAlpha = 1;
-  ctx.restore();
 }
 
 function drawImageCountBadge(ctx: CanvasRenderingContext2D, text: string, x: number, y: number) {
@@ -847,79 +959,63 @@ function drawImageCountBadge(ctx: CanvasRenderingContext2D, text: string, x: num
 }
 
 function drawStatsPanel(ctx: CanvasRenderingContext2D, data: PosterData, y: number) {
-  const x = 64;
-  const width = 952;
-  const height = 300;
-  drawRoundedRect(ctx, x, y, width, height, 34, 'rgba(15, 23, 42, 0.86)', 'rgba(148, 163, 184, 0.18)');
+  const x = 48;
+  const width = 804;
+  const height = 78;
+  drawRoundedRect(ctx, x, y, width, height, 24, 'rgba(2, 6, 23, 0.5)', 'rgba(248, 250, 252, 0.14)');
 
-  ctx.fillStyle = COLORS.dim;
-  ctx.font = font(22, 900);
-  ctx.fillText('COMMUNITY PROGRESS', x + 42, y + 58);
-  ctx.fillStyle = COLORS.text;
-  ctx.font = font(68, 900);
-  ctx.fillText(`${data.stats.totalCount} 次打卡`, x + 42, y + 136);
+  ctx.fillStyle = 'rgba(248, 250, 252, 0.9)';
+  ctx.font = font(22, 800);
+  ctx.fillText(`我在「健文社区」累计打卡 ${data.stats.totalCount} 天`, x + 28, y + 34);
+  ctx.fillStyle = 'rgba(248, 250, 252, 0.72)';
+  ctx.font = font(18, 700);
+  ctx.fillText(`当前连续 ${data.stats.currentStreak} 天 · 本月 ${data.stats.monthCount} 天 · 最长连续 ${data.stats.longestStreak} 天`, x + 28, y + 61);
 
   ctx.save();
   ctx.textAlign = 'right';
   ctx.fillStyle = COLORS.amber;
-  ctx.font = font(28, 900);
-  ctx.fillText(data.heroMetric, x + width - 42, y + 96);
-  ctx.fillStyle = COLORS.dim;
-  ctx.font = font(18, 800);
-  ctx.fillText('本条记录', x + width - 42, y + 126);
+  ctx.font = font(21, 900);
+  ctx.fillText(data.heroMetric, x + width - 28, y + 47);
   ctx.restore();
-
-  const statItems = [
-    { label: '连续打卡', value: `${data.stats.currentStreak} 天`, color: COLORS.cyan },
-    { label: '本月打卡', value: `${data.stats.monthCount} 天`, color: COLORS.green },
-    { label: '最长连续', value: `${data.stats.longestStreak} 天`, color: COLORS.amber },
-    { label: '本条完成', value: data.completedCount > 0 ? `${data.completedCount} 项` : data.themeLabel, color: COLORS.fuchsia },
-  ];
-
-  statItems.forEach((item, index) => {
-    const col = index % 2;
-    const row = Math.floor(index / 2);
-    const chipX = x + 42 + col * 456;
-    const chipY = y + 166 + row * 68;
-    drawRoundedRect(ctx, chipX, chipY, 412, 52, 18, 'rgba(30, 41, 59, 0.78)', 'rgba(125, 211, 252, 0.12)');
-    ctx.fillStyle = item.color;
-    ctx.font = font(18, 900);
-    ctx.fillText(item.label, chipX + 20, chipY + 33);
-    ctx.fillStyle = COLORS.text;
-    ctx.font = font(24, 900);
-    ctx.fillText(clampCanvasText(ctx, item.value, 190), chipX + 154, chipY + 34);
-  });
 }
 
 function drawFooter(ctx: CanvasRenderingContext2D, data: PosterData, qrImage: HTMLImageElement | null, shareUrl: string) {
-  const y = 1262;
-  ctx.strokeStyle = 'rgba(148, 163, 184, 0.22)';
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.moveTo(64, y);
-  ctx.lineTo(1016, y);
-  ctx.stroke();
+  const x = 36;
+  const y = 1264;
+  const width = 828;
+  const height = 132;
+  drawRoundedRect(ctx, x, y, width, height, 18, 'rgba(255, 252, 235, 0.92)', 'rgba(255, 255, 255, 0.28)');
 
-  ctx.fillStyle = COLORS.text;
-  ctx.font = font(34, 900);
-  ctx.fillText('健文社区', 64, y + 58);
-  ctx.fillStyle = COLORS.muted;
-  ctx.font = font(22, 700);
-  ctx.fillText('马健文（枭马葛）粉丝社区 · 健身和学习都有人一起坚持', 64, y + 96);
-  ctx.fillStyle = COLORS.dim;
-  ctx.font = font(18, 700);
-  ctx.fillText(`扫码进入社区广场 · ${data.fileDate}`, 64, y + 132);
+  const iconGradient = ctx.createLinearGradient(x + 24, y + 28, x + 88, y + 92);
+  iconGradient.addColorStop(0, '#34d399');
+  iconGradient.addColorStop(1, '#22d3ee');
+  drawRoundedRect(ctx, x + 24, y + 30, 64, 64, 13, iconGradient);
+  ctx.save();
+  ctx.translate(x + 56, y + 62);
+  ctx.rotate(-0.22);
+  drawRoundedRect(ctx, -10, -20, 20, 40, 4, '#fffdf4');
+  ctx.restore();
 
-  drawRoundedRect(ctx, 842, y + 28, 128, 128, 22, '#f8fafc', 'rgba(125, 211, 252, 0.28)');
+  ctx.fillStyle = '#172033';
+  ctx.font = font(30, 900);
+  ctx.fillText('健文社区', x + 108, y + 55);
+  ctx.fillStyle = 'rgba(23, 32, 51, 0.68)';
+  ctx.font = font(16, 700);
+  ctx.fillText('健身、学习和长期成长，都有人一起坚持', x + 108, y + 84);
+  ctx.fillStyle = 'rgba(23, 32, 51, 0.46)';
+  ctx.font = font(13, 700);
+  ctx.fillText(`扫码进入社区广场 · ${data.fileDate}`, x + 108, y + 106);
+
+  drawRoundedRect(ctx, x + width - 112, y + 20, 92, 92, 10, '#fffdf4', 'rgba(23, 32, 51, 0.08)');
   if (qrImage) {
-    ctx.drawImage(qrImage, 854, y + 40, 104, 104);
+    ctx.drawImage(qrImage, x + width - 104, y + 28, 76, 76);
   }
 
   ctx.save();
   ctx.textAlign = 'right';
-  ctx.fillStyle = 'rgba(159, 176, 200, 0.72)';
-  ctx.font = font(16, 700);
-  ctx.fillText(shareUrl.replace(/^https?:\/\//, ''), 1016, y + 182);
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.42)';
+  ctx.font = font(13, 700);
+  ctx.fillText(clampCanvasText(ctx, shareUrl.replace(/^https?:\/\//, ''), 620), 852, y + height + 24);
   ctx.restore();
 }
 
@@ -1013,20 +1109,13 @@ function drawRoundedRect(
   }
 }
 
-function drawPill(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, text: string, color: string) {
-  drawRoundedRect(ctx, x, y, width, height, height / 2, 'rgba(15, 23, 42, 0.78)', 'rgba(125, 211, 252, 0.28)');
-  ctx.fillStyle = color;
-  ctx.font = font(24, 900);
-  ctx.fillText(text, x + 28, y + 38);
-}
-
 function roundedClip(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, radius: number) {
   ctx.beginPath();
   ctx.roundRect(x, y, width, height, radius);
   ctx.clip();
 }
 
-function wrapText(
+function drawPosterTextLines(
   ctx: CanvasRenderingContext2D,
   text: string,
   x: number,
@@ -1035,53 +1124,37 @@ function wrapText(
   lineHeight: number,
   maxLines: number,
 ) {
-  const chars = Array.from(text);
-  let line = '';
-  let lineCount = 0;
+  const paragraphs = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+  const lines: string[] = [];
+  let overflow = false;
 
-  for (const char of chars) {
-    if (char === '\n') {
-      ctx.fillText(line, x, y + lineCount * lineHeight);
-      line = '';
-      lineCount += 1;
-      if (lineCount >= maxLines) return;
-      continue;
+  for (const paragraph of paragraphs.length ? paragraphs : ['']) {
+    let line = '';
+
+    for (const char of Array.from(paragraph)) {
+      const next = `${line}${char}`;
+      if (ctx.measureText(next).width > maxWidth && line) {
+        lines.push(line);
+        line = char;
+        if (lines.length >= maxLines) {
+          overflow = true;
+          break;
+        }
+      } else {
+        line = next;
+      }
     }
 
-    const testLine = `${line}${char}`;
-    if (ctx.measureText(testLine).width > maxWidth && line) {
-      const suffix = lineCount === maxLines - 1 ? '…' : '';
-      ctx.fillText(clampCanvasText(ctx, `${line}${suffix}`, maxWidth), x, y + lineCount * lineHeight);
-      line = char;
-      lineCount += 1;
-      if (lineCount >= maxLines) return;
-    } else {
-      line = testLine;
+    if (overflow) break;
+    if (line) lines.push(line);
+    if (lines.length >= maxLines) {
+      overflow = paragraphs.indexOf(paragraph) < paragraphs.length - 1;
+      break;
     }
-  }
-
-  if (line && lineCount < maxLines) {
-    ctx.fillText(line, x, y + lineCount * lineHeight);
-  }
-}
-
-function drawPreservedLineExcerpt(
-  ctx: CanvasRenderingContext2D,
-  text: string,
-  x: number,
-  y: number,
-  maxWidth: number,
-  lineHeight: number,
-  maxLines: number,
-) {
-  const lines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
-  if (lines.length <= 1) {
-    wrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines);
-    return;
   }
 
   lines.slice(0, maxLines).forEach((line, index) => {
-    const suffix = index === maxLines - 1 && lines.length > maxLines ? '…' : '';
+    const suffix = index === maxLines - 1 && overflow ? '…' : '';
     ctx.fillText(clampCanvasText(ctx, `${line}${suffix}`, maxWidth), x, y + index * lineHeight);
   });
 }

@@ -15,22 +15,22 @@ import {
 
 const mainActions = [
   {
-    title: '提交一个真实问题',
-    description: '把评论区、私信和群聊里的高频问题沉淀到问题星球，等待回答和同问。',
+    title: '提交问题',
+    description: '把你真正卡住的问题放进问题星球，等待回答，也让同样的问题被看见。',
     to: '/qa#question-submit',
     icon: MessageCircle,
     accent: 'text-cyan-200 bg-cyan-300/10 border-cyan-300/20',
   },
   {
-    title: '找一个能互相成就的人',
-    description: '用技能供需、标签和社群身份找到伙伴，而不是只看一个昵称。',
+    title: '寻找伙伴',
+    description: '用技能供需、标签和社群身份找到能互补的人，从一个具体需求开始连接。',
     to: '/community?tab=partners',
     icon: Users,
     accent: 'text-fuchsia-100 bg-fuchsia-300/10 border-fuchsia-300/20',
   },
   {
-    title: '发一次学习或训练打卡',
-    description: '把每天的行动留在社区动态里，让坚持被看见，也更容易被接住。',
+    title: '发布打卡',
+    description: '记录今天的训练、学习或项目推进，让行动变成社区里可见的长期线索。',
     to: '/community?tab=moments',
     icon: Camera,
     accent: 'text-emerald-100 bg-emerald-300/10 border-emerald-300/20',
@@ -65,28 +65,31 @@ const productEntrances = [
 ];
 
 const proofItems = [
-  '问题来自评论区、私信、微信群、腾讯文档和网站',
-  '伙伴名片围绕“我能提供”和“我正在寻找”组织',
-  '动态流和排行榜承接学习、训练、项目行动',
+  { label: '问题沉淀', value: '跨平台整理高频提问' },
+  { label: '伙伴名片', value: '展示能提供与正在寻找' },
+  { label: '行动打卡', value: '记录学习、训练和项目推进' },
 ];
 
 const Home: React.FC = () => {
   return (
     <div className="page-aurora min-h-screen pb-16">
-      <section className="overflow-hidden rounded-2xl border border-cyan-300/15 bg-slate-950/72 shadow-2xl shadow-cyan-950/25">
+      <section className="overflow-hidden rounded-2xl border border-cyan-300/15 bg-slate-950/70 shadow-2xl shadow-cyan-950/25">
         <div className="relative px-4 py-8 sm:px-6 md:px-10 md:py-12">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_12%,rgba(34,211,238,0.20),transparent_30%),radial-gradient(circle_at_88%_4%,rgba(236,72,153,0.16),transparent_32%)]" />
-          <div className="relative z-10 grid gap-8 lg:grid-cols-[minmax(0,1.02fr)_minmax(340px,0.98fr)] lg:items-center">
-            <div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_12%,rgba(34,211,238,0.18),transparent_32%),radial-gradient(circle_at_88%_6%,rgba(236,72,153,0.14),transparent_34%)]" />
+          <div className="relative z-10 grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.82fr)] lg:items-center lg:justify-between">
+            <div className="max-w-3xl">
               <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-sm font-semibold text-cyan-100">
                 <Sparkles className="h-4 w-4" />
                 健身、学习、AI 产品与真实连接
               </div>
-              <h1 className="text-4xl font-black leading-tight tracking-normal text-white sm:text-5xl md:text-6xl">
+              <h1 className="text-4xl font-black leading-tight tracking-normal text-white sm:text-5xl md:text-6xl lg:text-7xl">
                 健文社区
               </h1>
-              <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
-                这里不是一个单纯的个人主页，而是把问题沉淀、伙伴匹配、学习训练打卡和产品共创放在一起的社区入口。
+              <p className="mt-5 max-w-2xl text-base leading-8 text-slate-200 sm:text-lg">
+                把你的问题、目标和行动留在这里，和同样在训练、学习、做产品的人互相看见。
+              </p>
+              <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400 sm:text-base">
+                问题星球沉淀高频提问，伙伴名片连接真实需求，社区动态记录每天的进步。
               </p>
 
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
@@ -109,21 +112,24 @@ const Home: React.FC = () => {
               <div className="mt-7 grid gap-3 sm:grid-cols-3">
                 {proofItems.map((item) => (
                   <div
-                    key={item}
-                    className="flex items-start gap-2 rounded-xl border border-white/10 bg-white/[0.05] p-3 text-sm leading-6 text-slate-300"
+                    key={item.label}
+                    className="rounded-xl border border-white/10 bg-white/[0.05] p-4"
                   >
-                    <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-200" />
-                    <span>{item}</span>
+                    <div className="flex items-center gap-2 text-sm font-bold text-white">
+                      <CheckCircle className="h-4 w-4 flex-shrink-0 text-emerald-200" />
+                      {item.label}
+                    </div>
+                    <div className="mt-2 text-xs leading-5 text-slate-400">{item.value}</div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-4 shadow-2xl shadow-slate-950/30 backdrop-blur">
+            <div className="rounded-2xl border border-white/10 bg-slate-950/76 p-4 shadow-2xl shadow-slate-950/30 backdrop-blur">
               <div className="flex items-center justify-between border-b border-white/10 pb-4">
                 <div>
-                  <div className="text-sm font-semibold text-white">今天可以从这里开始</div>
-                  <div className="mt-1 text-xs text-slate-400">问题、伙伴、行动都在同一个社区里</div>
+                  <div className="text-sm font-semibold text-white">今天先做一件事</div>
+                  <div className="mt-1 text-xs text-slate-400">不用逛完整站，直接进入最常用入口</div>
                 </div>
                 <div className="rounded-full border border-cyan-300/25 bg-cyan-300/10 px-3 py-1 text-xs font-semibold text-cyan-100">
                   社区入口
@@ -160,8 +166,8 @@ const Home: React.FC = () => {
       <section className="mx-auto mt-8 max-w-6xl">
         <div className="mb-4 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
           <div>
-            <h2 className="text-2xl font-black text-white">核心入口</h2>
-            <p className="mt-2 text-sm text-slate-400">新成员进来后，优先看到能马上参与的产品面。</p>
+            <h2 className="text-2xl font-black text-white">你可以在这里做什么</h2>
+            <p className="mt-2 text-sm text-slate-400">围绕问题、伙伴、行动和产品共创，把社区变成可持续使用的工具。</p>
           </div>
           <Link
             to="/about"
@@ -193,12 +199,12 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <section className="mx-auto mt-8 max-w-6xl rounded-2xl border border-white/10 bg-slate-950/65 p-5 shadow-xl shadow-slate-950/20 sm:p-7">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
+      <section className="mx-auto mt-8 max-w-6xl rounded-2xl border border-cyan-300/15 bg-cyan-300/[0.06] p-5 shadow-xl shadow-slate-950/20 sm:p-7">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:items-center">
           <div>
-            <h2 className="text-2xl font-black text-white">从一个具体动作开始</h2>
-            <p className="mt-3 text-sm leading-7 text-slate-400">
-              如果你刚来社区，不需要先逛完整站。问一个卡住的问题，找一个能互补的伙伴，或者把今天的训练和学习进度发出来。
+            <h2 className="text-2xl font-black text-white">现在就加入一条线索</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-300">
+              一个好问题、一张伙伴名片、一次打卡，都能让后面的人更快找到方向。
             </p>
           </div>
           <div className="grid gap-3 sm:grid-cols-3">
@@ -206,10 +212,11 @@ const Home: React.FC = () => {
               <Link
                 key={action.title}
                 to={action.to}
-                className="rounded-xl border border-white/10 bg-white/[0.05] p-4 text-sm font-semibold text-white transition hover:bg-white/[0.08]"
+                className="group rounded-xl border border-white/10 bg-slate-950/55 p-4 text-sm font-semibold text-white transition hover:border-cyan-300/25 hover:bg-slate-950/75"
               >
                 <action.icon className="mb-3 h-5 w-5 text-cyan-200" />
-                {action.title}
+                <span>{action.title}</span>
+                <ArrowRight className="mt-3 h-4 w-4 text-slate-500 transition group-hover:translate-x-0.5 group-hover:text-cyan-200" />
               </Link>
             ))}
           </div>
