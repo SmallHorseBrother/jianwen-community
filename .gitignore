@@ -17,6 +17,7 @@ test-results/
 playwright-report/
 reports/ui-test-agent/
 .task-runner-logs/
+tmp/
 
 # Editor directories and files
 .vscode/*

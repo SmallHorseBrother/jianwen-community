@@ -63,6 +63,11 @@ Body example:
   "priority": "high",
   "owner": "枭马葛",
   "progress_note": "已在网页端手动更新",
+  "project_name": "food_link",
+  "project_path": "D:/files/food_link",
+  "execution_mode": "auto_code",
+  "coding_agent": "codex",
+  "execution_status": "not_ready",
   "is_public": true
 }
 ```
@@ -78,6 +83,11 @@ Body example:
 - `priority`
 - `owner`
 - `progress_note`
+- `project_name`
+- `project_path`
+- `execution_mode`
+- `coding_agent`
+- `execution_status`
 - `is_public`
 
 It does **not** allow browser edits to source-trace fields like:

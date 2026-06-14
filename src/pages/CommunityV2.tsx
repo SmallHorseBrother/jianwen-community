@@ -4,7 +4,7 @@
  * Tab 2: 找伙伴 (Profiles)
  */
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { 
   Users, Search, Sparkles, Target, 
@@ -31,11 +31,14 @@ type LoadCheckInsOptions = {
 
 const CommunityV2: React.FC = () => {
   const { user } = useAuth();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const targetCheckInId = searchParams.get('checkIn');
+  const tabParam = searchParams.get('tab');
   
   // Tab 状态
-  const [activeTab, setActiveTab] = useState<'moments' | 'partners'>('moments');
+  const [activeTab, setActiveTab] = useState<'moments' | 'partners'>(
+    tabParam === 'partners' ? 'partners' : 'moments',
+  );
   
   // 打卡相关状态
   const [checkIns, setCheckIns] = useState<CheckIn[]>([]);
@@ -49,34 +52,8 @@ const CommunityV2: React.FC = () => {
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
   const [copiedProfileId, setCopiedProfileId] = useState<string | null>(null);
 
-  // 初始化加载
-  useEffect(() => {
-    if (activeTab === 'moments') {
-      loadCheckIns();
-    } else {
-      loadProfiles();
-    }
-  }, [activeTab, targetCheckInId]);
-
-  useEffect(() => {
-    if (targetCheckInId) {
-      setActiveTab('moments');
-    }
-  }, [targetCheckInId]);
-
-  useEffect(() => {
-    if (!targetCheckInId || loadingCheckIns) return;
-
-    const targetElement = document.getElementById(`check-in-${targetCheckInId}`);
-    if (!targetElement) return;
-
-    window.setTimeout(() => {
-      targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 100);
-  }, [targetCheckInId, loadingCheckIns, checkIns]);
-
   // 加载打卡列表
-  const loadCheckIns = async ({ showLoading = true }: LoadCheckInsOptions = {}) => {
+  const loadCheckIns = useCallback(async ({ showLoading = true }: LoadCheckInsOptions = {}) => {
     try {
       if (showLoading) {
         setLoadingCheckIns(true);
@@ -99,14 +76,10 @@ const CommunityV2: React.FC = () => {
         setLoadingCheckIns(false);
       }
     }
-  };
-
-  const refreshCheckIns = () => {
-    void loadCheckIns({ showLoading: false });
-  };
+  }, [targetCheckInId]);
 
   // 加载用户列表
-  const loadProfiles = async () => {
+  const loadProfiles = useCallback(async () => {
     try {
       setLoadingProfiles(true);
       const data = await getPublicPartnerProfiles();
@@ -116,6 +89,41 @@ const CommunityV2: React.FC = () => {
     } finally {
       setLoadingProfiles(false);
     }
+  }, []);
+
+  // 初始化加载
+  useEffect(() => {
+    if (activeTab === 'moments') {
+      loadCheckIns();
+    } else {
+      loadProfiles();
+    }
+  }, [activeTab, loadCheckIns, loadProfiles]);
+
+  useEffect(() => {
+    if (targetCheckInId) {
+      setActiveTab('moments');
+      return;
+    }
+
+    if (tabParam === 'partners' || tabParam === 'moments') {
+      setActiveTab(tabParam);
+    }
+  }, [tabParam, targetCheckInId]);
+
+  useEffect(() => {
+    if (!targetCheckInId || loadingCheckIns) return;
+
+    const targetElement = document.getElementById(`check-in-${targetCheckInId}`);
+    if (!targetElement) return;
+
+    window.setTimeout(() => {
+      targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
+  }, [targetCheckInId, loadingCheckIns, checkIns]);
+
+  const refreshCheckIns = () => {
+    void loadCheckIns({ showLoading: false });
   };
 
   const handleShareProfile = async (profile: Profile) => {
@@ -127,6 +135,16 @@ const CommunityV2: React.FC = () => {
       if (error instanceof DOMException && error.name === 'AbortError') return;
       console.error('分享伙伴名片失败:', error);
     }
+  };
+
+  const handleTabChange = (tab: 'moments' | 'partners') => {
+    setActiveTab(tab);
+    const nextParams = new URLSearchParams(searchParams);
+    nextParams.set('tab', tab);
+    if (tab === 'partners') {
+      nextParams.delete('checkIn');
+    }
+    setSearchParams(nextParams, { replace: true });
   };
 
   // 伙伴搜索过滤
@@ -162,7 +180,7 @@ const CommunityV2: React.FC = () => {
             <div className="mx-auto flex w-full max-w-sm rounded-2xl bg-white/10 p-1 ring-1 ring-white/10 md:mx-0 md:w-auto">
               <button
                 type="button"
-                onClick={() => setActiveTab('moments')}
+                onClick={() => handleTabChange('moments')}
                 className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-all sm:gap-2 sm:px-6 ${
                   activeTab === 'moments' 
                     ? 'bg-cyan-300/15 text-cyan-100 shadow-sm' 
@@ -170,11 +188,11 @@ const CommunityV2: React.FC = () => {
                 }`}
               >
                 <Activity className="w-4 h-4" />
-                看动态
+                社区动态
               </button>
               <button
                 type="button"
-                onClick={() => setActiveTab('partners')}
+                onClick={() => handleTabChange('partners')}
                 className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-all sm:gap-2 sm:px-6 ${
                   activeTab === 'partners' 
                     ? 'bg-fuchsia-300/15 text-fuchsia-100 shadow-sm' 

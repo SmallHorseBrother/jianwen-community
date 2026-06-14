@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { AlertCircle, ListTodo, Plus, RefreshCw, Save, Trash2, X, Bot, Copy } from 'lucide-react';
+import { AlertCircle, Bot, Copy, ListTodo, Plus, RefreshCw, Save, Search, SlidersHorizontal, Trash2, X } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import type {
   CodingAgent,
@@ -30,12 +30,29 @@ type EditableTaskFields = Pick<
   | 'is_public'
 >;
 
+type TaskFilters = {
+  query: string;
+  project: string;
+  type: TaskType | 'all';
+  status: TaskStatus | 'all';
+  executionStatus: TaskExecutionStatus | 'all';
+  onlyNeedsApproval: boolean;
+};
+
 const statusOptions: TaskStatus[] = ['pending', 'in_progress', 'completed', 'cancelled'];
 const priorityOptions: TaskPriority[] = ['low', 'medium', 'high', 'urgent'];
 const typeOptions: TaskType[] = ['group_summary', 'follow_up', 'todo', 'other'];
 const executionModeOptions: TaskExecutionMode[] = ['manual', 'ai_assist', 'auto_code'];
 const codingAgentOptions: CodingAgent[] = ['codex', 'claude'];
 const executionStatusOptions: TaskExecutionStatus[] = ['not_ready', 'ready', 'queued', 'running', 'review_required', 'done', 'failed'];
+const defaultFilters: TaskFilters = {
+  query: '',
+  project: 'all',
+  type: 'all',
+  status: 'all',
+  executionStatus: 'all',
+  onlyNeedsApproval: false,
+};
 
 const statusClassMap: Record<string, string> = {
   pending: 'bg-yellow-100 text-yellow-800',
@@ -95,6 +112,17 @@ const taskUpdateToken = import.meta.env.VITE_TASK_UPDATE_TOKEN as string | undef
 const sortTasks = (rows: TaskRow[]) =>
   [...rows].sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime());
 
+const stringifyJson = (value: unknown) => {
+  try {
+    return JSON.stringify(value ?? '');
+  } catch {
+    return '';
+  }
+};
+
+const isNeedsApprovalTask = (task: TaskRow) =>
+  task.status === 'pending' && task.execution_status === 'not_ready';
+
 const buildExecutionPrompt = (task: EditableTaskFields, selectedTask: TaskRow) => {
   const projectName = task.project_name ?? '未指定项目';
   const projectPath = task.project_path ?? '未指定路径';
@@ -111,6 +139,75 @@ const Tasks: React.FC = () => {
   const [draft, setDraft] = useState<EditableTaskFields | null>(null);
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
+  const [filters, setFilters] = useState<TaskFilters>(defaultFilters);
+
+  const projectOptions = useMemo(
+    () =>
+      Array.from(new Set(tasks.map((task) => task.project_name).filter((project): project is string => Boolean(project))))
+        .sort((a, b) => a.localeCompare(b)),
+    [tasks],
+  );
+
+  const visibleTasks = useMemo(() => {
+    const query = filters.query.trim().toLowerCase();
+
+    return tasks.filter((task) => {
+      if (filters.onlyNeedsApproval && !isNeedsApprovalTask(task)) return false;
+      if (filters.project !== 'all' && task.project_name !== filters.project) return false;
+      if (filters.type !== 'all' && task.type !== filters.type) return false;
+      if (filters.status !== 'all' && task.status !== filters.status) return false;
+      if (filters.executionStatus !== 'all' && task.execution_status !== filters.executionStatus) return false;
+
+      if (!query) return true;
+
+      const searchable = [
+        task.title,
+        task.summary,
+        task.progress_note,
+        task.owner,
+        task.project_name,
+        task.project_path,
+        task.source_group,
+        task.source_session_id,
+        task.type,
+        task.status,
+        task.priority,
+        task.execution_mode,
+        task.coding_agent,
+        task.execution_status,
+        stringifyJson(task.tags_json),
+        stringifyJson(task.evidence_json),
+      ]
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase();
+
+      return searchable.includes(query);
+    });
+  }, [filters, tasks]);
+
+  const taskStats = useMemo(
+    () => ({
+      total: tasks.length,
+      visible: visibleTasks.length,
+      needsApproval: tasks.filter(isNeedsApprovalTask).length,
+      ready: tasks.filter((task) => task.execution_status === 'ready').length,
+      reviewRequired: tasks.filter((task) => task.execution_status === 'review_required').length,
+    }),
+    [tasks, visibleTasks.length],
+  );
+
+  const bulkReadyCandidates = useMemo(
+    () =>
+      visibleTasks.filter(
+        (task) =>
+          isNeedsApprovalTask(task) &&
+          task.execution_mode === 'auto_code' &&
+          Boolean(task.coding_agent) &&
+          Boolean(normalizeOptionalText(task.project_path ?? '')),
+      ),
+    [visibleTasks],
+  );
 
   const selectedTask = useMemo(
     () => tasks.find((task) => task.id === selectedTaskId) ?? null,
@@ -156,6 +253,25 @@ const Tasks: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    if (loading) return;
+
+    if (visibleTasks.length === 0) {
+      if (selectedTaskId !== null && tasks.length > 0) {
+        setSelectedTaskId(null);
+        setDraft(null);
+      }
+      return;
+    }
+
+    const stillVisible = selectedTaskId && visibleTasks.some((task) => task.id === selectedTaskId);
+    if (!stillVisible) {
+      const nextTask = visibleTasks[0];
+      setSelectedTaskId(nextTask.id);
+      setDraft(buildDraftFromTask(nextTask));
+    }
+  }, [loading, selectedTaskId, tasks.length, visibleTasks]);
+
+  useEffect(() => {
     if (selectedTask) {
       setDraft(buildDraftFromTask(selectedTask));
       setSaveMessage(null);
@@ -170,6 +286,14 @@ const Tasks: React.FC = () => {
 
   const updateDraft = <K extends keyof EditableTaskFields>(key: K, value: EditableTaskFields[K]) => {
     setDraft((current) => (current ? { ...current, [key]: value } : current));
+  };
+
+  const updateFilters = <K extends keyof TaskFilters>(key: K, value: TaskFilters[K]) => {
+    setFilters((current) => ({ ...current, [key]: value }));
+  };
+
+  const resetFilters = () => {
+    setFilters(defaultFilters);
   };
 
   const hasChanges = useMemo(() => {
@@ -213,6 +337,44 @@ const Tasks: React.FC = () => {
     }
 
     return result;
+  };
+
+  const handleBulkMarkReady = async () => {
+    if (bulkReadyCandidates.length === 0) {
+      setSaveMessage('当前筛选下没有可批量标记 ready 的任务。');
+      return;
+    }
+
+    const confirmed = window.confirm(`确认将当前筛选下 ${bulkReadyCandidates.length} 条任务标记为 ready 吗？`);
+    if (!confirmed) return;
+
+    setSaving(true);
+    setSaveMessage(null);
+
+    try {
+      const updatedTasks: TaskRow[] = [];
+
+      for (const task of bulkReadyCandidates) {
+        const result = await callTaskUpdateApi({
+          action: 'update',
+          id: task.id,
+          execution_status: 'ready',
+        });
+
+        const updatedTask = result?.task as TaskRow | undefined;
+        if (updatedTask) {
+          updatedTasks.push(updatedTask);
+        }
+      }
+
+      const updatedById = new Map(updatedTasks.map((task) => [task.id, task]));
+      setTasks((current) => sortTasks(current.map((task) => updatedById.get(task.id) ?? task)));
+      setSaveMessage(`已批量标记 ${updatedTasks.length} 条任务为 ready。`);
+    } catch (error) {
+      setSaveMessage(`批量标记失败：${error instanceof Error ? error.message : '请求异常'}`);
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleSave = async () => {
@@ -395,9 +557,9 @@ const Tasks: React.FC = () => {
               <ListTodo className="w-5 h-5" />
               <span>Task Panel</span>
             </div>
-            <h1 className="text-3xl font-bold text-gray-900">Group Summary Tasks</h1>
+            <h1 className="text-3xl font-bold text-gray-900">Feedback Approval Tasks</h1>
             <p className="text-gray-600 mt-2">
-              可在此页查看、编辑、手动新建和删除任务；来源追踪字段保持只读。
+              集中查看微信群和手动入口沉淀的候选任务；确认后再交给本地 runner 执行。
             </p>
           </div>
 
@@ -426,6 +588,122 @@ const Tasks: React.FC = () => {
 
         <div className="grid grid-cols-1 xl:grid-cols-[1.45fr_1fr] gap-6">
           <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+            <div className="border-b border-gray-200 px-5 py-4 space-y-4">
+              <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                <div className="inline-flex items-center gap-2 text-sm font-semibold text-gray-800">
+                  <SlidersHorizontal className="w-4 h-4 text-gray-500" />
+                  <span>审批筛选</span>
+                </div>
+                <div className="flex flex-wrap items-center gap-2 text-xs text-gray-600">
+                  <button
+                    type="button"
+                    onClick={() => updateFilters('onlyNeedsApproval', !filters.onlyNeedsApproval)}
+                    className={`inline-flex items-center justify-center rounded-lg border px-3 py-1.5 font-medium transition-colors ${
+                      filters.onlyNeedsApproval
+                        ? 'border-blue-500 bg-blue-50 text-blue-700'
+                        : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                    }`}
+                  >
+                    待确认 {taskStats.needsApproval}
+                  </button>
+                  <span className="rounded-lg bg-gray-100 px-3 py-1.5">ready {taskStats.ready}</span>
+                  <span className="rounded-lg bg-gray-100 px-3 py-1.5">review {taskStats.reviewRequired}</span>
+                  <span className="rounded-lg bg-gray-100 px-3 py-1.5">
+                    当前 {taskStats.visible}/{taskStats.total}
+                  </span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[1.4fr_1fr_1fr_1fr_1fr] gap-3">
+                <div className="relative">
+                  <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                  <input
+                    type="search"
+                    value={filters.query}
+                    onChange={(event) => updateFilters('query', event.target.value)}
+                    placeholder="搜索标题、摘要、群名、证据"
+                    className="w-full rounded-lg border border-gray-300 pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <select
+                  value={filters.project}
+                  onChange={(event) => updateFilters('project', event.target.value)}
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-base bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  style={{ fontSize: '16px' }}
+                >
+                  <option value="all">全部项目</option>
+                  {projectOptions.map((project) => (
+                    <option key={project} value={project}>
+                      {project}
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  value={filters.type}
+                  onChange={(event) => updateFilters('type', event.target.value as TaskType | 'all')}
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-base bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  style={{ fontSize: '16px' }}
+                >
+                  <option value="all">全部类型</option>
+                  {typeOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  value={filters.executionStatus}
+                  onChange={(event) => updateFilters('executionStatus', event.target.value as TaskExecutionStatus | 'all')}
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-base bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  style={{ fontSize: '16px' }}
+                >
+                  <option value="all">全部执行状态</option>
+                  {executionStatusOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  value={filters.status}
+                  onChange={(event) => updateFilters('status', event.target.value as TaskStatus | 'all')}
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-base bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  style={{ fontSize: '16px' }}
+                >
+                  <option value="all">全部业务状态</option>
+                  {statusOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    void handleBulkMarkReady();
+                  }}
+                  disabled={saving || bulkReadyCandidates.length === 0}
+                  className="inline-flex items-center justify-center rounded-lg border border-green-300 px-3 py-2 text-sm font-medium text-green-700 hover:bg-green-50 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  批量 ready {bulkReadyCandidates.length}
+                </button>
+                <button
+                  type="button"
+                  onClick={resetFilters}
+                  className="text-sm text-gray-600 hover:text-gray-900"
+                >
+                  重置筛选
+                </button>
+              </div>
+            </div>
+
             {loading ? (
               <div className="py-20 flex items-center justify-center">
                 <div className="animate-spin w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full"></div>
@@ -442,9 +720,13 @@ const Tasks: React.FC = () => {
               <div className="py-20 text-center text-gray-500">
                 No tasks yet. Click <span className="font-medium">新建任务</span> or wait for <code>task-intake</code> to write records.
               </div>
+            ) : visibleTasks.length === 0 ? (
+              <div className="py-20 text-center text-gray-500">
+                当前筛选下没有任务。
+              </div>
             ) : (
               <div className="divide-y divide-gray-200">
-                {tasks.map((task) => {
+                {visibleTasks.map((task) => {
                   const active = task.id === selectedTaskId;
                   return (
                     <button

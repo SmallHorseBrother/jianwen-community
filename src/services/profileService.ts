@@ -2,6 +2,24 @@ import { supabase } from '../lib/supabase';
 import { User } from '../types';
 
 const MAX_PROFILE_LABEL_LENGTH = 36;
+const PUBLIC_PROFILE_COLUMNS = `
+  id,
+  nickname,
+  bio,
+  avatar_url,
+  bench_press,
+  squat,
+  deadlift,
+  is_public,
+  group_identity,
+  profession,
+  group_nickname,
+  specialties,
+  fitness_interests,
+  learning_interests,
+  created_at,
+  updated_at
+`;
 
 function normalizeStringArray(value: unknown): string[] {
   const results: string[] = [];
@@ -68,7 +86,7 @@ export const getPublicProfiles = async (): Promise<User[]> => {
   try {
     const { data, error } = await supabase
       .from('profiles')
-      .select('*')
+      .select(PUBLIC_PROFILE_COLUMNS)
       .eq('is_public', true)
       .not('group_identity', 'is', null) // 至少要有群身份
       .order('created_at', { ascending: false });
@@ -92,7 +110,7 @@ export const findMatchingProfiles = async (
   try {
     const { data, error } = await supabase
       .from('profiles')
-      .select('*')
+      .select(PUBLIC_PROFILE_COLUMNS)
       .eq('is_public', true)
       .neq('id', userId); // 排除自己
 
@@ -141,7 +159,7 @@ export const searchProfilesByGroup = async (groupIdentity: string): Promise<User
   try {
     const { data, error } = await supabase
       .from('profiles')
-      .select('*')
+      .select(PUBLIC_PROFILE_COLUMNS)
       .eq('is_public', true)
       .order('created_at', { ascending: false });
 

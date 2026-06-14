@@ -41,6 +41,7 @@ type LeaderboardRow = {
 };
 
 const BUCKET_NAME = "check-in-images";
+const CHECK_IN_PROFILE_COLUMNS = "id,nickname,avatar_url,group_nickname";
 
 /**
  * 上传图片到 Storage
@@ -144,11 +145,11 @@ export async function getCheckIns(limit = 20) {
         .from("check_ins")
         .select(`
       *,
-      profiles:user_id (*),
+      profiles:user_id (${CHECK_IN_PROFILE_COLUMNS}),
       likes:check_in_likes(*),
       comments:check_in_comments(
         *,
-        profiles:user_id(*)
+        profiles:user_id(${CHECK_IN_PROFILE_COLUMNS})
       )
     `)
         .order("created_at", { ascending: false })
@@ -172,11 +173,11 @@ export async function getCheckInById(checkInId: string) {
         .from("check_ins")
         .select(`
       *,
-      profiles:user_id (*),
+      profiles:user_id (${CHECK_IN_PROFILE_COLUMNS}),
       likes:check_in_likes(*),
       comments:check_in_comments(
         *,
-        profiles:user_id(*)
+        profiles:user_id(${CHECK_IN_PROFILE_COLUMNS})
       )
     `)
         .eq("id", checkInId)
@@ -270,7 +271,7 @@ export async function addComment(
         .insert(insertPayload)
         .select(`
       *,
-      profiles:user_id (*)
+      profiles:user_id (${CHECK_IN_PROFILE_COLUMNS})
     `)
         .single();
 
@@ -284,7 +285,7 @@ export async function addComment(
         })
             .select(`
       *,
-      profiles:user_id (*)
+      profiles:user_id (${CHECK_IN_PROFILE_COLUMNS})
     `)
             .single();
 
@@ -318,7 +319,7 @@ async function hydrateCommentReplyProfiles<T extends CheckIn>(checkIns: T[]): Pr
 
     const { data: profiles, error } = await supabase
         .from("profiles")
-        .select("*")
+        .select(CHECK_IN_PROFILE_COLUMNS)
         .in("id", Array.from(replyUserIds));
 
     if (error) {

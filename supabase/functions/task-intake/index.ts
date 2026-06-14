@@ -12,6 +12,9 @@ type Json = string | number | boolean | null | { [key: string]: Json | undefined
 type TaskType = 'group_summary' | 'follow_up' | 'todo' | 'other'
 type TaskStatus = 'pending' | 'in_progress' | 'completed' | 'cancelled'
 type TaskPriority = 'low' | 'medium' | 'high' | 'urgent'
+type TaskExecutionMode = 'manual' | 'ai_assist' | 'auto_code'
+type CodingAgent = 'codex' | 'claude'
+type TaskExecutionStatus = 'not_ready' | 'ready' | 'queued' | 'running' | 'review_required' | 'done' | 'failed'
 
 interface TaskPayload {
   title?: string
@@ -27,6 +30,11 @@ interface TaskPayload {
   tags_json?: Json
   owner?: string | null
   progress_note?: string | null
+  project_name?: string | null
+  project_path?: string | null
+  execution_mode?: string | null
+  coding_agent?: string | null
+  execution_status?: string | null
   is_public?: boolean | null
 }
 
@@ -44,12 +52,20 @@ interface TaskRecord {
   tags_json: Json
   owner: string | null
   progress_note: string | null
+  project_name: string | null
+  project_path: string | null
+  execution_mode: TaskExecutionMode
+  coding_agent: CodingAgent | null
+  execution_status: TaskExecutionStatus
   is_public: boolean
 }
 
 const allowedTypes = new Set<TaskType>(['group_summary', 'follow_up', 'todo', 'other'])
 const allowedStatuses = new Set<TaskStatus>(['pending', 'in_progress', 'completed', 'cancelled'])
 const allowedPriorities = new Set<TaskPriority>(['low', 'medium', 'high', 'urgent'])
+const allowedExecutionModes = new Set<TaskExecutionMode>(['manual', 'ai_assist', 'auto_code'])
+const allowedCodingAgents = new Set<CodingAgent>(['codex', 'claude'])
+const allowedExecutionStatuses = new Set<TaskExecutionStatus>(['not_ready', 'ready', 'queued', 'running', 'review_required', 'done', 'failed'])
 
 const jsonResponse = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), {
@@ -82,6 +98,27 @@ const normalizePriority = (value: unknown): TaskPriority => {
   return candidate && allowedPriorities.has(candidate as TaskPriority)
     ? (candidate as TaskPriority)
     : 'medium'
+}
+
+const normalizeExecutionMode = (value: unknown): TaskExecutionMode => {
+  const candidate = asTrimmedString(value)
+  return candidate && allowedExecutionModes.has(candidate as TaskExecutionMode)
+    ? (candidate as TaskExecutionMode)
+    : 'manual'
+}
+
+const normalizeCodingAgent = (value: unknown): CodingAgent | null => {
+  const candidate = asTrimmedString(value)
+  return candidate && allowedCodingAgents.has(candidate as CodingAgent)
+    ? (candidate as CodingAgent)
+    : null
+}
+
+const normalizeExecutionStatus = (value: unknown): TaskExecutionStatus => {
+  const candidate = asTrimmedString(value)
+  return candidate && allowedExecutionStatuses.has(candidate as TaskExecutionStatus)
+    ? (candidate as TaskExecutionStatus)
+    : 'not_ready'
 }
 
 const normalizeJson = (value: unknown, fallback: Json): Json => {
@@ -124,6 +161,11 @@ const buildTaskRecord = (payload: TaskPayload): TaskRecord | null => {
     tags_json: normalizeJson(payload.tags_json, []),
     owner: asTrimmedString(payload.owner),
     progress_note: asTrimmedString(payload.progress_note),
+    project_name: asTrimmedString(payload.project_name),
+    project_path: asTrimmedString(payload.project_path),
+    execution_mode: normalizeExecutionMode(payload.execution_mode),
+    coding_agent: normalizeCodingAgent(payload.coding_agent),
+    execution_status: normalizeExecutionStatus(payload.execution_status),
     is_public: typeof payload.is_public === 'boolean' ? payload.is_public : true,
   }
 }

@@ -61,6 +61,11 @@ Example:
       "tags_json": ["faq", "fat-loss"],
       "owner": "OpenClaw",
       "progress_note": "Created from morning chat summary",
+      "project_name": "food_link",
+      "project_path": "D:/files/food_link",
+      "execution_mode": "auto_code",
+      "coding_agent": "codex",
+      "execution_status": "not_ready",
       "is_public": true
     }
   ]
@@ -110,4 +115,11 @@ For the smallest OpenClaw integration, start with:
 - `summary`
 - `source_group`
 - `priority`
+- `project_name`
+- `project_path`
+- `execution_mode`
+- `coding_agent`
+- `execution_status`
 - `is_public`
+
+For auto-code candidates, keep `execution_status` as `not_ready` until a human approves the task in `/tasks`.

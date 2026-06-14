@@ -1,0 +1,126 @@
+{
+  "cipherTalkCli": "D:/files/CipherTalk/dist-electron/cli.js",
+  "sources": [
+    {
+      "key": "food-seed",
+      "name": "食探种子群",
+      "sessionId": "45916137803@chatroom",
+      "projectName": "food_link",
+      "projectPath": "D:/files/food_link",
+      "owner": "枭马葛",
+      "tags": ["foodlink", "wechat-feedback"],
+      "enableGeneric": true,
+      "isPublic": true
+    },
+    {
+      "key": "food-users-2",
+      "name": "食探用户群-2",
+      "sessionId": "",
+      "projectName": "food_link",
+      "projectPath": "D:/files/food_link",
+      "owner": "枭马葛",
+      "tags": ["foodlink", "wechat-feedback"],
+      "enabled": false,
+      "skipReason": "待补 CipherTalk sessionId"
+    },
+    {
+      "key": "coachlink-beta",
+      "name": "教链内测群",
+      "sessionId": "49087811230@chatroom",
+      "projectName": "coachlink-wechat-app",
+      "projectPath": "D:/files/coachlink-wechat-app",
+      "owner": "枭马葛",
+      "tags": ["coachlink", "wechat-feedback"],
+      "enableGeneric": true,
+      "isPublic": true
+    },
+    {
+      "key": "coachlink-beta-2",
+      "name": "教链内测群-2",
+      "sessionId": "",
+      "projectName": "coachlink-wechat-app",
+      "projectPath": "D:/files/coachlink-wechat-app",
+      "owner": "枭马葛",
+      "tags": ["coachlink", "wechat-feedback"],
+      "enabled": false,
+      "skipReason": "待补 CipherTalk sessionId"
+    },
+    {
+      "key": "coachlink-coach",
+      "name": "教链内测群-教练端",
+      "sessionId": "49789312419@chatroom",
+      "projectName": "coachlink",
+      "projectPath": "D:/files/coachlink",
+      "owner": "枭马葛",
+      "tags": ["coachlink", "coach-app", "wechat-feedback"],
+      "enableGeneric": true,
+      "isPublic": true
+    },
+    {
+      "key": "jianwen-checkin",
+      "name": "健文学院打卡群",
+      "sessionId": "45691821312@chatroom",
+      "projectName": "jianwen-community",
+      "projectPath": "D:/files/jianwen-community",
+      "owner": "枭马葛",
+      "tags": ["jianwen-community", "wechat-feedback"],
+      "enableGeneric": false,
+      "isPublic": true
+    },
+    {
+      "key": "jianwen-class-1",
+      "name": "健文学院-1班",
+      "sessionId": "49126180086@chatroom",
+      "projectName": "jianwen-community",
+      "projectPath": "D:/files/jianwen-community",
+      "owner": "枭马葛",
+      "tags": ["jianwen-community", "wechat-feedback"],
+      "enableGeneric": false,
+      "isPublic": true
+    },
+    {
+      "key": "jianwen-class-2",
+      "name": "健文学院-2班",
+      "sessionId": "43472137027@chatroom",
+      "projectName": "jianwen-community",
+      "projectPath": "D:/files/jianwen-community",
+      "owner": "枭马葛",
+      "tags": ["jianwen-community", "wechat-feedback"],
+      "enableGeneric": false,
+      "isPublic": true
+    },
+    {
+      "key": "jianwen-class-3",
+      "name": "健文学院-3班",
+      "sessionId": "49015003281@chatroom",
+      "projectName": "jianwen-community",
+      "projectPath": "D:/files/jianwen-community",
+      "owner": "枭马葛",
+      "tags": ["jianwen-community", "wechat-feedback"],
+      "enableGeneric": false,
+      "isPublic": true
+    },
+    {
+      "key": "xiaomage-learning",
+      "name": "枭马葛学习群",
+      "sessionId": "46014332051@chatroom",
+      "projectName": "jianwen-community",
+      "projectPath": "D:/files/jianwen-community",
+      "owner": "枭马葛",
+      "tags": ["jianwen-community", "learning", "wechat-feedback"],
+      "enableGeneric": false,
+      "isPublic": true
+    },
+    {
+      "key": "xiaoyugan-private",
+      "name": "小鱼干私聊",
+      "sessionId": "",
+      "projectName": "jianwen-community",
+      "projectPath": "D:/files/jianwen-community",
+      "owner": "枭马葛",
+      "tags": ["private-chat", "wechat-feedback"],
+      "enabled": false,
+      "skipReason": "私聊 sessionId 待补；涉及多个项目，建议后续拆成独立规则"
+    }
+  ]
+}

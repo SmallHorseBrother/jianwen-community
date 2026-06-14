@@ -66,6 +66,7 @@ export interface Database {
           skills_seeking: string | null;
           age: number | null;
           gender: string | null;
+          user_role: "member" | "admin" | "super_admin";
           created_at: string;
           updated_at: string;
         };
@@ -93,6 +94,7 @@ export interface Database {
           skills_seeking?: string | null;
           age?: number | null;
           gender?: string | null;
+          user_role?: "member" | "admin" | "super_admin";
           created_at?: string;
           updated_at?: string;
         };
@@ -120,6 +122,7 @@ export interface Database {
           skills_seeking?: string | null;
           age?: number | null;
           gender?: string | null;
+          user_role?: "member" | "admin" | "super_admin";
           created_at?: string;
           updated_at?: string;
         };
@@ -771,7 +774,17 @@ export interface Database {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      is_app_admin: {
+        Args: Record<PropertyKey, never>;
+        Returns: boolean;
+      };
+      reset_user_password: {
+        Args: {
+          user_phone: string;
+          new_password: string;
+        };
+        Returns: Json;
+      };
     };
     Enums: {
       [_ in never]: never;

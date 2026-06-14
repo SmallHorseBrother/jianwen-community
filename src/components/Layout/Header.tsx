@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
-  Brain, Users, Wrench, User, LogOut, AlertCircle,
+  Activity, Brain, Home, Users, Wrench, User, LogOut, AlertCircle,
   Menu, X, Settings, Sparkles, Bell
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
@@ -36,14 +36,24 @@ const Header: React.FC = () => {
   ) : false;
 
   const navItems = [
-    { to: '/about', label: '关于我', icon: Sparkles },
-    { to: '/qa', label: '问题星球', icon: Brain },
-    { to: '/community', label: '社区广场', icon: Users },
-    { to: '/tools', label: '工具箱', icon: Wrench },
+    { to: '/', label: '首页', icon: Home, activePath: '/', exact: true },
+    { to: '/qa', label: '问题星球', icon: Brain, activePath: '/qa' },
+    { to: '/community?tab=partners', label: '找伙伴', icon: Users, activePath: '/community', activeTab: 'partners' },
+    { to: '/community?tab=moments', label: '社区动态', icon: Activity, activePath: '/community', activeTab: 'moments' },
+    { to: '/tools', label: '产品实验室', icon: Wrench, activePath: '/tools' },
   ];
 
-  const isActive = (path: string) => {
-    if (path === '/') return location.pathname === '/';
+  const currentCommunityTab = new URLSearchParams(location.search).get('tab') || 'moments';
+
+  const isNavActive = (item: typeof navItems[number]) => {
+    if (item.exact) return location.pathname === item.activePath;
+    if (item.activeTab) {
+      return location.pathname.startsWith(item.activePath) && currentCommunityTab === item.activeTab;
+    }
+    return location.pathname.startsWith(item.activePath);
+  };
+
+  const isPathActive = (path: string) => {
     return location.pathname.startsWith(path);
   };
 
@@ -52,15 +62,15 @@ const Header: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-14 sm:h-16">
           {/* Logo */}
-          <Link to="/about" className="group flex items-center space-x-3">
+          <Link to="/" className="group flex items-center space-x-3">
             <div className="relative h-8 w-8 rounded-xl bg-gradient-to-br from-cyan-400 via-blue-500 to-fuchsia-500 p-[1px] shadow-lg shadow-cyan-500/30 sm:h-10 sm:w-10 sm:rounded-2xl">
               <div className="flex h-full w-full items-center justify-center rounded-xl bg-slate-950/70 sm:rounded-2xl">
                 <Sparkles className="h-4 w-4 text-cyan-200 transition-transform group-hover:rotate-12 sm:h-5 sm:w-5" />
               </div>
             </div>
             <div className="leading-tight">
-              <span className="block text-base font-black tracking-wide text-white sm:text-lg">马健文</span>
-              <span className="hidden text-[11px] uppercase tracking-[0.28em] text-cyan-200/70 sm:block">Jianwen OS</span>
+              <span className="block text-base font-black tracking-normal text-white sm:text-lg">健文社区</span>
+              <span className="hidden text-[11px] uppercase tracking-normal text-cyan-200/70 sm:block">Jianwen Community</span>
             </div>
           </Link>
 
@@ -70,8 +80,8 @@ const Header: React.FC = () => {
               <Link
                 key={item.to}
                 to={item.to}
-                className={`flex items-center space-x-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all ${
-                  isActive(item.to)
+                className={`flex items-center space-x-1.5 rounded-xl px-2.5 py-2 text-xs font-medium transition-all lg:px-3 lg:text-sm ${
+                  isNavActive(item)
                     ? 'bg-cyan-300/15 text-cyan-100 shadow-sm shadow-cyan-500/10 ring-1 ring-cyan-300/20'
                     : 'text-slate-300 hover:bg-white/10 hover:text-white'
                 }`}
@@ -114,7 +124,7 @@ const Header: React.FC = () => {
                 <Link
                   to="/about/admin"
                   className={`flex items-center space-x-1 px-3 py-2 rounded-xl text-sm font-medium transition-all ${
-                    isActive('/about/admin')
+                    isPathActive('/about/admin')
                       ? 'text-cyan-100 bg-cyan-300/15'
                       : 'text-slate-300 hover:text-cyan-100 hover:bg-white/10'
                   }`}
@@ -126,7 +136,7 @@ const Header: React.FC = () => {
                   <Link
                     to="/admin"
                     className={`flex items-center space-x-1 px-3 py-2 rounded-xl text-sm font-medium transition-all ${
-                      isActive('/admin')
+                      isPathActive('/admin')
                         ? 'text-fuchsia-100 bg-fuchsia-300/15'
                         : 'text-fuchsia-200 hover:bg-fuchsia-300/10'
                     }`}
@@ -171,7 +181,7 @@ const Header: React.FC = () => {
                   to={item.to}
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center space-x-2 px-4 py-3 rounded-xl text-sm font-medium ${
-                    isActive(item.to)
+                    isNavActive(item)
                       ? 'text-cyan-100 bg-cyan-300/15'
                       : 'text-slate-300 hover:bg-white/10'
                   }`}

@@ -495,17 +495,13 @@ export const getAllTags = async (): Promise<string[]> => {
 
 /**
  * 检查用户是否是管理员
- * 使用 profiles.user_role 字段判断，支持 'admin' 和 'super_admin' 两种角色
+ * 使用数据库侧统一函数判断，兼容 profiles.user_role 和 admin_users。
  */
-export const checkIsAdmin = async (userId: string): Promise<boolean> => {
-  const { data, error } = await supabase
-    .from("profiles")
-    .select("user_role")
-    .eq("id", userId)
-    .single();
+export const checkIsAdmin = async (_userId: string): Promise<boolean> => {
+  const { data, error } = await supabase.rpc("is_app_admin");
 
   if (error) return false;
-  return data?.user_role === "admin" || data?.user_role === "super_admin";
+  return data === true;
 };
 
 /**

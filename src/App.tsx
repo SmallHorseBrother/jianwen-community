@@ -59,8 +59,8 @@ const AppRoutes: React.FC = () => {
   return (
     <Routes>
       {/* ========== V2.0 核心路由 ========== */}
-      {/* 默认页 - 关于我 */}
-      <Route path="/" element={<Navigate to="/about" replace />} />
+      {/* 默认页 - 社区宣传入口 */}
+      <Route path="/" element={<Layout><Home /></Layout>} />
       {/* 公开问答主页 */}
       <Route path="/qa" element={<Layout><QAHome /></Layout>} />
       <Route path="/qa/:id" element={<Layout><QADetail /></Layout>} />
@@ -97,7 +97,7 @@ const AppRoutes: React.FC = () => {
       
       {/* ========== 旧版页面 (归档) ========== */}
       {/* 旧主页重定向 */}
-      <Route path="/home" element={<Layout><Home /></Layout>} />
+      <Route path="/home" element={<Navigate to="/" replace />} />
       
       {/* Fitness Routes (归档) */}
       <Route path="/fitness" element={<Layout><FitnessHome /></Layout>} />
@@ -115,8 +115,8 @@ const AppRoutes: React.FC = () => {
       <Route path="/learning/tools" element={<Layout><ComingSoon title="学习工具" description="番茄钟、习惯打卡等实用功能正在路上！" backTo="/learning" /></Layout>} />
       
       {/* 旧社区路由重定向 */}
-      <Route path="/community/profiles" element={<Navigate to="/community" replace />} />
-      <Route path="/community/matching" element={<Navigate to="/community" replace />} />
+      <Route path="/community/profiles" element={<Navigate to="/community?tab=partners" replace />} />
+      <Route path="/community/matching" element={<Navigate to="/community?tab=partners" replace />} />
       
       {/* 404 Page - must be last */}
       <Route path="*" element={<NotFound />} />
