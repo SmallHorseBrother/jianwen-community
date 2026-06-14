@@ -1,7 +1,6 @@
 /**
- * 社区广场 V2.0 
- * Tab 1: 看动态 (Check-ins) - 默认
- * Tab 2: 找伙伴 (Profiles)
+ * 社区广场 V2.0
+ * 通过 URL 固定展示社区动态或找伙伴，入口由全局导航区分。
  */
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
@@ -31,7 +30,7 @@ type LoadCheckInsOptions = {
 
 const CommunityV2: React.FC = () => {
   const { user } = useAuth();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const targetCheckInId = searchParams.get('checkIn');
   const tabParam = searchParams.get('tab');
   
@@ -137,16 +136,6 @@ const CommunityV2: React.FC = () => {
     }
   };
 
-  const handleTabChange = (tab: 'moments' | 'partners') => {
-    setActiveTab(tab);
-    const nextParams = new URLSearchParams(searchParams);
-    nextParams.set('tab', tab);
-    if (tab === 'partners') {
-      nextParams.delete('checkIn');
-    }
-    setSearchParams(nextParams, { replace: true });
-  };
-
   // 伙伴搜索过滤
   const filteredProfiles = useMemo(() => {
     const sortedProfiles = [...profiles].sort((a, b) => {
@@ -168,48 +157,38 @@ const CommunityV2: React.FC = () => {
     });
   }, [profiles, searchQuery]);
 
+  const isPartnersView = activeTab === 'partners';
+  const PageIcon = isPartnersView ? Users : Activity;
+  const pageTitle = isPartnersView ? '找伙伴' : '社区动态';
+  const pageDescription = isPartnersView
+    ? '搜索昵称、标签和技能，查看每个人能提供什么、正在寻找什么。'
+    : '看见社区里的学习、训练和项目进展，也把自己的打卡留下来。';
+
   return (
     <div className="page-aurora min-h-screen pb-16 sm:pb-20">
-      {/* 顶部导航与Hero */}
+      {/* 固定页头 */}
       <div className="sticky top-14 z-10 -mx-2.5 border-b border-cyan-300/10 bg-slate-950/72 shadow-2xl shadow-cyan-950/20 backdrop-blur-2xl sm:top-16 sm:mx-0">
         <div className="mx-auto max-w-6xl px-2.5 sm:px-4">
-          <div className="flex items-center justify-between py-3 sm:py-4">
-            <h1 className="text-xl font-black text-white hidden md:block">社区广场</h1>
-            
-            {/* Tab 切换 */}
-            <div className="mx-auto flex w-full max-w-sm rounded-2xl bg-white/10 p-1 ring-1 ring-white/10 md:mx-0 md:w-auto">
-              <button
-                type="button"
-                onClick={() => handleTabChange('moments')}
-                className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-all sm:gap-2 sm:px-6 ${
-                  activeTab === 'moments' 
-                    ? 'bg-cyan-300/15 text-cyan-100 shadow-sm' 
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                <Activity className="w-4 h-4" />
-                社区动态
-              </button>
-              <button
-                type="button"
-                onClick={() => handleTabChange('partners')}
-                className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-all sm:gap-2 sm:px-6 ${
-                  activeTab === 'partners' 
-                    ? 'bg-fuchsia-300/15 text-fuchsia-100 shadow-sm' 
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                <Users className="w-4 h-4" />
-                找伙伴
-              </button>
+          <div className="flex flex-col gap-3 py-4 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center gap-3">
+              <div className={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl border ${
+                isPartnersView
+                  ? 'border-fuchsia-300/25 bg-fuchsia-300/12 text-fuchsia-100'
+                  : 'border-cyan-300/25 bg-cyan-300/12 text-cyan-100'
+              }`}>
+                <PageIcon className="h-5 w-5" />
+              </div>
+              <div className="min-w-0">
+                <h1 className="text-xl font-black text-white">{pageTitle}</h1>
+                <p className="mt-1 text-sm leading-6 text-slate-400">{pageDescription}</p>
+              </div>
             </div>
 
-            {/* 发布按钮 (仅在动态Tab显示) */}
             {activeTab === 'moments' && (
               <button
                 type="button"
                 onClick={() => user ? setShowCreateModal(true) : alert('请先登录')}
-                className="neon-button hidden md:flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all"
+                className="neon-button hidden items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition-all md:flex"
               >
                 <Camera className="w-4 h-4" />
                 发布打卡
