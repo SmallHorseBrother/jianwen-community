@@ -11,6 +11,7 @@ import {
   addComment,
   updateCheckIn,
   deleteCheckIn,
+  deleteComment,
   CheckIn,
   CheckInComment,
 } from '../../services/checkInService';
@@ -34,6 +35,7 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
   const [editContent, setEditContent] = useState(checkIn.content || '');
   const [savingEdit, setSavingEdit] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [deletingCommentId, setDeletingCommentId] = useState<string | null>(null);
 
   // 判断当前用户是否已点赞
   const isLiked = checkIn.likes?.some(like => like.user_id === user?.id);
@@ -135,6 +137,32 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
   const handleCancelReply = () => {
     setReplyTarget(null);
     setCommentContent('');
+  };
+
+  const handleDeleteComment = async (comment: CheckInComment) => {
+    if (!user) {
+      alert('请先登录');
+      return;
+    }
+    if (comment.user_id !== user.id) return;
+
+    const confirmed = window.confirm('确定删除这条评论吗？删除后无法恢复。');
+    if (!confirmed) return;
+
+    setDeletingCommentId(comment.id);
+    try {
+      await deleteComment(comment.id, user.id);
+      if (replyTarget?.id === comment.id) {
+        setReplyTarget(null);
+        setCommentContent('');
+      }
+      onUpdate();
+    } catch (error) {
+      console.error('删除评论失败', error);
+      alert('删除评论失败: ' + getErrorMessage(error));
+    } finally {
+      setDeletingCommentId(null);
+    }
   };
 
   const handleStartEdit = () => {
@@ -372,6 +400,8 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
                   repliesByParentId={repliesByParentId}
                   currentUserId={user?.id}
                   onReply={handleReply}
+                  onDelete={handleDeleteComment}
+                  deletingCommentId={deletingCommentId}
                 />
               ))}
             </div>
@@ -433,6 +463,8 @@ interface CommentThreadProps {
   repliesByParentId: Map<string, CheckInComment[]>;
   currentUserId?: string;
   onReply: (comment: CheckInComment) => void;
+  onDelete: (comment: CheckInComment) => void;
+  deletingCommentId: string | null;
   depth?: number;
 }
 
@@ -441,10 +473,14 @@ const CommentThread: React.FC<CommentThreadProps> = ({
   repliesByParentId,
   currentUserId,
   onReply,
+  onDelete,
+  deletingCommentId,
   depth = 0,
 }) => {
   const replies = repliesByParentId.get(comment.id) || [];
   const isReply = depth > 0;
+  const isOwnComment = currentUserId === comment.user_id;
+  const isDeleting = deletingCommentId === comment.id;
 
   return (
     <div className={isReply ? 'ml-4 border-l border-gray-200 pl-3' : ''}>
@@ -464,7 +500,18 @@ const CommentThread: React.FC<CommentThreadProps> = ({
           <span className="text-gray-400">：</span>
           <span className="text-gray-600 break-words">{comment.content}</span>
         </div>
-        {currentUserId && comment.user_id !== currentUserId && (
+        {isOwnComment ? (
+          <button
+            type="button"
+            onClick={() => onDelete(comment)}
+            disabled={isDeleting}
+            className="shrink-0 rounded p-1 text-gray-400 transition-colors hover:bg-red-50 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-60"
+            aria-label="删除评论"
+            title="删除评论"
+          >
+            {isDeleting ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Trash2 className="h-3.5 w-3.5" />}
+          </button>
+        ) : currentUserId ? (
           <button
             type="button"
             onClick={() => onReply(comment)}
@@ -472,7 +519,7 @@ const CommentThread: React.FC<CommentThreadProps> = ({
           >
             回复
           </button>
-        )}
+        ) : null}
       </div>
 
       {replies.length > 0 && (
@@ -484,6 +531,8 @@ const CommentThread: React.FC<CommentThreadProps> = ({
               repliesByParentId={repliesByParentId}
               currentUserId={currentUserId}
               onReply={onReply}
+              onDelete={onDelete}
+              deletingCommentId={deletingCommentId}
               depth={depth + 1}
             />
           ))}

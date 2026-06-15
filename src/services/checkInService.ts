@@ -137,6 +137,19 @@ export async function deleteCheckIn(checkInId: string, userId: string) {
 }
 
 /**
+ * 删除自己发布的打卡评论。
+ */
+export async function deleteComment(commentId: string, userId: string) {
+    const { error } = await supabase
+        .from("check_in_comments")
+        .delete()
+        .eq("id", commentId)
+        .eq("user_id", userId);
+
+    if (error) throw error;
+}
+
+/**
  * 获取打卡列表
  */
 export async function getCheckIns(limit = 20) {
