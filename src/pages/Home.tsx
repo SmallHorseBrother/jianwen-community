@@ -4,38 +4,11 @@ import {
   Activity,
   ArrowRight,
   Brain,
-  Camera,
   CheckCircle,
-  MessageCircle,
   Search,
   Sparkles,
-  Users,
   Wrench,
 } from 'lucide-react';
-
-const mainActions = [
-  {
-    title: '提交问题',
-    description: '把你真正卡住的问题放进问题星球，等待回答，也让同样的问题被看见。',
-    to: '/qa#question-submit',
-    icon: MessageCircle,
-    accent: 'text-cyan-200 bg-cyan-300/10 border-cyan-300/20',
-  },
-  {
-    title: '寻找伙伴',
-    description: '用技能供需、标签和社群身份找到能互补的人，从一个具体需求开始连接。',
-    to: '/community?tab=partners',
-    icon: Users,
-    accent: 'text-fuchsia-100 bg-fuchsia-300/10 border-fuchsia-300/20',
-  },
-  {
-    title: '发布打卡',
-    description: '记录今天的训练、学习或项目推进，让行动变成社区里可见的长期线索。',
-    to: '/community?tab=moments',
-    icon: Camera,
-    accent: 'text-emerald-100 bg-emerald-300/10 border-emerald-300/20',
-  },
-];
 
 const productEntrances = [
   {
@@ -62,6 +35,12 @@ const productEntrances = [
     to: '/tools',
     icon: Wrench,
   },
+  {
+    title: '关于马健文',
+    description: '个人经历、AI 分身、粉丝群、线上咨询、创业合作和招募入口。',
+    to: '/about',
+    icon: Sparkles,
+  },
 ];
 
 const proofItems = [
@@ -72,11 +51,11 @@ const proofItems = [
 
 const Home: React.FC = () => {
   return (
-    <div className="page-aurora min-h-screen pb-16">
+    <div className="page-aurora min-h-screen pb-12">
       <section className="overflow-hidden rounded-2xl border border-cyan-300/15 bg-slate-950/70 shadow-2xl shadow-cyan-950/25">
         <div className="relative px-4 py-8 sm:px-6 md:px-10 md:py-12">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_12%,rgba(34,211,238,0.18),transparent_32%),radial-gradient(circle_at_88%_6%,rgba(236,72,153,0.14),transparent_34%)]" />
-          <div className="relative z-10 grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.82fr)] lg:items-center lg:justify-between">
+          <div className="relative z-10">
             <div className="max-w-3xl">
               <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-sm font-semibold text-cyan-100">
                 <Sparkles className="h-4 w-4" />
@@ -94,18 +73,18 @@ const Home: React.FC = () => {
 
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                 <Link
-                  to="/qa#question-submit"
+                  to="#core-entrances"
                   className="neon-button inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold"
                 >
-                  提交新问题
+                  查看核心入口
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
-                  to="/community?tab=partners"
+                  to="/about"
                   className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/8 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/12"
                 >
-                  找伙伴
-                  <Users className="h-4 w-4" />
+                  粉丝群、咨询与合作
+                  <Sparkles className="h-4 w-4" />
                 </Link>
               </div>
 
@@ -124,46 +103,11 @@ const Home: React.FC = () => {
                 ))}
               </div>
             </div>
-
-            <div className="rounded-2xl border border-white/10 bg-slate-950/76 p-4 shadow-2xl shadow-slate-950/30 backdrop-blur">
-              <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                <div>
-                  <div className="text-sm font-semibold text-white">今天先做一件事</div>
-                  <div className="mt-1 text-xs text-slate-400">不用逛完整站，直接进入最常用入口</div>
-                </div>
-                <div className="rounded-full border border-cyan-300/25 bg-cyan-300/10 px-3 py-1 text-xs font-semibold text-cyan-100">
-                  社区入口
-                </div>
-              </div>
-
-              <div className="mt-4 space-y-3">
-                {mainActions.map((action) => (
-                  <Link
-                    key={action.title}
-                    to={action.to}
-                    className="group block rounded-xl border border-white/10 bg-white/[0.05] p-4 transition hover:border-cyan-300/25 hover:bg-white/[0.08]"
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl border ${action.accent}`}>
-                        <action.icon className="h-5 w-5" />
-                      </div>
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-2 font-bold text-white">
-                          {action.title}
-                          <ArrowRight className="h-4 w-4 text-slate-500 transition group-hover:translate-x-0.5 group-hover:text-cyan-200" />
-                        </div>
-                        <p className="mt-1 text-sm leading-6 text-slate-400">{action.description}</p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto mt-8 max-w-6xl">
+      <section id="core-entrances" className="mx-auto mt-8 max-w-6xl scroll-mt-24">
         <div className="mb-4 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
           <div>
             <h2 className="text-2xl font-black text-white">你可以在这里做什么</h2>
@@ -173,12 +117,12 @@ const Home: React.FC = () => {
             to="/about"
             className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-200 transition hover:text-cyan-100"
           >
-            了解马健文
+            粉丝群、咨询与合作
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
           {productEntrances.map((entry) => (
             <Link
               key={entry.title}
@@ -196,30 +140,6 @@ const Home: React.FC = () => {
               </div>
             </Link>
           ))}
-        </div>
-      </section>
-
-      <section className="mx-auto mt-8 max-w-6xl rounded-2xl border border-cyan-300/15 bg-cyan-300/[0.06] p-5 shadow-xl shadow-slate-950/20 sm:p-7">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:items-center">
-          <div>
-            <h2 className="text-2xl font-black text-white">现在就加入一条线索</h2>
-            <p className="mt-3 text-sm leading-7 text-slate-300">
-              一个好问题、一张伙伴名片、一次打卡，都能让后面的人更快找到方向。
-            </p>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-3">
-            {mainActions.map((action) => (
-              <Link
-                key={action.title}
-                to={action.to}
-                className="group rounded-xl border border-white/10 bg-slate-950/55 p-4 text-sm font-semibold text-white transition hover:border-cyan-300/25 hover:bg-slate-950/75"
-              >
-                <action.icon className="mb-3 h-5 w-5 text-cyan-200" />
-                <span>{action.title}</span>
-                <ArrowRight className="mt-3 h-4 w-4 text-slate-500 transition group-hover:translate-x-0.5 group-hover:text-cyan-200" />
-              </Link>
-            ))}
-          </div>
         </div>
       </section>
     </div>

@@ -11,7 +11,6 @@ function detectBrowserIssues(): string[] {
   // 检测浏览器类型
   const ua = navigator.userAgent;
   const isIE = ua.indexOf('MSIE') > -1 || ua.indexOf('Trident/') > -1;
-  const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
   const isOldBrowser = !window.crypto || !window.crypto.subtle;
   
   if (isIE) {
@@ -26,7 +25,7 @@ function detectBrowserIssues(): string[] {
   try {
     localStorage.setItem('test', 'test');
     localStorage.removeItem('test');
-  } catch (e) {
+  } catch {
     issues.push('可能处于隐私模式');
   }
   
@@ -77,26 +76,27 @@ const LoginForm: React.FC = () => {
       
       // 登录成功后立即导航
       navigate(from, { replace: true });
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Login failed:', err);
       setIsLoading(false);
+      const message = err instanceof Error ? err.message : String(err || '');
 
       // 提供更详细的错误信息
-      if (err.message && err.message.includes('Invalid login credentials')) {
+      if (message.includes('Invalid login credentials')) {
         setError('手机号或密码错误，请检查后重试');
-      } else if (err.message && err.message.includes('Email not confirmed')) {
+      } else if (message.includes('Email not confirmed')) {
         setError('账户未激活，请联系管理员');
-      } else if (err.message && err.message.includes('timeout') || err.message.includes('超时')) {
+      } else if (message.includes('timeout') || message.includes('超时')) {
         setError('登录超时，可能是网络较慢或服务器正在启动，请稍后重试');
         setShowTroubleshooting(true);
-      } else if (err.message && err.message.includes('网络')) {
+      } else if (message.includes('网络')) {
         setError('网络连接异常，请稍后重试');
         setShowTroubleshooting(true);
-      } else if (err.message && err.message.includes('资料')) {
+      } else if (message.includes('资料')) {
         setError('获取用户资料失败，已自动清理缓存，请重试');
         setShowTroubleshooting(true);
       } else {
-        setError(err.message || '登录失败，请稍后重试');
+        setError(message || '登录失败，请稍后重试');
         setShowTroubleshooting(true);
       }
     }
@@ -110,7 +110,7 @@ const LoginForm: React.FC = () => {
         <div className="text-center">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-cyan-200/80">Jianwen Community</p>
           <h2 className="auth-title text-3xl">欢迎回来</h2>
-          <p className="auth-subtitle mt-2">登录您的健学社区账户</p>
+          <p className="auth-subtitle mt-2">登录您的健文社区账户</p>
           
           {/* 浏览器兼容性警告 */}
           {browserIssues.length > 0 && (

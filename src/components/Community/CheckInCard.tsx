@@ -3,7 +3,7 @@
  * 展示用户打卡内容、图片、点赞和评论
  */
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Loader2, Heart, MessageCircle, Pencil, Send, Share2, Trash2, X } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import {
@@ -44,6 +44,27 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
   const sortedComments = [...(checkIn.comments || [])].sort(
     (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
   );
+  const { topLevelComments, repliesByParentId } = useMemo(() => {
+    const comments = [...(checkIn.comments || [])].sort(
+      (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+    );
+    const commentIds = new Set(comments.map((comment) => comment.id));
+    const replies = new Map<string, CheckInComment[]>();
+    const topLevel: CheckInComment[] = [];
+
+    comments.forEach((comment) => {
+      const parentId = comment.parent_comment_id;
+      if (parentId && commentIds.has(parentId)) {
+        const parentReplies = replies.get(parentId) || [];
+        parentReplies.push(comment);
+        replies.set(parentId, parentReplies);
+      } else {
+        topLevel.push(comment);
+      }
+    });
+
+    return { topLevelComments: topLevel, repliesByParentId: replies };
+  }, [checkIn.comments]);
 
   // 处理点赞
   const handleLike = async () => {
@@ -71,11 +92,15 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
 
     setSubmittingComment(true);
     try {
+      const replyTo = replyTarget
+        ? { commentId: replyTarget.parent_comment_id || replyTarget.id, userId: replyTarget.user_id }
+        : null;
+
       await addComment(
         checkIn.id,
         user.id,
         commentContent.trim(),
-        replyTarget ? { commentId: replyTarget.id, userId: replyTarget.user_id } : null
+        replyTo
       );
       setCommentContent('');
       setReplyTarget(null);
@@ -83,7 +108,7 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
       onUpdate(); // 刷新数据
     } catch (error) {
       console.error('评论失败', error);
-      alert('评论失败，请重试');
+      alert('评论失败: ' + getErrorMessage(error));
     } finally {
       setSubmittingComment(false);
     }
@@ -340,33 +365,14 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
         <div className="animate-in fade-in slide-in-from-top-2 mt-4 rounded-xl bg-gray-50 p-2.5 sm:p-3">
           {sortedComments.length > 0 && (
             <div className="space-y-3 mb-4 max-h-60 overflow-y-auto custom-scrollbar">
-              {sortedComments.map((comment) => (
-                <div key={comment.id} className="group flex items-start gap-2">
-                  <div className="flex-1 min-w-0 text-sm leading-relaxed">
-                    <span className="font-bold text-gray-800 whitespace-nowrap">
-                      {comment.profiles?.nickname || '群友'}
-                    </span>
-                    {comment.reply_to_profile && (
-                      <>
-                        <span className="mx-1 text-gray-400">回复</span>
-                        <span className="font-bold text-gray-800 whitespace-nowrap">
-                          {comment.reply_to_profile.nickname || '群友'}
-                        </span>
-                      </>
-                    )}
-                    <span className="text-gray-400">：</span>
-                    <span className="text-gray-600 break-words">{comment.content}</span>
-                  </div>
-                  {user && comment.user_id !== user.id && (
-                    <button
-                      type="button"
-                      onClick={() => handleReply(comment)}
-                      className="shrink-0 text-xs text-gray-400 opacity-0 transition-opacity hover:text-blue-600 group-hover:opacity-100"
-                    >
-                      回复
-                    </button>
-                  )}
-                </div>
+              {topLevelComments.map((comment) => (
+                <CommentThread
+                  key={comment.id}
+                  comment={comment}
+                  repliesByParentId={repliesByParentId}
+                  currentUserId={user?.id}
+                  onReply={handleReply}
+                />
               ))}
             </div>
           )}
@@ -417,6 +423,71 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
           checkIn={checkIn}
           onClose={() => setShowShareModal(false)}
         />
+      )}
+    </div>
+  );
+};
+
+interface CommentThreadProps {
+  comment: CheckInComment;
+  repliesByParentId: Map<string, CheckInComment[]>;
+  currentUserId?: string;
+  onReply: (comment: CheckInComment) => void;
+  depth?: number;
+}
+
+const CommentThread: React.FC<CommentThreadProps> = ({
+  comment,
+  repliesByParentId,
+  currentUserId,
+  onReply,
+  depth = 0,
+}) => {
+  const replies = repliesByParentId.get(comment.id) || [];
+  const isReply = depth > 0;
+
+  return (
+    <div className={isReply ? 'ml-4 border-l border-gray-200 pl-3' : ''}>
+      <div className="group flex items-start gap-2">
+        <div className="flex-1 min-w-0 text-sm leading-relaxed">
+          <span className="font-bold text-gray-800 whitespace-nowrap">
+            {comment.profiles?.nickname || '群友'}
+          </span>
+          {comment.reply_to_profile && (
+            <>
+              <span className="mx-1 text-gray-400">回复</span>
+              <span className="font-bold text-gray-800 whitespace-nowrap">
+                {comment.reply_to_profile.nickname || '群友'}
+              </span>
+            </>
+          )}
+          <span className="text-gray-400">：</span>
+          <span className="text-gray-600 break-words">{comment.content}</span>
+        </div>
+        {currentUserId && comment.user_id !== currentUserId && (
+          <button
+            type="button"
+            onClick={() => onReply(comment)}
+            className="shrink-0 text-xs text-gray-400 opacity-0 transition-opacity hover:text-blue-600 group-hover:opacity-100"
+          >
+            回复
+          </button>
+        )}
+      </div>
+
+      {replies.length > 0 && (
+        <div className="mt-2 space-y-2">
+          {replies.map((reply) => (
+            <CommentThread
+              key={reply.id}
+              comment={reply}
+              repliesByParentId={repliesByParentId}
+              currentUserId={currentUserId}
+              onReply={onReply}
+              depth={depth + 1}
+            />
+          ))}
+        </div>
       )}
     </div>
   );

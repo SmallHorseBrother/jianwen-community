@@ -276,13 +276,17 @@ export async function addComment(
         .single();
 
     if (error && isMissingReplyColumnError(error)) {
+        if (replyTo) {
+            throw new Error("评论回复功能的数据库迁移尚未生效，请先补充 check_in_comments 的回复字段。");
+        }
+
         const { data: fallbackData, error: fallbackError } = await supabase
             .from("check_in_comments")
             .insert({
-            check_in_id: checkInId,
-            user_id: userId,
-            content,
-        })
+                check_in_id: checkInId,
+                user_id: userId,
+                content,
+            })
             .select(`
       *,
       profiles:user_id (${CHECK_IN_PROFILE_COLUMNS})

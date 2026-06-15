@@ -67,7 +67,7 @@ const LearningHome: React.FC = () => {
       <div className="text-center">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">🦉 枭马葛学习专区</h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          理性学习，科学提效。枭马葛社区助你培养批判性思维和深度学习能力
+          理性学习，科学提效。健文社区助你培养批判性思维和深度学习能力
         </p>
       </div>
 

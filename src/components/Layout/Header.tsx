@@ -41,6 +41,7 @@ const Header: React.FC = () => {
     { to: '/community?tab=partners', label: '找伙伴', icon: Users, activePath: '/community', activeTab: 'partners' },
     { to: '/community?tab=moments', label: '社区动态', icon: Activity, activePath: '/community', activeTab: 'moments' },
     { to: '/tools', label: '产品实验室', icon: Wrench, activePath: '/tools' },
+    { to: '/about', label: '关于马健文', icon: Sparkles, activePath: '/about' },
   ];
 
   const currentCommunityTab = new URLSearchParams(location.search).get('tab') || 'moments';
@@ -80,7 +81,7 @@ const Header: React.FC = () => {
               <Link
                 key={item.to}
                 to={item.to}
-                className={`flex items-center space-x-1.5 rounded-xl px-2.5 py-2 text-xs font-medium transition-all lg:px-3 lg:text-sm ${
+                className={`flex items-center space-x-1.5 rounded-xl px-2 py-2 text-xs font-medium transition-all lg:px-2.5 lg:text-sm ${
                   isNavActive(item)
                     ? 'bg-cyan-300/15 text-cyan-100 shadow-sm shadow-cyan-500/10 ring-1 ring-cyan-300/20'
                     : 'text-slate-300 hover:bg-white/10 hover:text-white'

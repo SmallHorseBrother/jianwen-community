@@ -207,7 +207,7 @@ const Guide: React.FC = () => {
         {/* 底部 CTA */}
         <section className="hero-cyber text-center rounded-2xl p-8 text-white">
           <h2 className="text-2xl font-bold mb-4">准备好了吗？</h2>
-          <p className="text-indigo-100 mb-6">注册账号，开始你的见闻社区之旅</p>
+          <p className="text-indigo-100 mb-6">注册账号，开始你的健文社区之旅</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/register"

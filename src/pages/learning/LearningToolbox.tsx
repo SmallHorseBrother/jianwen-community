@@ -70,7 +70,7 @@ const LearningToolbox: React.FC = () => {
       <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">学习工具箱</h1>
         <p className="text-gray-600">
-          理性学习，科学提效。枭马葛社区为你打造的专注学习工具集
+          理性学习，科学提效。健文社区为你打造的专注学习工具集
         </p>
       </div>
 

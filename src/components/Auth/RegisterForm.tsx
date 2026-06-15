@@ -58,7 +58,7 @@ const RegisterForm: React.FC = () => {
         <div className="text-center">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-cyan-200/80">Jianwen Community</p>
           <h2 className="auth-title text-3xl">加入我们</h2>
-          <p className="auth-subtitle mt-2">创建您的健学社区账户</p>
+          <p className="auth-subtitle mt-2">创建您的健文社区账户</p>
           <div className="auth-info mt-4 p-3 text-sm">
             温馨提示：如果注册按钮无响应，请尝试更换浏览器或切换网络环境
           </div>
