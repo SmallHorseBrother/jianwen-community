@@ -6,6 +6,7 @@
 import React, { useState, useRef } from 'react';
 import { X, Image as ImageIcon, Loader2, Send } from 'lucide-react';
 import { createCheckIn, uploadCheckInImage } from '../../services/checkInService';
+import { normalizeCheckInContent } from '../../utils/normalizeCheckInContent';
 
 interface CreateCheckInModalProps {
   onClose: () => void;
@@ -43,7 +44,8 @@ const CreateCheckInModal: React.FC<CreateCheckInModalProps> = ({ onClose, onSucc
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!content.trim() && images.length === 0) return;
+    const normalizedContent = normalizeCheckInContent(content);
+    if (!normalizedContent && images.length === 0) return;
 
     setIsSubmitting(true);
     try {
@@ -55,7 +57,7 @@ const CreateCheckInModal: React.FC<CreateCheckInModalProps> = ({ onClose, onSucc
       }
 
       // 2. 创建打卡
-      await createCheckIn(content, imageUrls, userId);
+      await createCheckIn(normalizedContent, imageUrls, userId);
       
       onSuccess();
     } catch (error: any) {
@@ -130,7 +132,7 @@ const CreateCheckInModal: React.FC<CreateCheckInModalProps> = ({ onClose, onSucc
 
             <button
               type="submit"
-              disabled={isSubmitting || (!content.trim() && images.length === 0)}
+              disabled={isSubmitting || (!normalizeCheckInContent(content) && images.length === 0)}
               className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-xl font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg active:scale-95"
             >
               {isSubmitting ? (

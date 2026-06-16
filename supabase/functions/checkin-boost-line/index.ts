@@ -53,23 +53,33 @@ type NormalizedPayload = {
 const STYLE_PROMPT = `
 你是健文社区分享海报里的「马哥打气」文案助手。
 
-你的表达参考「枭马葛 / 马健文」的公开风格画像：
-- 深度干货 + 实战权威 + 学术理性。
-- 冷静、自信、直接，结论先行，逻辑链完整。
-- 偏长期主义、训练记录、学习复盘、迁移性、可量化反馈。
-- 去情绪化但有信念感，不讨好、不鸡汤、不喊口号。
+你的声音像社群里的马哥：看到成员认真打卡后，直接回一句有劲、开朗、真诚的鼓励。
+整体感觉要像真人在群里夸人，不像宣传标语，也不像管理学金句。
 
-你只负责输出海报顶部的一句短句。
+语气要求：
+- 活泼、明亮、亲切，有“今天这条我看到了”的回应感。
+- 可以说“这波可以”“很顶”“稳住”“真不错”“继续搞”“给你记一功”这类自然口语。
+- 要抓住打卡里的具体内容，比如生日、蛋糕、产品宣传、读书进度、训练动作、睡眠饮水。
+- 可以轻微幽默，但不要油腻，不要爹味说教。
+- 如果正文有点乱，也不要说“没看懂/没看明白”，直接抓一个看得见的细节鼓励。
 
 硬性规则：
-1. 只输出一句中文短句，24 到 52 个中文字符左右，不换行。
-2. 必须基于用户真实打卡内容、完成项或统计信息生成，优先抓具体名词、动作、书名、数量、连续次数。
-3. 可以使用「不是 A，而是 B」「核心是」「本质上」等句式，但不要机械重复。
-4. 不要出现“加油”“你很棒”“坚持就是胜利”“燃起来”“冲鸭”等泛泛鼓励。
-5. 不要编造未提供的训练重量、页数、成绩、身份或经历。
-6. 如果主题是学习、阅读或生活习惯，不要使用训练、动作、恢复、加码等健身词。
-7. 不要写营销引导，不要提扫码、二维码、注册、关注、转发。
-8. 不要使用 emoji、话题标签、引号、编号或多句解释。
+1. 只输出一句中文短句，20 到 46 个中文字符左右，不换行。
+2. 必须基于用户真实打卡内容生成，优先提到一个具体细节。
+3. 如果原始正文或完成项不为空，必须围绕正文/完成项写，不要只写累计次数、连续天数。
+4. 统计只能辅助，不能成为句子的主角，除非正文完全没有信息。
+5. 可以鼓励，可以热一点；但不要只写“加油”“你很棒”这种空话。
+6. 少用“长期主义、本质、核心、系统、复利、刻度、锚点、目标清晰、执行到位”这类硬词。
+7. 不要编造未提供的训练重量、页数、成绩、身份或经历。
+8. 如果主题是学习、阅读或生活习惯，不要使用训练、动作、恢复、加码等健身词。
+9. 不要写营销引导，不要提扫码、二维码、注册、关注、转发。
+10. 不要使用 emoji、话题标签、引号、编号或多句解释。
+
+好例子：
+- 农历生日还在认真复盘产品，这波状态真的很顶。
+- 蛋糕和思考都安排上了，今天这条很有生命力。
+- 静静的顿河推进到457页，稳，阅读手感已经起来了。
+- 80kg深蹲5x5拿下，今天这条训练记录很硬。
 `.trim();
 
 const jsonResponse = (body: Record<string, unknown>, status = 200) =>
@@ -122,7 +132,7 @@ serve(async (req: Request) => {
       },
       body: JSON.stringify({
         model,
-        temperature: 0.72,
+        temperature: 0.48,
         max_tokens: 512,
         messages: [
           {
@@ -144,7 +154,7 @@ serve(async (req: Request) => {
 
     const data = await response.json();
     const answer = extractModelContent(data);
-    const sanitized = sanitizeGeneratedLine(answer, fallback);
+    const sanitized = sanitizeGeneratedLine(answer, fallback, payload);
     const boostLine = sanitized.boostLine;
     const source: BoostLineSource = boostLine === fallback ? 'fallback' : 'deepseek';
     if (source === 'fallback') {
@@ -242,6 +252,7 @@ function buildUserPrompt(payload: NormalizedPayload) {
     ? payload.achievements.map((item) => `- ${item.label}: ${item.value}`).join('\n')
     : '无结构化完成项';
   const content = payload.content || '用户今天完成了一次打卡，但没有填写详细正文。';
+  const factHints = buildFactHints(payload);
 
   return `
 请为这条社区打卡生成一句「马哥打气」短句。
@@ -252,14 +263,36 @@ function buildUserPrompt(payload: NormalizedPayload) {
 今日完成项数量：${payload.completedCount}
 平台统计：累计 ${payload.stats.totalCount} 次，当前连续 ${payload.stats.currentStreak} 天，最长连续 ${payload.stats.longestStreak} 天，本月 ${payload.stats.monthCount} 天
 
+事实白名单：
+${factHints}
+
 结构化完成项：
 ${achievementText}
 
 原始打卡正文：
 ${content}
 
+只能使用事实白名单、结构化完成项、原始正文里出现的信息。
+不要补充任何没有出现过的时间、地点、动作、页数、分钟数、楼栋、场景。
+只要有结构化完成项或正文，就不要只围绕“累计/连续/本月”写。
 只输出一句短句。
 `.trim();
+}
+
+function buildFactHints(payload: NormalizedPayload) {
+  const facts = [
+    `累计 ${payload.stats.totalCount} 次`,
+    `当前连续 ${payload.stats.currentStreak} 天`,
+    `最长连续 ${payload.stats.longestStreak} 天`,
+    `本月 ${payload.stats.monthCount} 天`,
+    ...payload.achievements.map((item) => `${item.label}: ${item.value}`),
+  ];
+  const contentFacts = payload.content
+    .split(/\n+/)
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .slice(0, 8);
+  return [...facts, ...contentFacts].map((fact) => `- ${fact}`).join('\n');
 }
 
 function extractModelContent(data: unknown) {
@@ -306,7 +339,8 @@ function pickString(value: unknown): string {
   return typeof value === 'string' ? value.trim() : '';
 }
 
-function sanitizeGeneratedLine(value: unknown, fallback: string) {
+function sanitizeGeneratedLine(value: unknown, fallback: string, payload: NormalizedPayload) {
+  const preferredFallback = buildPreferredFallbackLine(payload, fallback);
   if (typeof value !== 'string') return { boostLine: fallback, reason: 'invalid_model_output' };
   const firstLine = value
     .split(/\r?\n/)
@@ -322,12 +356,92 @@ function sanitizeGeneratedLine(value: unknown, fallback: string) {
     .trim();
 
   line = line.replace(/[，,。.!！?？;；:：]+$/u, '。');
-  if (line.length > 58) line = `${line.slice(0, 56)}。`;
+  if (line.length > 62) line = `${line.slice(0, 60)}。`;
 
-  const forbidden = /加油|你很棒|坚持就是胜利|燃起来|冲鸭|扫码|二维码|注册|关注|转发|点击|购买|我们被要求|用户提供|打卡内容|平台统计|分析用户/u;
+  const forbidden = /坚持就是胜利|扫码|二维码|注册|关注|转发|点击|购买|我们被要求|用户提供|打卡内容|平台统计|分析用户|没看懂|没看明白|目标清晰|执行到位|长期主义|锚点/u;
   if (line.length < 10) return { boostLine: fallback, reason: 'model_output_too_short' };
   if (forbidden.test(line)) return { boostLine: fallback, reason: 'model_output_forbidden_phrase' };
+  if (/^(加油|你很棒|继续坚持|很不错|真不错)[。！!]*$/u.test(line)) {
+    return { boostLine: preferredFallback, reason: 'model_output_too_generic' };
+  }
+  if (/^.{0,8}(很稳|真不错|很顶|很棒|加油|继续搞)[。！!]*$/u.test(line)) {
+    return { boostLine: preferredFallback, reason: 'model_output_too_generic' };
+  }
+  if (hasUnsupportedSpecifics(line, payload)) {
+    return { boostLine: preferredFallback, reason: 'model_output_unsupported_specifics' };
+  }
+  if (missesRequiredVisibleDetail(line, payload)) {
+    return { boostLine: preferredFallback, reason: 'model_output_missing_visible_detail' };
+  }
+  if (overusesStatsWhenContentExists(line, payload)) {
+    return { boostLine: preferredFallback, reason: 'model_output_overuses_stats' };
+  }
   return { boostLine: line, reason: undefined };
+}
+
+function buildPreferredFallbackLine(payload: NormalizedPayload, fallback: string) {
+  const text = getPayloadText(payload);
+  if (/生日|蛋糕|农历/.test(text) && /产品|宣传|项目|创业|方案|复盘|思考/.test(text)) {
+    return '农历生日还在认真想产品宣传，这波状态真的很顶。';
+  }
+  if (/生日|蛋糕|农历/.test(text)) {
+    return '生日也认真打卡，这份状态很亮，今天值得记一功。';
+  }
+  if (/产品|宣传|项目|创业|方案|复盘|思考/.test(text)) {
+    return '产品宣传这块开始加速了，很好，节奏正在起来。';
+  }
+  return fallback;
+}
+
+function missesRequiredVisibleDetail(line: string, payload: NormalizedPayload) {
+  const text = getPayloadText(payload);
+  if (/生日|蛋糕|农历/.test(text) && !/生日|蛋糕|农历/.test(line)) return true;
+  if (/产品|宣传|项目|创业|方案|复盘|思考/.test(text) && !/产品|宣传|项目|创业|方案|复盘|思考/.test(line)) return true;
+  return false;
+}
+
+function overusesStatsWhenContentExists(line: string, payload: NormalizedPayload) {
+  const text = getPayloadText(payload).trim();
+  if (!text) return false;
+  const statWordCount = ['累计', '连续', '本月', '打卡'].filter((word) => line.includes(word)).length;
+  const hasVisibleContentWord = payload.achievements.some((item) => {
+    const candidates = [item.label, item.value]
+      .flatMap((part) => part.split(/[：:，,。\s、-]+/))
+      .map((part) => part.trim())
+      .filter((part) => part.length >= 2 && !/^\d+$/.test(part));
+    return candidates.some((part) => line.includes(part));
+  });
+  return statWordCount >= 2 && !hasVisibleContentWord;
+}
+
+function getPayloadText(payload: NormalizedPayload) {
+  return [
+    payload.content,
+    ...payload.achievements.flatMap((item) => [item.label, item.value]),
+  ].join('\n');
+}
+
+function hasUnsupportedSpecifics(line: string, payload: NormalizedPayload) {
+  const sourceText = [
+    payload.content,
+    ...payload.achievements.flatMap((item) => [item.label, item.value]),
+    String(payload.stats.totalCount),
+    String(payload.stats.currentStreak),
+    String(payload.stats.longestStreak),
+    String(payload.stats.monthCount),
+  ].join('\n').replace(/\s+/g, '');
+
+  const riskySpecificPatterns = line.match(/\d+(?:\.\d+)?\s*(?:分钟|栋|楼|公里|km)/gi) || [];
+  if (riskySpecificPatterns.some((item) => !sourceText.includes(item.replace(/\s+/g, '')))) {
+    return true;
+  }
+
+  if (/连续(?:第)?[二两2]天/.test(line) && payload.stats.currentStreak !== 2) {
+    return true;
+  }
+
+  const riskyWords = ['楼下', '拐角', '读完'];
+  return riskyWords.some((word) => line.includes(word) && !sourceText.includes(word));
 }
 
 function buildFallbackBoostLine(payload: NormalizedPayload) {
@@ -335,28 +449,34 @@ function buildFallbackBoostLine(payload: NormalizedPayload) {
   const doneText = payload.completedCount > 0 ? `今天完成 ${payload.completedCount} 项，` : '';
   const streakText = payload.stats.currentStreak > 1 ? `连续 ${payload.stats.currentStreak} 天，` : '';
 
+  if (/生日|蛋糕|农历/.test(text)) {
+    return `${doneText || streakText}生日也认真打卡，这份状态很亮，继续搞。`;
+  }
+  if (/产品|宣传|项目|创业|方案|复盘/.test(text)) {
+    return `${doneText || streakText}产品宣传这块开始动脑了，很好，节奏正在起来。`;
+  }
   if (/静静的顿河|读书|阅读|书/.test(text)) {
-    return `${doneText || streakText}这不是读了几页，而是把注意力训练成可累计资产。`;
+    return `${doneText || streakText}这页数是实打实推进，阅读手感已经慢慢起来了。`;
   }
   if (/单词|英语|背词|anki/i.test(text)) {
-    return `${doneText || streakText}单词别靠感觉，靠重复、反馈和下一次还能捡起来。`;
+    return `${doneText || streakText}单词又拿下一轮，稳住，这种小推进最扎实。`;
   }
   if (/练字|写字|字帖/.test(text)) {
-    return `${doneText || streakText}练字的价值不在今天多漂亮，而在手感每天被校准。`;
+    return `${doneText || streakText}练字这事很吃耐心，今天这笔算是稳稳落下了。`;
   }
   if (/深蹲|卧推|硬拉|引体|训练|力量|有氧|公里|跑/.test(text)) {
-    return `${doneText || streakText}训练别拼情绪，动作、次数和恢复能复盘才有加码依据。`;
+    return `${doneText || streakText}训练记录很硬，今天这波执行力可以给自己记一功。`;
   }
   if (/饮食|睡眠|早睡|冥想|情绪|饮水/.test(text)) {
-    return `${doneText || streakText}习惯不是喊口号，能被记录、复盘、调整，才会长在身上。`;
+    return `${doneText || streakText}把生活小事记下来就很厉害，状态就是这样养起来的。`;
   }
   if (payload.themeLabel === '学习成长') {
-    return `${doneText || streakText}学习打卡的本质，是给明天的自己留一份可复用反馈。`;
+    return `${doneText || streakText}学习这条很稳，今天的自己没有糊弄过去。`;
   }
   if (payload.themeLabel === '健身成长') {
-    return `${doneText || streakText}健身不是热血叙事，是训练量、恢复和执行力的长期校准。`;
+    return `${doneText || streakText}训练能留下记录就很顶，下一次继续接上。`;
   }
-  return `${doneText || streakText}长期主义不是感动自己，是每天多交一份可验证证据。`;
+  return `${doneText || streakText}这条打卡很实在，今天的状态已经被你接住了。`;
 }
 
 function buildBoostResponse(boostLine: string, source: BoostLineSource, reason?: string) {

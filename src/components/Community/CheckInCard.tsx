@@ -16,6 +16,7 @@ import {
   CheckInComment,
 } from '../../services/checkInService';
 import CheckInShareModal from './CheckInShareModal';
+import { normalizeCheckInContent } from '../../utils/normalizeCheckInContent';
 
 interface CheckInCardProps {
   checkIn: CheckIn;
@@ -32,7 +33,8 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
   const [likeAnimating, setLikeAnimating] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [editContent, setEditContent] = useState(checkIn.content || '');
+  const normalizedContent = normalizeCheckInContent(checkIn.content || '');
+  const [editContent, setEditContent] = useState(normalizedContent);
   const [savingEdit, setSavingEdit] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [deletingCommentId, setDeletingCommentId] = useState<string | null>(null);
@@ -166,12 +168,12 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
   };
 
   const handleStartEdit = () => {
-    setEditContent(checkIn.content || '');
+    setEditContent(normalizedContent);
     setIsEditing(true);
   };
 
   const handleCancelEdit = () => {
-    setEditContent(checkIn.content || '');
+    setEditContent(normalizedContent);
     setIsEditing(false);
   };
 
@@ -180,14 +182,16 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
       alert('请先登录');
       return;
     }
-    if (!editContent.trim() && !(checkIn.image_urls?.length)) {
+    const normalizedEditContent = normalizeCheckInContent(editContent);
+
+    if (!normalizedEditContent && !(checkIn.image_urls?.length)) {
       alert('打卡内容不能为空');
       return;
     }
 
     setSavingEdit(true);
     try {
-      await updateCheckIn(checkIn.id, user.id, editContent.trim());
+      await updateCheckIn(checkIn.id, user.id, normalizedEditContent);
       setIsEditing(false);
       onUpdate();
     } catch (error) {
@@ -312,7 +316,7 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
               <button
                 type="button"
                 onClick={handleSaveEdit}
-                disabled={savingEdit || (!editContent.trim() && !(checkIn.image_urls?.length))}
+                disabled={savingEdit || (!normalizeCheckInContent(editContent) && !(checkIn.image_urls?.length))}
                 className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {savingEdit && <Loader2 className="h-4 w-4 animate-spin" />}
@@ -321,7 +325,7 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
             </div>
           </div>
         ) : (
-          <p className="whitespace-pre-wrap text-sm leading-7 text-gray-800 sm:text-base">{checkIn.content}</p>
+          <p className="whitespace-pre-wrap text-sm leading-7 text-gray-800 sm:text-base">{normalizedContent}</p>
         )}
       </div>
 
