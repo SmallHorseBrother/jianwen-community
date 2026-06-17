@@ -6,6 +6,7 @@ import {
 	CheckCircle,
 	ChevronRight,
 	Expand,
+	Filter,
 	Layers3,
 	Maximize2,
 	MessageSquareText,
@@ -13,11 +14,17 @@ import {
 	MousePointer2,
 	Network,
 	RotateCcw,
+	Search,
 	Sparkles,
+	Tag,
 	X,
 } from "lucide-react";
 import type { Database } from "../../lib/database.types";
-import { normalizeQuestionTopic, type QuestionEdge } from "../../services/questionService";
+import {
+	QUESTION_TOPICS,
+	normalizeQuestionTopic,
+	type QuestionEdge,
+} from "../../services/questionService";
 import { scoreBetweenQuestions } from "../../utils/questionSimilarity";
 
 type Question = Database["public"]["Tables"]["questions"]["Row"];
@@ -109,6 +116,13 @@ interface QuestionStarMapProps {
 	semanticEdges?: QuestionEdge[];
 	onSameQuestion: (question: Question) => void;
 	loading?: boolean;
+	searchQuery: string;
+	onSearchQueryChange: (value: string) => void;
+	selectedTopic: string | null;
+	onTopicSelect: (topic: string | null) => void;
+	selectedTag?: string | null;
+	topicCounts?: Record<string, number>;
+	onClearFilters?: () => void;
 }
 
 const granularityOptions: Array<{
@@ -574,6 +588,13 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 	semanticEdges = [],
 	onSameQuestion,
 	loading = false,
+	searchQuery,
+	onSearchQueryChange,
+	selectedTopic,
+	onTopicSelect,
+	selectedTag = null,
+	topicCounts,
+	onClearFilters,
 }) => {
 	const mountRef = useRef<HTMLDivElement | null>(null);
 	const frameRef = useRef<number | null>(null);
@@ -1101,22 +1122,109 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 							</span>
 						)}
 					</div>
-					<div className="absolute left-3 right-3 top-[3.35rem] z-20 grid grid-cols-3 gap-1 rounded-2xl border border-white/10 bg-slate-950/75 p-1.5 shadow-xl shadow-slate-950/30 backdrop-blur sm:left-5 sm:right-auto sm:top-[4.65rem] sm:flex sm:flex-wrap sm:gap-2">
-						{granularityOptions.map((option) => (
+					<div className="pointer-events-auto absolute left-3 top-[3.35rem] z-20 w-[min(calc(100%-4.5rem),42rem)] rounded-2xl border border-white/10 bg-slate-950/78 p-3 shadow-xl shadow-slate-950/30 backdrop-blur sm:left-5 sm:top-[4.65rem] sm:w-[min(calc(100%-9rem),46rem)] sm:rounded-[1.6rem] sm:p-4">
+						<div className="flex items-start justify-between gap-3">
+							<div className="min-w-0">
+								<p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-cyan-100/85">
+									<Filter className="h-3.5 w-3.5" />
+									星图筛选台
+								</p>
+								<p className="mt-1 text-xs leading-5 text-slate-300 sm:text-sm">
+									直接在星空里搜索问题，或切到某个分类，只看这一片星区。
+								</p>
+							</div>
+							{(selectedTopic || selectedTag || searchQuery) && onClearFilters && (
+								<button
+									type="button"
+									onClick={onClearFilters}
+									className="shrink-0 rounded-full border border-white/10 px-3 py-1 text-[11px] text-slate-200 transition hover:bg-white/10"
+								>
+									清空
+								</button>
+							)}
+						</div>
+						<label className="relative mt-3 block">
+							<Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+							<input
+								type="text"
+								value={searchQuery}
+								onChange={(event) => onSearchQueryChange(event.target.value)}
+								placeholder="在当前星空里搜索问题、回答、标签"
+								className="w-full rounded-2xl border border-white/10 bg-slate-900/80 py-3 pl-10 pr-4 text-sm text-white outline-none transition placeholder:text-slate-500 focus:ring-2 focus:ring-cyan-400"
+							/>
+						</label>
+						<div className="mt-3 flex flex-wrap gap-2">
 							<button
-								key={option.mode}
 								type="button"
-								onClick={() => setGranularity(option.mode)}
-								className={`min-w-0 rounded-xl px-2 py-2 text-center text-[11px] transition sm:px-3 sm:text-left sm:text-xs ${
-									granularity === option.mode
-										? "bg-cyan-300/18 text-cyan-50"
-										: "text-slate-300 hover:bg-white/8 hover:text-white"
+								onClick={() => onTopicSelect(null)}
+								className={`rounded-full border px-3 py-1.5 text-xs transition ${
+									!selectedTopic
+										? "border-cyan-300/45 bg-cyan-300/18 text-cyan-50"
+										: "border-white/10 bg-white/5 text-slate-300 hover:bg-white/10"
 								}`}
 							>
-								<span className="block font-bold">{option.label}</span>
-								<span className="hidden text-[10px] opacity-70 sm:block">{option.description}</span>
+								全部星区
 							</button>
-						))}
+							{QUESTION_TOPICS.map((topic) => {
+								const active = selectedTopic === topic;
+								return (
+									<button
+										key={topic}
+										type="button"
+										onClick={() => onTopicSelect(active ? null : topic)}
+										className={`rounded-full border px-3 py-1.5 text-xs transition ${
+											active
+												? "border-cyan-300/45 bg-cyan-300/18 text-cyan-50"
+												: "border-white/10 bg-white/5 text-slate-300 hover:bg-white/10"
+										}`}
+									>
+										{topic}
+										<span className="ml-1.5 text-[10px] opacity-70">
+											{topicCounts?.[topic] ?? "·"}
+										</span>
+									</button>
+								);
+							})}
+						</div>
+						<div className="mt-3 flex flex-wrap items-center gap-2">
+							<span className="text-[11px] text-slate-500">星图密度</span>
+							{granularityOptions.map((option) => (
+								<button
+									key={option.mode}
+									type="button"
+									onClick={() => setGranularity(option.mode)}
+									className={`rounded-xl px-3 py-2 text-[11px] transition sm:text-xs ${
+										granularity === option.mode
+											? "bg-cyan-300/18 text-cyan-50"
+											: "text-slate-300 hover:bg-white/8 hover:text-white"
+									}`}
+								>
+									<span className="block font-bold">{option.label}</span>
+									<span className="hidden text-[10px] opacity-70 sm:block">{option.description}</span>
+								</button>
+							))}
+						</div>
+						<div className="mt-3 flex flex-wrap items-center gap-2 text-[11px] text-slate-400">
+							<span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
+								当前显示 {nodes.length} 颗星
+							</span>
+							{selectedTopic && (
+								<span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-cyan-50">
+									分类：{selectedTopic}
+								</span>
+							)}
+							{selectedTag && (
+								<span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-3 py-1">
+									<Tag className="h-3 w-3" />
+									标签：#{selectedTag}
+								</span>
+							)}
+							{searchQuery.trim() && (
+								<span className="rounded-full border border-fuchsia-300/20 bg-fuchsia-300/10 px-3 py-1 text-fuchsia-100">
+									搜索：{searchQuery.trim()}
+								</span>
+							)}
+						</div>
 					</div>
 					<button
 						type="button"

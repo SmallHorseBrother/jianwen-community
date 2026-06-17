@@ -15,13 +15,13 @@
     {
       "key": "food-users-2",
       "name": "食探用户群-2",
-      "sessionId": "",
+      "sessionId": "49689723269@chatroom",
       "projectName": "food_link",
       "projectPath": "D:/files/food_link",
       "owner": "枭马葛",
       "tags": ["foodlink", "wechat-feedback"],
-      "enabled": false,
-      "skipReason": "待补 CipherTalk sessionId"
+      "enableGeneric": true,
+      "isPublic": true
     },
     {
       "key": "coachlink-beta",
@@ -55,6 +55,40 @@
       "tags": ["coachlink", "coach-app", "wechat-feedback"],
       "enableGeneric": true,
       "isPublic": true
+    },
+    {
+      "key": "zhijian-tech",
+      "name": "智健启能技术群",
+      "sessionId": "48872012708@chatroom",
+      "projectName": "jianwen-community",
+      "projectPath": "D:/files/jianwen-community",
+      "owner": "枭马葛",
+      "tags": ["jianwen-community", "tech", "wechat-feedback"],
+      "enableGeneric": true,
+      "isPublic": false
+    },
+    {
+      "key": "bug-temp",
+      "name": "bug临时群",
+      "sessionId": "47687526152@chatroom",
+      "projectName": "jianwen-community",
+      "projectPath": "D:/files/jianwen-community",
+      "owner": "枭马葛",
+      "tags": ["jianwen-community", "bug", "wechat-feedback"],
+      "enableGeneric": true,
+      "isPublic": false
+    },
+    {
+      "key": "xiaomage-work",
+      "name": "枭马葛（工作号）",
+      "sessionId": "wxid_tue5nxovjzx722",
+      "sourceType": "private",
+      "projectName": "jianwen-community",
+      "projectPath": "D:/files/jianwen-community",
+      "owner": "枭马葛",
+      "tags": ["private-chat", "work-account", "wechat-feedback"],
+      "enableGeneric": true,
+      "isPublic": false
     },
     {
       "key": "jianwen-checkin",

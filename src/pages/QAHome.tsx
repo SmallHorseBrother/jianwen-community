@@ -3,7 +3,7 @@
  * 视频引流入口 + 全渠道问题地图
  */
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import {
 	ArrowUpRight,
@@ -101,6 +101,7 @@ const QAHome: React.FC = () => {
 	const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
 	const [selectedTag, setSelectedTag] = useState<string | null>(initialTag);
 	const [searchQuery, setSearchQuery] = useState("");
+	const deferredSearchQuery = useDeferredValue(searchQuery.trim());
 	const [sort, setSort] = useState<"default" | "same" | "source" | "latest">(
 		"default",
 	);
@@ -130,7 +131,7 @@ const QAHome: React.FC = () => {
 
 	useEffect(() => {
 		loadQuestionData(false);
-	}, [selectedTopic, selectedTag, searchQuery, sort]);
+	}, [selectedTopic, selectedTag, deferredSearchQuery, sort]);
 
 	const loadInitialData = async () => {
 		try {
@@ -173,7 +174,7 @@ const QAHome: React.FC = () => {
 					limit: getInitialStarMapLimit(),
 					topic: selectedTopic || undefined,
 					tag: selectedTag || undefined,
-					searchQuery: searchQuery || undefined,
+					searchQuery: deferredSearchQuery || undefined,
 					includeEdges: false,
 				})
 					.then((starsResult) => {
@@ -198,7 +199,7 @@ const QAHome: React.FC = () => {
 				offset: currentOffset,
 				topic: selectedTopic || undefined,
 				tag: selectedTag || undefined,
-				searchQuery: searchQuery || undefined,
+				searchQuery: deferredSearchQuery || undefined,
 				sort,
 			});
 			if (questionRequestIdRef.current !== requestId) return;
@@ -278,6 +279,12 @@ const QAHome: React.FC = () => {
 		setSelectedTag(tag);
 		if (tag) setSearchParams({ tag });
 		else setSearchParams({});
+	};
+
+	const handleClearFilters = () => {
+		setSelectedTopic(null);
+		handleTagSelect(null);
+		setSearchQuery("");
 	};
 
 	const handleSubmitQuestion = async (event: React.FormEvent) => {
@@ -377,6 +384,13 @@ const QAHome: React.FC = () => {
 					semanticEdges={starEdges}
 					loading={starLoading && stars.length === 0}
 					onSameQuestion={handleSameQuestion}
+					searchQuery={searchQuery}
+					onSearchQueryChange={setSearchQuery}
+					selectedTopic={selectedTopic}
+					onTopicSelect={handleTopicSelect}
+					selectedTag={selectedTag}
+					topicCounts={stats?.byTopic}
+					onClearFilters={handleClearFilters}
 				/>
 			</section>
 
@@ -575,11 +589,7 @@ const QAHome: React.FC = () => {
 							{(selectedTopic || selectedTag || searchQuery) && (
 								<button
 									type="button"
-									onClick={() => {
-										setSelectedTopic(null);
-										handleTagSelect(null);
-										setSearchQuery("");
-									}}
+									onClick={handleClearFilters}
 									className="text-cyan-200 hover:text-cyan-100"
 								>
 									清空筛选
