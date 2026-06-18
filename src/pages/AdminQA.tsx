@@ -7,7 +7,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   MessageCircle, Check, X, Star, Trash2, 
-  Clock, CheckCircle, XCircle, Filter, Save
+  Clock, CheckCircle, XCircle, Filter, Save,
+  AlertTriangle, Loader2, Network
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import {
@@ -16,10 +17,12 @@ import {
   answerQuestion,
   updateQuestionStatus,
   toggleFeatured,
-  deleteQuestion,
+  deleteQuestions,
+  getRelatedQuestionsForAdmin,
   QUESTION_TOPICS,
   normalizeQuestionTopic,
 } from '../services/questionService';
+import type { AdminRelatedQuestion } from '../services/questionService';
 import type { Database, QuestionStatus } from '../lib/database.types';
 
 type Question = Database['public']['Tables']['questions']['Row'];
@@ -41,6 +44,12 @@ const AdminQA: React.FC = () => {
   const [editTags, setEditTags] = useState('');
   const [editTopic, setEditTopic] = useState<string>('其他');
   const [saving, setSaving] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState<Question | null>(null);
+  const [relatedDeleteItems, setRelatedDeleteItems] = useState<AdminRelatedQuestion[]>([]);
+  const [selectedDeleteIds, setSelectedDeleteIds] = useState<Set<string>>(new Set());
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [deleteSaving, setDeleteSaving] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   useEffect(() => {
     checkAdminAccess();
@@ -127,14 +136,74 @@ const AdminQA: React.FC = () => {
     }
   };
 
-  const handleDelete = async (questionId: string) => {
-    if (!confirm('确定要删除这个问题吗？此操作不可恢复。')) return;
-    
+  const handleOpenDeleteReview = async (question: Question) => {
+    setDeleteTarget(question);
+    setRelatedDeleteItems([]);
+    setSelectedDeleteIds(new Set([question.id]));
+    setDeleteError(null);
+    setDeleteLoading(true);
+
     try {
-      await deleteQuestion(questionId);
+      const related = await getRelatedQuestionsForAdmin(question.id, 12);
+      setRelatedDeleteItems(related);
+    } catch (error) {
+      console.error('加载相似问题失败:', error);
+      setDeleteError('相似问题加载失败，可以只删除当前问题，或稍后重试。');
+    } finally {
+      setDeleteLoading(false);
+    }
+  };
+
+  const handleCloseDeleteReview = () => {
+    if (deleteSaving) return;
+    setDeleteTarget(null);
+    setRelatedDeleteItems([]);
+    setSelectedDeleteIds(new Set());
+    setDeleteError(null);
+  };
+
+  const handleToggleDeleteSelection = (questionId: string) => {
+    if (questionId === deleteTarget?.id) return;
+    setSelectedDeleteIds((current) => {
+      const next = new Set(current);
+      if (next.has(questionId)) {
+        next.delete(questionId);
+      } else {
+        next.add(questionId);
+      }
+      return next;
+    });
+  };
+
+  const handleSelectAllRelated = () => {
+    if (!deleteTarget) return;
+    setSelectedDeleteIds(new Set([
+      deleteTarget.id,
+      ...relatedDeleteItems.map((item) => item.question.id),
+    ]));
+  };
+
+  const handleClearRelated = () => {
+    if (!deleteTarget) return;
+    setSelectedDeleteIds(new Set([deleteTarget.id]));
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!deleteTarget) return;
+
+    const idsToDelete = Array.from(selectedDeleteIds);
+    if (!confirm(`确定要删除选中的 ${idsToDelete.length} 个问题吗？此操作不可恢复。`)) return;
+
+    try {
+      setDeleteSaving(true);
+      await deleteQuestions(idsToDelete);
+      handleCloseDeleteReview();
       await loadQuestions();
     } catch (error) {
       console.error('删除失败:', error);
+      alert('删除失败，请重试');
+    } finally {
+      setDeleteSaving(false);
     }
   };
 
@@ -155,6 +224,11 @@ const AdminQA: React.FC = () => {
       hour: '2-digit',
       minute: '2-digit',
     });
+  };
+
+  const formatScore = (value: number | null | undefined) => {
+    if (value === null || value === undefined) return '--';
+    return `${Math.round(value * 100)}%`;
   };
 
   const getStatusBadge = (status: QuestionStatus) => {
@@ -220,6 +294,9 @@ const AdminQA: React.FC = () => {
       }
       return new Date(right.created_at).getTime() - new Date(left.created_at).getTime();
     });
+  const selectedRelatedCount = relatedDeleteItems.filter((item) =>
+    selectedDeleteIds.has(item.question.id),
+  ).length;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -413,7 +490,7 @@ const AdminQA: React.FC = () => {
                     </>
                   )}
                   <button
-                    onClick={() => handleDelete(question.id)}
+                    onClick={() => handleOpenDeleteReview(question)}
                     className="flex items-center gap-1 text-red-500 hover:bg-red-50 px-3 py-1.5 rounded-lg transition text-sm ml-auto"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -425,6 +502,163 @@ const AdminQA: React.FC = () => {
           </div>
         )}
       </div>
+
+      {deleteTarget && (
+        <div className="fixed inset-0 z-50 bg-slate-900/55 px-4 py-6 overflow-y-auto">
+          <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
+            <div className="p-5 border-b border-gray-100 flex items-start justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2 text-red-600 font-semibold">
+                  <AlertTriangle className="w-5 h-5" />
+                  删除前复核相似问题
+                </div>
+                <p className="text-sm text-gray-500 mt-1">
+                  相似问题按 embedding 相似度优先排序，可选择一起删除。
+                </p>
+              </div>
+              <button
+                onClick={handleCloseDeleteReview}
+                disabled={deleteSaving}
+                className="p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition disabled:opacity-50"
+                aria-label="关闭"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="p-5 space-y-4">
+              <div className="border border-red-100 bg-red-50 rounded-lg p-4">
+                <div className="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    checked
+                    readOnly
+                    className="mt-1 rounded border-red-300 text-red-600 focus:ring-red-500"
+                  />
+                  <div className="flex-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-xs font-semibold text-red-600 bg-white px-2 py-0.5 rounded-full">
+                        当前要删除
+                      </span>
+                      {getStatusBadge(deleteTarget.status)}
+                      <span className="text-xs text-gray-500">
+                        同问 {deleteTarget.same_question_count || 0} · 来源 {deleteTarget.source_count || 1}
+                      </span>
+                    </div>
+                    <p className="mt-2 font-medium text-gray-900">{deleteTarget.content}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <Network className="w-4 h-4 text-blue-500" />
+                  <span>发现 {relatedDeleteItems.length} 个相似问题，已选 {selectedRelatedCount} 个相似项</span>
+                </div>
+                {relatedDeleteItems.length > 0 && (
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={handleSelectAllRelated}
+                      className="text-sm text-blue-600 hover:bg-blue-50 px-3 py-1.5 rounded-lg transition"
+                    >
+                      全选相似
+                    </button>
+                    <button
+                      onClick={handleClearRelated}
+                      className="text-sm text-gray-500 hover:bg-gray-100 px-3 py-1.5 rounded-lg transition"
+                    >
+                      只删当前
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {deleteError && (
+                <div className="text-sm text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-3 py-2">
+                  {deleteError}
+                </div>
+              )}
+
+              {deleteLoading ? (
+                <div className="py-10 flex items-center justify-center text-gray-500 gap-2">
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  正在读取相似问题
+                </div>
+              ) : relatedDeleteItems.length === 0 ? (
+                <div className="py-8 text-center text-gray-500 bg-gray-50 rounded-lg">
+                  没有找到语义相似问题
+                </div>
+              ) : (
+                <div className="space-y-2 max-h-[46vh] overflow-y-auto pr-1">
+                  {relatedDeleteItems.map(({ question, embeddingScore, graphScore, score, edge }) => {
+                    const selected = selectedDeleteIds.has(question.id);
+                    return (
+                      <label
+                        key={question.id}
+                        className={`block border rounded-lg p-3 cursor-pointer transition ${
+                          selected
+                            ? 'border-red-200 bg-red-50'
+                            : 'border-gray-100 bg-white hover:bg-gray-50'
+                        }`}
+                      >
+                        <div className="flex items-start gap-3">
+                          <input
+                            type="checkbox"
+                            checked={selected}
+                            onChange={() => handleToggleDeleteSelection(question.id)}
+                            className="mt-1 rounded border-gray-300 text-red-600 focus:ring-red-500"
+                          />
+                          <div className="flex-1 min-w-0">
+                            <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500">
+                              <span className="font-semibold text-blue-600">
+                                embedding {formatScore(embeddingScore)}
+                              </span>
+                              <span>综合 {formatScore(score)}</span>
+                              <span>边分 {formatScore(graphScore)}</span>
+                              {edge.reason && <span>{edge.reason}</span>}
+                              {getStatusBadge(question.status)}
+                            </div>
+                            <p className="mt-1 text-sm text-gray-900">{question.content}</p>
+                            <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-gray-500">
+                              <span>#{normalizeQuestionTopic(question.topic)}</span>
+                              <span>同问 {question.same_question_count || 0}</span>
+                              <span>来源 {question.source_count || 1}</span>
+                              <span>{formatDate(question.created_at)}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </label>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            <div className="px-5 py-4 bg-gray-50 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3">
+              <p className="text-sm text-gray-500">
+                将删除 {selectedDeleteIds.size} 个问题，删除后语义连线会随外键同步清理。
+              </p>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleCloseDeleteReview}
+                  disabled={deleteSaving}
+                  className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition disabled:opacity-50"
+                >
+                  取消
+                </button>
+                <button
+                  onClick={handleConfirmDelete}
+                  disabled={deleteSaving || selectedDeleteIds.size === 0}
+                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 disabled:bg-gray-300 text-white px-4 py-2 rounded-lg transition"
+                >
+                  {deleteSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+                  {deleteSaving ? '删除中' : `确认删除 ${selectedDeleteIds.size} 个`}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

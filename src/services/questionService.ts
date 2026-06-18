@@ -63,6 +63,15 @@ export interface QuestionStarMapData {
 	edges: QuestionEdge[];
 }
 
+export interface AdminRelatedQuestion {
+	question: Question;
+	edge: QuestionEdge;
+	score: number;
+	embeddingScore: number | null;
+	graphScore: number;
+	direction: "outgoing" | "incoming";
+}
+
 const ANON_KEY_STORAGE = "jw_question_planet_anon_key";
 
 export const normalizeQuestionTopic = (topic?: string | null): QuestionTopic => {
@@ -498,6 +507,7 @@ export const getAllTags = async (): Promise<string[]> => {
  * 使用数据库侧统一函数判断，兼容 profiles.user_role 和 admin_users。
  */
 export const checkIsAdmin = async (_userId: string): Promise<boolean> => {
+  void _userId;
   const { data, error } = await supabase.rpc("is_app_admin");
 
   if (error) return false;
@@ -622,6 +632,94 @@ export const deleteQuestion = async (questionId: string): Promise<void> => {
     .eq("id", questionId);
 
   if (error) throw error;
+};
+
+/**
+ * 获取某个问题的语义相似问题，供管理员删除前复核。
+ */
+export const getRelatedQuestionsForAdmin = async (
+	questionId: string,
+	limit = 12,
+): Promise<AdminRelatedQuestion[]> => {
+	const { data: edges, error: edgeError } = await supabase
+		.from("question_edges")
+		.select("*")
+		.eq("edge_type", "semantic")
+		.or(`question_id.eq.${questionId},related_question_id.eq.${questionId}`)
+		.order("embedding_similarity", { ascending: false, nullsFirst: false })
+		.order("similarity", { ascending: false })
+		.limit(Math.max(limit * 2, limit));
+
+	if (edgeError) throw edgeError;
+
+	const bestByQuestionId = new Map<string, {
+		edge: QuestionEdge;
+		score: number;
+		embeddingScore: number | null;
+		graphScore: number;
+		direction: "outgoing" | "incoming";
+	}>();
+
+	(edges || []).forEach((edge) => {
+		const relatedId = edge.question_id === questionId
+			? edge.related_question_id
+			: edge.question_id;
+		const embeddingScore = edge.embedding_similarity ?? null;
+		const graphScore = edge.similarity || 0;
+		const score = embeddingScore ?? graphScore;
+		const existing = bestByQuestionId.get(relatedId);
+
+		if (!existing || score > existing.score) {
+			bestByQuestionId.set(relatedId, {
+				edge: edge as QuestionEdge,
+				score,
+				embeddingScore,
+				graphScore,
+				direction: edge.question_id === questionId ? "outgoing" : "incoming",
+			});
+		}
+	});
+
+	const rankedRelations = Array.from(bestByQuestionId.entries())
+		.sort(([, left], [, right]) => right.score - left.score)
+		.slice(0, limit);
+	const relatedIds = rankedRelations.map(([id]) => id);
+	if (relatedIds.length === 0) return [];
+
+	const { data: relatedQuestions, error: questionError } = await supabase
+		.from("questions")
+		.select("*")
+		.in("id", relatedIds);
+
+	if (questionError) throw questionError;
+
+	const questionById = new Map((relatedQuestions || []).map((question) => [question.id, question as Question]));
+
+	return rankedRelations
+		.map(([id, relation]) => {
+			const question = questionById.get(id);
+			if (!question) return null;
+			return {
+				question,
+				...relation,
+			};
+		})
+		.filter((item): item is AdminRelatedQuestion => Boolean(item));
+};
+
+/**
+ * 批量删除问题。数据库外键会同步清理相关语义边。
+ */
+export const deleteQuestions = async (questionIds: string[]): Promise<void> => {
+	const uniqueIds = Array.from(new Set(questionIds));
+	if (uniqueIds.length === 0) return;
+
+	const { error } = await supabase
+		.from("questions")
+		.delete()
+		.in("id", uniqueIds);
+
+	if (error) throw error;
 };
 
 /**

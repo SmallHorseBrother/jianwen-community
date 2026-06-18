@@ -1,0 +1,20 @@
+{
+  "baseToken": "Chaab6zmXaOkAQsShIIc9iCLnEe",
+  "tableId": "tblnzt1khBv6AHIj",
+  "pollIntervalSeconds": 300,
+  "worktreeRoot": "D:/files/_feishu-codex-worktrees",
+  "sourceProjectMap": {
+    "48872012708@chatroom": "D:/files/jianwen-community",
+    "47687526152@chatroom": "D:/files/jianwen-community",
+    "wxid_tue5nxovjzx722": "D:/files/jianwen-community",
+    "45691821312@chatroom": "D:/files/jianwen-community",
+    "49126180086@chatroom": "D:/files/jianwen-community",
+    "43472137027@chatroom": "D:/files/jianwen-community",
+    "49015003281@chatroom": "D:/files/jianwen-community",
+    "46014332051@chatroom": "D:/files/jianwen-community",
+    "45916137803@chatroom": "D:/files/food_link",
+    "49689723269@chatroom": "D:/files/food_link",
+    "49087811230@chatroom": "D:/files/coachlink-wechat-app",
+    "49789312419@chatroom": "D:/files/coachlink"
+  }
+}

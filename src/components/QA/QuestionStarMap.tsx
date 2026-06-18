@@ -6,17 +6,17 @@ import {
 	CheckCircle,
 	ChevronRight,
 	Expand,
-	Filter,
 	Layers3,
 	Maximize2,
 	MessageSquareText,
+	MessageCircle,
 	Move,
 	MousePointer2,
 	Network,
 	RotateCcw,
 	Search,
+	Send,
 	Sparkles,
-	Tag,
 	X,
 } from "lucide-react";
 import type { Database } from "../../lib/database.types";
@@ -29,6 +29,7 @@ import { scoreBetweenQuestions } from "../../utils/questionSimilarity";
 
 type Question = Database["public"]["Tables"]["questions"]["Row"];
 type GranularityMode = "constellation" | "cluster" | "raw";
+type ViewMode = "cosmos" | "list";
 const MAX_RENDERED_QUESTIONS_BY_MODE: Record<GranularityMode, number> = {
 	constellation: 260,
 	cluster: 420,
@@ -123,6 +124,11 @@ interface QuestionStarMapProps {
 	selectedTag?: string | null;
 	topicCounts?: Record<string, number>;
 	onClearFilters?: () => void;
+	stats?: Array<{ label: string; value: string }>;
+	askPanel?: React.ReactNode;
+	listPanel?: React.ReactNode;
+	viewMode?: ViewMode;
+	onViewModeChange?: (mode: ViewMode) => void;
 }
 
 const granularityOptions: Array<{
@@ -595,6 +601,11 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 	selectedTag = null,
 	topicCounts,
 	onClearFilters,
+	stats = [],
+	askPanel,
+	listPanel,
+	viewMode = "cosmos",
+	onViewModeChange,
 }) => {
 	const mountRef = useRef<HTMLDivElement | null>(null);
 	const frameRef = useRef<number | null>(null);
@@ -606,6 +617,8 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 	const [resetSignal, setResetSignal] = useState(0);
 	const [interactionMode, setInteractionMode] = useState<"rotate" | "pan">("rotate");
 	const [granularity, setGranularity] = useState<GranularityMode>("constellation");
+	const [isAskOpen, setIsAskOpen] = useState(false);
+	const [focusedQuestionId, setFocusedQuestionId] = useState<string | null>(null);
 
 	const nodes = useMemo(
 		() => buildNodes(questions, semanticEdges, granularity),
@@ -654,7 +667,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 		if (!mount) return;
 
 		const scene = new THREE.Scene();
-		scene.fog = new THREE.FogExp2(0x030712, 0.00145);
+		scene.fog = new THREE.FogExp2(0x030712, 0.0019);
 
 		const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
@@ -678,6 +691,70 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 		point.position.set(80, 130, 220);
 		scene.add(point);
 
+		const nebulaGeometry = new THREE.BufferGeometry();
+		const nebulaPositions: number[] = [];
+		const nebulaColors: number[] = [];
+		const nebulaSizes: number[] = [];
+		for (let index = 0; index < 1400; index += 1) {
+			const seed = index + 911;
+			const band = index % 4;
+			const centerX = band === 0 ? -170 : band === 1 ? 110 : band === 2 ? 10 : -40;
+			const centerY = band === 0 ? 55 : band === 1 ? -80 : band === 2 ? 120 : -130;
+			const centerZ = band === 0 ? -170 : band === 1 ? 110 : band === 2 ? 40 : -70;
+			const spread = band === 2 ? 260 : 190;
+			const color = new THREE.Color(
+				band === 0 ? 0x22d3ee : band === 1 ? 0xe879f9 : band === 2 ? 0xfbbf24 : 0x4ade80,
+			).lerp(new THREE.Color(0xffffff), 0.12 + jitter(seed, 8) * 0.22);
+			nebulaPositions.push(
+				centerX + (jitter(seed, 1) - 0.5) * spread * 2.4,
+				centerY + (jitter(seed, 2) - 0.5) * spread * 1.35,
+				centerZ + (jitter(seed, 3) - 0.5) * spread * 1.8,
+			);
+			nebulaColors.push(color.r, color.g, color.b);
+			nebulaSizes.push(10 + jitter(seed, 4) * 34);
+		}
+		nebulaGeometry.setAttribute(
+			"position",
+			new THREE.Float32BufferAttribute(nebulaPositions, 3),
+		);
+		nebulaGeometry.setAttribute(
+			"color",
+			new THREE.Float32BufferAttribute(nebulaColors, 3),
+		);
+		nebulaGeometry.setAttribute(
+			"size",
+			new THREE.Float32BufferAttribute(nebulaSizes, 1),
+		);
+		const nebulaMaterial = new THREE.ShaderMaterial({
+			vertexShader: `
+				attribute float size;
+				varying vec3 vColor;
+				void main() {
+					vColor = color;
+					vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+					gl_PointSize = size * (260.0 / max(120.0, -mvPosition.z));
+					gl_Position = projectionMatrix * mvPosition;
+				}
+			`,
+			fragmentShader: `
+				varying vec3 vColor;
+				void main() {
+					vec2 uv = gl_PointCoord - vec2(0.5);
+					float dist = length(uv);
+					float alpha = smoothstep(0.5, 0.0, dist) * 0.045;
+					if (alpha < 0.006) discard;
+					gl_FragColor = vec4(vColor, alpha);
+				}
+			`,
+			transparent: true,
+			depthWrite: false,
+			blending: THREE.AdditiveBlending,
+			vertexColors: true,
+			toneMapped: false,
+		});
+		const nebula = new THREE.Points(nebulaGeometry, nebulaMaterial);
+		scene.add(nebula);
+
 		const starGeometry = new THREE.BufferGeometry();
 		const starPositions: number[] = [];
 		const starColors: number[] = [];
@@ -686,7 +763,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 			const twinkle = 1 + jitter(hashString(`${node.question.id}-${index}`), 12) * 0.62;
 			starPositions.push(node.position.x, node.position.y, node.position.z);
 			starColors.push(node.color.r, node.color.g, node.color.b);
-			starSizes.push(node.size * (isFullscreen ? 23 : 18) * twinkle);
+			starSizes.push(node.size * (isFullscreen ? 5.2 : 4.2) * twinkle);
 		});
 		starGeometry.setAttribute(
 			"position",
@@ -706,7 +783,6 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 			},
 			vertexShader: `
 				attribute float size;
-				attribute vec3 color;
 				varying vec3 vColor;
 				void main() {
 					vColor = color;
@@ -721,7 +797,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 					vec2 uv = gl_PointCoord - vec2(0.5);
 					float dist = length(uv);
 					float core = smoothstep(0.2, 0.0, dist);
-					float halo = smoothstep(0.5, 0.02, dist) * 0.76;
+					float halo = smoothstep(0.5, 0.02, dist) * 0.42;
 					float sparkle = smoothstep(0.075, 0.0, abs(uv.x)) * smoothstep(0.48, 0.0, abs(uv.y)) * 0.24;
 					vec3 color = mix(vColor, vec3(1.0), core * 0.62);
 					float alpha = max(core, halo) + sparkle;
@@ -770,7 +846,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 					node.position.z + radius * Math.cos(phi),
 				);
 				satelliteColors.push(color.r, color.g, color.b);
-				satelliteSizes.push((isFullscreen ? 13 : 10) * (0.7 + jitter(seed + index, 5) * 0.9));
+				satelliteSizes.push((isFullscreen ? 4.2 : 3.4) * (0.7 + jitter(seed + index, 5) * 0.9));
 			}
 		});
 		satelliteGeometry.setAttribute(
@@ -807,13 +883,13 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 		);
 		const glowTexture = createGlowTexture();
 		const glowMaterial = new THREE.PointsMaterial({
-			size: isFullscreen ? 5.2 : 4.2,
+			size: isFullscreen ? 2.4 : 2,
 			sizeAttenuation: true,
 			vertexColors: true,
 			map: glowTexture || undefined,
 			alphaTest: 0.02,
 			transparent: true,
-			opacity: 0.5,
+			opacity: 0.26,
 			blending: THREE.AdditiveBlending,
 			depthWrite: false,
 			toneMapped: false,
@@ -900,12 +976,13 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 		scene.add(dust);
 
 		const raycaster = new THREE.Raycaster();
-		raycaster.params.Points = { threshold: isFullscreen ? 9 : 7 };
+		raycaster.params.Points = { threshold: isFullscreen ? 14 : 11 };
 		const pointer = new THREE.Vector2();
 		let targetRotationX = 0;
 		let targetRotationY = 0;
 		let targetPanX = 0;
 		let targetPanY = 0;
+		let targetCameraZ = baseCameraZ;
 		let isDragging = false;
 		let dragMode: "rotate" | "pan" = "rotate";
 		let dragMoved = 0;
@@ -923,7 +1000,19 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 			raycaster.setFromCamera(pointer, camera);
 			const intersections = raycaster.intersectObject(starPoints);
 			const pointIndex = intersections[0]?.index;
-			return typeof pointIndex === "number" ? nodes[pointIndex]?.question || null : null;
+			if (typeof pointIndex !== "number") return null;
+			const node = nodes[pointIndex];
+			return node ? { node, question: node.question } : null;
+		};
+
+		const focusNode = (node: StarNode) => {
+			const focusZoom = isFullscreen ? 128 : 150;
+			targetPanX = Math.max(-260, Math.min(260, -node.position.x * 0.88));
+			targetPanY = Math.max(-190, Math.min(190, -node.position.y * 0.88));
+			targetRotationX = Math.max(-0.72, Math.min(0.72, -node.position.y / 360));
+			targetRotationY = Math.max(-1.1, Math.min(1.1, node.position.x / 330));
+			targetCameraZ = focusZoom;
+			setZoomLabel(`${(baseCameraZ / targetCameraZ).toFixed(1)}x`);
 		};
 
 		const handlePointerDown = (event: PointerEvent) => {
@@ -957,11 +1046,11 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 				lastY = event.clientY;
 				return;
 			}
-			const question = pickQuestion();
-			setHovered(question);
+			const picked = pickQuestion();
+			setHovered(picked?.question || null);
 			renderer.domElement.style.cursor = interactionMode === "pan"
 				? "move"
-				: question
+				: picked
 					? "pointer"
 					: "grab";
 		};
@@ -973,9 +1062,11 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 			dragMode = "rotate";
 			renderer.domElement.style.cursor = "grab";
 			if (dragMoved < 8) {
-				const question = pickQuestion();
-				if (question) {
-					setSelected(question);
+				const picked = pickQuestion();
+				if (picked) {
+					focusNode(picked.node);
+					setFocusedQuestionId(picked.question.id);
+					setSelected(picked.question);
 					setIsDetailOpen(true);
 				}
 			}
@@ -983,11 +1074,11 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 
 		const handleWheel = (event: WheelEvent) => {
 			event.preventDefault();
-			camera.position.z = Math.max(
+			targetCameraZ = Math.max(
 				120,
-				Math.min(620, camera.position.z + event.deltaY * 0.42),
+				Math.min(620, targetCameraZ + event.deltaY * 0.42),
 			);
-			setZoomLabel(`${(baseCameraZ / camera.position.z).toFixed(1)}x`);
+			setZoomLabel(`${(baseCameraZ / targetCameraZ).toFixed(1)}x`);
 		};
 
 		const handleContextMenu = (event: MouseEvent) => {
@@ -1015,14 +1106,18 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 				targetRotationY = 0;
 				targetPanX = 0;
 				targetPanY = 0;
-				camera.position.z = baseCameraZ;
+				targetCameraZ = baseCameraZ;
+				setFocusedQuestionId(null);
 				setZoomLabel("1.0x");
 			}
 			group.rotation.y += (targetRotationY - group.rotation.y) * 0.08;
 			group.rotation.x += (targetRotationX - group.rotation.x) * 0.08;
 			group.position.x += (targetPanX - group.position.x) * 0.12;
 			group.position.y += (targetPanY - group.position.y) * 0.12;
-			dust.rotation.y -= 0.00018;
+			camera.position.z += (targetCameraZ - camera.position.z) * 0.08;
+			dust.rotation.y -= 0.0002;
+			nebula.rotation.y += 0.00008;
+			nebula.rotation.x += 0.000035;
 			renderer.render(scene, camera);
 			frameRef.current = requestAnimationFrame(animate);
 		};
@@ -1045,23 +1140,14 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 			glowTexture?.dispose();
 			edgeGeometry.dispose();
 			edgeMaterial.dispose();
+			nebulaGeometry.dispose();
+			nebulaMaterial.dispose();
 			dustGeometry.dispose();
 			(dust.material as THREE.Material).dispose();
 			renderer.dispose();
 			mount.replaceChildren();
 		};
 	}, [nodes, edges, isFullscreen, resetSignal, interactionMode, granularity]);
-
-	if (!questions.length) {
-		return (
-			<section className="rounded-2xl border border-white/10 bg-slate-950/55 p-6 text-center sm:rounded-[2rem] sm:p-10">
-				<Sparkles className="mx-auto h-10 w-10 text-slate-500" />
-				<p className="mt-3 text-slate-300">
-					{loading ? "正在生成问题星图..." : "这个星区暂时没有问题。"}
-				</p>
-			</section>
-		);
-	}
 
 	return (
 		<section
@@ -1079,26 +1165,23 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 			className={`overflow-hidden border shadow-2xl shadow-cyan-950/30 transition-all duration-300 ${
 				isFullscreen
 					? "fixed inset-0 z-[100] rounded-none border-transparent bg-black"
-					: "relative rounded-2xl border-cyan-300/15 bg-slate-950/70 sm:rounded-[2rem]"
+					: "relative left-1/2 w-screen -translate-x-1/2 border-transparent bg-slate-950/80"
 			}`}
 		>
 			<div
-				className={`absolute inset-0 ${
-					isFullscreen
-						? "bg-[radial-gradient(circle_at_50%_42%,rgba(34,211,238,0.18),transparent_32%),radial-gradient(circle_at_72%_28%,rgba(236,72,153,0.16),transparent_28%),linear-gradient(180deg,#01030a_0%,#030712_52%,#070315_100%)]"
-						: "bg-[radial-gradient(circle_at_48%_42%,rgba(34,211,238,0.18),transparent_34%),radial-gradient(circle_at_78%_24%,rgba(236,72,153,0.14),transparent_32%)]"
-				}`}
+				className="absolute inset-0 bg-[url('/images/question-cosmos-nebula.png')] bg-cover bg-center opacity-95"
 			/>
+			<div className="absolute inset-0 bg-[radial-gradient(circle_at_54%_46%,rgba(34,211,238,0.04),transparent_28%),linear-gradient(90deg,rgba(1,5,12,0.28),rgba(1,5,12,0.08)_42%,rgba(8,4,18,0.20)),linear-gradient(180deg,rgba(1,4,12,0.36),rgba(1,4,12,0.03)_34%,rgba(1,4,12,0.34))]" />
 			<div
-				className={`relative grid ${
+				className={`relative ${
 					isFullscreen
 						? "h-[100svh] min-h-[100svh]"
-						: "grid-rows-[minmax(560px,68svh)_auto] lg:min-h-[760px] lg:grid-cols-[minmax(0,1fr)_390px] lg:grid-rows-1"
+						: "h-[calc(100svh-4.5rem)] min-h-[760px]"
 				}`}
 			>
-				<div className={`relative ${isFullscreen ? "min-h-[100svh]" : "min-h-[560px] lg:min-h-[760px]"}`}>
+				<div className="absolute inset-0">
 					<div ref={mountRef} className="absolute inset-0" />
-					<div className="pointer-events-none absolute left-3 right-3 top-3 z-20 flex flex-wrap gap-2 sm:left-5 sm:right-5 sm:top-5">
+					<div className="pointer-events-none absolute bottom-5 left-1/2 z-20 hidden -translate-x-1/2 flex-wrap justify-center gap-2 sm:flex">
 						<span className="inline-flex min-w-0 items-center gap-2 rounded-full border border-cyan-300/20 bg-slate-950/75 px-2.5 py-1.5 text-[11px] text-cyan-100 backdrop-blur sm:px-3 sm:text-xs">
 							<MousePointer2 className="h-3.5 w-3.5" />
 							<span className="sm:hidden">
@@ -1122,116 +1205,174 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 							</span>
 						)}
 					</div>
-					<div className="pointer-events-auto absolute left-3 top-[3.35rem] z-20 w-[min(calc(100%-4.5rem),42rem)] rounded-2xl border border-white/10 bg-slate-950/78 p-3 shadow-xl shadow-slate-950/30 backdrop-blur sm:left-5 sm:top-[4.65rem] sm:w-[min(calc(100%-9rem),46rem)] sm:rounded-[1.6rem] sm:p-4">
-						<div className="flex items-start justify-between gap-3">
-							<div className="min-w-0">
-								<p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-cyan-100/85">
-									<Filter className="h-3.5 w-3.5" />
-									星图筛选台
-								</p>
-								<p className="mt-1 text-xs leading-5 text-slate-300 sm:text-sm">
-									直接在星空里搜索问题，或切到某个分类，只看这一片星区。
+					<div className="pointer-events-auto absolute left-4 right-4 top-[4.2rem] z-[35] flex flex-col gap-3 rounded-[1.35rem] border border-white/12 bg-slate-950/42 p-3 shadow-2xl shadow-cyan-950/25 backdrop-blur-xl sm:left-8 sm:right-8 sm:top-6 sm:flex-row sm:items-center sm:rounded-full sm:px-4">
+						<div className="flex min-w-[150px] items-center gap-3">
+							<div className="grid h-10 w-10 place-items-center rounded-full border border-cyan-200/40 bg-cyan-200/10 shadow-lg shadow-cyan-400/20">
+								<Sparkles className="h-5 w-5 text-cyan-100" />
+							</div>
+							<div>
+								<p className="text-lg font-black leading-none text-white">问题星空</p>
+								<p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100/70">
+									Question Universe
 								</p>
 							</div>
-							{(selectedTopic || selectedTag || searchQuery) && onClearFilters && (
-								<button
-									type="button"
-									onClick={onClearFilters}
-									className="shrink-0 rounded-full border border-white/10 px-3 py-1 text-[11px] text-slate-200 transition hover:bg-white/10"
-								>
-									清空
-								</button>
-							)}
 						</div>
-						<label className="relative mt-3 block">
-							<Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+						<label className="relative min-w-0 flex-1">
+							<Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-cyan-100/60" />
 							<input
 								type="text"
 								value={searchQuery}
 								onChange={(event) => onSearchQueryChange(event.target.value)}
-								placeholder="在当前星空里搜索问题、回答、标签"
-								className="w-full rounded-2xl border border-white/10 bg-slate-900/80 py-3 pl-10 pr-4 text-sm text-white outline-none transition placeholder:text-slate-500 focus:ring-2 focus:ring-cyan-400"
+								placeholder="搜索问题"
+								className="h-12 w-full rounded-full border border-white/12 bg-white/10 pl-11 pr-4 text-sm font-semibold text-white outline-none transition placeholder:font-normal placeholder:text-slate-300/70 focus:border-cyan-200/70 focus:bg-white/14 focus:ring-2 focus:ring-cyan-300/35"
 							/>
 						</label>
-						<div className="mt-3 flex flex-wrap gap-2">
+						<div className="flex min-w-0 flex-1 flex-wrap gap-2 sm:flex-nowrap sm:overflow-x-auto">
 							<button
 								type="button"
 								onClick={() => onTopicSelect(null)}
-								className={`rounded-full border px-3 py-1.5 text-xs transition ${
+								className={`shrink-0 rounded-full border px-3 py-2 text-xs font-semibold transition ${
 									!selectedTopic
-										? "border-cyan-300/45 bg-cyan-300/18 text-cyan-50"
-										: "border-white/10 bg-white/5 text-slate-300 hover:bg-white/10"
+										? "border-cyan-200/60 bg-cyan-200/18 text-cyan-50 shadow-lg shadow-cyan-400/15"
+										: "border-white/12 bg-white/8 text-slate-200 hover:bg-white/14"
 								}`}
 							>
-								全部星区
+								全部
 							</button>
-							{QUESTION_TOPICS.map((topic) => {
+							{QUESTION_TOPICS.slice(0, 5).map((topic) => {
 								const active = selectedTopic === topic;
+								const count = topicCounts?.[topic];
 								return (
 									<button
 										key={topic}
 										type="button"
 										onClick={() => onTopicSelect(active ? null : topic)}
-										className={`rounded-full border px-3 py-1.5 text-xs transition ${
+										className={`shrink-0 rounded-full border px-3 py-2 text-xs font-semibold transition ${
 											active
-												? "border-cyan-300/45 bg-cyan-300/18 text-cyan-50"
-												: "border-white/10 bg-white/5 text-slate-300 hover:bg-white/10"
+												? "border-cyan-200/60 bg-cyan-200/18 text-cyan-50 shadow-lg shadow-cyan-400/15"
+												: "border-white/12 bg-white/8 text-slate-200 hover:bg-white/14"
 										}`}
 									>
 										{topic}
-										<span className="ml-1.5 text-[10px] opacity-70">
-											{topicCounts?.[topic] ?? "·"}
-										</span>
+										{typeof count === "number" && (
+											<span className="ml-1 text-[10px] text-slate-400">
+												{count}
+											</span>
+										)}
 									</button>
 								);
 							})}
 						</div>
-						<div className="mt-3 flex flex-wrap items-center gap-2">
-							<span className="text-[11px] text-slate-500">星图密度</span>
+						<div className="flex shrink-0 items-center gap-2">
+							<div className="inline-flex rounded-full border border-white/12 bg-white/8 p-1">
+								<button
+									type="button"
+									onClick={() => onViewModeChange?.("cosmos")}
+									className={`inline-flex h-10 items-center gap-1.5 rounded-full px-3 text-xs font-black transition ${
+										viewMode === "cosmos"
+											? "bg-cyan-300/18 text-cyan-50 shadow-lg shadow-cyan-400/15"
+											: "text-slate-300 hover:bg-white/10 hover:text-white"
+									}`}
+								>
+									<Sparkles className="h-3.5 w-3.5" />
+									星空
+								</button>
+								<button
+									type="button"
+									onClick={() => {
+										onViewModeChange?.("list");
+										setIsDetailOpen(false);
+									}}
+									className={`inline-flex h-10 items-center gap-1.5 rounded-full px-3 text-xs font-black transition ${
+										viewMode === "list"
+											? "bg-white/18 text-white shadow-lg shadow-white/10"
+											: "text-slate-300 hover:bg-white/10 hover:text-white"
+									}`}
+								>
+									<Layers3 className="h-3.5 w-3.5" />
+									列表
+								</button>
+							</div>
 							{granularityOptions.map((option) => (
 								<button
 									key={option.mode}
 									type="button"
 									onClick={() => setGranularity(option.mode)}
-									className={`rounded-xl px-3 py-2 text-[11px] transition sm:text-xs ${
+									className={`hidden rounded-full px-3 py-2 text-[11px] font-semibold transition lg:inline-flex ${
 										granularity === option.mode
-											? "bg-cyan-300/18 text-cyan-50"
-											: "text-slate-300 hover:bg-white/8 hover:text-white"
+											? "bg-white/18 text-white"
+											: "text-slate-300 hover:bg-white/10 hover:text-white"
 									}`}
 								>
-									<span className="block font-bold">{option.label}</span>
-									<span className="hidden text-[10px] opacity-70 sm:block">{option.description}</span>
+									{option.label}
 								</button>
 							))}
-						</div>
-						<div className="mt-3 flex flex-wrap items-center gap-2 text-[11px] text-slate-400">
-							<span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
-								当前显示 {nodes.length} 颗星
-							</span>
-							{selectedTopic && (
-								<span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-cyan-50">
-									分类：{selectedTopic}
-								</span>
+							{askPanel && (
+								<button
+									type="button"
+									onClick={() => setIsAskOpen(true)}
+									className="inline-flex h-12 items-center gap-2 rounded-full border border-cyan-200/50 bg-gradient-to-r from-cyan-300 to-fuchsia-500 px-5 text-sm font-black text-white shadow-2xl shadow-fuchsia-500/25 transition hover:scale-[1.02]"
+								>
+									<Send className="h-4 w-4" />
+									提问
+								</button>
 							)}
-							{selectedTag && (
-								<span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-3 py-1">
-									<Tag className="h-3 w-3" />
-									标签：#{selectedTag}
-								</span>
-							)}
-							{searchQuery.trim() && (
-								<span className="rounded-full border border-fuchsia-300/20 bg-fuchsia-300/10 px-3 py-1 text-fuchsia-100">
-									搜索：{searchQuery.trim()}
-								</span>
+							{(selectedTopic || selectedTag || searchQuery) && onClearFilters && (
+								<button
+									type="button"
+									onClick={onClearFilters}
+									className="hidden rounded-full border border-white/12 px-4 py-2 text-xs font-semibold text-slate-200 transition hover:bg-white/10 sm:inline-flex"
+								>
+									清空
+								</button>
 							)}
 						</div>
 					</div>
+					<div className="pointer-events-none absolute left-4 top-[17rem] z-20 flex flex-wrap items-center gap-2 text-[11px] text-slate-200 sm:left-10 sm:top-[6.3rem]">
+						<span className="rounded-full border border-white/10 bg-slate-950/38 px-3 py-1.5 backdrop-blur">
+							{loading ? "正在生成星图" : `${nodes.length} 颗可见星`}
+						</span>
+						<span className="rounded-full border border-fuchsia-300/20 bg-slate-950/38 px-3 py-1.5 text-fuchsia-100 backdrop-blur">
+							{edges.length} 条相似连线
+						</span>
+						{focusedQuestionId && (
+							<span className="rounded-full border border-amber-300/25 bg-amber-300/12 px-3 py-1.5 text-amber-100 backdrop-blur">
+								深潜浏览 · {zoomLabel}
+							</span>
+						)}
+						{selectedTopic && (
+							<span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1.5 text-cyan-50 backdrop-blur">
+								{selectedTopic}
+							</span>
+						)}
+					</div>
+					{viewMode === "list" && listPanel && (
+						<div className="pointer-events-auto absolute inset-x-3 bottom-3 top-[18.5rem] z-30 overflow-hidden rounded-[1.7rem] border border-cyan-300/18 bg-slate-950/68 shadow-2xl shadow-cyan-950/35 backdrop-blur-2xl sm:inset-x-8 sm:bottom-6 sm:top-[7.7rem] lg:left-1/2 lg:w-[min(1080px,calc(100vw-4rem))] lg:-translate-x-1/2">
+							<div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,rgba(34,211,238,0.18),transparent_34%),radial-gradient(circle_at_82%_8%,rgba(217,70,239,0.14),transparent_28%),linear-gradient(180deg,rgba(15,23,42,0.16),rgba(2,6,23,0.84))]" />
+							<div className="relative h-full overflow-auto p-4 sm:p-6">
+								{listPanel}
+							</div>
+						</div>
+					)}
+					{viewMode === "cosmos" && stats.length > 0 && (
+						<div className="pointer-events-none absolute bottom-4 left-3 z-20 hidden max-w-[42rem] flex-wrap gap-2 sm:left-5 sm:flex">
+							{stats.map((item) => (
+								<div
+									key={item.label}
+									className="rounded-2xl border border-white/10 bg-slate-950/54 px-4 py-3 backdrop-blur"
+								>
+									<p className="text-lg font-black text-white">{item.value}</p>
+									<p className="mt-0.5 text-[11px] text-slate-400">{item.label}</p>
+								</div>
+							))}
+						</div>
+					)}
 					<button
 						type="button"
 						onClick={() => setResetSignal((value) => value + 1)}
 						className={`absolute right-3 inline-flex items-center gap-1.5 rounded-full border border-cyan-300/20 bg-slate-950/78 px-2.5 py-2 text-[11px] font-semibold text-cyan-50 shadow-xl shadow-slate-950/40 backdrop-blur transition hover:bg-cyan-300/10 sm:right-5 sm:gap-2 sm:px-3 sm:text-xs ${
-							isFullscreen ? "top-[7.25rem] z-30 sm:top-16" : "top-[7.25rem] sm:top-16"
-						}`}
+							isFullscreen ? "top-[8.6rem] z-30 sm:top-28" : "top-[18rem] sm:top-28"
+						} ${viewMode === "list" ? "hidden" : ""}`}
 					>
 						<RotateCcw className="h-4 w-4" />
 						居中
@@ -1245,7 +1386,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 							interactionMode === "pan"
 								? "border-amber-300/35 bg-amber-300/15 text-amber-50 hover:bg-amber-300/22"
 								: "border-white/15 bg-slate-950/75 text-white hover:bg-white/10"
-						} ${isFullscreen ? "top-[10rem] z-30 sm:top-[6.75rem]" : "top-[10rem] sm:top-[6.75rem]"}`}
+						} ${isFullscreen ? "top-[11.35rem] z-30 sm:top-[10.75rem]" : "top-[20.75rem] sm:top-[10.75rem]"} ${viewMode === "list" ? "hidden" : ""}`}
 					>
 						<Move className="h-4 w-4" />
 						{interactionMode === "pan" ? "旋转模式" : "平移模式"}
@@ -1253,9 +1394,9 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 					<button
 						type="button"
 						onClick={() => setIsFullscreen((value) => !value)}
-						className={`absolute right-3 top-[12.75rem] inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-slate-950/78 px-2.5 py-2 text-[11px] font-semibold text-white shadow-xl shadow-slate-950/40 backdrop-blur transition hover:bg-white/10 sm:right-5 sm:top-5 sm:gap-2 sm:px-3 sm:text-xs ${
+						className={`absolute right-3 top-[23.5rem] inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-slate-950/78 px-2.5 py-2 text-[11px] font-semibold text-white shadow-xl shadow-slate-950/40 backdrop-blur transition hover:bg-white/10 sm:right-5 sm:top-[14.5rem] sm:gap-2 sm:px-3 sm:text-xs ${
 							isFullscreen ? "z-30" : ""
-						}`}
+						} ${viewMode === "list" ? "hidden" : ""}`}
 					>
 						{isFullscreen ? (
 							<>
@@ -1269,15 +1410,10 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 							</>
 						)}
 					</button>
-					{isFullscreen && !isDetailOpen && (
-						<div className="pointer-events-none absolute left-3 right-3 top-[15.5rem] rounded-2xl border border-white/10 bg-slate-950/58 p-3 text-xs leading-5 text-slate-300 backdrop-blur sm:left-5 sm:right-auto sm:top-24 sm:max-w-xs">
-							点击任意一颗星，查看问题、回答和相似问题。
-						</div>
-					)}
 					<div
-						className={`pointer-events-none absolute left-3 right-3 hidden gap-2 rounded-2xl border border-white/10 bg-slate-950/66 p-3 text-xs text-slate-300 backdrop-blur sm:grid md:left-auto md:max-w-lg ${
-							isFullscreen ? "bottom-5 z-20" : "bottom-5"
-						}`}
+						className={`pointer-events-none absolute bottom-4 right-3 hidden max-w-md gap-2 rounded-2xl border border-white/10 bg-slate-950/54 p-3 text-xs text-slate-300 backdrop-blur sm:right-5 sm:grid ${
+							isFullscreen ? "z-20" : ""
+						} ${viewMode === "list" ? "!hidden" : ""}`}
 					>
 						<div className="flex items-center gap-2">
 							<Maximize2 className="h-3.5 w-3.5 text-cyan-200" />
@@ -1300,27 +1436,28 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 
 				<aside
 					className={`border-white/10 bg-slate-950/72 p-4 backdrop-blur-xl sm:p-5 ${
-						isFullscreen
-							? `${isDetailOpen ? "absolute" : "hidden"} inset-x-3 bottom-3 top-auto z-20 max-h-[58svh] overflow-auto rounded-2xl border bg-slate-950/82 shadow-2xl shadow-black/40 sm:bottom-5 sm:right-5 sm:left-auto sm:top-20 sm:max-h-none sm:w-[min(460px,calc(100vw-2.5rem))] sm:rounded-[1.5rem]`
-							: "relative border-t lg:border-l lg:border-t-0"
+						isDetailOpen
+							? "absolute inset-x-3 bottom-3 top-auto z-30 max-h-[58svh] overflow-auto rounded-2xl border bg-slate-950/86 shadow-2xl shadow-black/40 sm:bottom-5 sm:left-auto sm:right-5 sm:top-20 sm:max-h-none sm:w-[min(460px,calc(100vw-2.5rem))] sm:rounded-[1.5rem]"
+							: "hidden"
 					}`}
 				>
-					{activeQuestion && (!isFullscreen || isDetailOpen) && (
+					{activeQuestion && isDetailOpen && (
 						<div className="flex min-h-full flex-col">
-							{isFullscreen && (
-								<div className="mb-4 flex justify-end">
-									<button
-										type="button"
-										onClick={() => setIsDetailOpen(false)}
-										className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-200 transition hover:bg-white/12"
-										aria-label="关闭问题详情"
-									>
-										<X className="h-4 w-4" />
-									</button>
-								</div>
-							)}
+							<div className="mb-4 flex justify-end">
+								<button
+									type="button"
+									onClick={() => setIsDetailOpen(false)}
+									className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-200 transition hover:bg-white/12"
+									aria-label="关闭问题详情"
+								>
+									<X className="h-4 w-4" />
+								</button>
+							</div>
 							<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 								<div className="flex flex-wrap items-center gap-2">
+									<span className="rounded-full border border-amber-300/20 bg-amber-300/10 px-3 py-1 text-xs font-semibold text-amber-100">
+										深潜浏览
+									</span>
 									<span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-semibold text-cyan-50">
 										{activeTopic}
 									</span>
@@ -1456,6 +1593,27 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 						</div>
 					)}
 				</aside>
+				{askPanel && isAskOpen && (
+					<div className="absolute inset-0 z-40 flex items-end justify-center bg-black/38 p-3 backdrop-blur-sm sm:items-center sm:p-6">
+						<div className="max-h-[min(86svh,760px)] w-full max-w-xl overflow-auto rounded-3xl border border-cyan-300/20 bg-slate-950/92 p-4 shadow-2xl shadow-cyan-950/40 sm:p-6">
+							<div className="mb-4 flex items-center justify-between gap-3">
+								<h3 className="flex items-center gap-2 text-lg font-black text-white">
+									<MessageCircle className="h-5 w-5 text-cyan-200" />
+									把问题送上星空
+								</h3>
+								<button
+									type="button"
+									onClick={() => setIsAskOpen(false)}
+									className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-200 transition hover:bg-white/12"
+									aria-label="关闭提问面板"
+								>
+									<X className="h-4 w-4" />
+								</button>
+							</div>
+							{askPanel}
+						</div>
+					</div>
+				)}
 			</div>
 		</section>
 	);
