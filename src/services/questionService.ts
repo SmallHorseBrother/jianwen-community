@@ -241,6 +241,7 @@ export const getPublishedQuestions = async (options?: {
  */
 export const getQuestionStars = async (options?: {
 	limit?: number;
+	offset?: number;
 	topic?: string;
 	tag?: string;
 	searchQuery?: string;
@@ -248,9 +249,11 @@ export const getQuestionStars = async (options?: {
 }): Promise<QuestionStarMapData> => {
 	const limit = options?.limit || 5000;
 	const pageSize = 1000;
+	const startOffset = options?.offset || 0;
+	const endOffset = startOffset + limit;
 	const rows: Question[] = [];
 
-	for (let offset = 0; offset < limit; offset += pageSize) {
+	for (let offset = startOffset; offset < endOffset; offset += pageSize) {
 		let query = supabase
 			.from("questions")
 			.select(
@@ -259,7 +262,9 @@ export const getQuestionStars = async (options?: {
 			.neq("status", "ignored")
 			.order("same_question_count", { ascending: false })
 			.order("source_count", { ascending: false })
-			.range(offset, Math.min(offset + pageSize - 1, limit - 1));
+			.order("created_at", { ascending: false })
+			.order("id", { ascending: true })
+			.range(offset, Math.min(offset + pageSize - 1, endOffset - 1));
 
 		if (options?.topic) {
 			query = query.eq("topic", options.topic);
