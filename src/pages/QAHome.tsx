@@ -23,11 +23,18 @@ import type { Database } from "../lib/database.types";
 import { findSimilarQuestions, type SimilarQuestion } from "../utils/questionSimilarity";
 
 type Question = Database["public"]["Tables"]["questions"]["Row"];
+type StarGranularity = "constellation" | "cluster" | "raw" | "full";
 
 const PAGE_SIZE = 24;
 const SUBMIT_RATE_KEY = "jw_question_submit_last_at";
-const DESKTOP_STAR_MAP_LIMIT = 240;
-const MOBILE_STAR_MAP_LIMIT = 160;
+const STAR_CACHE_PREFIX = "jw_question_star_cache_v2";
+const STAR_MAP_LIMITS: Record<StarGranularity, { desktop: number; mobile: number }> = {
+	constellation: { desktop: 260, mobile: 160 },
+	cluster: { desktop: 420, mobile: 260 },
+	raw: { desktop: 520, mobile: 360 },
+	full: { desktop: 5000, mobile: 900 },
+};
+const FULL_STAR_PROGRESSIVE_STOPS = [500, 1200, 2200, 3400, 5000];
 
 const compactNumber = (value: number) => {
 	if (value >= 10000) return `${(value / 10000).toFixed(1)}万`;
@@ -39,12 +46,38 @@ const canSubmitNow = () => {
 	return Date.now() - last > 60_000;
 };
 
-const getInitialStarMapLimit = () => {
-	if (typeof window === "undefined") return DESKTOP_STAR_MAP_LIMIT;
+const getStarMapLimit = (granularity: StarGranularity) => {
+	const limits = STAR_MAP_LIMITS[granularity];
+	if (typeof window === "undefined") return limits.desktop;
 	return window.matchMedia("(max-width: 640px)").matches
-		? MOBILE_STAR_MAP_LIMIT
-		: DESKTOP_STAR_MAP_LIMIT;
+		? limits.mobile
+		: limits.desktop;
 };
+
+const getStarCacheKey = (
+	granularity: StarGranularity,
+	topic: string | null,
+	tag: string | null,
+	search: string,
+) => {
+	const parts = [
+		granularity,
+		topic || "all-topics",
+		tag || "all-tags",
+		search || "no-search",
+		getStarMapLimit(granularity),
+	];
+	return `${STAR_CACHE_PREFIX}:${parts.map(encodeURIComponent).join(":")}`;
+};
+
+const mergeQuestionsById = (existing: Question[], next: Question[]) => {
+	const byId = new Map(existing.map((question) => [question.id, question]));
+	next.forEach((question) => byId.set(question.id, question));
+	return Array.from(byId.values());
+};
+
+const yieldToBrowser = () =>
+	new Promise((resolve) => window.setTimeout(resolve, 180));
 
 const QAHome: React.FC = () => {
 	const { user } = useAuth();
@@ -60,6 +93,7 @@ const QAHome: React.FC = () => {
 	const [searchQuery, setSearchQuery] = useState("");
 	const deferredSearchQuery = useDeferredValue(searchQuery.trim());
 	const [viewMode, setViewMode] = useState<"cosmos" | "list">("cosmos");
+	const [starGranularity, setStarGranularity] = useState<StarGranularity>("constellation");
 	const [loading, setLoading] = useState(true);
 	const [starLoading, setStarLoading] = useState(true);
 	const [sameToast, setSameToast] = useState<string | null>(null);
@@ -75,15 +109,12 @@ const QAHome: React.FC = () => {
 	const questionRequestIdRef = useRef(0);
 
 	useEffect(() => {
-		const timer = window.setTimeout(() => {
-			void loadInitialData();
-		}, 450);
-		return () => window.clearTimeout(timer);
+		void loadInitialData();
 	}, []);
 
 	useEffect(() => {
 		void loadQuestionData();
-	}, [selectedTopic, selectedTag, deferredSearchQuery]);
+	}, [selectedTopic, selectedTag, deferredSearchQuery, starGranularity]);
 
 	const loadInitialData = async () => {
 		try {
@@ -108,32 +139,106 @@ const QAHome: React.FC = () => {
 	const loadQuestionData = async () => {
 		const requestId = questionRequestIdRef.current + 1;
 		questionRequestIdRef.current = requestId;
+		const starLimit = getStarMapLimit(starGranularity);
+		const starCacheKey = getStarCacheKey(
+			starGranularity,
+			selectedTopic,
+			selectedTag,
+			deferredSearchQuery,
+		);
+		let cachedStarQuestions: Question[] = [];
+		let cachedStarEdges: QuestionEdge[] = [];
 
 		try {
 			setLoading(true);
 			setStarLoading(true);
+			try {
+				const cached = window.sessionStorage.getItem(starCacheKey);
+				if (cached) {
+					const parsed = JSON.parse(cached) as { questions?: Question[]; edges?: QuestionEdge[] };
+					if (Array.isArray(parsed.questions) && parsed.questions.length > 0) {
+						cachedStarQuestions = parsed.questions;
+						cachedStarEdges = Array.isArray(parsed.edges) ? parsed.edges : [];
+						setStars(parsed.questions);
+						setStarEdges(cachedStarEdges);
+						setStarLoading(false);
+					}
+				}
+			} catch (error) {
+				console.warn("读取星图缓存失败:", error);
+			}
 
-			void getQuestionStars({
-				limit: getInitialStarMapLimit(),
-				topic: selectedTopic || undefined,
-				tag: selectedTag || undefined,
-				searchQuery: deferredSearchQuery || undefined,
-				includeEdges: false,
-			})
-				.then((starsResult) => {
+			const persistStarCache = (questionsToCache: Question[], edgesToCache: QuestionEdge[]) => {
+				try {
+					window.sessionStorage.setItem(
+						starCacheKey,
+						JSON.stringify({
+							questions: questionsToCache,
+							edges: edgesToCache,
+							cachedAt: Date.now(),
+						}),
+					);
+				} catch (error) {
+					console.warn("写入星图缓存失败:", error);
+				}
+			};
+
+			const loadStars = async () => {
+				try {
+					if (starGranularity === "full") {
+						let mergedQuestions = cachedStarQuestions;
+						let offset = cachedStarQuestions.length;
+						const stops = FULL_STAR_PROGRESSIVE_STOPS
+							.map((stop) => Math.min(stop, starLimit))
+							.filter((stop, index, items) => stop > 0 && items.indexOf(stop) === index);
+
+						for (const stop of stops) {
+							if (questionRequestIdRef.current !== requestId) return;
+							if (offset >= stop) continue;
+							const batchLimit = stop - offset;
+							const starsResult = await getQuestionStars({
+								limit: batchLimit,
+								offset,
+								topic: selectedTopic || undefined,
+								tag: selectedTag || undefined,
+								searchQuery: deferredSearchQuery || undefined,
+								includeEdges: false,
+							});
+							if (questionRequestIdRef.current !== requestId) return;
+							if (starsResult.questions.length === 0) break;
+							mergedQuestions = mergeQuestionsById(mergedQuestions, starsResult.questions);
+							offset += starsResult.questions.length;
+							setStars(mergedQuestions);
+							setStarEdges([]);
+							persistStarCache(mergedQuestions, []);
+							await yieldToBrowser();
+							if (starsResult.questions.length < batchLimit) break;
+						}
+						return;
+					}
+
+					const starsResult = await getQuestionStars({
+						limit: starLimit,
+						topic: selectedTopic || undefined,
+						tag: selectedTag || undefined,
+						searchQuery: deferredSearchQuery || undefined,
+						includeEdges: false,
+					});
 					if (questionRequestIdRef.current !== requestId) return;
 					setStars(starsResult.questions);
 					setStarEdges(starsResult.edges);
-				})
-				.catch((error) => {
+					persistStarCache(starsResult.questions, starsResult.edges);
+				} catch (error) {
 					if (questionRequestIdRef.current !== requestId) return;
 					console.error("加载问题星图失败:", error);
 					setStars([]);
 					setStarEdges([]);
-				})
-				.finally(() => {
+				} finally {
 					if (questionRequestIdRef.current === requestId) setStarLoading(false);
-				});
+				}
+			};
+
+			void loadStars();
 
 			const questionsResult = await getPublishedQuestions({
 				limit: PAGE_SIZE,
@@ -453,7 +558,7 @@ const QAHome: React.FC = () => {
 			<QuestionStarMap
 				questions={stars}
 				semanticEdges={starEdges}
-				loading={(loading || starLoading) && stars.length === 0}
+				loading={loading || starLoading}
 				onSameQuestion={handleSameQuestion}
 				searchQuery={searchQuery}
 				onSearchQueryChange={setSearchQuery}
@@ -467,6 +572,9 @@ const QAHome: React.FC = () => {
 				listPanel={questionListPanel}
 				viewMode={viewMode}
 				onViewModeChange={setViewMode}
+				granularity={starGranularity}
+				onGranularityChange={setStarGranularity}
+				totalLoadedStars={stars.length}
 			/>
 
 			{sameToast && (

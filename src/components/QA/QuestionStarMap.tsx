@@ -28,12 +28,13 @@ import {
 import { scoreBetweenQuestions } from "../../utils/questionSimilarity";
 
 type Question = Database["public"]["Tables"]["questions"]["Row"];
-type GranularityMode = "constellation" | "cluster" | "raw";
+type GranularityMode = "constellation" | "cluster" | "raw" | "full";
 type ViewMode = "cosmos" | "list";
 const MAX_RENDERED_QUESTIONS_BY_MODE: Record<GranularityMode, number> = {
 	constellation: 260,
 	cluster: 420,
 	raw: 520,
+	full: 5000,
 };
 
 const topicColors: Record<string, number> = {
@@ -129,27 +130,40 @@ interface QuestionStarMapProps {
 	listPanel?: React.ReactNode;
 	viewMode?: ViewMode;
 	onViewModeChange?: (mode: ViewMode) => void;
+	granularity?: GranularityMode;
+	onGranularityChange?: (mode: GranularityMode) => void;
+	totalLoadedStars?: number;
 }
 
 const granularityOptions: Array<{
 	mode: GranularityMode;
 	label: string;
+	shortLabel: string;
 	description: string;
 }> = [
 	{
 		mode: "constellation",
 		label: "星系",
+		shortLabel: "星系",
 		description: "几百个专题簇",
 	},
 	{
 		mode: "cluster",
 		label: "代表问题",
+		shortLabel: "代表",
 		description: "严格近似合并",
 	},
 	{
 		mode: "raw",
 		label: "全部星星",
+		shortLabel: "全部",
 		description: "原始问题",
+	},
+	{
+		mode: "full",
+		label: "全量实验",
+		shortLabel: "全量",
+		description: "桌面端加载当前筛选下尽可能多的问题，主要用于性能观察",
 	},
 ];
 
@@ -253,7 +267,7 @@ const buildQuestionGroups = (
 	semanticEdges: QuestionEdge[],
 	mode: GranularityMode,
 ) => {
-	if (mode === "raw") {
+	if (mode === "raw" || mode === "full") {
 		return questions.slice(0, 5000).map((question) => ({
 			question,
 			members: [question],
@@ -484,7 +498,7 @@ const buildSemanticEdges = (
 		})
 		.filter((edge): edge is StarEdge => Boolean(edge))
 		.sort((left, right) => right.score - left.score)
-		.slice(0, mode === "constellation" ? 360 : mode === "cluster" ? 520 : 720);
+		.slice(0, mode === "constellation" ? 360 : mode === "cluster" ? 520 : mode === "full" ? 900 : 720);
 };
 
 const compactText = (value: string | null | undefined, maxLength: number) => {
@@ -606,6 +620,9 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 	listPanel,
 	viewMode = "cosmos",
 	onViewModeChange,
+	granularity = "constellation",
+	onGranularityChange,
+	totalLoadedStars,
 }) => {
 	const mountRef = useRef<HTMLDivElement | null>(null);
 	const frameRef = useRef<number | null>(null);
@@ -616,7 +633,6 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 	const [isDetailOpen, setIsDetailOpen] = useState(false);
 	const [resetSignal, setResetSignal] = useState(0);
 	const [interactionMode, setInteractionMode] = useState<"rotate" | "pan">("rotate");
-	const [granularity, setGranularity] = useState<GranularityMode>("constellation");
 	const [isAskOpen, setIsAskOpen] = useState(false);
 	const [focusedQuestionId, setFocusedQuestionId] = useState<string | null>(null);
 
@@ -1227,7 +1243,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 								className="h-12 w-full rounded-full border border-white/12 bg-white/10 pl-11 pr-4 text-sm font-semibold text-white outline-none transition placeholder:font-normal placeholder:text-slate-300/70 focus:border-cyan-200/70 focus:bg-white/14 focus:ring-2 focus:ring-cyan-300/35"
 							/>
 						</label>
-						<div className="flex min-w-0 flex-1 flex-wrap gap-2 sm:flex-nowrap sm:overflow-x-auto">
+						<div className="flex min-w-0 flex-[1.35] flex-wrap gap-2">
 							<button
 								type="button"
 								onClick={() => onTopicSelect(null)}
@@ -1239,7 +1255,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 							>
 								全部
 							</button>
-							{QUESTION_TOPICS.slice(0, 5).map((topic) => {
+							{QUESTION_TOPICS.map((topic) => {
 								const active = selectedTopic === topic;
 								const count = topicCounts?.[topic];
 								return (
@@ -1263,7 +1279,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 								);
 							})}
 						</div>
-						<div className="flex shrink-0 items-center gap-2">
+						<div className="flex min-w-0 flex-wrap items-center gap-2">
 							<div className="inline-flex rounded-full border border-white/12 bg-white/8 p-1">
 								<button
 									type="button"
@@ -1297,21 +1313,23 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 								<button
 									key={option.mode}
 									type="button"
-									onClick={() => setGranularity(option.mode)}
-									className={`hidden rounded-full px-3 py-2 text-[11px] font-semibold transition lg:inline-flex ${
+									onClick={() => onGranularityChange?.(option.mode)}
+									title={option.description}
+									className={`inline-flex whitespace-nowrap rounded-full px-3 py-2 text-[11px] font-semibold transition ${
 										granularity === option.mode
 											? "bg-white/18 text-white"
 											: "text-slate-300 hover:bg-white/10 hover:text-white"
 									}`}
 								>
-									{option.label}
+									<span className="sm:hidden">{option.shortLabel}</span>
+									<span className="hidden sm:inline">{option.label}</span>
 								</button>
 							))}
 							{askPanel && (
 								<button
 									type="button"
 									onClick={() => setIsAskOpen(true)}
-									className="inline-flex h-12 items-center gap-2 rounded-full border border-cyan-200/50 bg-gradient-to-r from-cyan-300 to-fuchsia-500 px-5 text-sm font-black text-white shadow-2xl shadow-fuchsia-500/25 transition hover:scale-[1.02]"
+									className="inline-flex h-11 items-center gap-2 rounded-full border border-cyan-200/50 bg-gradient-to-r from-cyan-300 to-fuchsia-500 px-4 text-sm font-black text-white shadow-2xl shadow-fuchsia-500/25 transition hover:scale-[1.02] sm:h-12 sm:px-5"
 								>
 									<Send className="h-4 w-4" />
 									提问
@@ -1330,8 +1348,17 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 					</div>
 					<div className="pointer-events-none absolute left-4 top-[17rem] z-20 flex flex-wrap items-center gap-2 text-[11px] text-slate-200 sm:left-10 sm:top-[6.3rem]">
 						<span className="rounded-full border border-white/10 bg-slate-950/38 px-3 py-1.5 backdrop-blur">
-							{loading ? "正在生成星图" : `${nodes.length} 颗可见星`}
+							{loading && nodes.length === 0
+								? "正在生成星图"
+								: loading
+									? `正在增密 · ${nodes.length} 颗可见星`
+									: `${nodes.length} 颗可见星`}
 						</span>
+						{typeof totalLoadedStars === "number" && totalLoadedStars > nodes.length && (
+							<span className="rounded-full border border-cyan-300/20 bg-slate-950/38 px-3 py-1.5 text-cyan-100 backdrop-blur">
+								已载入 {totalLoadedStars} 颗
+							</span>
+						)}
 						<span className="rounded-full border border-fuchsia-300/20 bg-slate-950/38 px-3 py-1.5 text-fuchsia-100 backdrop-blur">
 							{edges.length} 条相似连线
 						</span>
