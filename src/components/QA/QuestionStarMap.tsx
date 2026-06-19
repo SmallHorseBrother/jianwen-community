@@ -28,13 +28,12 @@ import {
 import { scoreBetweenQuestions } from "../../utils/questionSimilarity";
 
 type Question = Database["public"]["Tables"]["questions"]["Row"];
-type GranularityMode = "constellation" | "cluster" | "raw" | "full";
+type GranularityMode = "constellation" | "cluster" | "raw";
 type ViewMode = "cosmos" | "list";
 const MAX_RENDERED_QUESTIONS_BY_MODE: Record<GranularityMode, number> = {
 	constellation: 260,
 	cluster: 420,
-	raw: 520,
-	full: 5000,
+	raw: 5000,
 };
 
 const topicColors: Record<string, number> = {
@@ -157,13 +156,7 @@ const granularityOptions: Array<{
 		mode: "raw",
 		label: "全部星星",
 		shortLabel: "全部",
-		description: "原始问题",
-	},
-	{
-		mode: "full",
-		label: "全量实验",
-		shortLabel: "全量",
-		description: "桌面端加载当前筛选下尽可能多的问题，主要用于性能观察",
+		description: "逐步加载当前筛选下的全部原始问题",
 	},
 ];
 
@@ -267,7 +260,7 @@ const buildQuestionGroups = (
 	semanticEdges: QuestionEdge[],
 	mode: GranularityMode,
 ) => {
-	if (mode === "raw" || mode === "full") {
+	if (mode === "raw") {
 		return questions.slice(0, 5000).map((question) => ({
 			question,
 			members: [question],
@@ -388,6 +381,11 @@ const buildNodes = (
 	mode: GranularityMode,
 ): StarNode[] => {
 	const visibleQuestions = questions.slice(0, MAX_RENDERED_QUESTIONS_BY_MODE[mode]);
+	const topicCounts = new Map<string, number>();
+	visibleQuestions.forEach((question) => {
+		const topic = normalizeQuestionTopic(question.topic);
+		topicCounts.set(topic, (topicCounts.get(topic) || 0) + 1);
+	});
 	const visibleIds = new Set(visibleQuestions.map((question) => question.id));
 	const visibleEdges = semanticEdges.filter(
 		(edge) => visibleIds.has(edge.question_id) && visibleIds.has(edge.related_question_id),
@@ -397,15 +395,23 @@ const buildNodes = (
 		const topic = normalizeQuestionTopic(question.topic);
 		const seed = hashString(`${question.id}-${question.content}`);
 		const center = topicCenters[topic] || topicCenters["其他"];
-		const radius = 34 + jitter(seed, 1) * 112;
+		const topicShare = (topicCounts.get(topic) || 0) / Math.max(1, visibleQuestions.length);
+		const dominantTopicSpread = Math.max(0, topicShare - 0.34);
+		const adjustedCenter = dominantTopicSpread > 0
+			? center.clone().lerp(new THREE.Vector3(0, center.y * 0.72, center.z * 0.72), Math.min(0.52, dominantTopicSpread * 1.25))
+			: center;
+		const radius = 38 + jitter(seed, 1) * (dominantTopicSpread > 0 ? 160 : 122);
 		const theta = jitter(seed, 2) * Math.PI * 2;
 		const phi = Math.acos(2 * jitter(seed, 3) - 1);
 		const importance = nodeImportanceFor(members);
 		const baseColor = topicColors[topic] || topicColors["其他"];
+		const horizontalScale = 1.1 + Math.min(1.55, dominantTopicSpread * 3.5);
+		const verticalScale = 0.92 + Math.min(0.26, dominantTopicSpread * 0.75);
+		const nebulaBandOffset = (jitter(seed, 14) - 0.5) * Math.min(310, dominantTopicSpread * 540);
 		const position = new THREE.Vector3(
-			center.x + radius * Math.sin(phi) * Math.cos(theta),
-			center.y + radius * Math.sin(phi) * Math.sin(theta),
-			center.z + radius * Math.cos(phi),
+			adjustedCenter.x + radius * Math.sin(phi) * Math.cos(theta) * horizontalScale + nebulaBandOffset,
+			adjustedCenter.y + radius * Math.sin(phi) * Math.sin(theta) * verticalScale,
+			adjustedCenter.z + radius * Math.cos(phi),
 		);
 		const size = Math.min(8.4, Math.max(1.15, 1.05 + Math.log2(importance + 1) * 0.9));
 		return {
@@ -498,7 +504,7 @@ const buildSemanticEdges = (
 		})
 		.filter((edge): edge is StarEdge => Boolean(edge))
 		.sort((left, right) => right.score - left.score)
-		.slice(0, mode === "constellation" ? 360 : mode === "cluster" ? 520 : mode === "full" ? 900 : 720);
+		.slice(0, mode === "constellation" ? 360 : mode === "cluster" ? 520 : 720);
 };
 
 const compactText = (value: string | null | undefined, maxLength: number) => {
@@ -1351,7 +1357,9 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 							{loading && nodes.length === 0
 								? "正在生成星图"
 								: loading
-									? `正在增密 · ${nodes.length} 颗可见星`
+									? granularity === "raw"
+										? `正在逐步加载全部问题 · ${nodes.length} 颗可见星`
+										: `正在增密 · ${nodes.length} 颗可见星`
 									: `${nodes.length} 颗可见星`}
 						</span>
 						{typeof totalLoadedStars === "number" && totalLoadedStars > nodes.length && (

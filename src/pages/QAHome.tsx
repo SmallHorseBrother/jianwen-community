@@ -23,7 +23,7 @@ import type { Database } from "../lib/database.types";
 import { findSimilarQuestions, type SimilarQuestion } from "../utils/questionSimilarity";
 
 type Question = Database["public"]["Tables"]["questions"]["Row"];
-type StarGranularity = "constellation" | "cluster" | "raw" | "full";
+type StarGranularity = "constellation" | "cluster" | "raw";
 
 const PAGE_SIZE = 24;
 const SUBMIT_RATE_KEY = "jw_question_submit_last_at";
@@ -31,8 +31,7 @@ const STAR_CACHE_PREFIX = "jw_question_star_cache_v2";
 const STAR_MAP_LIMITS: Record<StarGranularity, { desktop: number; mobile: number }> = {
 	constellation: { desktop: 260, mobile: 160 },
 	cluster: { desktop: 420, mobile: 260 },
-	raw: { desktop: 520, mobile: 360 },
-	full: { desktop: 5000, mobile: 900 },
+	raw: { desktop: 5000, mobile: 900 },
 };
 const FULL_STAR_PROGRESSIVE_STOPS = [500, 1200, 2200, 3400, 5000];
 
@@ -185,7 +184,7 @@ const QAHome: React.FC = () => {
 
 			const loadStars = async () => {
 				try {
-					if (starGranularity === "full") {
+					if (starGranularity === "raw") {
 						let mergedQuestions = cachedStarQuestions;
 						let offset = cachedStarQuestions.length;
 						const stops = FULL_STAR_PROGRESSIVE_STOPS
