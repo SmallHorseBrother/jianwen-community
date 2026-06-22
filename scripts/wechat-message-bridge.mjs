@@ -10,6 +10,7 @@ const DEFAULT_CIPHERTALK_CLI = 'D:/files/CipherTalk/dist-electron/cli.js';
 const DEFAULT_FROM = '1d';
 const DEFAULT_INTERVAL_SECONDS = 120;
 const DEFAULT_URL = 'https://feedback-bot.healthymax.cn/api/messages/ingest';
+const VALID_PROJECT_KEYS = new Set(['foodlink', 'coachlink']);
 const DEFAULT_OUTPUT_DIR = path.resolve(process.cwd(), 'tmp', `wechat-message-bridge-${localDateStamp()}`);
 const DEFAULT_STATE_PATH = path.resolve(process.cwd(), 'tmp', 'wechat-message-bridge-state.json');
 
@@ -140,6 +141,16 @@ function runCommand(cmd, args, options = {}) {
 
 function cleanText(value) {
   return String(value || '')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, '&')
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => String.fromCodePoint(Number.parseInt(hex, 16)))
+    .replace(/&#(\d+);/g, (_, decimal) => String.fromCodePoint(Number.parseInt(decimal, 10)))
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
     .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, ' ')
     .replace(/[ \t\r\n]+/g, ' ')
     .trim();
@@ -188,30 +199,144 @@ function stableMessageId(sourceId, message, senderId, timestamp, content) {
   return sha256(`${sourceId}:${senderId}:${timestamp}:${content}`);
 }
 
-function isTextMessage(message) {
-  return message?.type === '文本' && typeof message.content === 'string';
+function extractCardText(content) {
+  const raw = String(content || '');
+  const fragments = [];
+
+  for (const match of raw.matchAll(/<des>([\s\S]*?)<\/des>/gi)) {
+    fragments.push(match[1]);
+  }
+
+  for (const match of raw.matchAll(/<title>([\s\S]*?)<\/title>/gi)) {
+    fragments.push(match[1]);
+  }
+
+  for (const match of raw.matchAll(/<datadesc>([\s\S]*?)<\/datadesc>/gi)) {
+    fragments.push(match[1]);
+  }
+
+  const text = cleanText(fragments.join('\n'));
+  return text.length >= 2 ? text : null;
+}
+
+function extractMessageContent(message) {
+  if (message?.type === '文本' && typeof message.content === 'string') {
+    const { senderName, text } = splitSpeaker(message.content);
+    const content = cleanText(text);
+    if (!content || content.length < 2) return null;
+    return {
+      senderName,
+      content,
+      derivedType: 'text',
+    };
+  }
+
+  if (message?.type === '其他' && typeof message.content === 'string') {
+    const content = extractCardText(message.content);
+    if (!content) return null;
+    return {
+      senderName: null,
+      content,
+      derivedType: 'app_card',
+    };
+  }
+
+  return null;
+}
+
+function ruleScore(text, rule) {
+  const keywords = Array.isArray(rule?.keywords) ? rule.keywords : [];
+  let score = 0;
+  for (const keyword of keywords) {
+    const normalized = cleanText(keyword);
+    if (!normalized) continue;
+    if (text.includes(normalized.toLowerCase())) {
+      score += Math.max(1, normalized.length);
+    }
+  }
+  return score;
+}
+
+function normalizeProjectKeys(value) {
+  if (!Array.isArray(value)) return null;
+  return [...new Set(value.map((item) => String(item || '').trim()).filter((item) => VALID_PROJECT_KEYS.has(item)))];
+}
+
+function resolveProjectKeys(source, exportData, messageContext) {
+  const routing = source.projectRouting;
+  if (routing && Array.isArray(routing.rules) && routing.rules.length > 0) {
+    const haystacks = [
+      messageContext?.content || '',
+      source.name || '',
+      source.key || '',
+    ]
+      .map((value) => cleanText(value).toLowerCase())
+      .filter(Boolean);
+    const joined = haystacks.join('\n');
+
+    let winner = null;
+    for (const rule of routing.rules) {
+      const projectKey = String(rule?.projectKey || '').trim();
+      if (!VALID_PROJECT_KEYS.has(projectKey)) continue;
+      const score = ruleScore(joined, rule);
+      if (score <= 0) continue;
+      if (!winner || score > winner.score) {
+        winner = { projectKey, score };
+      }
+    }
+
+    if (winner) return [winner.projectKey];
+
+    const routingCandidates = normalizeProjectKeys(routing.projectKeys || routing.fallbackProjectKeys);
+    if (routingCandidates) return routingCandidates;
+
+    const routingDefault = String(routing.defaultProjectKey || '').trim();
+    if (VALID_PROJECT_KEYS.has(routingDefault)) return [routingDefault];
+  }
+
+  const explicitList = normalizeProjectKeys(source.projectKeys || exportData?.projectKeys);
+  if (explicitList) return explicitList;
+
+  const explicit = String(
+    source.projectKey || source.project_key || source.project || exportData?.projectKey || '',
+  ).trim();
+  if (VALID_PROJECT_KEYS.has(explicit)) return [explicit];
+
+  if (Array.isArray(source.tags)) {
+    if (source.tags.includes('foodlink')) return ['foodlink'];
+    if (source.tags.includes('coachlink')) return ['coachlink'];
+  }
+
+  const projectName = String(source.projectName || '').toLowerCase();
+  if (projectName.includes('food') || projectName.includes('食探')) return ['foodlink'];
+  if (projectName.includes('coach') || projectName.includes('教链')) return ['coachlink'];
+
+  return null;
 }
 
 function buildPayload(source, exportData, message) {
   const sourceId = stableSourceId(source, exportData);
-  const { senderName, text } = splitSpeaker(message.content);
-  const content = cleanText(text);
-  if (!content || content.length < 2) return null;
+  const extracted = extractMessageContent(message);
+  if (!extracted) return null;
+
+  const projectKeys = resolveProjectKeys(source, exportData, extracted);
+  if (!projectKeys) return null;
 
   const timestamp = toUnixSeconds(message);
-  const senderId = stableSenderId(sourceId, message, senderName);
-  const messageId = stableMessageId(sourceId, message, senderId, timestamp, content);
+  const senderId = stableSenderId(sourceId, message, extracted.senderName);
+  const messageId = stableMessageId(sourceId, message, senderId, timestamp, extracted.content);
 
   return {
     platform: 'wechat',
+    project_keys: projectKeys,
     source_type: source.sourceType || (String(sourceId).includes('@chatroom') ? 'group' : 'private'),
     source_id: sourceId,
     source_name: source.name || exportData?.sessionName || sourceId,
     message_id: messageId,
     sender_id: senderId,
-    sender_name: senderName || (message.isSend ? 'self' : null),
+    sender_name: extracted.senderName || (message.isSend ? 'self' : null),
     message_type: 'text',
-    content,
+    content: extracted.content,
     timestamp,
     raw: {
       ciphertalk: {
@@ -219,10 +344,12 @@ function buildPayload(source, exportData, message) {
         type: message.type ?? null,
         datetime: message.datetime ?? null,
         isSend: Boolean(message.isSend),
+        derived_type: extracted.derivedType,
       },
       source: {
         key: source.key ?? null,
         session_id: source.sessionId ?? exportData?.sessionId ?? null,
+        project_keys: projectKeys,
         project_name: source.projectName ?? null,
         project_path: source.projectPath ?? null,
         tags: Array.isArray(source.tags) ? source.tags : [],
@@ -333,7 +460,6 @@ async function processOnce(config, options) {
       const messages = Array.isArray(exportData.messages) ? exportData.messages : [];
       const payloads = messages
         .filter((message) => options.includeSelf || !message.isSend)
-        .filter(isTextMessage)
         .map((message) => buildPayload(source, exportData, message))
         .filter(Boolean)
         .sort((a, b) => a.timestamp - b.timestamp);

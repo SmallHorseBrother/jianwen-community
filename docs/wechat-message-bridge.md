@@ -1,11 +1,11 @@
 # WeChat Message Bridge
 
-This bridge sends raw CipherTalk text messages to the feedback bot ingest API.
+This bridge sends normalized CipherTalk message text to the feedback bot ingest API.
 
 It is intentionally thinner than `scripts/wechat-feedback-intake.mjs`:
 
 - CipherTalk exports WeChat messages.
-- This script normalizes text messages and posts them to `/api/messages/ingest`.
+- This script normalizes plain text and supported message cards into text, then posts them to `/api/messages/ingest`.
 - The feedback bot remains responsible for batching, AI classification, Feishu group notifications, and Base writes.
 
 ## Dry run
@@ -71,7 +71,12 @@ The bot still dedupes by `message_id`. The local state only avoids unnecessary r
 
 ## Confirmation field
 
-The current ingest API only accepts `message_type: "text"`, so this bridge sends text messages only. It includes this metadata in `raw` so the bot can map it into the Feishu Base:
+The current ingest API only accepts `message_type: "text"`, so this bridge converts supported messages into text before sending. Right now that includes:
+
+- normal `文本` messages
+- supported `其他` cards such as forwarded chat-record cards, where the bridge extracts readable `<des>`, `<title>`, and `<datadesc>` content
+
+It includes this metadata in `raw` so the bot can map it into the Feishu Base:
 
 ```json
 {
@@ -102,3 +107,62 @@ scripts/wechat-feedback-sources.example.json
 ```
 
 Use a stable `sessionId` as `source_id`; the same WeChat group must always resolve to the same value.
+
+### `project_keys`
+
+Group ingest now uses `project_keys` instead of the old `project_key`.
+
+Behavior:
+
+- `project_keys: []` lets the feedback bot choose from all enabled projects
+- `project_keys: ["foodlink"]` fixes the message to FoodLink
+- `project_keys: ["foodlink", "coachlink"]` constrains the bot to choose one of those projects
+
+Current supported keys:
+
+- `foodlink`
+- `coachlink`
+
+`project_key` should not be sent for group ingest anymore. The backend returns `400` if that legacy
+field is still used.
+
+You can verify current config mapping in `scripts/wechat-feedback-sources.example.json`.
+
+Example source payload fragment:
+
+```json
+{
+  "project_keys": ["foodlink"],
+  "platform": "wechat",
+  "source_type": "group",
+  "source_id": "123456",
+  "message_id": "msg-0o1"
+}
+```
+
+### Mixed-project groups
+
+For mixed groups, keep `projectKeys` as the candidate list and add `projectRouting.rules` to narrow
+down to a single project when the message text is obvious.
+
+Example:
+
+```json
+{
+  "key": "bug-temp",
+  "projectKeys": ["foodlink", "coachlink"],
+  "projectRouting": {
+    "projectKeys": ["foodlink", "coachlink"],
+    "rules": [
+      {
+        "projectKey": "foodlink",
+        "keywords": ["食探", "营养", "食物库"]
+      },
+      {
+        "projectKey": "coachlink",
+        "keywords": ["教链", "教练", "学员", "课程"]
+      }
+    ]
+  }
+}
+```
