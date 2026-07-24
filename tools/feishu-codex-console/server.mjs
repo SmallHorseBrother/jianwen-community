@@ -5,11 +5,16 @@ import http from 'node:http';
 import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
+import {
+  listTaskSnapshotRecords,
+  upsertTaskSnapshots,
+} from '../../scripts/feishu-task-snapshots.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(HERE, '..', '..');
 const DIST_DIR = path.join(HERE, 'dist');
 const DATA_DIR = path.join(HERE, 'data');
+const SNAPSHOT_DIR = path.join(DATA_DIR, 'task-snapshots');
 const RUNNER_LOG_DIR = path.join(REPO_ROOT, 'logs', 'feishu-task-runner');
 const RUNNER_CONFIG_PATH = path.join(REPO_ROOT, 'scripts', 'feishu-task-runner.config.json');
 const CODEX_CMD = process.env.CODEX_CMD || 'codex';
@@ -179,11 +184,16 @@ async function updateRecord(recordId, fields) {
   ]);
 }
 
-function normalizeRecord(fields, row, recordId) {
-  const record = { id: recordId };
+function rawRecord(fields, row, recordId) {
+  const record = { _recordId: recordId };
   fields.forEach((field, index) => {
     record[field] = row[index];
   });
+  return record;
+}
+
+function normalizeRecord(record, sourceAvailable = true) {
+  const recordId = record._recordId;
   const attachments = listValue(record['附件']).map((attachment) => ({
     name: attachment?.name || '附件',
     size: attachment?.size || 0,
@@ -207,6 +217,7 @@ function normalizeRecord(fields, row, recordId) {
     branchCommit: textValue(record['代码分支/提交']),
     testResult: textValue(record['测试结果']),
     attachments,
+    sourceAvailable,
   };
 }
 
@@ -231,8 +242,17 @@ async function listTasks({ fresh = false } = {}) {
   const payload = await runLark(args);
   const data = payload.data || {};
   const fields = data.fields || [];
-  const tasks = (data.data || [])
-    .map((row, index) => normalizeRecord(fields, row, data.record_id_list?.[index]))
+  const liveRecords = (data.data || []).map((row, index) => (
+    rawRecord(fields, row, data.record_id_list?.[index])
+  ));
+  const mergedLiveRecords = upsertTaskSnapshots(SNAPSHOT_DIR, liveRecords);
+  const liveIds = new Set(mergedLiveRecords.map((record) => record._recordId));
+  const rememberedRecords = listTaskSnapshotRecords(SNAPSHOT_DIR)
+    .filter((record) => !liveIds.has(record._recordId));
+  const tasks = [
+    ...mergedLiveRecords.map((record) => normalizeRecord(record, true)),
+    ...rememberedRecords.map((record) => normalizeRecord(record, false)),
+  ]
     .filter((task) => task.id && task.aiEnabled)
     .map((task) => ({ ...task, local: localSummary(task.id) }))
     .sort((left, right) => {

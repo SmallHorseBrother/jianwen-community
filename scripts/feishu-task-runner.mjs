@@ -3,9 +3,17 @@ import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
+import { upsertTaskSnapshots } from './feishu-task-snapshots.mjs';
 
 const DEFAULT_CONFIG_PATH = path.resolve(process.cwd(), 'scripts/feishu-task-runner.config.json');
 const DEFAULT_LOG_DIR = path.resolve(process.cwd(), 'logs', 'feishu-task-runner');
+const DEFAULT_SNAPSHOT_DIR = path.resolve(
+  process.cwd(),
+  'tools',
+  'feishu-codex-console',
+  'data',
+  'task-snapshots',
+);
 const DEFAULT_INTERVAL_SECONDS = 300;
 const RUNNER_TIMEOUT_MS = Number(process.env.FEISHU_RUNNER_TIMEOUT_MS || 60 * 60 * 1000);
 const MAX_LOG_CHARS = Number(process.env.FEISHU_RUNNER_MAX_LOG_CHARS || 12000);
@@ -240,13 +248,15 @@ async function listRecords(config) {
   const fields = payload.fields || [];
   const rows = payload.data || [];
   const ids = payload.record_id_list || [];
-  return rows.map((row, index) => {
+  const records = rows.map((row, index) => {
     const record = { _recordId: ids[index], _row: row };
     fields.forEach((field, fieldIndex) => {
       record[field] = row[fieldIndex];
     });
     return record;
   });
+  const snapshotDir = path.resolve(config.snapshotDir || DEFAULT_SNAPSHOT_DIR);
+  return upsertTaskSnapshots(snapshotDir, records);
 }
 
 function taskEligibility(record, now = new Date()) {
