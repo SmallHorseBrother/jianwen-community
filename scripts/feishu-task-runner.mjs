@@ -11,6 +11,7 @@ const RUNNER_TIMEOUT_MS = Number(process.env.FEISHU_RUNNER_TIMEOUT_MS || 60 * 60
 const MAX_LOG_CHARS = Number(process.env.FEISHU_RUNNER_MAX_LOG_CHARS || 12000);
 const CODEX_CMD = process.env.CODEX_CMD || 'codex';
 const PUSH_BRANCH = process.env.FEISHU_RUNNER_PUSH === 'true';
+const IMAGE_EXTENSIONS = new Set(['.gif', '.jpeg', '.jpg', '.png', '.webp']);
 
 function parseArgs(argv) {
   const flags = new Map();
@@ -38,11 +39,6 @@ function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
-function writeJson(filePath, value) {
-  fs.mkdirSync(path.dirname(filePath), { recursive: true });
-  fs.writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
-}
-
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -62,6 +58,53 @@ function stringValue(value) {
   if (item == null) return '';
   if (typeof item === 'object') return JSON.stringify(item);
   return String(item);
+}
+
+function arrayValue(value) {
+  if (Array.isArray(value)) return value.filter(Boolean);
+  return value == null ? [] : [value];
+}
+
+function parseFeishuDateTime(value) {
+  const item = single(value);
+  if (item == null || item === '') return null;
+  if (typeof item === 'number') {
+    const milliseconds = item < 1e12 ? item * 1000 : item;
+    const date = new Date(milliseconds);
+    return Number.isNaN(date.getTime()) ? null : date;
+  }
+  const text = String(item).trim();
+  const localMatch = text.match(
+    /^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})(?::(\d{2}))?$/,
+  );
+  if (localMatch) {
+    const [, year, month, day, hour, minute, second = '0'] = localMatch;
+    const date = new Date(
+      Number(year),
+      Number(month) - 1,
+      Number(day),
+      Number(hour),
+      Number(minute),
+      Number(second),
+    );
+    return Number.isNaN(date.getTime()) ? null : date;
+  }
+  const date = new Date(text);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
+function formatLocalDateTime(date) {
+  const parts = new Intl.DateTimeFormat('sv-SE', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  }).formatToParts(date);
+  const value = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  return `${value.year}-${value.month}-${value.day} ${value.hour}:${value.minute}:${value.second}`;
 }
 
 function sourceIdFromRaw(raw) {
@@ -85,7 +128,9 @@ function makeShellCommand(command, cwd) {
 }
 
 function runCommand(command, cwd, options = {}) {
-  const { cmd, args } = makeShellCommand(command, cwd);
+  const { cmd, args } = Array.isArray(command)
+    ? { cmd: command[0], args: command.slice(1) }
+    : makeShellCommand(command, cwd);
   const timeoutMs = options.timeoutMs || 120000;
   return new Promise((resolve) => {
     const child = spawn(cmd, args, { cwd, env: process.env, shell: false });
@@ -114,12 +159,32 @@ function runCommand(command, cwd, options = {}) {
   });
 }
 
+function resolveLarkCommand(args) {
+  if (process.platform !== 'win32') {
+    return { command: 'lark-cli', args };
+  }
+  const runScript = path.join(
+    process.env.APPDATA || '',
+    'npm',
+    'node_modules',
+    '@larksuite',
+    'cli',
+    'scripts',
+    'run.js',
+  );
+  if (fs.existsSync(runScript)) {
+    return { command: process.execPath, args: [runScript, ...args] };
+  }
+  return { command: 'lark-cli', args };
+}
+
 function runLark(args, options = {}) {
   return new Promise((resolve) => {
-    const child = spawn('lark-cli', args, {
+    const command = resolveLarkCommand(args);
+    const child = spawn(command.command, command.args, {
       cwd: options.cwd || process.cwd(),
       env: process.env,
-      shell: process.platform === 'win32',
+      shell: false,
     });
     let stdout = '';
     let stderr = '';
@@ -133,7 +198,7 @@ function runLark(args, options = {}) {
       }
       try {
         const json = JSON.parse(stdout.replace(/^\uFEFF/, ''));
-        resolve({ ok: Boolean(json.ok), json, stdout, stderr });
+        resolve({ ok: json.ok === undefined ? true : Boolean(json.ok), json, stdout, stderr });
       } catch (error) {
         resolve({ ok: false, error, stdout, stderr });
       }
@@ -142,21 +207,13 @@ function runLark(args, options = {}) {
 }
 
 async function updateRecord(config, recordId, fields) {
-  const updatePath = path.resolve(
-    process.cwd(),
-    'tmp',
-    'feishu-task-runner-updates',
-    `${recordId}-${Date.now()}.json`,
-  );
-  writeJson(updatePath, fields);
-
   const result = await runLark([
     'base', '+record-upsert',
     '--as', 'user',
     '--base-token', config.baseToken,
     '--table-id', config.tableId,
     '--record-id', recordId,
-    '--json', `@${updatePath}`,
+    '--json', JSON.stringify(fields),
   ]);
   if (!result.ok) {
     throw new Error(`record update failed: ${result.stderr || result.stdout || result.error?.message}`);
@@ -165,14 +222,16 @@ async function updateRecord(config, recordId, fields) {
 }
 
 async function listRecords(config) {
-  const result = await runLark([
+  const args = [
     'base', '+record-list',
     '--as', 'user',
     '--base-token', config.baseToken,
     '--table-id', config.tableId,
     '--offset', '0',
     '--limit', '200',
-  ]);
+  ];
+  if (config.viewId) args.push('--view-id', config.viewId);
+  const result = await runLark(args);
   if (!result.ok) {
     throw new Error(`record list failed: ${result.stderr || result.stdout || result.error?.message}`);
   }
@@ -190,16 +249,31 @@ async function listRecords(config) {
   });
 }
 
-function isEligible(record) {
+function taskEligibility(record, now = new Date()) {
   const aiAllowed = stringValue(record['是否AI自动修改']) === '是';
   const execStatus = stringValue(record['AI执行状态']);
-  if (!aiAllowed) return false;
-  return !execStatus || execStatus === '待执行';
+  const plannedAt = parseFeishuDateTime(record['计划执行时间']);
+  if (!aiAllowed) return { eligible: false, reason: 'not-approved', plannedAt };
+  if (execStatus && execStatus !== '待执行') {
+    return { eligible: false, reason: `status-${execStatus}`, plannedAt };
+  }
+  if (!stringValue(record['需求名称'])) {
+    return { eligible: false, reason: 'missing-title', plannedAt };
+  }
+  if (!plannedAt) return { eligible: false, reason: 'missing-schedule', plannedAt };
+  if (plannedAt.getTime() > now.getTime()) {
+    return { eligible: false, reason: 'scheduled', plannedAt };
+  }
+  return { eligible: true, reason: 'due', plannedAt };
 }
 
 function resolveProjectPath(config, record) {
   const explicit = stringValue(record['AI执行项目路径']);
   if (explicit) return explicit;
+  const projectKey = stringValue(record['项目Key']);
+  if (projectKey && config.projectPathMap?.[projectKey]) {
+    return config.projectPathMap[projectKey];
+  }
   const sourceId = sourceIdFromRaw(record['原始群聊消息']);
   if (sourceId && config.sourceProjectMap?.[sourceId]) return config.sourceProjectMap[sourceId];
   return config.defaultProjectPath || null;
@@ -223,25 +297,100 @@ async function prepareWorktree(config, projectPath, record) {
   fs.mkdirSync(root, { recursive: true });
   const title = safeSlug(record['需求名称']);
   const stamp = new Date().toISOString().replace(/[:.]/g, '-');
-  const branch = `codex/feishu-${safeSlug(record._recordId)}-${stamp.slice(0, 10)}`;
+  const branch = `codex/feishu-${safeSlug(record._recordId)}-${stamp}`;
   const worktree = path.join(root, `${safeSlug(path.basename(projectPath))}-${safeSlug(record._recordId)}-${stamp}`);
-  const add = await runCommand(`git worktree add -b ${branch} "${worktree}" HEAD`, projectPath, { timeoutMs: 180000 });
+  const add = await runCommand(
+    ['git', 'worktree', 'add', '-b', branch, worktree, 'HEAD'],
+    projectPath,
+    { timeoutMs: 180000 },
+  );
   if (!add.ok) {
     throw new Error(`git worktree add failed:\n${add.stdout}\n${add.stderr}`);
+  }
+  const sourceNodeModules = path.join(projectPath, 'node_modules');
+  const worktreeNodeModules = path.join(worktree, 'node_modules');
+  if (fs.existsSync(sourceNodeModules) && !fs.existsSync(worktreeNodeModules)) {
+    fs.symlinkSync(sourceNodeModules, worktreeNodeModules, 'junction');
   }
   return { worktree, branch, title };
 }
 
-function buildPrompt(record, context) {
+async function downloadAttachments(config, record) {
+  const attachments = arrayValue(record['附件']).filter(
+    (attachment) => attachment && typeof attachment === 'object' && attachment.file_token,
+  );
+  if (attachments.length === 0) return { files: [], errors: [] };
+
+  const attachmentFieldId = config.attachmentFieldId || 'fldIiQ4IFn';
+  const outputDir = path.resolve(
+    process.cwd(),
+    'tmp',
+    'feishu-task-runner-attachments',
+    record._recordId,
+    String(Date.now()),
+  );
+  fs.mkdirSync(outputDir, { recursive: true });
+  const files = [];
+  const errors = [];
+
+  for (let index = 0; index < attachments.length; index += 1) {
+    const attachment = attachments[index];
+    const fileName = `${String(index + 1).padStart(2, '0')}-${path.basename(attachment.name || 'attachment')}`;
+    const outputPath = path.join(outputDir, fileName);
+    const extra = JSON.stringify({
+      bitablePerm: {
+        tableId: config.tableId,
+        attachments: {
+          [attachmentFieldId]: {
+            [record._recordId]: [attachment.file_token],
+          },
+        },
+      },
+    });
+    const result = await runLark([
+      'api',
+      'GET',
+      `/open-apis/drive/v1/medias/${attachment.file_token}/download`,
+      '--as',
+      'user',
+      '--params',
+      JSON.stringify({ extra }),
+      '--output',
+      `./${fileName}`,
+    ], { cwd: outputDir });
+    if (result.ok && fs.existsSync(outputPath)) {
+      files.push(outputPath);
+    } else {
+      errors.push(
+        `${attachment.name || attachment.file_token}: ${result.stderr || result.stdout || result.error?.message}`,
+      );
+    }
+  }
+  return { files, errors };
+}
+
+function buildPrompt(record, context, attachmentResult) {
+  const attachmentSummary = attachmentResult.files.length > 0
+    ? attachmentResult.files.map((filePath) => `- ${filePath}`).join('\n')
+    : '无';
+  const attachmentErrors = attachmentResult.errors.length > 0
+    ? attachmentResult.errors.join('\n')
+    : '无';
   return `你正在处理一条从飞书多维表格派发给 Codex 的工程任务。请直接在当前仓库完成实现，不要再向用户追问。
 
 飞书记录 ID：${record._recordId}
 需求名称：${stringValue(record['需求名称'])}
 需求描述：${stringValue(record['需求描述']) || '无'}
+验收标准：${stringValue(record['验收标准']) || '未填写，请根据需求描述制定最小、可验证的验收标准'}
+计划执行时间：${formatLocalDateTime(parseFeishuDateTime(record['计划执行时间']))}
 优先级：${stringValue(record['优先级']) || '未指定'}
 复杂度：${stringValue(record['复杂度']) || '未指定'}
 原始群聊消息：
 ${stringValue(record['原始群聊消息']) || '无'}
+附件（图片已通过 Codex --image 同时传入）：
+${attachmentSummary}
+附件下载错误：
+${attachmentErrors}
 
 执行要求：
 - 当前工作目录是独立 git worktree：${context.worktree}
@@ -262,13 +411,27 @@ ${stringValue(record['原始群聊消息']) || '无'}
 5. 风险或需要人工确认的点`;
 }
 
-function runCodex(prompt, cwd, logPath) {
-  const args = ['exec', '--dangerously-bypass-approvals-and-sandbox', '-'];
+function codexEnvironment() {
+  const env = { ...process.env };
+  if (env.FEISHU_CODEX_PRESERVE_OPENAI_ENV !== '1') {
+    delete env.OPENAI_API_KEY;
+    delete env.OPENAI_BASE_URL;
+    delete env.OPENAI_MODEL;
+  }
+  return env;
+}
+
+function runCodex(prompt, cwd, logPath, attachmentFiles = []) {
+  const imageArgs = attachmentFiles
+    .filter((filePath) => IMAGE_EXTENSIONS.has(path.extname(filePath).toLowerCase()))
+    .flatMap((filePath) => ['--image', filePath]);
+  const args = ['exec', '--full-auto', ...imageArgs, '-'];
   return new Promise((resolve) => {
     const child = spawn(CODEX_CMD, args, {
       cwd,
-      env: process.env,
+      env: codexEnvironment(),
       shell: process.platform === 'win32',
+      windowsHide: true,
     });
     let stdout = '';
     let stderr = '';
@@ -277,7 +440,15 @@ function runCodex(prompt, cwd, logPath) {
     const timeout = setTimeout(() => {
       if (finished) return;
       stderr += `\n[runner] codex timeout after ${RUNNER_TIMEOUT_MS}ms`;
-      child.kill('SIGTERM');
+      if (process.platform === 'win32' && child.pid) {
+        const killer = spawn('taskkill.exe', ['/pid', String(child.pid), '/t', '/f'], {
+          windowsHide: true,
+          stdio: 'ignore',
+        });
+        killer.unref();
+      } else {
+        child.kill('SIGTERM');
+      }
     }, RUNNER_TIMEOUT_MS);
     const append = (chunk, target) => {
       const text = chunk.toString();
@@ -307,6 +478,7 @@ function runCodex(prompt, cwd, logPath) {
 function summarizeExecution(result, beforeRepo, afterRepo, logPath, pushResult = null) {
   const lines = [
     `结果：${result.ok ? 'Codex 执行完成' : 'Codex 执行失败'}`,
+    `退出码：${result.code ?? '无'}`,
     `耗时：${Math.round(result.durationMs / 1000)} 秒`,
     `执行日志：${logPath}`,
     `执行前 HEAD：${beforeRepo.head}`,
@@ -333,9 +505,11 @@ async function processRecord(config, record, options) {
   const logPath = path.join(logDir, `${recordId}-${Date.now()}.log`);
 
   if (options.dryRun) {
+    const plannedAt = parseFeishuDateTime(record['计划执行时间']);
     const message = [
       `[dry-run] eligible task: ${title}`,
       `record=${recordId}`,
+      `plannedAt=${plannedAt ? formatLocalDateTime(plannedAt) : 'missing'}`,
       `projectPath=${projectPath || 'missing'}`,
       `source=${sourceIdFromRaw(record['原始群聊消息']) || 'unknown'}`,
     ].join('\n');
@@ -362,14 +536,19 @@ async function processRecord(config, record, options) {
   try {
     const worktreeContext = await prepareWorktree(config, projectPath, record);
     const beforeRepo = await inspectRepo(worktreeContext.worktree);
-    const prompt = buildPrompt(record, worktreeContext);
+    const attachmentResult = await downloadAttachments(config, record);
+    const prompt = buildPrompt(record, worktreeContext, attachmentResult);
     fs.writeFileSync(logPath, `[feishu-runner] ${new Date().toISOString()}\nrecord=${recordId}\nworktree=${worktreeContext.worktree}\nbranch=${worktreeContext.branch}\n\n`, 'utf8');
 
-    const result = await runCodex(prompt, worktreeContext.worktree, logPath);
+    const result = await runCodex(prompt, worktreeContext.worktree, logPath, attachmentResult.files);
     const afterRepo = await inspectRepo(worktreeContext.worktree);
     let pushResult = null;
     if (PUSH_BRANCH && beforeRepo.head !== afterRepo.head) {
-      pushResult = await runCommand(`git push -u origin ${worktreeContext.branch}`, worktreeContext.worktree, { timeoutMs: 180000 });
+      pushResult = await runCommand(
+        ['git', 'push', '-u', 'origin', worktreeContext.branch],
+        worktreeContext.worktree,
+        { timeoutMs: 180000 },
+      );
     }
 
     const validation = summarizeExecution(result, beforeRepo, afterRepo, logPath, pushResult);
@@ -404,12 +583,46 @@ async function processRecord(config, record, options) {
 
 async function processOnce(config, options) {
   const records = await listRecords(config);
-  const eligible = records.filter(isEligible);
-  if (eligible.length === 0) {
-    console.log('[feishu-runner] no eligible records');
+  const inProgress = records.filter(
+    (record) => stringValue(record['AI执行状态']) === '执行中',
+  );
+  if (inProgress.length > 0) {
+    console.log(
+      `[feishu-runner] waiting for in-progress record: ${inProgress.map((record) => record._recordId).join(', ')}`,
+    );
     return false;
   }
-  console.log(`[feishu-runner] eligible records: ${eligible.map((record) => record._recordId).join(', ')}`);
+  const now = new Date();
+  const approved = records
+    .map((record) => ({ record, eligibility: taskEligibility(record, now) }))
+    .filter(({ record }) => stringValue(record['是否AI自动修改']) === '是');
+  const eligible = approved
+    .filter(({ eligibility }) => eligibility.eligible)
+    .sort((left, right) => left.eligibility.plannedAt - right.eligibility.plannedAt)
+    .map(({ record }) => record);
+  if (eligible.length === 0) {
+    const scheduled = approved
+      .filter(({ eligibility }) => eligibility.reason === 'scheduled')
+      .sort((left, right) => left.eligibility.plannedAt - right.eligibility.plannedAt);
+    const missingSchedule = approved.filter(
+      ({ eligibility }) => eligibility.reason === 'missing-schedule',
+    );
+    if (scheduled.length > 0) {
+      const next = scheduled[0];
+      console.log(
+        `[feishu-runner] no due records; next=${next.record._recordId} at ${formatLocalDateTime(next.eligibility.plannedAt)}`,
+      );
+    } else {
+      console.log('[feishu-runner] no due records');
+    }
+    if (missingSchedule.length > 0) {
+      console.log(
+        `[feishu-runner] approved records missing schedule: ${missingSchedule.map(({ record }) => record._recordId).join(', ')}`,
+      );
+    }
+    return false;
+  }
+  console.log(`[feishu-runner] due records: ${eligible.map((record) => record._recordId).join(', ')}`);
   await processRecord(config, eligible[0], options);
   return true;
 }

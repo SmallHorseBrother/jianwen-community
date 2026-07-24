@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 .env.wechat-bridge
+.env.requirement-llm
 .tmp_*.cjs
 supabase/.temp/
 test-results/
@@ -19,6 +20,7 @@ playwright-report/
 reports/ui-test-agent/
 .task-runner-logs/
 tmp/
+tools/feishu-codex-console/data/
 
 # Editor directories and files
 .vscode/*
