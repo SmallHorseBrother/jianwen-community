@@ -288,7 +288,7 @@ const AIAssessment: React.FC = () => {
   const isGroupImagePlaceholder = Boolean(groupImageUrl && !access?.group_qr_url);
 
   if (isLoading) {
-    return <div className="min-h-screen flex items-center justify-center text-slate-500">正在加载…</div>;
+    return <div className="min-h-screen flex items-center justify-center text-slate-300">正在加载…</div>;
   }
 
   return (
@@ -296,12 +296,12 @@ const AIAssessment: React.FC = () => {
       <div className="mx-auto max-w-3xl">
         <button
           onClick={() => navigate('/tools')}
-          className="mb-5 inline-flex items-center gap-2 text-sm text-slate-500 transition hover:text-cyan-700"
+          className="mb-5 inline-flex items-center gap-2 text-sm text-slate-300 transition hover:text-cyan-200"
         >
           <ArrowLeft className="h-4 w-4" /> 返回产品实验室
         </button>
 
-        <section className="overflow-hidden rounded-3xl border border-cyan-100 bg-white shadow-xl shadow-cyan-950/10">
+        <section className="overflow-hidden rounded-3xl border border-cyan-200/40 bg-slate-950/85 text-slate-100 shadow-xl shadow-cyan-950/30 backdrop-blur-xl">
           <div className="bg-gradient-to-br from-slate-950 via-cyan-950 to-blue-950 px-6 py-9 text-white sm:px-10 sm:py-12">
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 ring-1 ring-white/20">
               <BrainCircuit className="h-7 w-7 text-cyan-100" />
@@ -328,14 +328,14 @@ const AIAssessment: React.FC = () => {
                     ['2', '获得起点', '看到适合你的学习路线'],
                     ['3', '解锁进群', '支付后领取专属 ID 与二维码'],
                   ].map(([number, title, description]) => (
-                    <div key={number} className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+                    <div key={number} className="rounded-2xl border border-white/15 bg-slate-900/80 p-4">
                       <span className="mb-3 flex h-7 w-7 items-center justify-center rounded-full bg-cyan-600 text-xs font-black text-white">{number}</span>
-                      <p className="font-bold text-slate-900">{title}</p>
-                      <p className="mt-1 text-sm leading-6 text-slate-500">{description}</p>
+                      <p className="font-bold text-white">{title}</p>
+                      <p className="mt-1 text-sm leading-6 text-slate-300">{description}</p>
                     </div>
                   ))}
                 </div>
-                <div className="rounded-2xl bg-cyan-50 px-4 py-4 text-sm leading-6 text-cyan-900">
+                <div className="rounded-2xl border border-cyan-300/20 bg-cyan-950/60 px-4 py-4 text-sm leading-6 text-cyan-100">
                   <ShieldCheck className="mr-2 inline h-4 w-4" />
                   测评和结果完全免费。只有你决定进入对应学习群时，才需要支付入群权益并领取唯一群昵称。
                 </div>
@@ -348,13 +348,13 @@ const AIAssessment: React.FC = () => {
             {stage === 'questions' && (
               <div>
                 <div className="mb-7 flex items-center justify-between text-sm">
-                  <span className="font-semibold text-cyan-700">第 {questionIndex + 1} / {questions.length} 题</span>
-                  <span className="text-slate-400">如实选择即可，没有标准答案</span>
+                  <span className="font-semibold text-cyan-300">第 {questionIndex + 1} / {questions.length} 题</span>
+                  <span className="text-slate-300">如实选择即可，没有标准答案</span>
                 </div>
-                <div className="mb-7 h-2 overflow-hidden rounded-full bg-slate-100">
+                <div className="mb-7 h-2 overflow-hidden rounded-full bg-white/15">
                   <div className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 transition-all" style={{ width: `${((questionIndex + 1) / questions.length) * 100}%` }} />
                 </div>
-                <h2 className="text-xl font-bold leading-8 text-slate-900 sm:text-2xl">{currentQuestion.title}</h2>
+                <h2 className="text-xl font-bold leading-8 text-white sm:text-2xl">{currentQuestion.title}</h2>
                 <div className="mt-6 space-y-3">
                   {currentQuestion.options.map(([label, value]) => {
                     const selected = answers[questionIndex] === value;
@@ -363,10 +363,10 @@ const AIAssessment: React.FC = () => {
                         key={label}
                         onClick={() => selectAnswer(value)}
                         className={`w-full rounded-2xl border px-4 py-4 text-left text-sm leading-6 transition sm:px-5 ${selected
-                          ? 'border-cyan-500 bg-cyan-50 text-cyan-950 ring-2 ring-cyan-100'
-                          : 'border-slate-200 bg-white text-slate-700 hover:border-cyan-300 hover:bg-cyan-50/40'}`}
+                          ? 'border-cyan-300 bg-cyan-400/20 text-white ring-2 ring-cyan-300/25'
+                          : 'border-slate-500 bg-slate-900/75 text-slate-100 hover:border-cyan-300 hover:bg-cyan-950/50'}`}
                       >
-                        <span className={`mr-3 inline-flex h-5 w-5 align-middle items-center justify-center rounded-full border ${selected ? 'border-cyan-600 bg-cyan-600 text-white' : 'border-slate-300'}`}>
+                        <span className={`mr-3 inline-flex h-5 w-5 align-middle items-center justify-center rounded-full border ${selected ? 'border-cyan-300 bg-cyan-500 text-white' : 'border-slate-400'}`}>
                           {selected && <CheckCircle2 className="h-4 w-4" />}
                         </span>
                         {label}
@@ -375,10 +375,10 @@ const AIAssessment: React.FC = () => {
                   })}
                 </div>
                 <div className="mt-8 flex justify-between gap-3">
-                  <button onClick={() => questionIndex === 0 ? setStage('intro') : setQuestionIndex((index) => index - 1)} className="rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50">
+                  <button onClick={() => questionIndex === 0 ? setStage('intro') : setQuestionIndex((index) => index - 1)} className="rounded-xl border border-slate-500 px-4 py-3 text-sm font-semibold text-slate-200 hover:border-slate-300 hover:bg-white/10">
                     上一题
                   </button>
-                  <button onClick={nextQuestion} disabled={answers[questionIndex] === null} className="rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-40">
+                  <button onClick={nextQuestion} disabled={answers[questionIndex] === null} className="rounded-xl bg-gradient-to-r from-cyan-600 to-blue-700 px-5 py-3 text-sm font-semibold text-white transition hover:from-cyan-500 hover:to-blue-600 disabled:cursor-not-allowed disabled:from-slate-800 disabled:to-slate-800 disabled:text-slate-400 disabled:opacity-100">
                     {questionIndex === questions.length - 1 ? '选择学习目标' : '下一题'}
                   </button>
                 </div>
@@ -387,20 +387,20 @@ const AIAssessment: React.FC = () => {
 
             {stage === 'goal' && (
               <div>
-                <p className="text-sm font-bold tracking-widest text-cyan-700">最后一步</p>
-                <h2 className="mt-2 text-2xl font-black text-slate-900">你最希望 AI 帮你解决什么？</h2>
-                <p className="mt-2 text-sm leading-6 text-slate-500">它不影响你的基础分组，只帮助我安排后续案例和作业。</p>
+                <p className="text-sm font-bold tracking-widest text-cyan-300">最后一步</p>
+                <h2 className="mt-2 text-2xl font-black text-white">你最希望 AI 帮你解决什么？</h2>
+                <p className="mt-2 text-sm leading-6 text-slate-300">它不影响你的基础分组，只帮助我安排后续案例和作业。</p>
                 <div className="mt-6 grid gap-3 sm:grid-cols-2">
                   {goals.map((item) => (
-                    <button key={item.value} onClick={() => setGoal(item.value)} className={`rounded-2xl border p-4 text-left transition ${goal === item.value ? 'border-cyan-500 bg-cyan-50 ring-2 ring-cyan-100' : 'border-slate-200 hover:border-cyan-300'}`}>
-                      <p className="font-bold text-slate-900">{item.label}</p>
-                      <p className="mt-1 text-sm text-slate-500">{item.description}</p>
+                    <button key={item.value} onClick={() => setGoal(item.value)} className={`rounded-2xl border p-4 text-left transition ${goal === item.value ? 'border-cyan-300 bg-cyan-400/20 ring-2 ring-cyan-300/25' : 'border-slate-500 bg-slate-900/75 hover:border-cyan-300 hover:bg-cyan-950/50'}`}>
+                      <p className="font-bold text-white">{item.label}</p>
+                      <p className="mt-1 text-sm text-slate-300">{item.description}</p>
                     </button>
                   ))}
                 </div>
                 <div className="mt-8 flex justify-between gap-3">
-                  <button onClick={() => setStage('questions')} className="rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50">返回</button>
-                  <button onClick={submitAssessment} disabled={!goal || isBusy} className="rounded-xl bg-gradient-to-r from-cyan-600 to-blue-700 px-5 py-3 text-sm font-bold text-white disabled:cursor-not-allowed disabled:opacity-40">
+                  <button onClick={() => setStage('questions')} className="rounded-xl border border-slate-500 px-4 py-3 text-sm font-semibold text-slate-200 hover:border-slate-300 hover:bg-white/10">返回</button>
+                  <button onClick={submitAssessment} disabled={!goal || isBusy} className="rounded-xl bg-gradient-to-r from-cyan-600 to-blue-700 px-5 py-3 text-sm font-bold text-white disabled:cursor-not-allowed disabled:from-slate-800 disabled:to-slate-800 disabled:text-slate-400">
                     {isBusy ? '正在生成结果…' : `查看我的学习起点（${scorePreview}/16）`}
                   </button>
                 </div>
@@ -409,60 +409,60 @@ const AIAssessment: React.FC = () => {
 
             {stage === 'result' && access?.assessment && access.route && (
               <div className="space-y-6">
-                <div className="rounded-3xl bg-gradient-to-br from-cyan-50 via-white to-blue-50 p-5 ring-1 ring-cyan-100 sm:p-7">
-                  <p className="text-sm font-semibold text-cyan-700">你的当前学习起点</p>
+                <div className="rounded-3xl bg-gradient-to-br from-cyan-950/80 via-slate-900 to-blue-950/80 p-5 ring-1 ring-cyan-300/25 sm:p-7">
+                  <p className="text-sm font-semibold text-cyan-300">你的当前学习起点</p>
                   <div className="mt-2 flex flex-wrap items-end justify-between gap-3">
                     <div>
-                      <h2 className="text-3xl font-black text-slate-950">{displayedLevel ? levelLabels[displayedLevel] : 'AI 学习路线'}</h2>
-                      <p className="mt-2 max-w-xl leading-7 text-slate-600">{access.route.description}</p>
+                      <h2 className="text-3xl font-black text-white">{displayedLevel ? levelLabels[displayedLevel] : 'AI 学习路线'}</h2>
+                      <p className="mt-2 max-w-xl leading-7 text-slate-200">{access.route.description}</p>
                     </div>
-                    <span className="rounded-full bg-white px-3 py-1.5 text-sm font-bold text-slate-600 shadow-sm">基础分 {access.assessment.score} / 16</span>
+                    <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-sm font-bold text-slate-100 shadow-sm">基础分 {access.assessment.score} / 16</span>
                   </div>
                 </div>
 
                 {isUnlocked ? (
-                  <section className="rounded-3xl border border-emerald-200 bg-emerald-50/60 p-5 sm:p-7">
+                  <section className="rounded-3xl border border-emerald-300/30 bg-emerald-950/35 p-5 sm:p-7">
                     <div className="flex gap-3">
-                      <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-emerald-600" />
+                      <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-emerald-300" />
                       <div>
-                        <h3 className="text-lg font-black text-emerald-950">已解锁：{access.route.group_name}</h3>
-                        <p className="mt-1 text-sm leading-6 text-emerald-900">请保存你的唯一 ID。入群后，把微信群昵称修改为该 ID，管理员会以此核验。</p>
+                        <h3 className="text-lg font-black text-emerald-100">已解锁：{access.route.group_name}</h3>
+                        <p className="mt-1 text-sm leading-6 text-emerald-100/90">请保存你的唯一 ID。入群后，把微信群昵称修改为该 ID，管理员会以此核验。</p>
                       </div>
                     </div>
-                    <button onClick={copyIdentity} className="mt-5 flex w-full items-center justify-between rounded-2xl border border-emerald-200 bg-white px-4 py-4 text-left transition hover:border-emerald-400">
-                      <span><span className="block text-xs font-semibold text-emerald-700">你的唯一入群 ID</span><strong className="mt-1 block text-xl tracking-wide text-slate-950">{access.membership?.display_id}</strong></span>
-                      <span className="inline-flex items-center gap-1 text-sm font-bold text-emerald-700"><Clipboard className="h-4 w-4" />{copyMessage || '复制'}</span>
+                    <button onClick={copyIdentity} className="mt-5 flex w-full items-center justify-between rounded-2xl border border-emerald-300/30 bg-slate-950/60 px-4 py-4 text-left transition hover:border-emerald-300/70">
+                      <span><span className="block text-xs font-semibold text-emerald-300">你的唯一入群 ID</span><strong className="mt-1 block text-xl tracking-wide text-white">{access.membership?.display_id}</strong></span>
+                      <span className="inline-flex items-center gap-1 text-sm font-bold text-emerald-300"><Clipboard className="h-4 w-4" />{copyMessage || '复制'}</span>
                     </button>
                     {groupImageUrl ? (
                       <div className="mt-6 text-center">
-                        <img src={groupImageUrl} alt={isGroupImagePlaceholder ? `${access.route.group_name}临时占位图` : `${access.route.group_name}二维码`} className="mx-auto aspect-square w-full max-w-xs rounded-2xl bg-white object-cover p-3 shadow-sm" />
+                        <img src={groupImageUrl} alt={isGroupImagePlaceholder ? `${access.route.group_name}临时占位图` : `${access.route.group_name}二维码`} className="mx-auto aspect-square w-full max-w-xs rounded-2xl bg-[#ffffff] object-cover p-3 shadow-sm" />
                         {isGroupImagePlaceholder ? (
-                          <p className="mt-3 text-sm text-amber-800">当前是临时占位图，暂不可扫码；正式群二维码发来后会直接替换。</p>
+                          <p className="mt-3 text-sm text-amber-200">当前是临时占位图，暂不可扫码；正式群二维码发来后会直接替换。</p>
                         ) : (
-                          <p className="mt-3 text-sm text-emerald-900">扫码进群后，请立即将群昵称改为 <strong>{access.membership?.display_id}</strong>。</p>
+                          <p className="mt-3 text-sm text-emerald-100">扫码进群后，请立即将群昵称改为 <strong>{access.membership?.display_id}</strong>。</p>
                         )}
                       </div>
                     ) : (
-                      <div className="mt-5 rounded-2xl bg-white/70 p-4 text-sm leading-6 text-emerald-900"><QrCode className="mr-1 inline h-4 w-4" /> 已确认入群权益，群二维码正在由管理员配置。请稍后刷新本页。</div>
+                      <div className="mt-5 rounded-2xl bg-white/10 p-4 text-sm leading-6 text-emerald-100"><QrCode className="mr-1 inline h-4 w-4" /> 已确认入群权益，群二维码正在由管理员配置。请稍后刷新本页。</div>
                     )}
                   </section>
                 ) : (
-                  <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
+                  <section className="rounded-3xl border border-white/15 bg-slate-900/70 p-5 shadow-sm sm:p-7">
                     <div className="flex gap-3">
-                      <LockKeyhole className="mt-0.5 h-6 w-6 shrink-0 text-cyan-700" />
+                      <LockKeyhole className="mt-0.5 h-6 w-6 shrink-0 text-cyan-300" />
                       <div>
                         <div className="flex flex-wrap items-center gap-2">
-                          <h3 className="text-lg font-black text-slate-950">解锁 {access.route.group_name}</h3>
+                          <h3 className="text-lg font-black text-white">解锁 {access.route.group_name}</h3>
                           <span className="rounded-full bg-rose-100 px-2.5 py-1 text-xs font-bold text-rose-700">{access.unlock_price_label} {money(access.unlock_price_cents)}</span>
                         </div>
-                        <p className="mt-1 text-sm leading-6 text-slate-600">解锁后系统会生成唯一入群 ID，并只向你展示对应群的二维码。</p>
+                        <p className="mt-1 text-sm leading-6 text-slate-200">解锁后系统会生成唯一入群 ID，并只向你展示对应群的二维码。</p>
                       </div>
                     </div>
 
                     {paymentQr && access.latest_order?.status === 'created' ? (
                       <div className="mt-6 rounded-2xl bg-slate-950 p-5 text-center text-white">
                         <p className="font-bold">请使用微信扫描二维码支付 {money(access.unlock_price_cents)}</p>
-                        <img src={paymentQr} alt="微信支付二维码" className="mx-auto mt-4 w-full max-w-[220px] rounded-xl bg-white p-2" />
+                        <img src={paymentQr} alt="微信支付二维码" className="mx-auto mt-4 w-full max-w-[220px] rounded-xl bg-[#ffffff] p-2" />
                         <p className="mt-3 text-xs text-slate-300">支付完成后，点击下方按钮领取唯一 ID。</p>
                         <button onClick={syncPayment} disabled={isBusy} className="mt-4 inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-bold text-slate-950 disabled:opacity-50"><RefreshCw className={`h-4 w-4 ${isBusy ? 'animate-spin' : ''}`} />我已支付，刷新结果</button>
                       </div>
@@ -480,11 +480,11 @@ const AIAssessment: React.FC = () => {
                     ) : (
                       <div className="mt-6 rounded-2xl bg-amber-50 px-4 py-4 text-sm leading-6 text-amber-900"><Sparkles className="mr-1 inline h-4 w-4" /> 你的测评结果已保存。支付通道正在配置中，开放后可在此直接领取入群权益。</div>
                     )}
-                    <p className="mt-5 text-xs leading-5 text-slate-400">二维码为私密入群凭证。请勿转发；即使二维码被转发，管理员也会按唯一入群 ID 核验成员身份。</p>
+                    <p className="mt-5 text-xs leading-5 text-slate-300">二维码为私密入群凭证。请勿转发；即使二维码被转发，管理员也会按唯一入群 ID 核验成员身份。</p>
                   </section>
                 )}
 
-                <button onClick={() => { setAnswers(Array(8).fill(null)); setGoal(null); setQuestionIndex(0); setStage('questions'); }} className="w-full text-sm font-semibold text-slate-500 transition hover:text-cyan-700">重新进行测评</button>
+                <button onClick={() => { setAnswers(Array(8).fill(null)); setGoal(null); setQuestionIndex(0); setStage('questions'); }} className="w-full text-sm font-semibold text-slate-300 transition hover:text-cyan-200">重新进行测评</button>
               </div>
             )}
           </div>
