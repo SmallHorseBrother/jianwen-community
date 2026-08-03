@@ -1,0 +1,5 @@
+[functions.ai-group-payment]
+# WeChat Pay and Alipay callbacks do not carry a Supabase JWT. The function
+# validates provider signatures itself; browser actions additionally validate
+# the user's Supabase JWT in application code.
+verify_jwt = false

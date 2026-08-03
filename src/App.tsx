@@ -21,6 +21,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import CommunityV2 from './pages/CommunityV2';
 import PartnerSharePage from './pages/PartnerSharePage';
 import Tools from './pages/Tools';
+import AIAssessment from './pages/AIAssessment';
 import Guide from './pages/Guide';
 import Tasks from './pages/Tasks';
 import Notifications from './pages/Notifications';
@@ -71,6 +72,7 @@ const AppRoutes: React.FC = () => {
       
       {/* 工具箱 */}
       <Route path="/tools" element={<Layout><Tools /></Layout>} />
+      <Route path="/tools/ai-assessment" element={<Layout><AIAssessment /></Layout>} />
 
       {/* 关于我 / 数字分身 */}
       <Route path="/about" element={<Layout><PersonalBrandPublic /></Layout>} />

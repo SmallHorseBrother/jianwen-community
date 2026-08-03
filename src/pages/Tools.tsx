@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Dumbbell, Sparkles, ExternalLink, MessageSquarePlus, X, Send, User, MessageCircle, UtensilsCrossed } from 'lucide-react';
+import { Dumbbell, Sparkles, ExternalLink, MessageSquarePlus, X, Send, User, MessageCircle, UtensilsCrossed, BrainCircuit } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { submitSuggestion, getAllSuggestions } from '../services/suggestionService';
 import AppreciationCard from '../components/Common/AppreciationCard';
@@ -298,6 +298,15 @@ const Tools: React.FC = () => {
 
   const tools: ToolCard[] = [
     {
+      title: 'AI 学习起点测评',
+      description: '免费了解自己的 AI 使用基础；解锁对应学习群后领取唯一入群 ID 与专属二维码。',
+      icon: <BrainCircuit className="w-8 h-8" />,
+      link: '/tools/ai-assessment',
+      isExternal: false,
+      color: 'from-violet-500 to-cyan-600',
+      status: 'active',
+    },
+    {
       title: '食探',
       description: 'AI 饮食识别与营养估算小程序，围绕拍照记录、热量估算和日常饮食管理持续迭代。',
       icon: <UtensilsCrossed className="w-8 h-8" />,
@@ -342,7 +351,7 @@ const Tools: React.FC = () => {
 
       <div className="mx-auto max-w-6xl px-1.5 sm:px-4">
         {/* 工具列表 */}
-        <div className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-3 lg:mb-16 lg:gap-6">
+        <div className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 lg:mb-16 lg:gap-6">
           {tools.map((tool) => (
             <ToolCardComponent key={tool.title} tool={tool} />
           ))}
