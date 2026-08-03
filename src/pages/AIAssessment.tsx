@@ -127,6 +127,15 @@ const money = (amountCents: number | null) => amountCents === null
   ? '—'
   : `¥${(amountCents / 100).toFixed(2)}`;
 
+const errorMessage = (error: unknown, fallback: string) => {
+  if (error instanceof Error && error.message) return error.message;
+  if (error && typeof error === 'object' && 'message' in error) {
+    const message = (error as { message?: unknown }).message;
+    if (typeof message === 'string' && message.trim()) return message;
+  }
+  return fallback;
+};
+
 async function invokePayment(body: Record<string, unknown>) {
   const { data, error } = await supabase.functions.invoke('ai-group-payment', { body });
   if (error) throw new Error(error.message || '支付服务暂时不可用');
@@ -227,7 +236,7 @@ const AIAssessment: React.FC = () => {
       await loadStatus();
       setStage('result');
     } catch (submitError) {
-      setError(submitError instanceof Error ? submitError.message : '提交测评失败，请稍后重试');
+      setError(errorMessage(submitError, '提交测评失败，请稍后重试'));
     } finally {
       setIsBusy(false);
     }
@@ -390,6 +399,7 @@ const AIAssessment: React.FC = () => {
                 <p className="text-sm font-bold tracking-widest text-cyan-300">最后一步</p>
                 <h2 className="mt-2 text-2xl font-black text-white">你最希望 AI 帮你解决什么？</h2>
                 <p className="mt-2 text-sm leading-6 text-slate-300">它不影响你的基础分组，只帮助我安排后续案例和作业。</p>
+                <p className="mt-3 text-sm font-semibold text-cyan-200">当前基础分预览：{scorePreview} / 16 · 仅用于匹配学习起点</p>
                 <div className="mt-6 grid gap-3 sm:grid-cols-2">
                   {goals.map((item) => (
                     <button key={item.value} onClick={() => setGoal(item.value)} className={`rounded-2xl border p-4 text-left transition ${goal === item.value ? 'border-cyan-300 bg-cyan-400/20 ring-2 ring-cyan-300/25' : 'border-slate-500 bg-slate-900/75 hover:border-cyan-300 hover:bg-cyan-950/50'}`}>
@@ -401,7 +411,7 @@ const AIAssessment: React.FC = () => {
                 <div className="mt-8 flex justify-between gap-3">
                   <button onClick={() => setStage('questions')} className="rounded-xl border border-slate-500 px-4 py-3 text-sm font-semibold text-slate-200 hover:border-slate-300 hover:bg-white/10">返回</button>
                   <button onClick={submitAssessment} disabled={!goal || isBusy} className="rounded-xl bg-gradient-to-r from-cyan-600 to-blue-700 px-5 py-3 text-sm font-bold text-white disabled:cursor-not-allowed disabled:from-slate-800 disabled:to-slate-800 disabled:text-slate-400">
-                    {isBusy ? '正在生成结果…' : `查看我的学习起点（${scorePreview}/16）`}
+                    {isBusy ? '正在生成结果…' : '查看我的学习起点'}
                   </button>
                 </div>
               </div>

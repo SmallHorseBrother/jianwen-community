@@ -199,7 +199,9 @@ begin
     returning * into v_membership;
   end if;
 
-  select * into v_route from public.ai_group_routes where level = v_membership.route_level;
+  select * into v_route
+  from public.ai_group_routes as route
+  where route.level = v_membership.route_level;
 
   return query select
     v_score::smallint,
