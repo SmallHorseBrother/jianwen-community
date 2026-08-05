@@ -285,6 +285,13 @@ function amountToYuan(amountCents: number) {
   return `${Math.floor(amountCents / 100)}.${String(amountCents % 100).padStart(2, '0')}`;
 }
 
+function formatWechatTimeExpire(value: string) {
+  const timestamp = new Date(value);
+  if (Number.isNaN(timestamp.getTime())) throw new HttpError(500, '订单有效期格式无效');
+  const chinaTime = new Date(timestamp.getTime() + 8 * 60 * 60 * 1000);
+  return chinaTime.toISOString().replace(/\.\d{3}Z$/, '+08:00');
+}
+
 function yuanToCents(value: unknown) {
   const parsed = String(value ?? '').trim();
   if (!/^\d+(?:\.\d{1,2})?$/.test(parsed)) return 0;
@@ -398,7 +405,14 @@ async function wechatRequest(config: WechatConfig, method: string, path: string,
   const raw = await response.text();
   let payload: Record<string, unknown> = {};
   try { payload = raw ? JSON.parse(raw) : {}; } catch { /* provider error body is not always JSON */ }
-  if (!response.ok) throw new HttpError(502, `微信支付请求失败（${response.status}）`);
+  if (!response.ok) {
+    const code = typeof payload.code === 'string' ? payload.code.trim() : '';
+    const message = typeof payload.message === 'string' ? payload.message.trim() : '';
+    const detail = [code, message].filter(Boolean).join('：');
+    throw new HttpError(502, detail
+      ? `微信支付请求失败：${detail}`
+      : `微信支付请求失败（${response.status}）`);
+  }
   return payload;
 }
 
@@ -409,7 +423,7 @@ async function createWechatOrder(config: WechatConfig, order: OrderRow) {
     description: order.subject,
     out_trade_no: order.order_no,
     notify_url: config.notifyUrl,
-    time_expire: order.expires_at,
+    time_expire: formatWechatTimeExpire(order.expires_at),
     amount: { total: order.amount_cents, currency: 'CNY' },
   });
   const payload = await wechatRequest(config, 'POST', '/v3/pay/transactions/native', body);

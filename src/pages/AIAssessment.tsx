@@ -138,7 +138,19 @@ const errorMessage = (error: unknown, fallback: string) => {
 
 async function invokePayment(body: Record<string, unknown>) {
   const { data, error } = await supabase.functions.invoke('ai-group-payment', { body });
-  if (error) throw new Error(error.message || '支付服务暂时不可用');
+  if (error) {
+    let message = error.message || '支付服务暂时不可用';
+    const context = (error as { context?: unknown }).context;
+    if (context instanceof Response) {
+      try {
+        const payload = await context.clone().json() as { error?: unknown };
+        if (typeof payload.error === 'string' && payload.error.trim()) message = payload.error;
+      } catch {
+        // Keep the SDK message if the response is not JSON or its body is unavailable.
+      }
+    }
+    throw new Error(message);
+  }
   if (data?.error) throw new Error(data.error);
   return data;
 }
