@@ -165,7 +165,11 @@ function isAlipayConfigured() {
 function paymentCallbackUrl(action: 'wechat-notify' | 'alipay-notify') {
   const base = optionalEnv('AI_GROUP_PAYMENT_CALLBACK_BASE_URL')
     || `${env('SUPABASE_URL').replace(/\/$/, '')}/functions/v1/ai-group-payment`;
-  return `${base}${base.includes('?') ? '&' : '?'}action=${action}`;
+  const callback = new URL(base);
+  callback.search = '';
+  callback.hash = '';
+  callback.pathname = `${callback.pathname.replace(/\/$/, '')}/${action}`;
+  return callback.toString();
 }
 
 function getWechatConfig(): WechatConfig {
@@ -701,7 +705,9 @@ serve(async (req: Request) => {
   if (req.method !== 'POST') return json({ error: '仅支持 POST 请求' }, 405);
 
   try {
-    const action = new URL(req.url).searchParams.get('action');
+    const requestUrl = new URL(req.url);
+    const pathAction = requestUrl.pathname.split('/').filter(Boolean).at(-1);
+    const action = requestUrl.searchParams.get('action') || pathAction;
     if (action === 'wechat-notify') return await handleWechatNotify(req);
     if (action === 'alipay-notify') return await handleAlipayNotify(req);
 
