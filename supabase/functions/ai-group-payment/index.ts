@@ -492,8 +492,20 @@ async function getMembershipStatus(service: ReturnType<typeof createServiceClien
   };
 }
 
+function reusableLatestOrder(order: OrderRow | null, priceCents: number | null, now = Date.now()) {
+  if (!order || !priceCents) return null;
+
+  const expiresAt = Date.parse(order.expires_at);
+  const isAwaitingPayment = order.status === 'pending' || order.status === 'created';
+  const isCurrentPrice = order.amount_cents === priceCents;
+  const isUnexpired = Number.isFinite(expiresAt) && expiresAt > now;
+
+  return isAwaitingPayment && isCurrentPrice && isUnexpired ? order : null;
+}
+
 function statusPayload(status: Awaited<ReturnType<typeof getMembershipStatus>>) {
   const priceCents = getPriceCents();
+  const latestOrder = reusableLatestOrder(status.latestOrder, priceCents);
   return {
     assessment: status.assessment,
     membership: status.membership && {
@@ -507,12 +519,12 @@ function statusPayload(status: Awaited<ReturnType<typeof getMembershipStatus>>) 
       group_name: status.route.group_name,
       description: status.route.description,
     },
-    latest_order: status.latestOrder && {
-      order_no: status.latestOrder.order_no,
-      provider: status.latestOrder.provider,
-      status: status.latestOrder.status,
-      expires_at: status.latestOrder.expires_at,
-      wechat_code_url: status.latestOrder.provider === 'wechat' ? status.latestOrder.provider_code_url : null,
+    latest_order: latestOrder && {
+      order_no: latestOrder.order_no,
+      provider: latestOrder.provider,
+      status: latestOrder.status,
+      expires_at: latestOrder.expires_at,
+      wechat_code_url: latestOrder.provider === 'wechat' ? latestOrder.provider_code_url : null,
     },
     group_qr_url: status.membership?.access_status === 'active' ? status.qrUrl : null,
     qr_ready: Boolean(status.membership?.access_status === 'active' && status.qrUrl),
