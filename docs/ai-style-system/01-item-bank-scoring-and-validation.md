@@ -1,12 +1,12 @@
 # AI 使用风格题库、评分与验证方案
 
-> 版本：1.0.0-beta
+> 版本：1.1.0-beta
 > 候选题库：56 道
-> Beta 表单：24 道计分题 + 4 道实验题，共 28 道
+> Beta 扩展表单：32 道计分题 + 4 道实验题，共 36 道
 
 ## 1. 题库蓝图
 
-每条轴先建立 14 道候选题：第一端 7 道、第二端 7 道。Beta 短表每轴选择 6 道，正反向各 3 道，共 24 道计分题。另加 4 道不计分的行为权衡题，用于研究它们能否预测真实选择。
+每条轴先建立 14 道候选题：第一端 7 道、第二端 7 道。Beta 扩展表每轴选择 8 道，正反向各 4 道，共 32 道计分题。另加 4 道不计分的行为权衡题，用于研究它们能否预测真实选择。
 
 候选题代码位于 [aiStyleItemBank.ts](../../src/features/aiAssessment/aiStyleItemBank.ts)，服务端正式短表位于 [aiUsageStyle.ts](../../supabase/functions/_shared/aiUsageStyle.ts)。浏览器只接收题干和作答选项，不接收正反向计分键。
 
@@ -21,7 +21,7 @@
 
 ## 2. 作答方式
 
-24 道计分题使用七点量表：
+32 道计分题使用七点量表：
 
 ```text
 1 非常不同意
@@ -51,10 +51,10 @@ centered = response - 4
 centered = 4 - response
 ```
 
-每条轴包含六道题：
+每条轴包含八道题：
 
 ```text
-AxisScore = 50 + 50 × sum(centered) / 18
+AxisScore = 50 + 50 × sum(centered) / 24
 ```
 
 结果范围是 0–100。大于等于 50 选择第一端字母，小于 50 选择第二端字母。代码顺序固定为 E/S、C/O、R/A、P/D。
@@ -75,10 +75,10 @@ AxisScore = 50 + 50 × sum(centered) / 18
 新版标识：
 
 ```text
-instrument: ai-usage-style-v1-beta
+instrument: ai-usage-style-v1.1-beta
 framework: ai-usage-style-v1
 item bank: ai-style-item-bank-1.0.0
-scoring: ai-style-scoring-1.0.0
+scoring: ai-style-scoring-1.1.0
 ```
 
 旧版 `ai-personality-v1` 使用 E/D、C/O、T/A、H/S 轴和强制选择总分。两套构念与标尺不同：

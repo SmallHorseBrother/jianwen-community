@@ -19,13 +19,13 @@ type ExperimentalItem = {
 };
 
 export const AI_STYLE_INSTRUMENT = {
-  id: 'ai-usage-style-v1-beta',
+  id: 'ai-usage-style-v1.1-beta',
   frameworkVersion: 'ai-usage-style-v1',
   itemBankVersion: 'ai-style-item-bank-1.0.0',
-  scoringVersion: 'ai-style-scoring-1.0.0',
-  title: 'AI 使用风格画像 Beta',
-  itemCount: 28,
-  scoredItemCount: 24,
+  scoringVersion: 'ai-style-scoring-1.1.0',
+  title: 'AI 使用风格扩展画像 Beta',
+  itemCount: 36,
+  scoredItemCount: 32,
   evidenceGrade: 'profile' as const,
 };
 
@@ -82,24 +82,32 @@ const scoredItems: ScoredItem[] = [
   { id: 'ES04', kind: 'likert', axis: 'explore', pole: 'second', statement: '选择 AI 工具时，一致性和可重复性通常比新鲜感更重要。' },
   { id: 'ES05', kind: 'likert', axis: 'explore', pole: 'first', statement: '我喜欢用同一个真实任务比较多个模型、工具或方法。' },
   { id: 'ES06', kind: 'likert', axis: 'explore', pole: 'second', statement: '找到可靠的 AI 流程后，我更愿意持续优化它，而不是经常换一套。' },
+  { id: 'ES07', kind: 'likert', axis: 'explore', pole: 'first', statement: '我愿意固定留出时间，专门探索还没有明确用途的 AI 新能力。' },
+  { id: 'ES08', kind: 'likert', axis: 'explore', pole: 'second', statement: '只有看到新方法在真实任务中明显更好，我才会调整现有工具组合。' },
   { id: 'CO01', kind: 'likert', axis: 'create', pole: 'first', statement: '当 AI 帮我做出以前不存在的新东西时，我最有投入感。' },
   { id: 'CO02', kind: 'likert', axis: 'create', pole: 'second', statement: '对我来说，AI 最重要的价值是让已有工作更快、更省力或更可靠。' },
   { id: 'CO03', kind: 'likert', axis: 'create', pole: 'first', statement: '我经常想用 AI 原型化新的内容、产品、服务或体验。' },
   { id: 'CO04', kind: 'likert', axis: 'create', pole: 'second', statement: '相比生成全新的东西，我更容易被减少重复工作和流程浪费的项目吸引。' },
   { id: 'CO05', kind: 'likert', axis: 'create', pole: 'first', statement: '如果只能选一个 AI 项目，我通常会选创造一种新体验，而不是优化已有流程。' },
   { id: 'CO06', kind: 'likert', axis: 'create', pole: 'second', statement: '我主要根据 AI 给现有工作带来的可衡量改善来判断它是否有价值。' },
+  { id: 'CO07', kind: 'likert', axis: 'create', pole: 'first', statement: '面对一张白纸构思 AI 可以创造什么，通常比修补现有流程更吸引我。' },
+  { id: 'CO08', kind: 'likert', axis: 'create', pole: 'second', statement: '减少错误、等待和交接成本，会比做出一个新概念更让我有成就感。' },
   { id: 'RA01', kind: 'likert', axis: 'reason', pole: 'first', statement: '在依赖一种新的 AI 能力前，我希望大致理解它为什么有效、又可能怎样失败。' },
   { id: 'RA02', kind: 'likert', axis: 'reason', pole: 'second', statement: '我更喜欢先用真实任务学习 AI 工具，具体原理可以在需要时再补。' },
   { id: 'RA03', kind: 'likert', axis: 'reason', pole: 'first', statement: 'AI 给出意外结果时，我通常会先研究原因，再继续调整。' },
   { id: 'RA04', kind: 'likert', axis: 'reason', pole: 'second', statement: '相比长时间阅读说明，我更愿意先跑几次快速实验，从结果中学习。' },
   { id: 'RA05', kind: 'likert', axis: 'reason', pole: 'first', statement: '即使任务已经成功，我也喜欢弄清楚这套方法为什么奏效。' },
   { id: 'RA06', kind: 'likert', axis: 'reason', pole: 'second', statement: '面对不熟悉的 AI 任务，我的第一反应通常是先动手试一次，再根据输出迭代。' },
+  { id: 'RA07', kind: 'likert', axis: 'reason', pole: 'first', statement: '采用一种 AI 方法前，我更愿意先理解它依赖的假设和适用边界。' },
+  { id: 'RA08', kind: 'likert', axis: 'reason', pole: 'second', statement: '我通常先做出一个能运行的版本，再逐步建立对背后方法的理解。' },
   { id: 'PD01', kind: 'likert', axis: 'partner', pole: 'first', statement: '处理重要任务时，我偏好设置多个检查点，随时查看并修正 AI 的工作。' },
   { id: 'PD02', kind: 'likert', axis: 'partner', pole: 'second', statement: '目标和边界明确后，我更希望 AI 连续完成多个步骤，再回来让我检查。' },
   { id: 'PD03', kind: 'likert', axis: 'partner', pole: 'first', statement: '我享受通过多轮来回讨论，与 AI 一起逐步完善成果。' },
   { id: 'PD04', kind: 'likert', axis: 'partner', pole: 'second', statement: '相比每次逐步协作，我更愿意配置一个可复用的 Agent 或自动流程来执行任务。' },
   { id: 'PD05', kind: 'likert', axis: 'partner', pole: 'first', statement: '即使任务容易撤销，我通常也愿意保持参与，而不是让 AI 独立行动。' },
   { id: 'PD06', kind: 'likert', axis: 'partner', pole: 'second', statement: '对于低风险、可撤销的任务，我愿意让 AI 在预设范围内自主采取行动。' },
+  { id: 'PD07', kind: 'likert', axis: 'partner', pole: 'first', statement: '我更喜欢和 AI 一起查看中间产物，边做边共同决定下一步。' },
+  { id: 'PD08', kind: 'likert', axis: 'partner', pole: 'second', statement: '规则成熟后，我更喜欢只看最终结果、日志和异常，而不是每一步都参与。' },
 ];
 
 const experimentalItems: ExperimentalItem[] = [
@@ -109,7 +117,7 @@ const experimentalItems: ExperimentalItem[] = [
   { id: 'FX04', kind: 'forced_choice', axis: 'partner', prompt: '一个 Agent 可以安全执行每周一次、容易撤销的任务，你更偏好？', options: [{ id: 'first', text: '设置若干中间检查点，与它共同推进' }, { id: 'second', text: '设好规则，让它完成后再统一查看' }] },
 ];
 
-const scoredDeliveryOrder = Array.from({ length: 6 }, (_, itemIndex) =>
+const scoredDeliveryOrder = Array.from({ length: 8 }, (_, itemIndex) =>
   (['explore', 'create', 'reason', 'partner'] as AIStyleAxis[]).map((axis) =>
     scoredItems.filter((item) => item.axis === axis)[itemIndex]
   )

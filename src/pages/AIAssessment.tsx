@@ -488,13 +488,13 @@ const AIAssessment: React.FC = () => {
               <div className="space-y-6">
                 <div className="grid gap-4 md:grid-cols-2">
                   <article className="rounded-3xl border border-cyan-300/25 bg-gradient-to-br from-cyan-950/70 to-slate-900 p-6">
-                    <Gauge className="h-8 w-8 text-cyan-300" /><p className="mt-5 text-xs font-bold tracking-widest text-cyan-300">PACF v1 快速筛查 · 约15分钟</p><h2 className="mt-2 text-2xl font-black text-white">AI能力等级测评</h2><p className="mt-3 text-sm leading-6 text-slate-300">30道知识与真实情境题，得到Level 0–5、六维雷达图和下一步成长路线。</p>
+                    <Gauge className="h-8 w-8 text-cyan-300" /><p className="mt-5 text-xs font-bold tracking-widest text-cyan-300">PACF v1.1 扩展筛查 · 约18分钟</p><h2 className="mt-2 text-2xl font-black text-white">AI能力等级测评</h2><p className="mt-3 text-sm leading-6 text-slate-200">42道知识与真实情境题，六个能力维度各有7道证据，得到Level 0–5、雷达图和下一步成长路线。</p>
                     <button onClick={() => setStage('capability-track')} className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-cyan-500 px-4 py-3 font-bold text-slate-950">开始能力测评 <ArrowRight className="h-4 w-4" /></button>
                     {history.capability && <button onClick={() => openLatest('capability')} className="mt-3 w-full text-sm font-semibold text-cyan-200">查看最近结果</button>}
                     {!history.capability && history.legacy_capability_available && <p className="mt-3 text-center text-xs leading-5 text-amber-200">旧版结果已安全归档，请完成新版测评获得当前能力画像。</p>}
                   </article>
                   <article className="rounded-3xl border border-violet-300/25 bg-gradient-to-br from-violet-950/70 to-slate-900 p-6">
-                    <Compass className="h-8 w-8 text-violet-300" /><p className="mt-5 text-xs font-bold tracking-widest text-violet-300">Beta · 约6分钟</p><h2 className="mt-2 text-2xl font-black text-white">AI使用风格画像</h2><p className="mt-3 text-sm leading-6 text-slate-200">28道行为偏好题，得到四条连续风格轴、平衡提示和专属四字母画像。</p>
+                    <Compass className="h-8 w-8 text-violet-300" /><p className="mt-5 text-xs font-bold tracking-widest text-violet-300">Beta · 约8分钟</p><h2 className="mt-2 text-2xl font-black text-white">AI使用风格画像</h2><p className="mt-3 text-sm leading-6 text-slate-200">36道行为偏好题，四条风格轴各有8道计分证据，得到连续分、平衡提示和专属四字母画像。</p>
                     <button onClick={startPersonality} className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-violet-400 px-4 py-3 font-bold text-slate-950">开始风格测评 <ArrowRight className="h-4 w-4" /></button>
                     {history.personality && <button onClick={() => openLatest('personality')} className="mt-3 w-full text-sm font-semibold text-violet-200">查看最近结果</button>}
                   </article>

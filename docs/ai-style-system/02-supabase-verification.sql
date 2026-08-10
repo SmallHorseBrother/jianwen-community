@@ -4,9 +4,9 @@ select
   exists (
     select 1
     from public.ai_assessment_instruments
-    where id = 'ai-usage-style-v1-beta'
+    where id = 'ai-usage-style-v1.1-beta'
       and framework_version = 'ai-usage-style-v1'
-      and item_count = 28
+      and item_count = 36
   ) as style_instrument_ok,
   exists (
     select 1

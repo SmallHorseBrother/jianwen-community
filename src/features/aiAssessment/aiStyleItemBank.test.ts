@@ -11,7 +11,7 @@ import {
 } from '../../../supabase/functions/_shared/aiUsageStyle';
 
 describe('AI usage style candidate bank', () => {
-  it('contains 56 balanced candidates and a 24-item scored short form', () => {
+  it('contains 56 balanced candidates and a 32-item scored extended form', () => {
     expect(usageStyleCandidateItems).toHaveLength(56);
     expect(new Set(usageStyleCandidateItems.map((item) => item.id)).size).toBe(56);
     for (const axis of ['explore', 'create', 'reason', 'partner'] as const) {
@@ -19,16 +19,16 @@ describe('AI usage style candidate bank', () => {
       expect(candidates).toHaveLength(14);
       expect(candidates.filter((item) => item.pole === 'first')).toHaveLength(7);
       expect(candidates.filter((item) => item.pole === 'second')).toHaveLength(7);
-      expect(candidates.filter((item) => item.selectedForBeta)).toHaveLength(6);
+      expect(candidates.filter((item) => item.selectedForBeta)).toHaveLength(8);
     }
-    expect(usageStyleBetaItemIds).toHaveLength(24);
+    expect(usageStyleBetaItemIds).toHaveLength(32);
     expect(usageStyleExperimentalItems).toHaveLength(4);
   });
 
-  it('publishes 28 questions without reverse-scoring keys', () => {
+  it('publishes 36 questions without reverse-scoring keys', () => {
     const form = publicAIStyleForm();
-    expect(form.items).toHaveLength(28);
-    expect(form.items.filter((item) => item.kind === 'likert')).toHaveLength(24);
+    expect(form.items).toHaveLength(36);
+    expect(form.items.filter((item) => item.kind === 'likert')).toHaveLength(32);
     expect(form.items.filter((item) => item.kind === 'forced_choice')).toHaveLength(4);
     expect(JSON.stringify(form)).not.toContain('"pole"');
     expect(JSON.stringify(form)).not.toContain('centeredScore');
@@ -61,7 +61,7 @@ describe('AI usage style candidate bank', () => {
     const result = scoreAIStyle(responses);
     expect(result.axes).toEqual({ explore: 100, create: 100, reason: 100, partner: 100 });
     expect(result.code).toBe('ECRP');
-    expect(() => scoreAIStyle(responses.slice(1))).toThrow(/28/);
+    expect(() => scoreAIStyle(responses.slice(1))).toThrow(/36/);
     expect(() => scoreAIStyle(responses.map((response, index) => index === 0
       ? { ...response, value: 9 }
       : response))).toThrow(/无效/);
