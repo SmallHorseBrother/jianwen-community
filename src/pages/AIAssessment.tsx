@@ -24,15 +24,10 @@ import {
   learningGoals,
   personalityAxes,
   personalityProfiles,
-  personalityQuestions,
   type CapabilityTrack,
   type LearningGoal,
   type PersonalityAxis,
 } from '../features/aiAssessment/catalog';
-import {
-  buildPersonalityFallback,
-  scorePersonality,
-} from '../features/aiAssessment/scoring';
 
 type Stage = 'home' | 'capability-track' | 'capability-questions' | 'capability-goal' | 'personality-questions' | 'result';
 type Provider = 'wechat' | 'alipay';
@@ -88,6 +83,25 @@ type PACFQuickForm = {
     dimensions: Record<PACFDimension, { label: string; description: string }>;
   };
   items: PACFPublicItem[];
+};
+type AIStyleAxis = 'explore' | 'create' | 'reason' | 'partner';
+type AIStyleLikertItem = { id: string; kind: 'likert'; axis: AIStyleAxis; statement: string };
+type AIStyleForcedItem = { id: string; kind: 'forced_choice'; axis: AIStyleAxis; prompt: string; options: Array<{ id: 'first' | 'second'; text: string }> };
+type AIStyleItem = AIStyleLikertItem | AIStyleForcedItem;
+type AIStyleForm = {
+  instrument: {
+    id: string;
+    framework_version: 'ai-usage-style-v1';
+    title: string;
+    item_count: number;
+    scored_item_count: number;
+    scale: { min: number; max: number; labels: string[] };
+    axes: Record<AIStyleAxis, {
+      first: { code: string; label: string; english: string; description: string };
+      second: { code: string; label: string; english: string; description: string };
+    }>;
+  };
+  items: AIStyleItem[];
 };
 type PaymentStatus = {
   membership: { level: 'starter' | 'application' | 'practice'; access_status: 'pending_payment' | 'active' | 'revoked'; display_id: string | null } | null;
@@ -158,6 +172,33 @@ const pacfLevels = [
   { title: 'AI系统构建者', summary: '具备工作流、Agent、评测和可靠性意识。' },
   { title: 'AI变革推动者', summary: '具备推动团队 AI 化的系统视角；仍需应用实验室认证。' },
 ] as const;
+const aiStyleProfiles: Record<string, { name: string; tagline: string }> = {
+  ECRP: { name: 'AI好奇发明家', tagline: '探索新可能，理解它，并与 AI 一起把想法做出来。' },
+  ECRD: { name: 'AI实验导演', tagline: '理解新能力后设定方向，再让 AI 扩大执行范围。' },
+  ECAP: { name: 'AI创意冲刺者', tagline: '通过快速尝试，把新想法迅速变成可见成果。' },
+  ECAD: { name: 'AI原型启动者', tagline: '敢于探索，并让 AI 快速推动新原型落地。' },
+  EORP: { name: 'AI流程侦察员', tagline: '不断寻找更好的效率方法，同时保持人在回路。' },
+  EORD: { name: 'AI自动化开拓者', tagline: '探索自动化可能，理解后再设计委托方式。' },
+  EOAP: { name: 'AI效率实验家', tagline: '用快速实验发现马上能够节省时间的新方法。' },
+  EOAD: { name: 'AI运营探索者', tagline: '快速尝试工具，并把合适的重复工作交给系统。' },
+  SCRP: { name: 'AI深度匠人', tagline: '深入掌握方法，在持续共创中打磨高质量成果。' },
+  SCRD: { name: 'AI产品架构师', tagline: '先理解和设计，再让 AI 稳定推进创造过程。' },
+  SCAP: { name: 'AI实用创作者', tagline: '用熟悉的方法快速做出真实、可用的新成果。' },
+  SCAD: { name: 'AI生产构建者', tagline: '把创造方法沉淀成可重复运行的生产系统。' },
+  SORP: { name: 'AI流程分析师', tagline: '细致理解现有工作，并与 AI 共同持续改善。' },
+  SORD: { name: 'AI系统规划师', tagline: '设计清晰、稳定、可解释的 AI 优化流程。' },
+  SOAP: { name: 'AI稳健优化师', tagline: '用务实协作稳步改善每天正在发生的工作。' },
+  SOAD: { name: 'AI运营编排者', tagline: '把成熟方法变成边界清楚、可持续运行的委托系统。' },
+};
+const styleConfidenceLabels: Record<string, string> = {
+  balanced: '两侧平衡', slight: '略有倾向', moderate: '较明显倾向', clear: '清晰倾向',
+};
+const aiStyleAxisDefinitions: Record<AIStyleAxis, { first: string; second: string }> = {
+  explore: { first: '探索 Explore', second: '系统化 Systematize' },
+  create: { first: '创造 Create', second: '优化 Optimize' },
+  reason: { first: '理解 Reason', second: '行动 Act' },
+  partner: { first: '共创 Partner', second: '委托 Delegate' },
+};
 
 const RadarChart: React.FC<{ scores: Record<string, number>; labels?: Record<string, string> }> = ({ scores, labels }) => {
   const dimensions = (['M', 'F', 'T', 'V', 'C', 'S'].every((key) => key in scores)
@@ -207,6 +248,24 @@ const ReportPanel: React.FC<{ report: Report; aiGenerated: boolean }> = ({ repor
   </section>
 );
 
+const StyleResultPanel: React.FC<{ attempt: Attempt }> = ({ attempt }) => {
+  if (attempt.framework_version !== 'ai-usage-style-v1') {
+    const profile = personalityProfiles[attempt.personality_code || 'DOAH'];
+    return <section className="rounded-3xl bg-gradient-to-br from-violet-950/80 via-slate-900 to-blue-950/80 p-5 ring-1 ring-violet-300/25 sm:p-7"><div className="mb-5 rounded-2xl border border-amber-300/30 bg-amber-950/40 px-4 py-3 text-sm leading-6 text-amber-100">这是旧版 AI 人格画像，轴和分数不能换算为新版使用风格；结果仍保留供你回看。</div><p className="text-sm font-semibold text-violet-300">旧版AI人格画像</p><div className="mt-2 flex flex-wrap items-end justify-between gap-3"><div><h2 className="text-3xl font-black text-white">{profile.name}</h2><p className="mt-2 text-slate-100">{profile.tagline}</p></div><span className="rounded-full border border-violet-300/30 bg-violet-400/15 px-4 py-2 text-xl font-black tracking-widest text-violet-100">{attempt.personality_code}</span></div><div className="mt-7 grid gap-3 sm:grid-cols-2">{(Object.keys(personalityAxes) as PersonalityAxis[]).map((axis) => { const value = attempt.dimension_scores[axis] || 0; const def = personalityAxes[axis]; const left = value <= 0; return <div key={axis} className="rounded-2xl bg-white/5 p-4"><div className="flex justify-between text-sm"><span className={left ? 'font-bold text-violet-200' : 'text-slate-400'}>{def.left}</span><span className={!left ? 'font-bold text-blue-200' : 'text-slate-400'}>{def.right}</span></div><div className="mt-2 h-2 overflow-hidden rounded-full bg-gradient-to-r from-violet-400 via-slate-700 to-blue-400"><div className="h-full w-1 bg-white" style={{ marginLeft: `${Math.max(2, Math.min(98, 50 + (value / 14) * 48))}%` }} /></div></div>; })}</div></section>;
+  }
+
+  const profile = aiStyleProfiles[attempt.personality_code || 'ECRP'];
+  const confidence = (attempt.gate_status?.axis_confidence || {}) as Record<AIStyleAxis, string>;
+  return (
+    <section className="rounded-3xl bg-gradient-to-br from-violet-950/80 via-slate-900 to-blue-950/80 p-5 ring-1 ring-violet-300/25 sm:p-7">
+      <div className="rounded-2xl border border-violet-300/25 bg-violet-950/45 px-4 py-3 text-sm leading-6 text-violet-100">AI 使用风格 Beta 描述你当前偏好的协作方式，不表示能力高低，也不是心理诊断。</div>
+      <p className="mt-5 text-sm font-semibold text-violet-300">你的AI使用风格</p>
+      <div className="mt-2 flex flex-wrap items-end justify-between gap-3"><div><h2 className="text-3xl font-black text-white">{profile.name}</h2><p className="mt-2 text-slate-100">{profile.tagline}</p></div><span className="rounded-full border border-violet-300/30 bg-violet-400/15 px-4 py-2 text-xl font-black tracking-widest text-violet-100">{attempt.personality_code}</span></div>
+      <div className="mt-7 space-y-4">{(Object.keys(aiStyleAxisDefinitions) as AIStyleAxis[]).map((axis) => { const score = Math.max(0, Math.min(100, attempt.dimension_scores[axis] || 0)); const definition = aiStyleAxisDefinitions[axis]; return <div key={axis} className="rounded-2xl border border-white/10 bg-white/5 p-4"><div className="flex items-start justify-between gap-4 text-sm"><span className={score >= 50 ? 'font-bold text-violet-100' : 'text-slate-300'}>{definition.first} · {Math.round(score)}</span><span className={score < 50 ? 'text-right font-bold text-blue-100' : 'text-right text-slate-300'}>{Math.round(100 - score)} · {definition.second}</span></div><div className="relative mt-3 h-2.5 overflow-hidden rounded-full bg-blue-500/55"><div className="h-full bg-violet-400" style={{ width: `${score}%` }} /><div className="absolute inset-y-0 left-1/2 w-px bg-white/70" /></div><p className="mt-2 text-xs text-slate-300">{styleConfidenceLabels[confidence[axis]] || '偏好程度待解释'}</p></div>; })}</div>
+    </section>
+  );
+};
+
 const AIAssessment: React.FC = () => {
   const navigate = useNavigate();
   const [stage, setStage] = useState<Stage>('home');
@@ -215,7 +274,8 @@ const AIAssessment: React.FC = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [capabilityForm, setCapabilityForm] = useState<PACFQuickForm | null>(null);
   const [capabilityAnswers, setCapabilityAnswers] = useState<(string | null)[]>([]);
-  const [personalityAnswers, setPersonalityAnswers] = useState<(number | null)[]>(Array(28).fill(null));
+  const [styleForm, setStyleForm] = useState<AIStyleForm | null>(null);
+  const [styleAnswers, setStyleAnswers] = useState<Array<number | string | null>>([]);
   const [history, setHistory] = useState<AssessmentStatus>({ capability: null, personality: null });
   const [currentAttempt, setCurrentAttempt] = useState<Attempt | null>(null);
   const [payment, setPayment] = useState<PaymentStatus | null>(null);
@@ -261,16 +321,6 @@ const AIAssessment: React.FC = () => {
       .catch(() => setError('生成微信支付二维码失败，请刷新后重试'));
   }, [payment?.latest_order?.wechat_code_url]);
 
-  const prepareVisitor = async () => {
-    try {
-      await ensureVisitorSession();
-      return true;
-    } catch (sessionError) {
-      setNotice(`仍可完成本地测评；游客身份服务暂不可用，AI报告、分享和付费将在服务恢复后开放。${errorMessage(sessionError, '')}`);
-      return false;
-    }
-  };
-
   const startCapability = async (selectedTrack: CapabilityTrack) => {
     setIsBusy(true); setError(''); setNotice('');
     try {
@@ -289,11 +339,18 @@ const AIAssessment: React.FC = () => {
   };
 
   const startPersonality = async () => {
-    setQuestionIndex(0);
-    setPersonalityAnswers(Array(28).fill(null));
-    setError('');
-    await prepareVisitor();
-    setStage('personality-questions');
+    setIsBusy(true); setError(''); setNotice('');
+    try {
+      await ensureVisitorSession();
+      const form = await invokeFunction<AIStyleForm>('ai-assessment-engine', { action: 'ai-style-form' });
+      if (!form.items?.length || form.items.length !== form.instrument.item_count) throw new Error('AI 使用风格题目加载不完整');
+      setQuestionIndex(0);
+      setStyleForm(form);
+      setStyleAnswers(Array(form.items.length).fill(null));
+      setStage('personality-questions');
+    } catch (loadError) {
+      setError(errorMessage(loadError, 'AI 使用风格测评加载失败，请稍后重试'));
+    } finally { setIsBusy(false); }
   };
 
   const nextCapability = () => {
@@ -303,8 +360,8 @@ const AIAssessment: React.FC = () => {
   };
 
   const nextPersonality = async () => {
-    if (personalityAnswers[questionIndex] === null) return;
-    if (questionIndex < personalityQuestions.length - 1) { setQuestionIndex((index) => index + 1); return; }
+    if (styleAnswers[questionIndex] === null) return;
+    if (questionIndex < (styleForm?.items.length || 0) - 1) { setQuestionIndex((index) => index + 1); return; }
     await submitPersonality();
   };
 
@@ -331,24 +388,22 @@ const AIAssessment: React.FC = () => {
   };
 
   const submitPersonality = async () => {
-    if (personalityAnswers.some((answer) => answer === null)) return;
+    if (!styleForm || styleAnswers.some((answer) => answer === null)) return;
     setIsBusy(true);
     setError('');
-    const answers = personalityAnswers as number[];
-    const local = scorePersonality(answers);
+    const responses = styleForm.items.map((item, index) => ({ item_id: item.id, value: styleAnswers[index] as number | string }));
     try {
       await ensureVisitorSession();
-      const { attempt } = await invokeFunction<{ attempt: Attempt }>('ai-assessment-engine', { action: 'submit-personality', answers });
+      const { attempt } = await invokeFunction<{ attempt: Attempt }>('ai-assessment-engine', { action: 'submit-ai-style', responses });
       setCurrentAttempt(attempt);
       setHistory((value) => ({ ...value, personality: attempt }));
     } catch (submitError) {
-      const fallback = buildPersonalityFallback(local);
-      setCurrentAttempt({ id: 'local', kind: 'personality', track: null, learning_goal: null, total_score: null, ability_level: null, personality_code: local.code, dimension_scores: local.axes, report: fallback, report_status: 'fallback', share_token: null, created_at: new Date().toISOString() });
-      setNotice(`结果已在本机生成，但暂未保存到云端：${errorMessage(submitError, '服务暂时不可用')}`);
+      setError(errorMessage(submitError, '提交失败，请稍后重试'));
+      return;
     } finally {
-      setStage('result');
       setIsBusy(false);
     }
+    setStage('result');
   };
 
   const openLatest = async (kind: 'capability' | 'personality') => {
@@ -366,13 +421,16 @@ const AIAssessment: React.FC = () => {
 
   const shareResult = async () => {
     if (!currentAttempt) return;
-    const profile = currentAttempt.personality_code ? personalityProfiles[currentAttempt.personality_code] : null;
+    const isNewStyle = currentAttempt.framework_version === 'ai-usage-style-v1';
+    const profile = currentAttempt.personality_code
+      ? (isNewStyle ? aiStyleProfiles[currentAttempt.personality_code] : personalityProfiles[currentAttempt.personality_code])
+      : null;
     const levelDefinition = currentAttempt.framework_version === 'pacf-1.0.0'
       ? pacfLevels[currentAttempt.ability_level || 0]
       : capabilityLevels[currentAttempt.ability_level || 0];
     const title = currentAttempt.kind === 'capability'
       ? `我的AI能力：Level ${currentAttempt.ability_level} · ${levelDefinition.title}`
-      : `我的AI人格：${profile?.name || currentAttempt.personality_code}`;
+      : `我的AI使用风格：${profile?.name || currentAttempt.personality_code}`;
     const url = currentAttempt.share_token ? `${window.location.origin}${window.location.pathname}?share=${currentAttempt.share_token}` : window.location.href;
     try {
       const usedNativeShare = Boolean(navigator.share && currentAttempt.share_token);
@@ -407,7 +465,7 @@ const AIAssessment: React.FC = () => {
   };
 
   const currentCapabilityQuestion = capabilityForm?.items[questionIndex];
-  const currentPersonalityQuestion = personalityQuestions[questionIndex];
+  const currentPersonalityQuestion = styleForm?.items[questionIndex];
   const isUnlocked = payment?.membership?.access_status === 'active';
   const groupImageUrl = payment?.group_qr_url || (isUnlocked && payment?.membership?.level ? paymentPlaceholders[payment.membership.level] : null);
 
@@ -420,7 +478,7 @@ const AIAssessment: React.FC = () => {
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 ring-1 ring-white/20"><BrainCircuit className="h-7 w-7 text-cyan-100" /></div>
             <p className="mb-2 text-xs font-bold tracking-[0.2em] text-cyan-200">YOUR AI PORTRAIT · 个人AI画像</p>
             <h1 className="text-3xl font-black tracking-tight sm:text-4xl">你是谁，你在哪，下一步去哪</h1>
-            <p className="mt-3 max-w-2xl leading-7 text-slate-200">人格测评发现你的AI时代角色，能力测评定位当前等级。两套测试完全免费，无需登录；只有决定进群时才需要付费。</p>
+            <p className="mt-3 max-w-2xl leading-7 text-slate-100">使用风格测评发现你习惯怎样与 AI 工作，能力测评定位当前等级。两套测试完全免费，无需登录；只有决定进群时才需要付费。</p>
           </div>
           <div className="p-5 sm:p-8">
             {error && <div className="mb-5 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">{error}</div>}
@@ -436,12 +494,12 @@ const AIAssessment: React.FC = () => {
                     {!history.capability && history.legacy_capability_available && <p className="mt-3 text-center text-xs leading-5 text-amber-200">旧版结果已安全归档，请完成新版测评获得当前能力画像。</p>}
                   </article>
                   <article className="rounded-3xl border border-violet-300/25 bg-gradient-to-br from-violet-950/70 to-slate-900 p-6">
-                    <Compass className="h-8 w-8 text-violet-300" /><p className="mt-5 text-xs font-bold tracking-widest text-violet-300">传播版 · 约6分钟</p><h2 className="mt-2 text-2xl font-black text-white">AI人格画像</h2><p className="mt-3 text-sm leading-6 text-slate-300">28道偏好选择题，发现你的四维倾向和专属AI时代角色。</p>
-                    <button onClick={startPersonality} className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-violet-400 px-4 py-3 font-bold text-slate-950">开始人格测评 <ArrowRight className="h-4 w-4" /></button>
+                    <Compass className="h-8 w-8 text-violet-300" /><p className="mt-5 text-xs font-bold tracking-widest text-violet-300">Beta · 约6分钟</p><h2 className="mt-2 text-2xl font-black text-white">AI使用风格画像</h2><p className="mt-3 text-sm leading-6 text-slate-200">28道行为偏好题，得到四条连续风格轴、平衡提示和专属四字母画像。</p>
+                    <button onClick={startPersonality} className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-violet-400 px-4 py-3 font-bold text-slate-950">开始风格测评 <ArrowRight className="h-4 w-4" /></button>
                     {history.personality && <button onClick={() => openLatest('personality')} className="mt-3 w-full text-sm font-semibold text-violet-200">查看最近结果</button>}
                   </article>
                 </div>
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm leading-6 text-slate-300"><ShieldCheck className="mr-2 inline h-4 w-4 text-emerald-300" />规则负责稳定判分，大模型只负责个性化解读；人格不分高低，能力可以通过实践持续升级。</div>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm leading-6 text-slate-200"><ShieldCheck className="mr-2 inline h-4 w-4 text-emerald-300" />规则负责稳定计算；大模型只负责解释。风格不分高低，也不代表能力，能力可以通过实践持续升级。</div>
               </div>
             )}
 
@@ -466,10 +524,14 @@ const AIAssessment: React.FC = () => {
             )}
 
             {stage === 'personality-questions' && currentPersonalityQuestion && (
-              <div><div className="mb-6 flex justify-between text-sm"><span className="font-semibold text-violet-300">第 {questionIndex + 1} / 28 题</span><span className="text-slate-400">没有正确答案</span></div><div className="mb-7 h-2 overflow-hidden rounded-full bg-white/10"><div className="h-full bg-gradient-to-r from-violet-500 to-fuchsia-500" style={{ width: `${((questionIndex + 1) / 28) * 100}%` }} /></div>
-                <h2 className="text-xl font-bold leading-8 text-white sm:text-2xl">{currentPersonalityQuestion.prompt}</h2><div className="mt-6 grid gap-3 sm:grid-cols-2"><div className="rounded-2xl border border-violet-300/25 bg-violet-950/35 p-4 text-sm leading-6 text-violet-100">A · {currentPersonalityQuestion.left}</div><div className="rounded-2xl border border-blue-300/25 bg-blue-950/35 p-4 text-sm leading-6 text-blue-100">B · {currentPersonalityQuestion.right}</div></div>
-                <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">{([['非常像A', -2], ['比较像A', -1], ['比较像B', 1], ['非常像B', 2]] as const).map(([label, value]) => <button key={label} onClick={() => setPersonalityAnswers((items) => items.map((item, index) => index === questionIndex ? value : item))} className={`rounded-xl border px-3 py-3 text-sm font-semibold ${personalityAnswers[questionIndex] === value ? 'border-violet-300 bg-violet-400/25 text-white' : 'border-slate-600 bg-slate-900 text-slate-300'}`}>{label}</button>)}</div>
-                <div className="mt-8 flex justify-between"><button onClick={() => questionIndex === 0 ? setStage('home') : setQuestionIndex((index) => index - 1)} className="rounded-xl border border-slate-600 px-4 py-3 text-sm font-semibold">上一题</button><button onClick={nextPersonality} disabled={personalityAnswers[questionIndex] === null || isBusy} className="rounded-xl bg-violet-400 px-5 py-3 text-sm font-bold text-slate-950 disabled:opacity-40">{isBusy ? '正在分析…' : questionIndex === 27 ? '生成人格报告' : '下一题'}</button></div>
+              <div><div className="mb-6 flex justify-between gap-3 text-sm"><span className="font-semibold text-violet-300">第 {questionIndex + 1} / {styleForm?.items.length} 题</span><span className="text-slate-300">没有正确答案 · 请按真实习惯选择</span></div><div className="mb-7 h-2 overflow-hidden rounded-full bg-white/10"><div className="h-full bg-gradient-to-r from-violet-500 to-fuchsia-500" style={{ width: `${((questionIndex + 1) / (styleForm?.items.length || 1)) * 100}%` }} /></div>
+                {currentPersonalityQuestion.kind === 'likert' ? <>
+                  <h2 className="text-xl font-bold leading-9 text-white sm:text-2xl">{currentPersonalityQuestion.statement}</h2>
+                  <div className="mt-8 rounded-2xl border border-white/15 bg-slate-900/75 p-4 sm:p-5"><div className="flex justify-between gap-4 text-xs font-semibold text-violet-200"><span>非常不同意</span><span>看情况</span><span className="text-right">非常同意</span></div><div className="mt-4 grid grid-cols-7 gap-2">{Array.from({ length: 7 }, (_, index) => index + 1).map((value) => <button key={value} aria-label={styleForm?.instrument.scale.labels[value - 1]} onClick={() => setStyleAnswers((items) => items.map((item, index) => index === questionIndex ? value : item))} className={`aspect-square rounded-full border text-sm font-black transition sm:text-base ${styleAnswers[questionIndex] === value ? 'border-violet-200 bg-violet-400 text-slate-950 ring-4 ring-violet-400/20' : 'border-slate-500 bg-slate-950 text-slate-100 hover:border-violet-300'}`}>{value}</button>)}</div><p className="mt-4 min-h-6 text-center text-sm font-semibold text-violet-100">{typeof styleAnswers[questionIndex] === 'number' ? styleForm?.instrument.scale.labels[(styleAnswers[questionIndex] as number) - 1] : '请选择 1–7 中最符合你的程度'}</p></div>
+                </> : <>
+                  <p className="text-xs font-bold tracking-widest text-violet-300">实验题 · 不计入本次风格分数</p><h2 className="mt-2 text-xl font-bold leading-9 text-white sm:text-2xl">{currentPersonalityQuestion.prompt}</h2><div className="mt-7 grid gap-3 sm:grid-cols-2">{currentPersonalityQuestion.options.map((option) => <button key={option.id} onClick={() => setStyleAnswers((items) => items.map((item, index) => index === questionIndex ? option.id : item))} className={`rounded-2xl border p-5 text-left text-base leading-7 transition ${styleAnswers[questionIndex] === option.id ? 'border-violet-200 bg-violet-400/25 text-white ring-2 ring-violet-300/20' : 'border-slate-500 bg-slate-900/80 text-slate-100 hover:border-violet-300'}`}>{option.text}</button>)}</div>
+                </>}
+                <div className="mt-8 flex justify-between"><button onClick={() => questionIndex === 0 ? setStage('home') : setQuestionIndex((index) => index - 1)} className="rounded-xl border border-slate-500 px-4 py-3 text-sm font-semibold text-slate-100">上一题</button><button onClick={nextPersonality} disabled={styleAnswers[questionIndex] === null || isBusy} className="rounded-xl bg-violet-400 px-5 py-3 text-sm font-bold text-slate-950 disabled:opacity-40">{isBusy ? '正在分析…' : questionIndex === (styleForm?.items.length || 1) - 1 ? '生成风格报告' : '下一题'}</button></div>
               </div>
             )}
 
@@ -481,7 +543,7 @@ const AIAssessment: React.FC = () => {
                     <p className="text-sm font-semibold text-cyan-300">你的AI能力等级</p><div className="mt-2 flex flex-wrap items-end justify-between gap-3"><div><h2 className="text-3xl font-black text-white">Level {currentAttempt.ability_level} · {level.title}</h2><p className="mt-2 text-slate-100">{level.summary}</p></div><span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-sm font-bold text-white">{currentAttempt.total_score} / {isPACF ? 100 : 90}</span></div><div className="mt-7"><RadarChart scores={currentAttempt.dimension_scores} /></div>
                   </section>
                   ); })()
-                : (() => { const profile = personalityProfiles[currentAttempt.personality_code || 'DOAH']; return <section className="rounded-3xl bg-gradient-to-br from-violet-950/80 via-slate-900 to-blue-950/80 p-5 ring-1 ring-violet-300/25 sm:p-7"><p className="text-sm font-semibold text-violet-300">你的AI人格画像</p><div className="mt-2 flex flex-wrap items-end justify-between gap-3"><div><h2 className="text-3xl font-black text-white">{profile.name}</h2><p className="mt-2 text-slate-200">{profile.tagline}</p></div><span className="rounded-full border border-violet-300/30 bg-violet-400/15 px-4 py-2 text-xl font-black tracking-widest text-violet-100">{currentAttempt.personality_code}</span></div><div className="mt-7 grid gap-3 sm:grid-cols-2">{(Object.keys(personalityAxes) as PersonalityAxis[]).map((axis) => { const value = currentAttempt.dimension_scores[axis] || 0; const def = personalityAxes[axis]; const left = value <= 0; return <div key={axis} className="rounded-2xl bg-white/5 p-4"><div className="flex justify-between text-sm"><span className={left ? 'font-bold text-violet-200' : 'text-slate-400'}>{def.left}</span><span className={!left ? 'font-bold text-blue-200' : 'text-slate-400'}>{def.right}</span></div><div className="mt-2 h-2 overflow-hidden rounded-full bg-gradient-to-r from-violet-400 via-slate-700 to-blue-400"><div className="h-full w-1 bg-white" style={{ marginLeft: `${Math.max(2, Math.min(98, 50 + (value / 14) * 48))}%` }} /></div></div>; })}</div></section>; })()}
+                : <StyleResultPanel attempt={currentAttempt} />}
 
                 <ReportPanel report={currentAttempt.report} aiGenerated={currentAttempt.report_status === 'ready'} />
 

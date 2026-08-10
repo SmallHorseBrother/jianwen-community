@@ -6,6 +6,12 @@ import {
   publicPACFQuickForm,
   scorePACFQuick,
 } from "../_shared/pacfQuick.ts";
+import {
+  AI_STYLE_AXES,
+  AI_STYLE_INSTRUMENT,
+  publicAIStyleForm,
+  scoreAIStyle,
+} from "../_shared/aiUsageStyle.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -228,6 +234,37 @@ function fallbackReport(
       ],
       combinedPortrait: companion
         ? "你的人格偏好决定了最舒服的学习方式，能力等级决定了当前最需要补齐的台阶。"
+        : undefined,
+    };
+  }
+  if (result.frameworkVersion === AI_STYLE_INSTRUMENT.frameworkVersion) {
+    const confidence = (result.axisConfidence || {}) as Record<string, string>;
+    const balancedCount = Object.values(confidence).filter((value) =>
+      value === "balanced"
+    ).length;
+    return {
+      headline: `你的AI使用风格是${String(result.name)}`,
+      overview: `${String(result.tagline)}${balancedCount > 0 ? ` 其中有 ${balancedCount} 条风格轴较为平衡，具体偏好可能随任务变化。` : ""}`,
+      strengths: [
+        "你的回答呈现出一组可用于选择学习方式和项目形式的偏好。",
+        "连续轴比单一标签更能反映你在不同任务中的真实选择。",
+      ],
+      risks: [
+        String(result.likelyBlindSpot),
+        "使用风格不代表能力高低，也不应限制你尝试相反侧的方法。",
+      ],
+      nextSteps: [
+        "选择一个符合当前偏好的低风险 AI 项目",
+        "在同一任务中刻意尝试一项相反侧的工作方式",
+        "完成能力测评，把偏好与真实能力分开理解",
+      ],
+      courseRecommendations: [
+        "个人 AI 工作方式设计",
+        "人机协作与任务边界",
+        "AI 能力等级测评",
+      ],
+      combinedPortrait: companion
+        ? "使用风格决定哪种练习更容易进入状态；能力结果决定当前应先补哪一级台阶。"
         : undefined,
     };
   }
@@ -679,6 +716,124 @@ async function submitPersonality(
   return publicAttempt(data as Record<string, unknown>);
 }
 
+async function submitAIStyle(
+  service: ReturnType<typeof serviceClient>,
+  userId: string,
+  body: Record<string, unknown>,
+) {
+  let result: ReturnType<typeof scoreAIStyle>;
+  try {
+    result = scoreAIStyle(body.responses);
+  } catch (error) {
+    throw new HttpError(
+      400,
+      error instanceof Error ? error.message : "AI 使用风格答案无效",
+    );
+  }
+  const previous = await latestAttempts(service, userId);
+  const reportInput = {
+    frameworkVersion: AI_STYLE_INSTRUMENT.frameworkVersion,
+    code: result.code,
+    name: result.name,
+    englishName: result.englishName,
+    tagline: result.tagline,
+    likelyBlindSpot: result.likelyBlindSpot,
+    axes: result.axes,
+    axisConfidence: result.axisConfidence,
+    axisDefinitions: AI_STYLE_AXES,
+    experimentalAnswersExcludedFromScore: true,
+  };
+  const generated = await generateReport(
+    "personality",
+    reportInput,
+    previous.capability ? publicAttempt(previous.capability) : null,
+  );
+  const deterministic = fallbackReport(
+    "personality",
+    reportInput,
+    previous.capability,
+  );
+  const responses = body.responses as Array<{
+    item_id: string;
+    value: number | string;
+  }>;
+  const now = new Date().toISOString();
+  const gateStatus = {
+    axis_confidence: result.axisConfidence,
+    balanced_axes: Object.entries(result.axisConfidence)
+      .filter(([, value]) => value === "balanced")
+      .map(([axis]) => axis),
+    experimental_items_scored: false,
+  };
+  const { data: attempt, error: attemptError } = await service.from(
+    "ai_assessment_attempts",
+  ).insert({
+    user_id: userId,
+    kind: "personality",
+    assessment_version: AI_STYLE_INSTRUMENT.id,
+    framework_version: AI_STYLE_INSTRUMENT.frameworkVersion,
+    scoring_version: AI_STYLE_INSTRUMENT.scoringVersion,
+    result_status: "provisional",
+    evidence_grade: AI_STYLE_INSTRUMENT.evidenceGrade,
+    requires_reassessment: false,
+    answers: responses,
+    personality_code: result.code,
+    dimension_scores: result.axes,
+    competency_scores: {},
+    gate_status: gateStatus,
+    scoring_audit: {
+      instrument_id: AI_STYLE_INSTRUMENT.id,
+      item_bank_version: AI_STYLE_INSTRUMENT.itemBankVersion,
+      scoring_version: AI_STYLE_INSTRUMENT.scoringVersion,
+      scored_item_count: AI_STYLE_INSTRUMENT.scoredItemCount,
+      experimental_item_count: 4,
+      scorer: "server_rule",
+      scored_at: now,
+    },
+    deterministic_report: deterministic,
+    ai_report: generated.report,
+    report_status: generated.status,
+    report_model: generated.model,
+  }).select("*").single();
+  if (attemptError) throw attemptError;
+
+  const axisCodes = {
+    explore: "ES", create: "CO", reason: "RA", partner: "PD",
+  } as const;
+  const responseRows = [
+    ...result.itemScores.map((item) => ({
+      attempt_id: attempt.id,
+      instrument_version: AI_STYLE_INSTRUMENT.id,
+      item_id: item.itemId,
+      axis_code: axisCodes[item.axis],
+      response_payload: { value: item.response },
+      response_value: item.response,
+      forced_choice: null,
+      centered_score: item.centeredScore,
+      scored: true,
+    })),
+    ...result.experiments.map((item) => ({
+      attempt_id: attempt.id,
+      instrument_version: AI_STYLE_INSTRUMENT.id,
+      item_id: item.itemId,
+      axis_code: axisCodes[item.axis],
+      response_payload: { value: item.response },
+      response_value: null,
+      forced_choice: item.response,
+      centered_score: null,
+      scored: false,
+    })),
+  ];
+  const { error: responseError } = await service.from(
+    "ai_style_responses",
+  ).insert(responseRows);
+  if (responseError) {
+    await service.from("ai_assessment_attempts").delete().eq("id", attempt.id);
+    throw responseError;
+  }
+  return publicAttempt(attempt as Record<string, unknown>);
+}
+
 serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -703,6 +858,10 @@ serve(async (req: Request) => {
 
     if (action === "pacf-quick-form") {
       return json(publicPACFQuickForm());
+    }
+
+    if (action === "ai-style-form") {
+      return json(publicAIStyleForm());
     }
 
     const user = await requireUser(req);
@@ -733,6 +892,12 @@ serve(async (req: Request) => {
     if (action === "submit-personality") {
       return json(
         { attempt: await submitPersonality(service, user.id, body) },
+        201,
+      );
+    }
+    if (action === "submit-ai-style") {
+      return json(
+        { attempt: await submitAIStyle(service, user.id, body) },
         201,
       );
     }
