@@ -4,6 +4,13 @@ select
   exists (
     select 1
     from public.ai_assessment_instruments
+    where id = 'pacf-quick-v1.1-candidate'
+      and framework_version = 'pacf-1.0.0'
+      and item_count = 42
+  ) as expanded_capability_instrument_ok,
+  exists (
+    select 1
+    from public.ai_assessment_instruments
     where id = 'ai-usage-style-v1.1-beta'
       and framework_version = 'ai-usage-style-v1'
       and item_count = 36
