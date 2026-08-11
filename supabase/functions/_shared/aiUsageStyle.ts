@@ -2,7 +2,7 @@ export type AIStyleAxis = 'explore' | 'create' | 'reason' | 'partner';
 export type AIStylePole = 'first' | 'second';
 export type AIStyleResponse = { item_id: string; value: number | string };
 
-type ScoredItem = {
+export type ScoredItem = {
   id: string;
   kind: 'likert';
   axis: AIStyleAxis;
@@ -10,7 +10,7 @@ type ScoredItem = {
   statement: string;
 };
 
-type ExperimentalItem = {
+export type ExperimentalItem = {
   id: string;
   kind: 'forced_choice';
   axis: AIStyleAxis;
@@ -19,9 +19,9 @@ type ExperimentalItem = {
 };
 
 export const AI_STYLE_INSTRUMENT = {
-  id: 'ai-usage-style-v1.1-beta',
+  id: 'ai-usage-style-v1.1-random-beta',
   frameworkVersion: 'ai-usage-style-v1',
-  itemBankVersion: 'ai-style-item-bank-1.0.0',
+  itemBankVersion: 'ai-style-item-bank-1.1.0',
   scoringVersion: 'ai-style-scoring-1.1.0',
   title: 'AI 使用风格扩展画像 Beta',
   itemCount: 36,
@@ -133,14 +133,17 @@ function confidence(score: number) {
   return 'clear';
 }
 
-export function publicAIStyleForm() {
+export function publicAIStyleForm(
+  deliveredScoredItems: ScoredItem[] = scoredDeliveryOrder,
+  deliveredExperimentalItems: ExperimentalItem[] = experimentalItems,
+) {
   return {
     instrument: {
       id: AI_STYLE_INSTRUMENT.id,
       framework_version: AI_STYLE_INSTRUMENT.frameworkVersion,
       title: AI_STYLE_INSTRUMENT.title,
-      item_count: AI_STYLE_INSTRUMENT.itemCount,
-      scored_item_count: AI_STYLE_INSTRUMENT.scoredItemCount,
+      item_count: deliveredScoredItems.length + deliveredExperimentalItems.length,
+      scored_item_count: deliveredScoredItems.length,
       scale: {
         min: 1, max: 7,
         labels: ['非常不同意', '不同意', '比较不同意', '看情况/不确定', '比较同意', '同意', '非常同意'],
@@ -148,14 +151,18 @@ export function publicAIStyleForm() {
       axes: AI_STYLE_AXES,
     },
     items: [
-      ...scoredDeliveryOrder.map(({ pole: _pole, ...publicItem }) => publicItem),
-      ...experimentalItems,
+      ...deliveredScoredItems.map(({ pole: _pole, ...publicItem }) => publicItem),
+      ...deliveredExperimentalItems,
     ],
   };
 }
 
-export function scoreAIStyle(value: unknown) {
-  const allItems = [...scoredItems, ...experimentalItems];
+export function scoreAIStyle(
+  value: unknown,
+  deliveredScoredItems: ScoredItem[] = scoredItems,
+  deliveredExperimentalItems: ExperimentalItem[] = experimentalItems,
+) {
+  const allItems = [...deliveredScoredItems, ...deliveredExperimentalItems];
   if (!Array.isArray(value) || value.length !== allItems.length) {
     throw new Error(`AI 使用风格测评必须包含 ${allItems.length} 个答案`);
   }
@@ -168,7 +175,7 @@ export function scoreAIStyle(value: unknown) {
     responseMap.set(response.item_id, response.value);
   }
 
-  const itemScores = scoredItems.map((styleItem) => {
+  const itemScores = deliveredScoredItems.map((styleItem) => {
     const response = Number(responseMap.get(styleItem.id));
     if (!Number.isInteger(response) || response < 1 || response > 7) {
       throw new Error(`AI 使用风格答案缺失或无效：${styleItem.id}`);
@@ -176,7 +183,7 @@ export function scoreAIStyle(value: unknown) {
     const centeredScore = styleItem.pole === 'first' ? response - 4 : 4 - response;
     return { itemId: styleItem.id, axis: styleItem.axis, response, centeredScore };
   });
-  const experiments = experimentalItems.map((styleItem) => {
+  const experiments = deliveredExperimentalItems.map((styleItem) => {
     const response = responseMap.get(styleItem.id);
     if (response !== 'first' && response !== 'second') {
       throw new Error(`AI 使用风格答案缺失或无效：${styleItem.id}`);

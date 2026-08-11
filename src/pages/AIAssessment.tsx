@@ -74,6 +74,7 @@ type PACFPublicItem = {
   options: PACFPublicOption[];
 };
 type PACFQuickForm = {
+  session_id: string;
   instrument: {
     id: string;
     framework_version: string;
@@ -89,6 +90,7 @@ type AIStyleLikertItem = { id: string; kind: 'likert'; axis: AIStyleAxis; statem
 type AIStyleForcedItem = { id: string; kind: 'forced_choice'; axis: AIStyleAxis; prompt: string; options: Array<{ id: 'first' | 'second'; text: string }> };
 type AIStyleItem = AIStyleLikertItem | AIStyleForcedItem;
 type AIStyleForm = {
+  session_id: string;
   instrument: {
     id: string;
     framework_version: 'ai-usage-style-v1';
@@ -373,7 +375,7 @@ const AIAssessment: React.FC = () => {
     try {
       await ensureVisitorSession();
       const { attempt } = await invokeFunction<{ attempt: Attempt }>('ai-assessment-engine', {
-        action: 'submit-pacf-quick', responses, track, learning_goal: goal,
+        action: 'submit-pacf-quick', session_id: capabilityForm.session_id, responses, track, learning_goal: goal,
       });
       setCurrentAttempt(attempt);
       setHistory((value) => ({ ...value, capability: attempt }));
@@ -394,7 +396,7 @@ const AIAssessment: React.FC = () => {
     const responses = styleForm.items.map((item, index) => ({ item_id: item.id, value: styleAnswers[index] as number | string }));
     try {
       await ensureVisitorSession();
-      const { attempt } = await invokeFunction<{ attempt: Attempt }>('ai-assessment-engine', { action: 'submit-ai-style', responses });
+      const { attempt } = await invokeFunction<{ attempt: Attempt }>('ai-assessment-engine', { action: 'submit-ai-style', session_id: styleForm.session_id, responses });
       setCurrentAttempt(attempt);
       setHistory((value) => ({ ...value, personality: attempt }));
     } catch (submitError) {
@@ -504,10 +506,10 @@ const AIAssessment: React.FC = () => {
             )}
 
             {stage === 'capability-track' && (
-              <div><p className="text-sm font-bold tracking-widest text-cyan-300">选择成长场景</p><h2 className="mt-2 text-2xl font-black text-white">你更希望把AI用在哪里？</h2><p className="mt-2 text-slate-300">两个场景使用完全相同的30道题和同一标尺；选择只影响报告建议，不影响题目与分数。</p>
+              <div><p className="text-sm font-bold tracking-widest text-cyan-300">开始前的小问题</p><h2 className="mt-2 text-2xl font-black text-white">你希望先把 AI 用在哪里？</h2><p className="mt-2 text-slate-300">这不是测试题，不计分。选一个你现在最关心的方向即可。</p>
                 <div className="mt-7 grid gap-4 sm:grid-cols-2">
-                  <button onClick={() => startCapability('daily')} className="rounded-2xl border border-white/15 bg-slate-900 p-5 text-left transition hover:border-cyan-300"><Compass className="h-6 w-6 text-cyan-300" /><strong className="mt-3 block text-lg text-white">生活探索版</strong><span className="mt-2 block text-sm leading-6 text-slate-300">适合零基础、学生和希望先改善学习与日常生活的人。</span></button>
-                  <button onClick={() => startCapability('work')} className="rounded-2xl border border-white/15 bg-slate-900 p-5 text-left transition hover:border-cyan-300"><Workflow className="h-6 w-6 text-cyan-300" /><strong className="mt-3 block text-lg text-white">工作创造版</strong><span className="mt-2 block text-sm leading-6 text-slate-300">适合职场人、创作者、产品经理和创业者。</span></button>
+                  <button onClick={() => startCapability('daily')} className="rounded-2xl border border-white/15 bg-slate-900 p-5 text-left transition hover:border-cyan-300"><Compass className="h-6 w-6 text-cyan-300" /><strong className="mt-3 block text-lg text-white">日常与学习</strong><span className="mt-2 block text-sm leading-6 text-slate-300">例如学习、信息整理、写作和日常效率。</span></button>
+                  <button onClick={() => startCapability('work')} className="rounded-2xl border border-white/15 bg-slate-900 p-5 text-left transition hover:border-cyan-300"><Workflow className="h-6 w-6 text-cyan-300" /><strong className="mt-3 block text-lg text-white">工作与创作</strong><span className="mt-2 block text-sm leading-6 text-slate-300">例如工作提效、内容创作、产品和项目实践。</span></button>
                 </div>
               </div>
             )}

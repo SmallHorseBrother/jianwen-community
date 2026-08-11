@@ -53,11 +53,11 @@ function scenario(
 }
 
 export const PACF_QUICK_INSTRUMENT = {
-  id: "pacf-quick-v1.1-candidate",
+  id: "pacf-quick-v1.1-random",
   frameworkVersion: "pacf-1.0.0",
-  itemBankVersion: "pacf-item-bank-1.0.0",
+  itemBankVersion: "pacf-item-bank-1.1.0",
   scoringVersion: "pacf-scoring-1.1.0",
-  title: "个人 AI 能力扩展筛查 v1.1",
+  title: "个人 AI 能力随机筛查 v1.1",
   evidenceGrade: "screening" as const,
 };
 
@@ -184,17 +184,17 @@ function levelFromScore(score: number): 0 | 1 | 2 | 3 | 4 | 5 {
   return 5;
 }
 
-export function publicPACFQuickForm() {
+export function publicPACFQuickForm(items: PACFQuickItem[] = PACF_QUICK_ITEMS) {
   return {
     instrument: {
       id: PACF_QUICK_INSTRUMENT.id,
       framework_version: PACF_QUICK_INSTRUMENT.frameworkVersion,
       title: PACF_QUICK_INSTRUMENT.title,
       evidence_grade: PACF_QUICK_INSTRUMENT.evidenceGrade,
-      item_count: PACF_QUICK_ITEMS.length,
+      item_count: items.length,
       dimensions: PACF_DIMENSIONS,
     },
-    items: PACF_QUICK_ITEMS.map((item) => ({
+    items: items.map((item) => ({
       id: item.id,
       competency_id: item.competencyId,
       dimension: item.dimension,
@@ -205,9 +205,9 @@ export function publicPACFQuickForm() {
   };
 }
 
-export function scorePACFQuick(value: unknown) {
-  if (!Array.isArray(value) || value.length !== PACF_QUICK_ITEMS.length) {
-    throw new Error(`PACF 快测必须包含 ${PACF_QUICK_ITEMS.length} 个答案`);
+export function scorePACFQuick(value: unknown, items: PACFQuickItem[] = PACF_QUICK_ITEMS) {
+  if (!Array.isArray(value) || value.length !== items.length) {
+    throw new Error(`PACF 快测必须包含 ${items.length} 个答案`);
   }
 
   const responses = value as PACFQuickResponse[];
@@ -220,7 +220,7 @@ export function scorePACFQuick(value: unknown) {
     responseMap.set(response.item_id, response.option_id);
   }
 
-  const itemScores = PACF_QUICK_ITEMS.map((item) => {
+  const itemScores = items.map((item) => {
     const optionId = responseMap.get(item.id);
     const option = item.options.find((candidate) => candidate.id === optionId);
     if (!option) throw new Error(`PACF 快测缺少或包含无效答案：${item.id}`);

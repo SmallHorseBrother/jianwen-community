@@ -95,16 +95,16 @@ Secrets 保存后会立即对 Function 生效，不需要重新部署。
 
 在 Supabase Storage 的私有 bucket `ai-group-qr` 上传二维码，例如：
 
-- `starter.png`
-- `application.png`
-- `practice.png`
+- `starter.jpg`（小白 / AI 启蒙群）
+- `application.jpg`（进阶 / AI 应用群）
+- `practice.jpg`（高阶 / AI 实战群）
 
 再执行下面的 SQL，把每个等级关联到对应文件。二维码不会被公开引用；Edge Function 只会在付款成功后创建 10 分钟有效的签名链接。
 
 ```sql
-update public.ai_group_routes set qr_storage_path = 'starter.png' where level = 'starter';
-update public.ai_group_routes set qr_storage_path = 'application.png' where level = 'application';
-update public.ai_group_routes set qr_storage_path = 'practice.png' where level = 'practice';
+update public.ai_group_routes set qr_storage_path = 'starter.jpg' where level = 'starter';
+update public.ai_group_routes set qr_storage_path = 'application.jpg' where level = 'application';
+update public.ai_group_routes set qr_storage_path = 'practice.jpg' where level = 'practice';
 ```
 
 函数会在下单时自动把以下回调地址传给支付平台：

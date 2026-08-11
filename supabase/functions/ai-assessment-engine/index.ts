@@ -5,12 +5,17 @@ import {
   PACF_QUICK_INSTRUMENT,
   publicPACFQuickForm,
   scorePACFQuick,
+  type PACFDimension,
+  type PACFQuickItem,
 } from "../_shared/pacfQuick.ts";
 import {
   AI_STYLE_AXES,
   AI_STYLE_INSTRUMENT,
   publicAIStyleForm,
   scoreAIStyle,
+  type AIStyleAxis,
+  type ExperimentalItem,
+  type ScoredItem,
 } from "../_shared/aiUsageStyle.ts";
 
 const corsHeaders = {
@@ -63,6 +68,19 @@ const LEVELS = [
 type CapabilityDimension = typeof DIMENSIONS[number];
 type PersonalityAxis = typeof AXES[number];
 type AssessmentKind = "capability" | "personality";
+type SessionPresentation = {
+  items: PACFQuickItem[] | ScoredItem[];
+  experiments?: ExperimentalItem[];
+};
+type AssessmentSession = {
+  id: string;
+  assessment_kind: AssessmentKind;
+  instrument_id: string;
+  item_bank_version: string;
+  presentation: SessionPresentation;
+  status: "open" | "completed" | "expired";
+  expires_at: string;
+};
 type Report = {
   headline: string;
   overview: string;
@@ -450,6 +468,203 @@ function capabilityContext(body: Record<string, unknown>) {
   return { track, goal };
 }
 
+function shuffled<T>(items: T[]): T[] {
+  const result = [...items];
+  for (let index = result.length - 1; index > 0; index -= 1) {
+    const next = crypto.getRandomValues(new Uint32Array(1))[0] % (index + 1);
+    [result[index], result[next]] = [result[next], result[index]];
+  }
+  return result;
+}
+
+function requireRecord(value: unknown, label: string): Record<string, unknown> {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    throw new Error(`${label}题库数据不完整`);
+  }
+  return value as Record<string, unknown>;
+}
+
+function asPACFItem(row: Record<string, unknown>): PACFQuickItem {
+  const prompt = requireRecord(row.prompt_payload, "PACF");
+  const scoring = requireRecord(row.scoring_payload, "PACF");
+  if (!Array.isArray(prompt.options) || !Array.isArray(scoring.option_scores)) {
+    throw new Error("PACF题库缺少选项或评分规则");
+  }
+  const scores = new Map(
+    scoring.option_scores.map((option) => {
+      const item = requireRecord(option, "PACF");
+      return [String(item.id), Number(item.score)];
+    }),
+  );
+  const options = prompt.options.map((option) => {
+    const item = requireRecord(option, "PACF");
+    const id = String(item.id);
+    const score = scores.get(id);
+    if (!/[ABCD]/.test(id) || typeof item.text !== "string" || ![0, 1, 2, 3].includes(score ?? -1)) {
+      throw new Error("PACF题库选项配置无效");
+    }
+    return { id: id as "A" | "B" | "C" | "D", text: item.text, score: score as 0 | 1 | 2 | 3 };
+  });
+  if (options.length !== 4) throw new Error("PACF题库每题必须有四个选项");
+  return {
+    id: String(row.id),
+    competencyId: String(row.competency_id),
+    dimension: String(row.dimension_code) as PACFDimension,
+    type: String(row.item_type) as "objective" | "scenario",
+    stem: String(prompt.stem),
+    options,
+  };
+}
+
+const styleAxisFromCode: Record<string, AIStyleAxis> = {
+  ES: "explore", CO: "create", RA: "reason", PD: "partner",
+};
+
+function asStyleItem(row: Record<string, unknown>): ScoredItem | ExperimentalItem {
+  const prompt = requireRecord(row.prompt_payload, "风格");
+  const scoring = requireRecord(row.scoring_payload, "风格");
+  const axis = styleAxisFromCode[String(row.axis_code)];
+  if (!axis) throw new Error("风格题库维度无效");
+  if (row.item_type === "likert") {
+    const pole = scoring.pole;
+    if ((pole !== "first" && pole !== "second") || typeof prompt.statement !== "string") {
+      throw new Error("风格题库计分规则无效");
+    }
+    return { id: String(row.id), kind: "likert", axis, pole, statement: prompt.statement };
+  }
+  if (row.item_type === "forced_choice" && typeof prompt.prompt === "string" && Array.isArray(prompt.options)) {
+    const options = prompt.options.map((option) => {
+      const item = requireRecord(option, "风格");
+      if ((item.id !== "first" && item.id !== "second") || typeof item.text !== "string") {
+        throw new Error("风格题库行为题选项无效");
+      }
+      return { id: item.id, text: item.text } as { id: "first" | "second"; text: string };
+    });
+    return { id: String(row.id), kind: "forced_choice", axis, prompt: prompt.prompt, options };
+  }
+  throw new Error("风格题库数据无效");
+}
+
+function publicSessionForm<T extends Record<string, unknown>>(form: T, sessionId: string) {
+  return { ...form, session_id: sessionId };
+}
+
+async function createPACFSession(
+  service: ReturnType<typeof serviceClient>,
+  userId: string,
+) {
+  const { data, error } = await service.from("ai_assessment_items")
+    .select("id, competency_id, dimension_code, item_type, prompt_payload, scoring_payload")
+    .eq("item_bank_version", PACF_QUICK_INSTRUMENT.itemBankVersion)
+    .eq("quick_eligible", true)
+    .eq("status", "active");
+  if (error) throw error;
+  const allItems = (data || []).map((row) => asPACFItem(row as Record<string, unknown>));
+  const selected: PACFQuickItem[] = [];
+  for (const dimension of Object.keys(PACF_DIMENSIONS) as PACFDimension[]) {
+    const candidates = allItems.filter((item) => item.dimension === dimension);
+    const byCompetency = new Map<string, PACFQuickItem[]>();
+    for (const item of candidates) {
+      byCompetency.set(item.competencyId, [...(byCompetency.get(item.competencyId) || []), item]);
+    }
+    if (byCompetency.size !== 5 || candidates.length < 7) {
+      throw new Error(`PACF ${dimension} 维度题库不足，暂时无法随机出题`);
+    }
+    const anchors = [...byCompetency.values()].map((items) => shuffled(items)[0]);
+    const extras = shuffled(candidates.filter((item) => !anchors.some((anchor) => anchor.id === item.id))).slice(0, 2);
+    if (extras.length !== 2) throw new Error(`PACF ${dimension} 维度缺少补充题`);
+    selected.push(...anchors, ...extras);
+  }
+  const items = shuffled(selected);
+  const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString();
+  const { data: session, error: sessionError } = await service.from("ai_assessment_sessions").insert({
+    user_id: userId,
+    assessment_kind: "capability",
+    instrument_id: PACF_QUICK_INSTRUMENT.id,
+    item_bank_version: PACF_QUICK_INSTRUMENT.itemBankVersion,
+    presentation: { items },
+    expires_at: expiresAt,
+  }).select("id").single();
+  if (sessionError) throw sessionError;
+  return publicSessionForm(publicPACFQuickForm(items), String(session.id));
+}
+
+async function createAIStyleSession(
+  service: ReturnType<typeof serviceClient>,
+  userId: string,
+) {
+  const { data, error } = await service.from("ai_style_items")
+    .select("id, axis_code, item_type, prompt_payload, scoring_payload")
+    .eq("item_bank_version", AI_STYLE_INSTRUMENT.itemBankVersion)
+    .eq("status", "active");
+  if (error) throw error;
+  const allItems = (data || []).map((row) => asStyleItem(row as Record<string, unknown>));
+  const scored = allItems.filter((item): item is ScoredItem => item.kind === "likert");
+  const experiments = allItems.filter((item): item is ExperimentalItem => item.kind === "forced_choice");
+  const selected: ScoredItem[] = [];
+  for (const axis of Object.keys(AI_STYLE_AXES) as AIStyleAxis[]) {
+    for (const pole of ["first", "second"] as const) {
+      const bucket = scored.filter((item) => item.axis === axis && item.pole === pole);
+      if (bucket.length < 4) throw new Error(`风格测评 ${axis} 轴题库不足，暂时无法随机出题`);
+      selected.push(...shuffled(bucket).slice(0, 4));
+    }
+  }
+  if (experiments.length < 4) throw new Error("风格测评行为题库不足");
+  const deliveredScored = shuffled(selected);
+  const deliveredExperiments = shuffled(experiments).slice(0, 4);
+  const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString();
+  const { data: session, error: sessionError } = await service.from("ai_assessment_sessions").insert({
+    user_id: userId,
+    assessment_kind: "personality",
+    instrument_id: AI_STYLE_INSTRUMENT.id,
+    item_bank_version: AI_STYLE_INSTRUMENT.itemBankVersion,
+    presentation: { items: deliveredScored, experiments: deliveredExperiments },
+    expires_at: expiresAt,
+  }).select("id").single();
+  if (sessionError) throw sessionError;
+  return publicSessionForm(publicAIStyleForm(deliveredScored, deliveredExperiments), String(session.id));
+}
+
+async function loadOpenSession(
+  service: ReturnType<typeof serviceClient>,
+  userId: string,
+  sessionId: unknown,
+  kind: AssessmentKind,
+): Promise<AssessmentSession> {
+  if (typeof sessionId !== "string" || !/^[0-9a-f-]{36}$/i.test(sessionId)) {
+    throw new HttpError(400, "测评会话无效，请重新开始");
+  }
+  const { data, error } = await service.from("ai_assessment_sessions")
+    .select("id, assessment_kind, instrument_id, item_bank_version, presentation, status, expires_at")
+    .eq("id", sessionId).eq("user_id", userId).maybeSingle();
+  if (error) throw error;
+  if (!data || data.assessment_kind !== kind || data.status !== "open") {
+    throw new HttpError(400, "本次测评已失效或已提交，请重新开始");
+  }
+  if (new Date(String(data.expires_at)).getTime() < Date.now()) {
+    await service.from("ai_assessment_sessions").update({ status: "expired" }).eq("id", sessionId);
+    throw new HttpError(400, "本次测评已超过一小时，请重新开始");
+  }
+  return data as AssessmentSession;
+}
+
+function pacfItemsFromSession(session: AssessmentSession): PACFQuickItem[] {
+  if (session.instrument_id !== PACF_QUICK_INSTRUMENT.id || !Array.isArray(session.presentation?.items)) {
+    throw new HttpError(400, "能力测评版本不匹配，请重新开始");
+  }
+  return session.presentation.items as PACFQuickItem[];
+}
+
+function styleItemsFromSession(session: AssessmentSession) {
+  if (session.instrument_id !== AI_STYLE_INSTRUMENT.id || !Array.isArray(session.presentation?.items) || !Array.isArray(session.presentation?.experiments)) {
+    throw new HttpError(400, "风格测评版本不匹配，请重新开始");
+  }
+  return {
+    scored: session.presentation.items as ScoredItem[],
+    experiments: session.presentation.experiments as ExperimentalItem[],
+  };
+}
+
 async function routeCapabilityMembership(
   service: ReturnType<typeof serviceClient>,
   userId: string,
@@ -479,9 +694,11 @@ async function submitPACFQuick(
   userId: string,
   body: Record<string, unknown>,
 ) {
+  const session = await loadOpenSession(service, userId, body.session_id, "capability");
+  const deliveredItems = pacfItemsFromSession(session);
   let result: ReturnType<typeof scorePACFQuick>;
   try {
-    result = scorePACFQuick(body.responses);
+    result = scorePACFQuick(body.responses, deliveredItems);
   } catch (error) {
     throw new HttpError(
       400,
@@ -527,6 +744,7 @@ async function submitPACFQuick(
     "ai_assessment_attempts",
   ).insert({
     user_id: userId,
+    assessment_session_id: session.id,
     kind: "capability",
     assessment_version: PACF_QUICK_INSTRUMENT.id,
     framework_version: PACF_QUICK_INSTRUMENT.frameworkVersion,
@@ -546,6 +764,7 @@ async function submitPACFQuick(
       instrument_id: PACF_QUICK_INSTRUMENT.id,
       item_bank_version: PACF_QUICK_INSTRUMENT.itemBankVersion,
       scoring_version: PACF_QUICK_INSTRUMENT.scoringVersion,
+      assessment_session_id: session.id,
       scorer: "server_rule",
       scored_at: now,
     },
@@ -605,6 +824,9 @@ async function submitPACFQuick(
   }
 
   await routeCapabilityMembership(service, userId, result.routeLevel);
+  const { error: completeSessionError } = await service.from("ai_assessment_sessions")
+    .update({ status: "completed", completed_at: now }).eq("id", session.id).eq("status", "open");
+  if (completeSessionError) throw completeSessionError;
   return publicAttempt(attempt as Record<string, unknown>);
 }
 
@@ -721,9 +943,11 @@ async function submitAIStyle(
   userId: string,
   body: Record<string, unknown>,
 ) {
+  const session = await loadOpenSession(service, userId, body.session_id, "personality");
+  const deliveredItems = styleItemsFromSession(session);
   let result: ReturnType<typeof scoreAIStyle>;
   try {
-    result = scoreAIStyle(body.responses);
+    result = scoreAIStyle(body.responses, deliveredItems.scored, deliveredItems.experiments);
   } catch (error) {
     throw new HttpError(
       400,
@@ -769,6 +993,7 @@ async function submitAIStyle(
     "ai_assessment_attempts",
   ).insert({
     user_id: userId,
+    assessment_session_id: session.id,
     kind: "personality",
     assessment_version: AI_STYLE_INSTRUMENT.id,
     framework_version: AI_STYLE_INSTRUMENT.frameworkVersion,
@@ -785,6 +1010,7 @@ async function submitAIStyle(
       instrument_id: AI_STYLE_INSTRUMENT.id,
       item_bank_version: AI_STYLE_INSTRUMENT.itemBankVersion,
       scoring_version: AI_STYLE_INSTRUMENT.scoringVersion,
+      assessment_session_id: session.id,
       scored_item_count: AI_STYLE_INSTRUMENT.scoredItemCount,
       experimental_item_count: 4,
       scorer: "server_rule",
@@ -831,6 +1057,9 @@ async function submitAIStyle(
     await service.from("ai_assessment_attempts").delete().eq("id", attempt.id);
     throw responseError;
   }
+  const { error: completeSessionError } = await service.from("ai_assessment_sessions")
+    .update({ status: "completed", completed_at: now }).eq("id", session.id).eq("status", "open");
+  if (completeSessionError) throw completeSessionError;
   return publicAttempt(attempt as Record<string, unknown>);
 }
 
@@ -856,15 +1085,13 @@ serve(async (req: Request) => {
       return json({ attempt: publicAttempt(data as Record<string, unknown>) });
     }
 
-    if (action === "pacf-quick-form") {
-      return json(publicPACFQuickForm());
-    }
-
-    if (action === "ai-style-form") {
-      return json(publicAIStyleForm());
-    }
-
     const user = await requireUser(req);
+    if (action === "pacf-quick-form") {
+      return json(await createPACFSession(service, user.id));
+    }
+    if (action === "ai-style-form") {
+      return json(await createAIStyleSession(service, user.id));
+    }
     if (action === "status") {
       const attempts = await latestAttempts(service, user.id);
       const { data: legacy, error: legacyError } = await service.from(

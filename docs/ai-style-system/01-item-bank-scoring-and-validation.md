@@ -2,11 +2,11 @@
 
 > 版本：1.1.0-beta
 > 候选题库：56 道
-> Beta 扩展表单：32 道计分题 + 4 道实验题，共 36 道
+> 交付表单：每次随机抽取 32 道计分题 + 4 道实验题，共 36 道
 
 ## 1. 题库蓝图
 
-每条轴先建立 14 道候选题：第一端 7 道、第二端 7 道。Beta 扩展表每轴选择 8 道，正反向各 4 道，共 32 道计分题。另加 4 道不计分的行为权衡题，用于研究它们能否预测真实选择。
+每条轴先建立 14 道候选题：第一端 7 道、第二端 7 道。每次测评从每条轴的两侧各随机选择 4 道，共 32 道计分题。另加 4 道不计分的行为权衡题，用于研究它们能否预测真实选择。随机抽题必须保留两侧 4:4 的配额，不能仅从 14 道中无约束随机抽取，否则一侧题目偏多会把画像误判成偏好。
 
 候选题代码位于 [aiStyleItemBank.ts](../../src/features/aiAssessment/aiStyleItemBank.ts)，服务端正式短表位于 [aiUsageStyle.ts](../../supabase/functions/_shared/aiUsageStyle.ts)。浏览器只接收题干和作答选项，不接收正反向计分键。
 
@@ -75,9 +75,9 @@ AxisScore = 50 + 50 × sum(centered) / 24
 新版标识：
 
 ```text
-instrument: ai-usage-style-v1.1-beta
+instrument: ai-usage-style-v1.1-random-beta
 framework: ai-usage-style-v1
-item bank: ai-style-item-bank-1.0.0
+item bank: ai-style-item-bank-1.1.0
 scoring: ai-style-scoring-1.1.0
 ```
 
