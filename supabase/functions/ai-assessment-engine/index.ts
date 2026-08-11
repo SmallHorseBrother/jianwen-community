@@ -17,6 +17,16 @@ import {
   type ExperimentalItem,
   type ScoredItem,
 } from "../_shared/aiUsageStyle.ts";
+import {
+  EXAM_DIMENSIONS,
+  EXAM_SECTIONS,
+  FIRST_AI_EXAM_BANK,
+  FIRST_AI_EXAM_INSTRUMENT,
+  publicExamForm,
+  scoreFirstAIExam,
+  type ExamDimension,
+  type ExamItem,
+} from "../_shared/firstAIExam.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -69,7 +79,7 @@ type CapabilityDimension = typeof DIMENSIONS[number];
 type PersonalityAxis = typeof AXES[number];
 type AssessmentKind = "capability" | "personality";
 type SessionPresentation = {
-  items: PACFQuickItem[] | ScoredItem[];
+  items: PACFQuickItem[] | ExamItem[] | ScoredItem[];
   experiments?: ExperimentalItem[];
 };
 type AssessmentSession = {
@@ -589,6 +599,58 @@ async function createPACFSession(
   return publicSessionForm(publicPACFQuickForm(items), String(session.id));
 }
 
+const examOptionIds = ["A", "B", "C", "D"] as const;
+
+function shuffleExamOptions(item: ExamItem): ExamItem {
+  if (!item.options) return item;
+  return {
+    ...item,
+    options: shuffled(item.options).map((option, index) => ({
+      ...option,
+      id: examOptionIds[index],
+    })),
+  };
+}
+
+function sampleFirstAIExam(): ExamItem[] {
+  const selected: ExamItem[] = [];
+  for (const dimension of Object.keys(EXAM_DIMENSIONS) as ExamDimension[]) {
+    const dimensionItems = FIRST_AI_EXAM_BANK.filter((item) => item.dimension === dimension);
+    const basics = shuffled(dimensionItems.filter((item) => item.section === "basic")).slice(0, 2);
+    const scenarios = shuffled(dimensionItems.filter((item) => item.section === "scenario")).slice(0, 1);
+    const fills = shuffled(dimensionItems.filter((item) => item.section === "fill")).slice(0, 1);
+    const technical = dimensionItems.filter((item) => item.section === "technical");
+    if (basics.length !== 2 || scenarios.length !== 1 || fills.length !== 1 || technical.length !== 1) {
+      throw new Error(`第一届能力考试 ${dimension} 维度题库配额不完整`);
+    }
+    selected.push(...basics, ...scenarios, ...fills, ...technical);
+  }
+  const openItems = shuffled(FIRST_AI_EXAM_BANK.filter((item) => item.section === "open")).slice(0, 2);
+  if (openItems.length !== 2) throw new Error("第一届能力考试主观题不足");
+  selected.push(...openItems);
+  return (Object.keys(EXAM_SECTIONS) as Array<keyof typeof EXAM_SECTIONS>)
+    .sort((left, right) => EXAM_SECTIONS[left].order - EXAM_SECTIONS[right].order)
+    .flatMap((section) => shuffled(selected.filter((item) => item.section === section)).map(shuffleExamOptions));
+}
+
+async function createFirstAIExamSession(
+  service: ReturnType<typeof serviceClient>,
+  userId: string,
+) {
+  const items = sampleFirstAIExam();
+  const expiresAt = new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString();
+  const { data: session, error: sessionError } = await service.from("ai_assessment_sessions").insert({
+    user_id: userId,
+    assessment_kind: "capability",
+    instrument_id: FIRST_AI_EXAM_INSTRUMENT.id,
+    item_bank_version: FIRST_AI_EXAM_INSTRUMENT.itemBankVersion,
+    presentation: { items },
+    expires_at: expiresAt,
+  }).select("id").single();
+  if (sessionError) throw sessionError;
+  return publicExamForm(items, String(session.id));
+}
+
 async function createAIStyleSession(
   service: ReturnType<typeof serviceClient>,
   userId: string,
@@ -655,6 +717,13 @@ function pacfItemsFromSession(session: AssessmentSession): PACFQuickItem[] {
   return session.presentation.items as PACFQuickItem[];
 }
 
+function examItemsFromSession(session: AssessmentSession): ExamItem[] {
+  if (session.instrument_id !== FIRST_AI_EXAM_INSTRUMENT.id || !Array.isArray(session.presentation?.items)) {
+    throw new HttpError(400, "能力考试版本不匹配，请重新开始");
+  }
+  return session.presentation.items as ExamItem[];
+}
+
 function styleItemsFromSession(session: AssessmentSession) {
   if (session.instrument_id !== AI_STYLE_INSTRUMENT.id || !Array.isArray(session.presentation?.items) || !Array.isArray(session.presentation?.experiments)) {
     throw new HttpError(400, "风格测评版本不匹配，请重新开始");
@@ -695,14 +764,14 @@ async function submitPACFQuick(
   body: Record<string, unknown>,
 ) {
   const session = await loadOpenSession(service, userId, body.session_id, "capability");
-  const deliveredItems = pacfItemsFromSession(session);
-  let result: ReturnType<typeof scorePACFQuick>;
+  const deliveredItems = examItemsFromSession(session);
+  let result: ReturnType<typeof scoreFirstAIExam>;
   try {
-    result = scorePACFQuick(body.responses, deliveredItems);
+    result = scoreFirstAIExam(body.responses, deliveredItems);
   } catch (error) {
     throw new HttpError(
       400,
-      error instanceof Error ? error.message : "PACF 快测答案无效",
+      error instanceof Error ? error.message : "能力考试答案无效",
     );
   }
   const { track, goal } = capabilityContext(body);
@@ -714,10 +783,11 @@ async function submitPACFQuick(
     levelTitle: result.levelTitle,
     levelSummary: result.levelSummary,
     dimensionScores: result.dimensionScores,
-    strongest: PACF_DIMENSIONS[result.strongest],
-    growthArea: PACF_DIMENSIONS[result.growthArea],
+    strongest: EXAM_DIMENSIONS[result.strongest],
+    growthArea: EXAM_DIMENSIONS[result.growthArea],
     gates: result.gates,
-    evidenceGrade: PACF_QUICK_INSTRUMENT.evidenceGrade,
+    openResponses: result.openResponses,
+    evidenceGrade: FIRST_AI_EXAM_INSTRUMENT.evidenceGrade,
   };
   const generated = await generateReport(
     "capability",
@@ -731,7 +801,7 @@ async function submitPACFQuick(
   );
   const responses = body.responses as Array<{
     item_id: string;
-    option_id: string;
+    value: string | number;
   }>;
   const now = new Date().toISOString();
   const gateStatus = {
@@ -746,11 +816,11 @@ async function submitPACFQuick(
     user_id: userId,
     assessment_session_id: session.id,
     kind: "capability",
-    assessment_version: PACF_QUICK_INSTRUMENT.id,
-    framework_version: PACF_QUICK_INSTRUMENT.frameworkVersion,
-    scoring_version: PACF_QUICK_INSTRUMENT.scoringVersion,
+    assessment_version: FIRST_AI_EXAM_INSTRUMENT.id,
+    framework_version: FIRST_AI_EXAM_INSTRUMENT.frameworkVersion,
+    scoring_version: FIRST_AI_EXAM_INSTRUMENT.scoringVersion,
     result_status: "provisional",
-    evidence_grade: PACF_QUICK_INSTRUMENT.evidenceGrade,
+    evidence_grade: FIRST_AI_EXAM_INSTRUMENT.evidenceGrade,
     requires_reassessment: false,
     answers: responses,
     track,
@@ -761,11 +831,13 @@ async function submitPACFQuick(
     competency_scores: result.competencyScores,
     gate_status: gateStatus,
     scoring_audit: {
-      instrument_id: PACF_QUICK_INSTRUMENT.id,
-      item_bank_version: PACF_QUICK_INSTRUMENT.itemBankVersion,
-      scoring_version: PACF_QUICK_INSTRUMENT.scoringVersion,
+      instrument_id: FIRST_AI_EXAM_INSTRUMENT.id,
+      item_bank_version: FIRST_AI_EXAM_INSTRUMENT.itemBankVersion,
+      scoring_version: FIRST_AI_EXAM_INSTRUMENT.scoringVersion,
       assessment_session_id: session.id,
       scorer: "server_rule",
+      scored_item_count: FIRST_AI_EXAM_INSTRUMENT.scoredItemCount,
+      subjective_item_count: FIRST_AI_EXAM_INSTRUMENT.itemCount - FIRST_AI_EXAM_INSTRUMENT.scoredItemCount,
       scored_at: now,
     },
     deterministic_report: deterministic,
@@ -779,15 +851,16 @@ async function submitPACFQuick(
     attempt_id: attempt.id,
     item_id: item.itemId,
     competency_id: item.competencyId,
-    response_payload: { option_id: item.optionId },
+    response_payload: { value: item.response },
     raw_score: item.rawScore,
-    max_score: 3,
+    max_score: item.scored ? 3 : null,
     normalized_score: item.normalizedScore,
     scorer_type: "rule",
-    rubric_version: PACF_QUICK_INSTRUMENT.scoringVersion,
+    rubric_version: FIRST_AI_EXAM_INSTRUMENT.scoringVersion,
     scoring_evidence: {
-      instrument_id: PACF_QUICK_INSTRUMENT.id,
-      item_bank_version: PACF_QUICK_INSTRUMENT.itemBankVersion,
+      instrument_id: FIRST_AI_EXAM_INSTRUMENT.id,
+      item_bank_version: FIRST_AI_EXAM_INSTRUMENT.itemBankVersion,
+      scored: item.scored,
     },
     scored_at: now,
   }));
@@ -810,11 +883,11 @@ async function submitPACFQuick(
     competency_scores: result.competencyScores,
     gate_status: gateStatus,
     track,
-    assessment_version: PACF_QUICK_INSTRUMENT.id,
-    framework_version: PACF_QUICK_INSTRUMENT.frameworkVersion,
-    scoring_version: PACF_QUICK_INSTRUMENT.scoringVersion,
+    assessment_version: FIRST_AI_EXAM_INSTRUMENT.id,
+    framework_version: FIRST_AI_EXAM_INSTRUMENT.frameworkVersion,
+    scoring_version: FIRST_AI_EXAM_INSTRUMENT.scoringVersion,
     result_status: "provisional",
-    evidence_grade: PACF_QUICK_INSTRUMENT.evidenceGrade,
+    evidence_grade: FIRST_AI_EXAM_INSTRUMENT.evidenceGrade,
     requires_reassessment: false,
     updated_at: now,
   }, { onConflict: "user_id" });
@@ -1087,7 +1160,7 @@ serve(async (req: Request) => {
 
     const user = await requireUser(req);
     if (action === "pacf-quick-form") {
-      return json(await createPACFSession(service, user.id));
+      return json(await createFirstAIExamSession(service, user.id));
     }
     if (action === "ai-style-form") {
       return json(await createAIStyleSession(service, user.id));

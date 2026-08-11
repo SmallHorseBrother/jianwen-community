@@ -64,14 +64,21 @@ type Attempt = {
 };
 type AssessmentStatus = { capability: Attempt | null; personality: Attempt | null; legacy_capability_available?: boolean };
 type PACFDimension = 'M' | 'F' | 'T' | 'V' | 'C' | 'S';
+type AbilitySection = 'basic' | 'scenario' | 'fill' | 'technical' | 'open';
+type AbilityItemKind = 'choice' | 'fill' | 'numeric' | 'open' | 'code';
 type PACFPublicOption = { id: string; text: string };
 type PACFPublicItem = {
   id: string;
   competency_id: string;
   dimension: PACFDimension;
-  type: 'objective' | 'scenario';
-  stem: string;
-  options: PACFPublicOption[];
+  target_level: number;
+  section: AbilitySection;
+  kind: AbilityItemKind;
+  prompt: string;
+  code?: string;
+  options?: PACFPublicOption[];
+  placeholder?: string;
+  unscored?: boolean;
 };
 type PACFQuickForm = {
   session_id: string;
@@ -81,7 +88,10 @@ type PACFQuickForm = {
     title: string;
     evidence_grade: 'screening';
     item_count: number;
+    scored_item_count: number;
+    estimated_minutes: number;
     dimensions: Record<PACFDimension, { label: string; description: string }>;
+    sections: Record<AbilitySection, { order: number; title: string; subtitle: string }>;
   };
   items: PACFPublicItem[];
 };
@@ -275,7 +285,7 @@ const AIAssessment: React.FC = () => {
   const [goal, setGoal] = useState<LearningGoal | null>(null);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [capabilityForm, setCapabilityForm] = useState<PACFQuickForm | null>(null);
-  const [capabilityAnswers, setCapabilityAnswers] = useState<(string | null)[]>([]);
+  const [capabilityAnswers, setCapabilityAnswers] = useState<Array<string | number | null>>([]);
   const [styleForm, setStyleForm] = useState<AIStyleForm | null>(null);
   const [styleAnswers, setStyleAnswers] = useState<Array<number | string | null>>([]);
   const [history, setHistory] = useState<AssessmentStatus>({ capability: null, personality: null });
@@ -356,7 +366,8 @@ const AIAssessment: React.FC = () => {
   };
 
   const nextCapability = () => {
-    if (capabilityAnswers[questionIndex] === null) return;
+    const answer = capabilityAnswers[questionIndex];
+    if (answer === null || String(answer).trim() === '') return;
     if (questionIndex === (capabilityForm?.items.length || 0) - 1) setStage('capability-goal');
     else setQuestionIndex((index) => index + 1);
   };
@@ -368,10 +379,10 @@ const AIAssessment: React.FC = () => {
   };
 
   const submitCapability = async () => {
-    if (!goal || !capabilityForm || capabilityAnswers.some((answer) => answer === null)) return;
+    if (!goal || !capabilityForm || capabilityAnswers.some((answer) => answer === null || String(answer).trim() === '')) return;
     setIsBusy(true);
     setError('');
-    const responses = capabilityForm.items.map((item, index) => ({ item_id: item.id, option_id: capabilityAnswers[index] as string }));
+    const responses = capabilityForm.items.map((item, index) => ({ item_id: item.id, value: capabilityAnswers[index] as string | number }));
     try {
       await ensureVisitorSession();
       const { attempt } = await invokeFunction<{ attempt: Attempt }>('ai-assessment-engine', {
@@ -468,6 +479,15 @@ const AIAssessment: React.FC = () => {
 
   const currentCapabilityQuestion = capabilityForm?.items[questionIndex];
   const currentPersonalityQuestion = styleForm?.items[questionIndex];
+  const currentCapabilityAnswer = capabilityAnswers[questionIndex];
+  const currentCapabilitySection = currentCapabilityQuestion
+    ? capabilityForm?.instrument.sections[currentCapabilityQuestion.section]
+    : null;
+  const currentCapabilityAnswerLength = String(currentCapabilityAnswer ?? '').trim().length;
+  const hasCurrentCapabilityAnswer = currentCapabilityAnswer !== null
+    && currentCapabilityAnswer !== undefined
+    && currentCapabilityAnswerLength > 0
+    && (currentCapabilityQuestion?.kind !== 'open' || currentCapabilityAnswerLength >= 10);
   const isUnlocked = payment?.membership?.access_status === 'active';
   const groupImageUrl = payment?.group_qr_url || (isUnlocked && payment?.membership?.level ? paymentPlaceholders[payment.membership.level] : null);
 
@@ -478,9 +498,9 @@ const AIAssessment: React.FC = () => {
         <section className="overflow-hidden rounded-3xl border border-cyan-200/40 bg-slate-950/90 text-slate-100 shadow-xl shadow-cyan-950/30 backdrop-blur-xl">
           <div className="bg-gradient-to-br from-slate-950 via-cyan-950 to-blue-950 px-6 py-8 text-white sm:px-10 sm:py-11">
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 ring-1 ring-white/20"><BrainCircuit className="h-7 w-7 text-cyan-100" /></div>
-            <p className="mb-2 text-xs font-bold tracking-[0.2em] text-cyan-200">YOUR AI PORTRAIT · 个人AI画像</p>
-            <h1 className="text-3xl font-black tracking-tight sm:text-4xl">你是谁，你在哪，下一步去哪</h1>
-            <p className="mt-3 max-w-2xl leading-7 text-slate-100">使用风格测评发现你习惯怎样与 AI 工作，能力测评定位当前等级。两套测试完全免费，无需登录；只有决定进群时才需要付费。</p>
+            <p className="mb-2 text-xs font-bold tracking-[0.2em] text-cyan-200">THE FIRST AI EXAM · 2026 试行卷</p>
+            <h1 className="text-3xl font-black tracking-tight sm:text-4xl">第一届 AI 能力与风格摸底考试</h1>
+            <p className="mt-3 max-w-2xl leading-7 text-slate-100">本场允许不会，不建议打开另一个 AI 代考——那样主要测出的是你会不会打开 AI。两套考试免费，只有决定进群时才需要付费。</p>
           </div>
           <div className="p-5 sm:p-8">
             {error && <div className="mb-5 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">{error}</div>}
@@ -490,14 +510,14 @@ const AIAssessment: React.FC = () => {
               <div className="space-y-6">
                 <div className="grid gap-4 md:grid-cols-2">
                   <article className="rounded-3xl border border-cyan-300/25 bg-gradient-to-br from-cyan-950/70 to-slate-900 p-6">
-                    <Gauge className="h-8 w-8 text-cyan-300" /><p className="mt-5 text-xs font-bold tracking-widest text-cyan-300">PACF v1.1 扩展筛查 · 约18分钟</p><h2 className="mt-2 text-2xl font-black text-white">AI能力等级测评</h2><p className="mt-3 text-sm leading-6 text-slate-200">42道知识与真实情境题，六个能力维度各有7道证据，得到Level 0–5、雷达图和下一步成长路线。</p>
-                    <button onClick={() => setStage('capability-track')} className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-cyan-500 px-4 py-3 font-bold text-slate-950">开始能力测评 <ArrowRight className="h-4 w-4" /></button>
+                    <Gauge className="h-8 w-8 text-cyan-300" /><p className="mt-5 text-xs font-bold tracking-widest text-cyan-300">能力卷 · 32题 · 约40分钟 · 100分制</p><h2 className="mt-2 text-2xl font-black text-white">第一届 AI 能力摸底考试</h2><p className="mt-3 text-sm leading-6 text-slate-200">基础选择、情境判断、填空计算、代码与流程阅读、主观题五个部分，得到Level 0–5、六科成绩和成长路线。</p>
+                    <button onClick={() => setStage('capability-track')} className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-cyan-500 px-4 py-3 font-bold text-slate-950">领取能力卷 <ArrowRight className="h-4 w-4" /></button>
                     {history.capability && <button onClick={() => openLatest('capability')} className="mt-3 w-full text-sm font-semibold text-cyan-200">查看最近结果</button>}
                     {!history.capability && history.legacy_capability_available && <p className="mt-3 text-center text-xs leading-5 text-amber-200">旧版结果已安全归档，请完成新版测评获得当前能力画像。</p>}
                   </article>
                   <article className="rounded-3xl border border-violet-300/25 bg-gradient-to-br from-violet-950/70 to-slate-900 p-6">
-                    <Compass className="h-8 w-8 text-violet-300" /><p className="mt-5 text-xs font-bold tracking-widest text-violet-300">Beta · 约8分钟</p><h2 className="mt-2 text-2xl font-black text-white">AI使用风格画像</h2><p className="mt-3 text-sm leading-6 text-slate-200">36道行为偏好题，四条风格轴各有8道计分证据，得到连续分、平衡提示和专属四字母画像。</p>
-                    <button onClick={startPersonality} className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-violet-400 px-4 py-3 font-bold text-slate-950">开始风格测评 <ArrowRight className="h-4 w-4" /></button>
+                    <Compass className="h-8 w-8 text-violet-300" /><p className="mt-5 text-xs font-bold tracking-widest text-violet-300">风格卷 · 36题 · 约8分钟 · 无标准答案</p><h2 className="mt-2 text-2xl font-black text-white">第一届 AI 使用风格摸底考试</h2><p className="mt-3 text-sm leading-6 text-slate-200">四条风格轴各有8道计分证据，得到连续分、平衡提示和专属四字母画像。风格不分高低。</p>
+                    <button onClick={startPersonality} className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-violet-400 px-4 py-3 font-bold text-slate-950">领取风格卷 <ArrowRight className="h-4 w-4" /></button>
                     {history.personality && <button onClick={() => openLatest('personality')} className="mt-3 w-full text-sm font-semibold text-violet-200">查看最近结果</button>}
                   </article>
                 </div>
@@ -515,9 +535,16 @@ const AIAssessment: React.FC = () => {
             )}
 
             {stage === 'capability-questions' && currentCapabilityQuestion && (
-              <div><div className="mb-6 flex justify-between gap-3 text-sm"><span className="font-semibold text-cyan-300">第 {questionIndex + 1} / {capabilityForm?.items.length} 题</span><span className="text-right text-slate-300">{capabilityForm?.instrument.dimensions[currentCapabilityQuestion.dimension].label}</span></div><div className="mb-7 h-2 overflow-hidden rounded-full bg-white/10"><div className="h-full bg-gradient-to-r from-cyan-500 to-blue-600" style={{ width: `${((questionIndex + 1) / (capabilityForm?.items.length || 1)) * 100}%` }} /></div>
-                <h2 className="text-xl font-bold leading-8 text-white sm:text-2xl">{currentCapabilityQuestion.stem}</h2><div className="mt-6 space-y-3">{currentCapabilityQuestion.options.map((option) => { const selected = capabilityAnswers[questionIndex] === option.id; return <button key={option.id} onClick={() => setCapabilityAnswers((items) => items.map((item, index) => index === questionIndex ? option.id : item))} className={`w-full rounded-2xl border px-4 py-4 text-left text-base leading-7 transition ${selected ? 'border-cyan-300 bg-cyan-400/20 text-white ring-2 ring-cyan-300/20' : 'border-slate-500 bg-slate-900/75 text-slate-100 hover:border-cyan-400'}`}><span className="mr-3 font-black text-cyan-300">{option.id}</span>{option.text}</button>; })}</div>
-                <div className="mt-8 flex justify-between"><button onClick={() => questionIndex === 0 ? setStage('capability-track') : setQuestionIndex((index) => index - 1)} className="rounded-xl border border-slate-500 px-4 py-3 text-sm font-semibold text-slate-100">上一题</button><button onClick={nextCapability} disabled={capabilityAnswers[questionIndex] === null} className="rounded-xl bg-cyan-500 px-5 py-3 text-sm font-bold text-slate-950 disabled:opacity-40">{questionIndex === (capabilityForm?.items.length || 1) - 1 ? '选择成长方向' : '下一题'}</button></div>
+              <div>
+                <div className="mb-4 rounded-2xl border border-cyan-300/20 bg-cyan-950/35 px-4 py-3">
+                  <div className="flex flex-wrap items-center justify-between gap-2"><strong className="text-cyan-200">{currentCapabilitySection?.title}</strong><span className="text-xs text-slate-300">{currentCapabilitySection?.subtitle}</span></div>
+                </div>
+                <div className="mb-6 flex justify-between gap-3 text-sm"><span className="font-semibold text-cyan-300">第 {questionIndex + 1} / {capabilityForm?.items.length} 题</span><span className="text-right text-slate-300">{capabilityForm?.instrument.dimensions[currentCapabilityQuestion.dimension].label} · L{currentCapabilityQuestion.target_level}</span></div><div className="mb-7 h-2 overflow-hidden rounded-full bg-white/10"><div className="h-full bg-gradient-to-r from-cyan-500 to-blue-600" style={{ width: `${((questionIndex + 1) / (capabilityForm?.items.length || 1)) * 100}%` }} /></div>
+                {currentCapabilityQuestion.unscored && <p className="mb-3 inline-flex rounded-full border border-amber-300/30 bg-amber-950/40 px-3 py-1 text-xs font-bold text-amber-200">主观题参与 AI 评语，本届暂不计入基础分</p>}
+                <h2 className="text-xl font-bold leading-8 text-white sm:text-2xl">{currentCapabilityQuestion.prompt}</h2>
+                {currentCapabilityQuestion.code && <pre className="mt-5 overflow-x-auto rounded-2xl border border-white/10 bg-slate-950 p-4 text-sm leading-6 text-cyan-100"><code>{currentCapabilityQuestion.code}</code></pre>}
+                {currentCapabilityQuestion.options?.length ? <div className="mt-6 space-y-3">{currentCapabilityQuestion.options.map((option) => { const selected = currentCapabilityAnswer === option.id; return <button key={option.id} onClick={() => setCapabilityAnswers((items) => items.map((item, index) => index === questionIndex ? option.id : item))} className={`w-full rounded-2xl border px-4 py-4 text-left text-base leading-7 transition ${selected ? 'border-cyan-300 bg-cyan-400/20 text-white ring-2 ring-cyan-300/20' : 'border-slate-500 bg-slate-900/75 text-slate-100 hover:border-cyan-400'}`}><span className="mr-3 font-black text-cyan-300">{option.id}</span>{option.text}</button>; })}</div> : currentCapabilityQuestion.kind === 'open' ? <><textarea value={String(currentCapabilityAnswer ?? '')} onChange={(event) => setCapabilityAnswers((items) => items.map((item, index) => index === questionIndex ? event.target.value : item))} rows={7} maxLength={1200} placeholder={currentCapabilityQuestion.placeholder} className="mt-6 w-full rounded-2xl border border-slate-500 bg-slate-900/80 px-4 py-4 text-base leading-7 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-300 focus:ring-2 focus:ring-cyan-300/20" /><p className={`mt-2 text-right text-xs ${currentCapabilityAnswerLength > 0 && currentCapabilityAnswerLength < 10 ? 'text-amber-300' : 'text-slate-500'}`}>{currentCapabilityAnswerLength}/1200 字，至少写 10 个字</p></> : <input type={currentCapabilityQuestion.kind === 'numeric' ? 'number' : 'text'} inputMode={currentCapabilityQuestion.kind === 'numeric' ? 'decimal' : 'text'} value={String(currentCapabilityAnswer ?? '')} onChange={(event) => setCapabilityAnswers((items) => items.map((item, index) => index === questionIndex ? event.target.value : item))} placeholder={currentCapabilityQuestion.placeholder} className="mt-6 w-full rounded-2xl border border-slate-500 bg-slate-900/80 px-4 py-4 text-lg text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-300 focus:ring-2 focus:ring-cyan-300/20" />}
+                <div className="mt-8 flex justify-between"><button onClick={() => questionIndex === 0 ? setStage('capability-track') : setQuestionIndex((index) => index - 1)} className="rounded-xl border border-slate-500 px-4 py-3 text-sm font-semibold text-slate-100">上一题</button><button onClick={nextCapability} disabled={!hasCurrentCapabilityAnswer} className="rounded-xl bg-cyan-500 px-5 py-3 text-sm font-bold text-slate-950 disabled:opacity-40">{questionIndex === (capabilityForm?.items.length || 1) - 1 ? '检查并交卷' : '下一题'}</button></div>
               </div>
             )}
 
