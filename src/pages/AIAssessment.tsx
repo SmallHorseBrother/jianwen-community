@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import QRCode from 'qrcode';
 import {
@@ -8,6 +8,7 @@ import {
   Clipboard,
   Compass,
   CreditCard,
+  Download,
   Gauge,
   LockKeyhole,
   QrCode,
@@ -17,6 +18,7 @@ import {
   Sparkles,
   WalletCards,
   Workflow,
+  X,
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import {
@@ -168,6 +170,36 @@ async function ensureVisitorSession() {
 
 const money = (amountCents: number | null) => amountCents === null ? '—' : `¥${(amountCents / 100).toFixed(2)}`;
 
+const shareUrlFor = (attempt: Attempt) => attempt.share_token
+  ? `${window.location.origin}${window.location.pathname}?share=${attempt.share_token}`
+  : window.location.href;
+
+const roundedRect = (context: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, radius: number) => {
+  context.beginPath();
+  context.roundRect(x, y, width, height, radius);
+};
+
+const wrapCanvasText = (context: CanvasRenderingContext2D, text: string, maxWidth: number) => {
+  const lines: string[] = [];
+  let current = '';
+  for (const character of text) {
+    const candidate = current + character;
+    if (current && context.measureText(candidate).width > maxWidth) {
+      lines.push(current);
+      current = character;
+    } else current = candidate;
+  }
+  if (current) lines.push(current);
+  return lines;
+};
+
+const imageFromUrl = (url: string) => new Promise<HTMLImageElement>((resolve, reject) => {
+  const image = new Image();
+  image.onload = () => resolve(image);
+  image.onerror = reject;
+  image.src = url;
+});
+
 const legacyDimensionLabels: Record<string, string> = {
   cognition: 'AI认知', usage: 'AI使用', communication: 'AI沟通',
   verification: 'AI验证', creation: 'AI创造', systems: 'AI系统',
@@ -296,6 +328,13 @@ const AIAssessment: React.FC = () => {
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
   const [isSharedResult, setIsSharedResult] = useState(false);
+  const [shareCard, setShareCard] = useState<{ url: string; blob: Blob } | null>(null);
+  const [isGeneratingShareCard, setIsGeneratingShareCard] = useState(false);
+  const paymentPollingRef = useRef(false);
+  const isUnlocked = payment?.membership?.access_status === 'active';
+  const paymentOrderNo = payment?.latest_order?.order_no;
+  const paymentOrderStatus = payment?.latest_order?.status;
+  const paymentOrderExpiresAt = payment?.latest_order?.expires_at;
 
   const loadPayment = useCallback(async () => {
     const data = await invokeFunction<PaymentStatus>('ai-group-payment', { action: 'status' });
@@ -321,9 +360,18 @@ const AIAssessment: React.FC = () => {
     }
     supabase.auth.getSession().then(({ data }) => {
       if (!data.session) return;
-      loadHistory().catch(() => undefined);
+      const returningFromPayment = sessionStorage.getItem('ai-group-payment-return') === '1';
+      Promise.all([loadHistory(), returningFromPayment ? loadPayment() : Promise.resolve(null)])
+        .then(([assessmentHistory]) => {
+          if (returningFromPayment && assessmentHistory.capability) {
+            setCurrentAttempt(assessmentHistory.capability);
+            setStage('result');
+            sessionStorage.removeItem('ai-group-payment-return');
+          }
+        })
+        .catch(() => undefined);
     });
-  }, [loadHistory]);
+  }, [loadHistory, loadPayment]);
 
   useEffect(() => {
     const codeUrl = payment?.latest_order?.wechat_code_url;
@@ -332,6 +380,47 @@ const AIAssessment: React.FC = () => {
       .then(setPaymentQr)
       .catch(() => setError('生成微信支付二维码失败，请刷新后重试'));
   }, [payment?.latest_order?.wechat_code_url]);
+
+  useEffect(() => {
+    if (stage !== 'result' || isSharedResult || currentAttempt?.kind !== 'capability' || isUnlocked
+      || !paymentOrderNo || !paymentOrderStatus || !['pending', 'created'].includes(paymentOrderStatus)) return;
+
+    let stopped = false;
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    const expiresAt = Date.parse(paymentOrderExpiresAt || '');
+    const poll = async () => {
+      if (stopped || paymentPollingRef.current || (Number.isFinite(expiresAt) && Date.now() >= expiresAt)) return;
+      paymentPollingRef.current = true;
+      try {
+        const data = await invokeFunction<PaymentStatus>('ai-group-payment', { action: 'sync-order', order_no: paymentOrderNo });
+        if (stopped) return;
+        setPayment(data);
+        if (data.membership?.access_status === 'active') {
+          setNotice('支付成功，入群 ID 和二维码已自动解锁');
+          return;
+        }
+      } catch {
+        // 支付网关可能短暂延迟，下一轮继续查询；手动刷新按钮仍可兜底。
+      } finally {
+        paymentPollingRef.current = false;
+      }
+      if (!stopped) timer = setTimeout(poll, 3000);
+    };
+    timer = setTimeout(poll, 1500);
+    const pollWhenVisible = () => { if (document.visibilityState === 'visible') void poll(); };
+    window.addEventListener('focus', pollWhenVisible);
+    document.addEventListener('visibilitychange', pollWhenVisible);
+    return () => {
+      stopped = true;
+      if (timer) clearTimeout(timer);
+      window.removeEventListener('focus', pollWhenVisible);
+      document.removeEventListener('visibilitychange', pollWhenVisible);
+    };
+  }, [currentAttempt?.kind, isSharedResult, isUnlocked, paymentOrderExpiresAt, paymentOrderNo, paymentOrderStatus, stage]);
+
+  useEffect(() => () => {
+    if (shareCard?.url) URL.revokeObjectURL(shareCard.url);
+  }, [shareCard?.url]);
 
   const startCapability = async (selectedTrack: CapabilityTrack) => {
     setIsBusy(true); setError(''); setNotice('');
@@ -432,8 +521,10 @@ const AIAssessment: React.FC = () => {
     setStage('result');
   };
 
-  const shareResult = async () => {
+  const generateShareCard = async () => {
     if (!currentAttempt) return;
+    setIsGeneratingShareCard(true);
+    setError('');
     const isNewStyle = currentAttempt.framework_version === 'ai-usage-style-v1';
     const profile = currentAttempt.personality_code
       ? (isNewStyle ? aiStyleProfiles[currentAttempt.personality_code] : personalityProfiles[currentAttempt.personality_code])
@@ -444,14 +535,123 @@ const AIAssessment: React.FC = () => {
     const title = currentAttempt.kind === 'capability'
       ? `我的AI能力：Level ${currentAttempt.ability_level} · ${levelDefinition.title}`
       : `我的AI使用风格：${profile?.name || currentAttempt.personality_code}`;
-    const url = currentAttempt.share_token ? `${window.location.origin}${window.location.pathname}?share=${currentAttempt.share_token}` : window.location.href;
     try {
-      const usedNativeShare = Boolean(navigator.share && currentAttempt.share_token);
-      if (usedNativeShare) await navigator.share({ title, text: `${title}，来测测你的AI画像。`, url });
-      else await navigator.clipboard.writeText(`${title}\n${url}`);
-      setNotice(usedNativeShare ? '分享面板已打开' : '结果链接已复制');
+      const url = shareUrlFor(currentAttempt);
+      const qrDataUrl = await QRCode.toDataURL(url, { width: 300, margin: 1, errorCorrectionLevel: 'M' });
+      const qrImage = await imageFromUrl(qrDataUrl);
+      const canvas = document.createElement('canvas');
+      canvas.width = 1080;
+      canvas.height = 1440;
+      const context = canvas.getContext('2d');
+      if (!context) throw new Error('浏览器不支持生成打卡图');
+
+      const background = context.createLinearGradient(0, 0, 1080, 1440);
+      background.addColorStop(0, '#071a2f');
+      background.addColorStop(0.52, currentAttempt.kind === 'capability' ? '#083344' : '#2e1065');
+      background.addColorStop(1, '#020617');
+      context.fillStyle = background;
+      context.fillRect(0, 0, 1080, 1440);
+      context.fillStyle = 'rgba(34,211,238,.08)';
+      for (let x = 50; x < 1080; x += 80) for (let y = 40; y < 1440; y += 80) context.fillRect(x, y, 3, 3);
+
+      context.fillStyle = '#a5f3fc';
+      context.font = '700 26px "Microsoft YaHei", sans-serif';
+      context.fillText('健文社区 · 第一届 AI 摸底考试', 72, 95);
+      context.fillStyle = '#ffffff';
+      context.font = '900 58px "Microsoft YaHei", sans-serif';
+      context.fillText('AI能力与风格摸底考试', 72, 178);
+      context.fillStyle = 'rgba(255,255,255,.12)';
+      roundedRect(context, 62, 235, 956, 300, 34);
+      context.fill();
+      context.strokeStyle = 'rgba(165,243,252,.35)';
+      context.lineWidth = 2;
+      context.stroke();
+      context.fillStyle = '#67e8f9';
+      context.font = '700 27px "Microsoft YaHei", sans-serif';
+      context.fillText(currentAttempt.kind === 'capability' ? '我的 AI 能力成绩' : '我的 AI 使用风格', 102, 300);
+      context.fillStyle = '#ffffff';
+      context.font = '900 54px "Microsoft YaHei", sans-serif';
+      wrapCanvasText(context, title.replace(/^我的AI(?:能力|使用风格)：/, ''), 820).slice(0, 2)
+        .forEach((line, index) => context.fillText(line, 102, 380 + index * 70));
+      if (currentAttempt.kind === 'capability') {
+        context.fillStyle = '#cffafe';
+        context.font = '700 28px "Microsoft YaHei", sans-serif';
+        context.fillText(`总分 ${Math.round(currentAttempt.total_score || 0)} / 100`, 102, 490);
+      } else {
+        context.fillStyle = '#ddd6fe';
+        context.font = '900 42px "Microsoft YaHei", sans-serif';
+        context.fillText(currentAttempt.personality_code || '', 102, 490);
+      }
+
+      const entries = Object.entries(currentAttempt.dimension_scores).slice(0, 6);
+      const labels = currentAttempt.kind === 'capability' ? pacfDimensionLabels : Object.fromEntries(Object.entries(aiStyleAxisDefinitions).map(([key, value]) => [key, `${value.first.split(' ')[0]} / ${value.second.split(' ')[0]}`]));
+      context.fillStyle = '#ffffff';
+      context.font = '900 34px "Microsoft YaHei", sans-serif';
+      context.fillText(currentAttempt.kind === 'capability' ? '六维成绩' : '四条风格轴', 72, 615);
+      entries.forEach(([key, rawValue], index) => {
+        const y = 680 + index * 78;
+        const value = Math.max(0, Math.min(100, Number(rawValue) || 0));
+        context.fillStyle = '#cbd5e1';
+        context.font = '500 23px "Microsoft YaHei", sans-serif';
+        context.fillText(labels[key] || key, 72, y);
+        context.fillStyle = 'rgba(255,255,255,.12)';
+        roundedRect(context, 360, y - 22, 520, 22, 11);
+        context.fill();
+        const bar = context.createLinearGradient(360, 0, 880, 0);
+        bar.addColorStop(0, currentAttempt.kind === 'capability' ? '#22d3ee' : '#a78bfa');
+        bar.addColorStop(1, '#3b82f6');
+        context.fillStyle = bar;
+        roundedRect(context, 360, y - 22, Math.max(8, 520 * value / 100), 22, 11);
+        context.fill();
+        context.fillStyle = '#ffffff';
+        context.font = '700 23px "Microsoft YaHei", sans-serif';
+        context.fillText(String(Math.round(value)), 914, y);
+      });
+
+      context.fillStyle = 'rgba(255,255,255,.1)';
+      roundedRect(context, 62, 1185, 956, 190, 30);
+      context.fill();
+      context.drawImage(qrImage, 790, 1210, 140, 140);
+      context.fillStyle = '#ffffff';
+      context.font = '900 31px "Microsoft YaHei", sans-serif';
+      context.fillText('扫码查看完整成绩', 102, 1260);
+      context.fillStyle = '#cbd5e1';
+      context.font = '500 23px "Microsoft YaHei", sans-serif';
+      context.fillText('也来领取一份属于你的 AI 试卷', 102, 1310);
+
+      const blob = await new Promise<Blob>((resolve, reject) => canvas.toBlob((value) => value ? resolve(value) : reject(new Error('生成图片失败')), 'image/png'));
+      if (shareCard?.url) URL.revokeObjectURL(shareCard.url);
+      setShareCard({ blob, url: URL.createObjectURL(blob) });
     } catch (shareError) {
-      if ((shareError as Error)?.name !== 'AbortError') setError('分享失败，请稍后重试');
+      setError(errorMessage(shareError, '生成打卡图失败，请稍后重试'));
+    } finally {
+      setIsGeneratingShareCard(false);
+    }
+  };
+
+  const downloadShareCard = () => {
+    if (!shareCard) return;
+    const anchor = document.createElement('a');
+    anchor.href = shareCard.url;
+    anchor.download = `AI摸底考试成绩-${currentAttempt?.kind === 'capability' ? `Level-${currentAttempt.ability_level}` : currentAttempt?.personality_code}.png`;
+    anchor.click();
+  };
+
+  const shareResult = async () => {
+    if (!currentAttempt || !shareCard) return;
+    const file = new File([shareCard.blob], 'AI摸底考试成绩.png', { type: 'image/png' });
+    const url = shareUrlFor(currentAttempt);
+    try {
+      if (navigator.share && navigator.canShare?.({ files: [file] })) {
+        await navigator.share({ title: '我的 AI 摸底考试成绩', text: '这是我的 AI 能力与风格摸底考试成绩。', url, files: [file] });
+        setNotice('打卡图分享面板已打开');
+      } else {
+        downloadShareCard();
+        await navigator.clipboard.writeText(url).catch(() => undefined);
+        setNotice('打卡图已保存，成绩链接也已复制');
+      }
+    } catch (shareError) {
+      if ((shareError as Error)?.name !== 'AbortError') setError('分享失败，请保存图片后手动发送');
     }
   };
 
@@ -460,7 +660,11 @@ const AIAssessment: React.FC = () => {
     try {
       await ensureVisitorSession();
       const data = await invokeFunction<{ alipay_payment_url?: string | null }>('ai-group-payment', { action: 'create-order', provider });
-      if (provider === 'alipay' && data.alipay_payment_url) { window.location.assign(data.alipay_payment_url); return; }
+      if (provider === 'alipay' && data.alipay_payment_url) {
+        sessionStorage.setItem('ai-group-payment-return', '1');
+        window.location.assign(data.alipay_payment_url);
+        return;
+      }
       await loadPayment();
     } catch (paymentError) {
       setError(errorMessage(paymentError, '创建支付订单失败，请稍后重试'));
@@ -488,19 +692,18 @@ const AIAssessment: React.FC = () => {
     && currentCapabilityAnswer !== undefined
     && currentCapabilityAnswerLength > 0
     && (currentCapabilityQuestion?.kind !== 'open' || currentCapabilityAnswerLength >= 10);
-  const isUnlocked = payment?.membership?.access_status === 'active';
   const groupImageUrl = payment?.group_qr_url || (isUnlocked && payment?.membership?.level ? paymentPlaceholders[payment.membership.level] : null);
 
   return (
     <main className="page-aurora min-h-screen px-3 py-6 pb-16 sm:px-6 sm:py-10">
       <div className="mx-auto max-w-4xl">
-        <button onClick={() => stage === 'home' ? navigate('/tools') : setStage('home')} className="mb-5 inline-flex items-center gap-2 text-sm text-slate-300 transition hover:text-cyan-200"><ArrowLeft className="h-4 w-4" />{stage === 'home' ? '返回产品实验室' : '返回AI画像首页'}</button>
+        <button onClick={() => stage === 'home' ? navigate('/tools') : setStage('home')} className="mb-5 inline-flex items-center gap-2 text-sm text-slate-300 transition hover:text-cyan-200"><ArrowLeft className="h-4 w-4" />{stage === 'home' ? '返回产品实验室' : '返回考试首页'}</button>
         <section className="overflow-hidden rounded-3xl border border-cyan-200/40 bg-slate-950/90 text-slate-100 shadow-xl shadow-cyan-950/30 backdrop-blur-xl">
           <div className="bg-gradient-to-br from-slate-950 via-cyan-950 to-blue-950 px-6 py-8 text-white sm:px-10 sm:py-11">
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 ring-1 ring-white/20"><BrainCircuit className="h-7 w-7 text-cyan-100" /></div>
             <p className="mb-2 text-xs font-bold tracking-[0.2em] text-cyan-200">THE FIRST AI EXAM · 2026 试行卷</p>
-            <h1 className="text-3xl font-black tracking-tight sm:text-4xl">第一届 AI 能力与风格摸底考试</h1>
-            <p className="mt-3 max-w-2xl leading-7 text-slate-100">本场允许不会，不建议打开另一个 AI 代考——那样主要测出的是你会不会打开 AI。两套考试免费，只有决定进群时才需要付费。</p>
+            <h1 className="text-3xl font-black tracking-tight sm:text-4xl">AI能力与风格摸底考试</h1>
+            <p className="mt-3 max-w-2xl leading-7 text-slate-100">本场允许不会，不建议打开另一个 AI 代考——那样主要测出的是你会不会打开 AI。</p>
           </div>
           <div className="p-5 sm:p-8">
             {error && <div className="mb-5 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">{error}</div>}
@@ -581,7 +784,7 @@ const AIAssessment: React.FC = () => {
                   : <section className="rounded-3xl border border-white/15 bg-slate-900/70 p-5 sm:p-7"><div className="flex gap-3"><LockKeyhole className="h-6 w-6 text-cyan-300" /><div><h3 className="text-lg font-black text-white">解锁 {payment.route.group_name}</h3><p className="mt-1 text-sm text-slate-300">{payment.unlock_price_label} {money(payment.unlock_price_cents)} · 支付后显示四位ID和对应群二维码。</p></div></div>{paymentQr && payment.latest_order?.status === 'created' ? <div className="mt-6 rounded-2xl bg-slate-950 p-5 text-center"><p className="font-bold">微信扫码支付 {money(payment.unlock_price_cents)}</p><img src={paymentQr} alt="微信支付二维码" className="mx-auto mt-4 w-full max-w-[220px] rounded-xl bg-white p-2" /><button onClick={syncPayment} disabled={isBusy} className="mt-4 inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-bold text-slate-950"><RefreshCw className={`h-4 w-4 ${isBusy ? 'animate-spin' : ''}`} />我已支付，刷新结果</button></div> : payment.payment_available ? <div className="mt-6 grid gap-3 sm:grid-cols-2"><button onClick={() => createPayment('wechat')} disabled={!payment.providers.wechat || isBusy} className="flex items-center justify-between rounded-2xl bg-emerald-50 px-4 py-4 text-left text-emerald-950 disabled:opacity-40"><span><strong className="block">微信支付</strong><span className="text-sm">{money(payment.unlock_price_cents)}</span></span><WalletCards className="h-6 w-6" /></button><button onClick={() => createPayment('alipay')} disabled={!payment.providers.alipay || isBusy} className="flex items-center justify-between rounded-2xl bg-blue-50 px-4 py-4 text-left text-blue-950 disabled:opacity-40"><span><strong className="block">支付宝</strong><span className="text-sm">{money(payment.unlock_price_cents)}</span></span><CreditCard className="h-6 w-6" /></button></div> : <p className="mt-5 text-sm text-amber-200">支付通道暂不可用，请稍后刷新。</p>}</section>
                 )}
 
-                <div className="grid gap-3 sm:grid-cols-3"><button onClick={shareResult} className="inline-flex items-center justify-center gap-2 rounded-xl border border-cyan-300/40 px-4 py-3 text-sm font-bold text-cyan-100"><Share2 className="h-4 w-4" />分享结果</button><button onClick={() => currentAttempt.kind === 'capability' ? startPersonality() : setStage('capability-track')} className="rounded-xl border border-white/15 px-4 py-3 text-sm font-bold text-white">完成另一套测评</button><button onClick={() => { setIsSharedResult(false); window.history.replaceState(null, '', window.location.pathname); setStage('home'); }} className="rounded-xl bg-white px-4 py-3 text-sm font-bold text-slate-950">返回AI画像首页</button></div>
+                <div className="grid gap-3 sm:grid-cols-3"><button onClick={generateShareCard} disabled={isGeneratingShareCard} className="inline-flex items-center justify-center gap-2 rounded-xl border border-cyan-300/40 px-4 py-3 text-sm font-bold text-cyan-100 disabled:opacity-50">{isGeneratingShareCard ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Share2 className="h-4 w-4" />}{isGeneratingShareCard ? '正在生成打卡图' : '生成成绩打卡图'}</button><button onClick={() => currentAttempt.kind === 'capability' ? startPersonality() : setStage('capability-track')} className="rounded-xl border border-white/15 px-4 py-3 text-sm font-bold text-white">完成另一套测评</button><button onClick={() => { setIsSharedResult(false); window.history.replaceState(null, '', window.location.pathname); setStage('home'); }} className="rounded-xl bg-white px-4 py-3 text-sm font-bold text-slate-950">返回考试首页</button></div>
               </div>
             )}
 
@@ -589,6 +792,7 @@ const AIAssessment: React.FC = () => {
           </div>
         </section>
       </div>
+      {shareCard && currentAttempt && <div role="dialog" aria-modal="true" aria-label="成绩打卡图" className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/85 p-4 backdrop-blur-sm" onClick={() => setShareCard(null)}><div className="max-h-[94vh] w-full max-w-md overflow-y-auto rounded-3xl border border-cyan-300/30 bg-slate-950 p-4 shadow-2xl" onClick={(event) => event.stopPropagation()}><div className="mb-4 flex items-center justify-between"><div><h2 className="text-lg font-black text-white">你的成绩打卡图</h2><p className="mt-1 text-xs text-slate-400">保存到相册，或直接发给朋友。</p></div><button onClick={() => setShareCard(null)} aria-label="关闭打卡图" className="rounded-full border border-white/10 p-2 text-slate-300"><X className="h-5 w-5" /></button></div><img src={shareCard.url} alt="AI能力与风格摸底考试成绩打卡图" className="w-full rounded-2xl bg-slate-900" /><div className="mt-4 grid grid-cols-2 gap-3"><button onClick={downloadShareCard} className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 px-4 py-3 text-sm font-bold text-white"><Download className="h-4 w-4" />保存图片</button><button onClick={shareResult} className="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-400 px-4 py-3 text-sm font-bold text-slate-950"><Share2 className="h-4 w-4" />转发打卡</button></div></div></div>}
     </main>
   );
 };

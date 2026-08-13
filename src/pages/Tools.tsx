@@ -298,8 +298,8 @@ const Tools: React.FC = () => {
 
   const tools: ToolCard[] = [
     {
-      title: '个人 AI 画像',
-      description: '两套免费测评：发现你的 AI 使用风格与 Level 0–5 能力等级；付费后领取四位入群 ID 和专属二维码。',
+      title: 'AI能力与风格摸底考试',
+      description: '两套免费考试：发现你的 AI 使用风格与 Level 0–5 能力等级；完成后可生成成绩打卡图。',
       icon: <BrainCircuit className="w-8 h-8" />,
       link: '/tools/ai-assessment',
       isExternal: false,
