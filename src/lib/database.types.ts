@@ -778,13 +778,6 @@ export interface Database {
         Args: Record<PropertyKey, never>;
         Returns: boolean;
       };
-      reset_user_password: {
-        Args: {
-          user_phone: string;
-          new_password: string;
-        };
-        Returns: Json;
-      };
     };
     Enums: {
       [_ in never]: never;

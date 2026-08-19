@@ -93,7 +93,7 @@ export const getUserProfile = async (
 	const startTime = Date.now();
 
 	try {
-		const { data, error } = await supabase
+		const { error } = await supabase
 			.from("profiles")
 			.select("*")
 			.eq("id", userId)
@@ -186,49 +186,5 @@ export const testSupabaseConnection = async (): Promise<
 			success: false,
 			error: err.message || "Connection test failed",
 		};
-	}
-};
-
-// 检查手机号是否已注册
-export const checkPhoneExists = async (
-	phone: string,
-): Promise<{ exists: boolean; userId?: string }> => {
-	try {
-		const { data, error } = await supabase
-			.from("profiles")
-			.select("id")
-			.eq("phone", phone)
-			.single();
-
-		if (error) {
-			if (error.code === "PGRST116") {
-				return { exists: false };
-			}
-			throw error;
-		}
-
-		return { exists: true, userId: data.id };
-	} catch (err: any) {
-		console.error("[Supabase] Check phone exists error:", err);
-		throw err;
-	}
-};
-
-// 重置用户密码
-export const resetUserPassword = async (
-	phone: string,
-	newPassword: string,
-): Promise<void> => {
-	const email = `${phone}@jianwen.community`;
-
-	// 由于没有 Admin API 权限，我们需要通过特殊方式处理
-	// 这里使用 signInWithPassword 验证后调用 updateUser
-	const { error } = await supabase.auth.updateUser({
-		password: newPassword,
-	});
-
-	if (error) {
-		console.error("[Supabase] Reset password error:", error);
-		throw error;
 	}
 };
