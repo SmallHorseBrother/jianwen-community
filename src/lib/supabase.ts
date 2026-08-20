@@ -93,7 +93,7 @@ export const getUserProfile = async (
 	const startTime = Date.now();
 
 	try {
-		const { error } = await supabase
+		const { data, error } = await supabase
 			.from("profiles")
 			.select("*")
 			.eq("id", userId)
