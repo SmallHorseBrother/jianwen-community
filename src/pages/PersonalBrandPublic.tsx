@@ -295,7 +295,7 @@ const AchievementMediaWall: React.FC<{ files: PersonalFile[] }> = ({ files }) =>
           </div>
           <div className="grid grid-cols-3 gap-3 text-center">
             <div className="about-subpanel px-4 py-3">
-              <div className="about-panel-title text-2xl">100+</div>
+              <div className="about-panel-title text-2xl">70+</div>
               <div className="about-panel-muted text-xs mt-1">奖状奖牌</div>
             </div>
             <div className="about-subpanel px-4 py-3">
@@ -699,15 +699,15 @@ const PersonalBrandPublic: React.FC = () => {
                 <Award className="h-6 w-6 text-amber-200" />
                 <div>
                   <div className="text-sm text-cyan-100/80">成就档案</div>
-                  <div className="text-4xl font-black text-white">100+</div>
+                  <div className="text-4xl font-black text-white">70+</div>
                 </div>
               </div>
               <div className="mt-5 grid grid-cols-2 gap-3">
                 {[
-                  ['学业竞赛', '奖状奖牌'],
-                  ['科研论文', '公开成果'],
-                  ['健身内容', '千万播放'],
-                  ['AI 创业', '产品实践'],
+                  ['本科成绩', '专业 1 / 202'],
+                  ['科研成果', 'ACL 2025'],
+                  ['体育表现', '北大校纪录'],
+                  ['AI 创业', '3 个产品方向'],
                 ].map(([title, value]) => (
                   <div key={title} className="rounded-2xl border border-white/12 bg-white/10 p-4">
                     <div className="text-xs text-cyan-100/75">{title}</div>
@@ -716,7 +716,7 @@ const PersonalBrandPublic: React.FC = () => {
                 ))}
               </div>
               <div className="mt-5 rounded-2xl border border-amber-200/20 bg-amber-200/10 p-4 text-sm leading-6 text-amber-50">
-                小学、中学、本科、博士阶段的奖状和奖牌可以在这一页被串成一条完整成长线。
+                从高考未进入北大，到南航专业第一，再到北大直博：比奖项更重要的是一条可以重新设计的成长路径。
               </div>
             </div>
           </div>
