@@ -22,6 +22,11 @@ import CommunityV2 from './pages/CommunityV2';
 import PartnerSharePage from './pages/PartnerSharePage';
 import Tools from './pages/Tools';
 import AIAssessment from './pages/AIAssessment';
+import AIHome from './pages/ai/AIHome';
+import AIRoadmap from './pages/ai/AIRoadmap';
+import AILearn from './pages/ai/AILearn';
+import AIPractice from './pages/ai/AIPractice';
+import AIProjects from './pages/ai/AIProjects';
 import Guide from './pages/Guide';
 import Tasks from './pages/Tasks';
 import Notifications from './pages/Notifications';
@@ -73,6 +78,14 @@ const AppRoutes: React.FC = () => {
       {/* 工具箱 */}
       <Route path="/tools" element={<Layout><Tools /></Layout>} />
       <Route path="/tools/ai-assessment" element={<Layout><AIAssessment /></Layout>} />
+
+      {/* 健问 AI 测评—学习—作品闭环 */}
+      <Route path="/ai" element={<AIHome />} />
+      <Route path="/ai/assessment" element={<Navigate to="/tools/ai-assessment" replace />} />
+      <Route path="/ai/roadmap" element={<AIRoadmap />} />
+      <Route path="/ai/learn/:stepId" element={<AILearn />} />
+      <Route path="/ai/practice" element={<AIPractice />} />
+      <Route path="/ai/projects" element={<AIProjects />} />
 
       {/* 关于我 / 数字分身 */}
       <Route path="/about" element={<Layout><PersonalBrandPublic /></Layout>} />

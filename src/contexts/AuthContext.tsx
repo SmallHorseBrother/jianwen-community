@@ -149,6 +149,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (!isMounted) return;
 
         if (session?.user) {
+          // Assessment visitors use Supabase anonymous auth only as an invisible,
+          // durable owner for results and payment orders. They intentionally do
+          // not have a community profile and should still look logged out here.
+          if (session.user.is_anonymous) {
+            setState({ user: null, isAuthenticated: false, isLoading: false });
+            return;
+          }
           try {
             logNetworkRequest('getUserProfile', 'profiles', 'pending', { userId: session.user.id });
             
@@ -211,6 +218,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       // Handle sign-in events from listener (e.g., token refresh)
       if (session?.user && event !== 'SIGNED_IN') {
+        if (session.user.is_anonymous) {
+          setState({ user: null, isAuthenticated: false, isLoading: false });
+          return;
+        }
         try {
           const profile = await withTimeout(
             getUserProfile(session.user.id),

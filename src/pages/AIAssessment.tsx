@@ -97,6 +97,19 @@ type PACFQuickForm = {
   };
   items: PACFPublicItem[];
 };
+type CapabilityAnswerReview = {
+  item_id: string;
+  section: AbilitySection;
+  kind: AbilityItemKind;
+  prompt: string;
+  code?: string;
+  options?: PACFPublicOption[];
+  user_answer: string | number;
+  standard_answer: string | null;
+  score: number | null;
+  max_score: 3 | null;
+  rationale: string;
+};
 type AIStyleAxis = 'explore' | 'create' | 'reason' | 'partner';
 type AIStyleLikertItem = { id: string; kind: 'likert'; axis: AIStyleAxis; statement: string };
 type AIStyleForcedItem = { id: string; kind: 'forced_choice'; axis: AIStyleAxis; prompt: string; options: Array<{ id: 'first' | 'second'; text: string }> };
@@ -292,6 +305,41 @@ const ReportPanel: React.FC<{ report: Report; aiGenerated: boolean }> = ({ repor
   </section>
 );
 
+const AnswerReviewPanel: React.FC<{ items: CapabilityAnswerReview[] }> = ({ items }) => {
+  const answerLabel = (item: CapabilityAnswerReview) => {
+    if (!item.options) return String(item.user_answer);
+    const selected = item.options.find((option) => option.id === String(item.user_answer));
+    return selected ? `${selected.id}. ${selected.text}` : String(item.user_answer);
+  };
+
+  return (
+    <section className="rounded-3xl border border-cyan-300/25 bg-slate-900/70 p-5 sm:p-7">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div><h3 className="text-xl font-black text-white">逐题复盘与标准答案</h3><p className="mt-2 text-sm leading-6 text-slate-300">选择、填空和计算题按标准答案复盘；主观题没有唯一答案，只提供考察方向。</p></div>
+        <span className="rounded-full bg-cyan-400/15 px-3 py-1 text-xs font-bold text-cyan-200">共 {items.length} 题</span>
+      </div>
+      <div className="mt-5 space-y-3">
+        {items.map((item, index) => {
+          const status = item.score === null ? '主观题' : item.score === item.max_score ? '正确' : item.score && item.score > 0 ? '部分得分' : '待改进';
+          const statusClass = item.score === null ? 'text-violet-200 bg-violet-400/15' : item.score === item.max_score ? 'text-emerald-200 bg-emerald-400/15' : item.score && item.score > 0 ? 'text-amber-200 bg-amber-400/15' : 'text-rose-200 bg-rose-400/15';
+          return <details key={item.item_id} className="group rounded-2xl border border-white/10 bg-slate-950/55 p-4">
+            <summary className="flex cursor-pointer list-none items-start justify-between gap-4">
+              <span className="text-sm font-semibold leading-6 text-slate-100">{index + 1}. {item.prompt}</span>
+              <span className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-bold ${statusClass}`}>{status}{item.score !== null ? ` · ${item.score}/3` : ''}</span>
+            </summary>
+            <div className="mt-4 space-y-3 border-t border-white/10 pt-4 text-sm leading-6">
+              {item.code && <pre className="overflow-x-auto rounded-xl bg-slate-950 p-3 text-xs text-cyan-100"><code>{item.code}</code></pre>}
+              <div><span className="font-bold text-slate-400">你的答案：</span><span className="text-slate-100">{answerLabel(item)}</span></div>
+              <div><span className="font-bold text-cyan-300">{item.standard_answer ? '标准答案：' : '考察方向：'}</span><span className="text-cyan-50">{item.standard_answer || item.rationale}</span></div>
+              {item.standard_answer && <div><span className="font-bold text-slate-400">解析：</span><span className="text-slate-200">{item.rationale}</span></div>}
+            </div>
+          </details>;
+        })}
+      </div>
+    </section>
+  );
+};
+
 const StyleResultPanel: React.FC<{ attempt: Attempt }> = ({ attempt }) => {
   if (attempt.framework_version !== 'ai-usage-style-v1') {
     const profile = personalityProfiles[attempt.personality_code || 'DOAH'];
@@ -322,6 +370,7 @@ const AIAssessment: React.FC = () => {
   const [styleAnswers, setStyleAnswers] = useState<Array<number | string | null>>([]);
   const [history, setHistory] = useState<AssessmentStatus>({ capability: null, personality: null });
   const [currentAttempt, setCurrentAttempt] = useState<Attempt | null>(null);
+  const [answerReview, setAnswerReview] = useState<CapabilityAnswerReview[]>([]);
   const [payment, setPayment] = useState<PaymentStatus | null>(null);
   const [paymentQr, setPaymentQr] = useState<string | null>(null);
   const [isBusy, setIsBusy] = useState(false);
@@ -474,10 +523,11 @@ const AIAssessment: React.FC = () => {
     const responses = capabilityForm.items.map((item, index) => ({ item_id: item.id, value: capabilityAnswers[index] as string | number }));
     try {
       await ensureVisitorSession();
-      const { attempt } = await invokeFunction<{ attempt: Attempt }>('ai-assessment-engine', {
+      const { attempt, answer_review } = await invokeFunction<{ attempt: Attempt; answer_review: CapabilityAnswerReview[] }>('ai-assessment-engine', {
         action: 'submit-pacf-quick', session_id: capabilityForm.session_id, responses, track, learning_goal: goal,
       });
       setCurrentAttempt(attempt);
+      setAnswerReview(answer_review || []);
       setHistory((value) => ({ ...value, capability: attempt }));
       await loadPayment();
     } catch (submitError) {
@@ -513,9 +563,15 @@ const AIAssessment: React.FC = () => {
     if (!attempt) return;
     setCurrentAttempt(attempt);
     setIsSharedResult(false);
+    setAnswerReview([]);
     if (kind === 'capability') {
       setIsBusy(true);
-      await loadPayment().catch((loadError) => setError(errorMessage(loadError, '支付状态加载失败')));
+      await Promise.all([
+        loadPayment(),
+        attempt.assessment_version === 'first-ai-capability-exam-2026-v1'
+          ? invokeFunction<{ answer_review: CapabilityAnswerReview[] }>('ai-assessment-engine', { action: 'answer-review', attempt_id: attempt.id }).then((data) => setAnswerReview(data.answer_review || []))
+          : Promise.resolve(),
+      ]).catch((loadError) => setError(errorMessage(loadError, '结果详情加载失败')));
       setIsBusy(false);
     }
     setStage('result');
@@ -713,7 +769,7 @@ const AIAssessment: React.FC = () => {
               <div className="space-y-6">
                 <div className="grid gap-4 md:grid-cols-2">
                   <article className="rounded-3xl border border-cyan-300/25 bg-gradient-to-br from-cyan-950/70 to-slate-900 p-6">
-                    <Gauge className="h-8 w-8 text-cyan-300" /><p className="mt-5 text-xs font-bold tracking-widest text-cyan-300">能力卷 · 32题 · 约40分钟 · 100分制</p><h2 className="mt-2 text-2xl font-black text-white">第一届 AI 能力摸底考试</h2><p className="mt-3 text-sm leading-6 text-slate-200">基础选择、情境判断、填空计算、代码与流程阅读、主观题五个部分，得到Level 0–5、六科成绩和成长路线。</p>
+                    <Gauge className="h-8 w-8 text-cyan-300" /><p className="mt-5 text-xs font-bold tracking-widest text-cyan-300">能力卷 · 32题 · 约40分钟 · 100分制</p><h2 className="mt-2 text-2xl font-black text-white">第一届 AI 能力摸底考试</h2><p className="mt-3 text-sm leading-6 text-slate-200">基础选择、情境判断、填空计算、代码与流程阅读、主观题五个部分，得到Level 0–5、六科成绩和成长路线；交卷后可查看标准答案与逐题解析。</p>
                     <button onClick={() => setStage('capability-track')} className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-cyan-500 px-4 py-3 font-bold text-slate-950">领取能力卷 <ArrowRight className="h-4 w-4" /></button>
                     {history.capability && <button onClick={() => openLatest('capability')} className="mt-3 w-full text-sm font-semibold text-cyan-200">查看最近结果</button>}
                     {!history.capability && history.legacy_capability_available && <p className="mt-3 text-center text-xs leading-5 text-amber-200">旧版结果已安全归档，请完成新版测评获得当前能力画像。</p>}
@@ -778,6 +834,8 @@ const AIAssessment: React.FC = () => {
                 : <StyleResultPanel attempt={currentAttempt} />}
 
                 <ReportPanel report={currentAttempt.report} aiGenerated={currentAttempt.report_status === 'ready'} />
+
+                {!isSharedResult && currentAttempt.kind === 'capability' && answerReview.length > 0 && <AnswerReviewPanel items={answerReview} />}
 
                 {!isSharedResult && currentAttempt.kind === 'capability' && payment?.route && (
                   isUnlocked ? <section className="rounded-3xl border border-emerald-300/30 bg-emerald-950/35 p-5 sm:p-7"><h3 className="text-lg font-black text-emerald-100">已解锁：{payment.route.group_name}</h3><p className="mt-2 text-sm text-emerald-100">进群后请把群昵称改为下面的四位ID。</p><button onClick={() => navigator.clipboard.writeText(payment.membership?.display_id || '')} className="mt-4 flex w-full items-center justify-between rounded-2xl bg-slate-950/60 px-4 py-4"><strong className="text-2xl tracking-[0.25em] text-white">{payment.membership?.display_id}</strong><span className="inline-flex items-center gap-1 text-sm text-emerald-300"><Clipboard className="h-4 w-4" />复制ID</span></button>{groupImageUrl ? <div className="mt-5 text-center"><img src={groupImageUrl} alt={`${payment.route.group_name}二维码`} className="mx-auto aspect-square w-full max-w-xs rounded-2xl bg-white object-cover p-3" /><p className="mt-3 text-sm text-emerald-100">扫码进群，并将群昵称改为 {payment.membership?.display_id}。</p></div> : <p className="mt-5 rounded-2xl bg-white/10 p-4 text-sm"><QrCode className="mr-2 inline h-4 w-4" />群二维码正在配置，请稍后刷新。</p>}</section>

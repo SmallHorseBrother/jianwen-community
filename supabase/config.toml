@@ -3,3 +3,18 @@
 # validates provider signatures itself; browser actions additionally validate
 # the user's Supabase JWT in application code.
 verify_jwt = false
+
+[functions.ai-assessment-engine]
+# Public shared-result reads do not carry a JWT. Every write/status action
+# validates the Supabase user (including anonymous users) inside the function.
+verify_jwt = false
+
+[functions.ai-learning-engine]
+# Anonymous users may preview recommendations; writes additionally require a
+# permanent account and are validated inside the function.
+verify_jwt = false
+
+[functions.password-reset]
+# Visitors are not signed in while recovering an account. The function validates
+# a one-time SMS code itself before it can change an Auth password.
+verify_jwt = false

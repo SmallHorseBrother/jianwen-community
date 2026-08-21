@@ -22,6 +22,7 @@ import {
   EXAM_SECTIONS,
   FIRST_AI_EXAM_BANK,
   FIRST_AI_EXAM_INSTRUMENT,
+  buildFirstAIExamReview,
   publicExamForm,
   scoreFirstAIExam,
   type ExamDimension,
@@ -900,7 +901,47 @@ async function submitPACFQuick(
   const { error: completeSessionError } = await service.from("ai_assessment_sessions")
     .update({ status: "completed", completed_at: now }).eq("id", session.id).eq("status", "open");
   if (completeSessionError) throw completeSessionError;
-  return publicAttempt(attempt as Record<string, unknown>);
+  return {
+    attempt: publicAttempt(attempt as Record<string, unknown>),
+    answer_review: buildFirstAIExamReview(deliveredItems, responses, result.itemScores),
+  };
+}
+
+async function loadFirstAIExamReview(
+  service: ReturnType<typeof serviceClient>,
+  userId: string,
+  attemptId: unknown,
+) {
+  if (typeof attemptId !== "string" || !/^[0-9a-f-]{36}$/i.test(attemptId)) {
+    throw new HttpError(400, "能力考试记录无效");
+  }
+  const { data: attempt, error: attemptError } = await service.from("ai_assessment_attempts")
+    .select("id, assessment_session_id, assessment_version, answers")
+    .eq("id", attemptId).eq("user_id", userId).maybeSingle();
+  if (attemptError) throw attemptError;
+  if (!attempt || attempt.assessment_version !== FIRST_AI_EXAM_INSTRUMENT.id) {
+    throw new HttpError(404, "本次能力考试不支持逐题复盘");
+  }
+  const { data: session, error: sessionError } = await service.from("ai_assessment_sessions")
+    .select("instrument_id, presentation")
+    .eq("id", attempt.assessment_session_id).eq("user_id", userId).maybeSingle();
+  if (sessionError) throw sessionError;
+  if (!session || session.instrument_id !== FIRST_AI_EXAM_INSTRUMENT.id || !Array.isArray(session.presentation?.items)) {
+    throw new HttpError(404, "本次能力考试题目已无法读取");
+  }
+  const responses = Array.isArray(attempt.answers) ? attempt.answers as Array<{ item_id: string; value: string | number }> : [];
+  const { data: scores, error: scoresError } = await service.from("ai_assessment_responses")
+    .select("item_id, raw_score, max_score").eq("attempt_id", attemptId);
+  if (scoresError) throw scoresError;
+  return buildFirstAIExamReview(
+    session.presentation.items as ExamItem[],
+    responses,
+    (scores || []).map((score) => ({
+      itemId: String(score.item_id),
+      rawScore: score.raw_score === null ? null : Number(score.raw_score),
+      scored: score.max_score !== null,
+    })),
+  );
 }
 
 async function submitCapability(
@@ -1177,9 +1218,12 @@ serve(async (req: Request) => {
         legacy_capability_available: Boolean(legacy?.length),
       });
     }
+    if (action === "answer-review") {
+      return json({ answer_review: await loadFirstAIExamReview(service, user.id, body.attempt_id) });
+    }
     if (action === "submit-pacf-quick") {
       return json(
-        { attempt: await submitPACFQuick(service, user.id, body) },
+        await submitPACFQuick(service, user.id, body),
         201,
       );
     }

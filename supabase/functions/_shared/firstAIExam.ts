@@ -28,6 +28,20 @@ export type ExamItem = {
 
 export type ExamResponse = { item_id: string; value: string | number };
 
+export type ExamReviewItem = {
+  item_id: string;
+  section: ExamSection;
+  kind: ExamItemKind;
+  prompt: string;
+  code?: string;
+  options?: Array<{ id: ExamOption["id"]; text: string }>;
+  user_answer: string | number;
+  standard_answer: string | null;
+  score: number | null;
+  max_score: 3 | null;
+  rationale: string;
+};
+
 const ids: ExamOption["id"][] = ["A", "B", "C", "D"];
 
 function choice(
@@ -326,6 +340,42 @@ export function publicExamForm(items: ExamItem[], sessionId: string) {
       unscored: Boolean(item.unscored),
     })),
   };
+}
+
+export function buildFirstAIExamReview(
+  items: ExamItem[],
+  responses: ExamResponse[],
+  itemScores?: Array<{ itemId: string; rawScore: number | null; scored: boolean }>,
+): ExamReviewItem[] {
+  const responseMap = new Map(responses.map((response) => [response.item_id, response.value]));
+  const scoreMap = new Map(itemScores?.map((item) => [item.itemId, item]));
+
+  return items.map((item) => {
+    let standardAnswer: string | null = null;
+    if (item.options) {
+      const best = item.options.find((option) => option.score === 3);
+      standardAnswer = best ? `${best.id}. ${best.text}` : null;
+    } else if (item.kind === "fill") {
+      standardAnswer = item.acceptedAnswers?.join(" / ") || null;
+    } else if (item.kind === "numeric" && item.numericAnswer !== undefined) {
+      standardAnswer = String(item.numericAnswer);
+    }
+
+    const score = scoreMap.get(item.id);
+    return {
+      item_id: item.id,
+      section: item.section,
+      kind: item.kind,
+      prompt: item.prompt,
+      code: item.code,
+      options: item.options?.map(({ id, text }) => ({ id, text })),
+      user_answer: responseMap.get(item.id) ?? "",
+      standard_answer: standardAnswer,
+      score: score?.scored ? score.rawScore : null,
+      max_score: score?.scored ? 3 : null,
+      rationale: item.rationale,
+    };
+  });
 }
 
 export function scoreFirstAIExam(value: unknown, items: ExamItem[]) {

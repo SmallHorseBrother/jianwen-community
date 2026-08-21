@@ -2,145 +2,191 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {
   Activity,
+  ArrowDown,
   ArrowRight,
+  Bot,
   Brain,
-  CheckCircle,
+  CircleDot,
+  Fingerprint,
+  Orbit,
   Search,
   Sparkles,
+  Users,
+  Wand2,
   Wrench,
+  Zap,
 } from 'lucide-react';
+import SpotlightLink from '../components/Common/SpotlightLink';
 
 const productEntrances = [
   {
+    eyebrow: 'KNOWLEDGE ORBIT',
     title: '问题星球',
-    description: '把分散在各个平台的问题收进一个可搜索、可同问、可回答的知识入口。',
+    description: '把散落在群聊与日常里的问题，变成可搜索、可同问、持续生长的公共知识。',
     to: '/qa',
     icon: Brain,
+    index: '01',
+    accent: 'cyan',
+    size: 'wide',
   },
   {
-    title: '找伙伴',
-    description: '看见每个人能提供什么、正在寻找什么，让连接从具体需求开始。',
+    eyebrow: 'AI GROWTH LOOP',
+    title: 'AI 成长路径',
+    description: '从能力测评、七天学习路径到真实作品，用证据记录每一次进步。',
+    to: '/ai',
+    icon: Bot,
+    index: '02',
+    accent: 'violet',
+    size: 'tall',
+  },
+  {
+    eyebrow: 'PEOPLE MATCHING',
+    title: '找到同行者',
+    description: '不靠空泛标签，直接看见彼此能提供什么、正在寻找什么。',
     to: '/community?tab=partners',
-    icon: Search,
+    icon: Users,
+    index: '03',
+    accent: 'lime',
+    size: 'normal',
   },
   {
+    eyebrow: 'DAILY SIGNAL',
     title: '社区动态',
-    description: '健身、学习、项目推进都可以打卡，形成更轻的日常运营场。',
+    description: '记录训练、学习和项目推进，让微小行动形成彼此可见的节奏。',
     to: '/community?tab=moments',
     icon: Activity,
+    index: '04',
+    accent: 'rose',
+    size: 'normal',
   },
   {
+    eyebrow: 'BUILD IN PUBLIC',
     title: '产品实验室',
-    description: '集中展示食探、教链、Pull-up Index 等正在推进的产品和共创反馈。',
+    description: '食探、教链、Pull-up Index 与更多真实产品，在反馈中持续迭代。',
     to: '/tools',
     icon: Wrench,
+    index: '05',
+    accent: 'amber',
+    size: 'wide',
   },
-  {
-    title: '关于马健文',
-    description: '个人经历、AI 分身、粉丝群、线上咨询、创业合作和招募入口。',
-    to: '/about',
-    icon: Sparkles,
-  },
-];
-
-const proofItems = [
-  { label: '问题沉淀', value: '跨平台整理高频提问' },
-  { label: '伙伴名片', value: '展示能提供与正在寻找' },
-  { label: '行动打卡', value: '记录学习、训练和项目推进' },
 ];
 
 const Home: React.FC = () => {
   return (
-    <div className="page-aurora min-h-screen pb-12">
-      <section className="overflow-hidden rounded-2xl border border-cyan-300/15 bg-slate-950/70 shadow-2xl shadow-cyan-950/25">
-        <div className="relative px-4 py-8 sm:px-6 md:px-10 md:py-12">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_12%,rgba(34,211,238,0.18),transparent_32%),radial-gradient(circle_at_88%_6%,rgba(236,72,153,0.14),transparent_34%)]" />
-          <div className="relative z-10">
-            <div className="max-w-3xl">
-              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-sm font-semibold text-cyan-100">
-                <Sparkles className="h-4 w-4" />
-                健身、学习、AI 产品与真实连接
-              </div>
-              <h1 className="text-4xl font-black leading-tight tracking-normal text-white sm:text-5xl md:text-6xl lg:text-7xl">
-                健文社区
-              </h1>
-              <p className="mt-5 max-w-2xl text-base leading-8 text-slate-200 sm:text-lg">
-                把你的问题、目标和行动留在这里，和同样在训练、学习、做产品的人互相看见。
-              </p>
-              <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400 sm:text-base">
-                问题星球沉淀高频提问，伙伴名片连接真实需求，社区动态记录每天的进步。
-              </p>
-
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  to="#core-entrances"
-                  className="neon-button inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold"
-                >
-                  查看核心入口
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  to="/about"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/8 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/12"
-                >
-                  粉丝群、咨询与合作
-                  <Sparkles className="h-4 w-4" />
-                </Link>
-              </div>
-
-              <div className="mt-7 grid gap-3 sm:grid-cols-3">
-                {proofItems.map((item) => (
-                  <div
-                    key={item.label}
-                    className="rounded-xl border border-white/10 bg-white/[0.05] p-4"
-                  >
-                    <div className="flex items-center gap-2 text-sm font-bold text-white">
-                      <CheckCircle className="h-4 w-4 flex-shrink-0 text-emerald-200" />
-                      {item.label}
-                    </div>
-                    <div className="mt-2 text-xs leading-5 text-slate-400">{item.value}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
+    <div className="home-v3">
+      <section className="home-hero" aria-labelledby="home-title">
+        <div className="home-hero-copy">
+          <div className="home-status-chip"><i /><span>COMMUNITY ONLINE</span><small>真实的人 · 真实的问题 · 真实的行动</small></div>
+          <h1 id="home-title">
+            把好奇心变成
+            <span>正在发生的事。</span>
+          </h1>
+          <p>健文社区是一个关于健身、学习、AI 与产品共创的行动网络。在这里，问题会被沉淀，伙伴会被看见，想法最终会长成作品。</p>
+          <div className="home-hero-actions">
+            <Link to="/community?tab=partners" className="home-primary-action">
+              <span>找到同行者</span><ArrowRight />
+            </Link>
+            <Link to="/ai" className="home-secondary-action">
+              <Sparkles /><span>开始 AI 成长路径</span>
+            </Link>
           </div>
+          <div className="home-hero-footnote">
+            <span><Fingerprint />不制造信息流焦虑</span>
+            <span><CircleDot />每一次参与都有去处</span>
+          </div>
+        </div>
+
+        <div className="home-orbit-stage" aria-label="从问题到行动的社区连接模型">
+          <div className="home-orbit-halo home-orbit-halo-one" />
+          <div className="home-orbit-halo home-orbit-halo-two" />
+          <div className="home-orbit-path home-orbit-path-one"><span /></div>
+          <div className="home-orbit-path home-orbit-path-two"><span /></div>
+          <div className="home-orbit-core">
+            <Orbit />
+            <small>JIANWEN</small>
+            <strong>问题 → 行动</strong>
+            <span>让连接产生结果</span>
+          </div>
+          <div className="home-orbit-node node-question"><Brain /><span>问题沉淀</span><small>132 条线索</small></div>
+          <div className="home-orbit-node node-people"><Users /><span>伙伴连接</span><small>能力 × 需求</small></div>
+          <div className="home-orbit-node node-action"><Zap /><span>行动发生</span><small>今天 +18</small></div>
+          <div className="home-live-card">
+            <div><i /><span>LIVE SIGNAL</span></div>
+            <strong>“想找一起做 AI 小产品的伙伴”</strong>
+            <small>2 分钟前 · 已有 3 人回应</small>
+          </div>
+        </div>
+
+        <a href="#explore" className="home-scroll-cue"><span>向下探索</span><ArrowDown /></a>
+      </section>
+
+      <section className="home-signal-rail" aria-label="社区关键词">
+        <div>
+          <span>AI 实践</span><i />
+          <span>问题共创</span><i />
+          <span>长期主义</span><i />
+          <span>训练记录</span><i />
+          <span>找到伙伴</span><i />
+          <span>产品实验</span><i />
+          <span>AI 实践</span><i />
+          <span>问题共创</span><i />
+          <span>长期主义</span><i />
+          <span>训练记录</span><i />
         </div>
       </section>
 
-      <section id="core-entrances" className="mx-auto mt-8 max-w-6xl scroll-mt-24">
-        <div className="mb-4 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
-          <div>
-            <h2 className="text-2xl font-black text-white">你可以在这里做什么</h2>
-            <p className="mt-2 text-sm text-slate-400">围绕问题、伙伴、行动和产品共创，把社区变成可持续使用的工具。</p>
-          </div>
-          <Link
-            to="/about"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-200 transition hover:text-cyan-100"
-          >
-            粉丝群、咨询与合作
-            <ArrowRight className="h-4 w-4" />
-          </Link>
+      <section id="explore" className="home-explore">
+        <div className="home-section-heading">
+          <div><span>EXPLORE THE NETWORK</span><h2>不只是浏览，<br />选择一个入口开始行动。</h2></div>
+          <p>每个入口都对应一种真实需求。光标经过卡片时，社区里的路径会被点亮。</p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+        <div className="home-bento-grid">
           {productEntrances.map((entry) => (
-            <Link
+            <SpotlightLink
               key={entry.title}
               to={entry.to}
-              className="group rounded-xl border border-white/10 bg-slate-950/65 p-5 shadow-xl shadow-slate-950/20 transition hover:-translate-y-1 hover:border-cyan-300/25 hover:bg-slate-900/80"
+              className={`home-bento-card is-${entry.size} accent-${entry.accent}`}
             >
-              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-300/20 bg-cyan-300/10 text-cyan-100">
-                <entry.icon className="h-5 w-5" />
+              <div className="home-card-glow" />
+              <div className="home-card-top"><span>{entry.eyebrow}</span><small>{entry.index}</small></div>
+              <div className="home-card-icon"><entry.icon /></div>
+              <div className="home-card-copy">
+                <h3>{entry.title}</h3>
+                <p>{entry.description}</p>
               </div>
-              <h3 className="text-lg font-black text-white">{entry.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-400">{entry.description}</p>
-              <div className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-cyan-200">
-                进入
-                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
-              </div>
-            </Link>
+              <div className="home-card-action"><span>进入模块</span><ArrowRight /></div>
+            </SpotlightLink>
           ))}
+
+          <SpotlightLink to="/about" className="home-bento-card home-about-card accent-paper">
+            <div className="home-card-top"><span>THE PERSON BEHIND IT</span><small>06</small></div>
+            <Wand2 className="home-about-spark" />
+            <div className="home-card-copy"><h3>认识马健文</h3><p>社区为什么存在，以及粉丝群、咨询、合作与共同建设的入口。</p></div>
+            <div className="home-card-action"><span>查看故事</span><ArrowRight /></div>
+          </SpotlightLink>
         </div>
+      </section>
+
+      <section className="home-flow-section">
+        <div className="home-flow-intro">
+          <span>HOW IT GROWS</span>
+          <h2>一次有效连接，<br />只需要三个动作。</h2>
+          <p>社区不追求无限滚动。我们更关心：一个问题是否变清楚，一个人是否被连接，一个行动是否真正发生。</p>
+          <Link to="/guide">查看社区使用指南 <ArrowRight /></Link>
+        </div>
+        <div className="home-flow-track">
+          <div className="home-flow-line"><i /></div>
+          <article><small>STEP 01</small><span><Search /></span><div><h3>留下具体问题</h3><p>描述背景、目标和限制，让真正有经验的人能够接住。</p></div></article>
+          <article><small>STEP 02</small><span><Users /></span><div><h3>连接对的人</h3><p>通过能力、需求与正在做的事匹配，而不是交换模糊名片。</p></div></article>
+          <article><small>STEP 03</small><span><Zap /></span><div><h3>让行动留下证据</h3><p>用回答、打卡、作品与复盘，把一次交流变成长期积累。</p></div></article>
+        </div>
+      </section>
+
+      <section className="home-final-cta">
+        <div className="home-final-orb"><span>J</span><i /></div>
+        <div><small>YOUR NEXT MOVE</small><h2>别只收藏想法。<br /><em>让它开始发生。</em></h2></div>
+        <Link to="/community?tab=partners"><span>进入社区网络</span><ArrowRight /></Link>
       </section>
     </div>
   );
