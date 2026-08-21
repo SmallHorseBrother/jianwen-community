@@ -1,8 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
-  Activity, Brain, Home, Users, Wrench, User, LogOut, AlertCircle,
-  Menu, X, Settings, Sparkles, Bell
+  Activity,
+  AlertCircle,
+  Bell,
+  Bot,
+  Brain,
+  Home,
+  LogOut,
+  Menu,
+  Settings,
+  Sparkles,
+  User,
+  Users,
+  Wrench,
+  X,
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { checkIsAdmin } from '../../services/questionService';
@@ -14,38 +26,35 @@ const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  // 检查是否是管理员
   useEffect(() => {
     const checkAdmin = async () => {
-      if (user?.id) {
-        const adminStatus = await checkIsAdmin(user.id);
-        setIsAdmin(adminStatus);
-      } else {
-        setIsAdmin(false);
-      }
+      setIsAdmin(user?.id ? await checkIsAdmin(user.id) : false);
     };
-    checkAdmin();
+    void checkAdmin();
   }, [user?.id]);
 
-  // 检查用户资料完整度
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname, location.search]);
+
   const isProfileIncomplete = user ? (
-    (!user.groupIdentity && !user.profession) || 
-    (!user.specialties || user.specialties.length === 0) &&
-    (!user.fitnessInterests || user.fitnessInterests.length === 0) &&
-    (!user.learningInterests || user.learningInterests.length === 0)
+    (!user.groupIdentity && !user.profession)
+    || ((!user.specialties || user.specialties.length === 0)
+      && (!user.fitnessInterests || user.fitnessInterests.length === 0)
+      && (!user.learningInterests || user.learningInterests.length === 0))
   ) : false;
 
   const navItems = [
     { to: '/', label: '首页', icon: Home, activePath: '/', exact: true },
     { to: '/qa', label: '问题星球', icon: Brain, activePath: '/qa' },
     { to: '/community?tab=partners', label: '找伙伴', icon: Users, activePath: '/community', activeTab: 'partners' },
-    { to: '/community?tab=moments', label: '社区动态', icon: Activity, activePath: '/community', activeTab: 'moments' },
-    { to: '/tools', label: '产品实验室', icon: Wrench, activePath: '/tools' },
-    { to: '/about', label: '关于马健文', icon: Sparkles, activePath: '/about' },
+    { to: '/community?tab=moments', label: '动态', icon: Activity, activePath: '/community', activeTab: 'moments' },
+    { to: '/tools', label: '实验室', icon: Wrench, activePath: '/tools' },
+    { to: '/ai', label: 'AI 成长', icon: Bot, activePath: '/ai' },
+    { to: '/about', label: '关于', icon: Sparkles, activePath: '/about' },
   ];
 
   const currentCommunityTab = new URLSearchParams(location.search).get('tab') || 'moments';
-
   const isNavActive = (item: typeof navItems[number]) => {
     if (item.exact) return location.pathname === item.activePath;
     if (item.activeTab) {
@@ -54,202 +63,77 @@ const Header: React.FC = () => {
     return location.pathname.startsWith(item.activePath);
   };
 
-  const isPathActive = (path: string) => {
-    return location.pathname.startsWith(path);
-  };
-
   return (
-    <header className="sticky top-0 z-50 border-b border-cyan-300/10 bg-slate-950/55 shadow-2xl shadow-cyan-950/20 backdrop-blur-2xl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-14 sm:h-16">
-          {/* Logo */}
-          <Link to="/" className="group flex items-center space-x-3">
-            <div className="relative h-8 w-8 rounded-xl bg-gradient-to-br from-cyan-400 via-blue-500 to-fuchsia-500 p-[1px] shadow-lg shadow-cyan-500/30 sm:h-10 sm:w-10 sm:rounded-2xl">
-              <div className="flex h-full w-full items-center justify-center rounded-xl bg-slate-950/70 sm:rounded-2xl">
-                <Sparkles className="h-4 w-4 text-cyan-200 transition-transform group-hover:rotate-12 sm:h-5 sm:w-5" />
-              </div>
-            </div>
-            <div className="leading-tight">
-              <span className="block text-base font-black tracking-normal text-white sm:text-lg">健文社区</span>
-              <span className="hidden text-[11px] uppercase tracking-normal text-cyan-200/70 sm:block">Jianwen Community</span>
-            </div>
-          </Link>
+    <header className="site-header">
+      <div className="site-header-inner">
+        <Link to="/" className="site-brand" aria-label="健文社区首页">
+          <span className="site-brand-mark"><span>J</span><i /></span>
+          <span className="site-brand-copy"><strong>健文社区</strong><small>IDEAS INTO MOTION</small></span>
+        </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1 rounded-2xl border border-white/10 bg-white/[0.04] p-1 shadow-inner shadow-white/5">
-            {navItems.map(item => (
-              <Link
-                key={item.to}
-                to={item.to}
-                className={`flex items-center space-x-1.5 rounded-xl px-2 py-2 text-xs font-medium transition-all lg:px-2.5 lg:text-sm ${
-                  isNavActive(item)
-                    ? 'bg-cyan-300/15 text-cyan-100 shadow-sm shadow-cyan-500/10 ring-1 ring-cyan-300/20'
-                    : 'text-slate-300 hover:bg-white/10 hover:text-white'
-                }`}
-              >
-                <item.icon className="w-4 h-4" />
-                <span>{item.label}</span>
+        <nav className="site-nav" aria-label="主导航">
+          {navItems.map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              className={isNavActive(item) ? 'site-nav-item is-active' : 'site-nav-item'}
+            >
+              <item.icon aria-hidden="true" />
+              <span>{item.label}</span>
+            </Link>
+          ))}
+        </nav>
+
+        <div className="site-header-actions">
+          {isAuthenticated ? (
+            <>
+              <div className="site-notification"><NotificationBell isAdmin={isAdmin} includeProfileReminder={isProfileIncomplete} /></div>
+              <Link to="/profile" className={isProfileIncomplete ? 'site-avatar is-warning' : 'site-avatar'} aria-label="个人资料">
+                {isProfileIncomplete ? <AlertCircle /> : <User />}
+                <span>{user?.nickname?.slice(0, 1) || '我'}</span>
+              </Link>
+              {isAdmin && <Link to="/admin" className="site-icon-button" aria-label="管理后台"><Settings /></Link>}
+              <button type="button" onClick={logout} className="site-icon-button" aria-label="退出登录"><LogOut /></button>
+            </>
+          ) : (
+            <Link to="/login" className="site-login-button"><span>进入社区</span><i /></Link>
+          )}
+          <button
+            type="button"
+            className="site-menu-button"
+            aria-label={mobileMenuOpen ? '关闭导航' : '打开导航'}
+            aria-expanded={mobileMenuOpen}
+            onClick={() => setMobileMenuOpen((open) => !open)}
+          >
+            {mobileMenuOpen ? <X /> : <Menu />}
+          </button>
+        </div>
+      </div>
+
+      {mobileMenuOpen && (
+        <div className="site-mobile-panel">
+          <nav aria-label="移动端主导航">
+            {navItems.map((item, index) => (
+              <Link key={item.to} to={item.to} className={isNavActive(item) ? 'is-active' : ''}>
+                <span className="site-mobile-index">0{index + 1}</span>
+                <item.icon aria-hidden="true" />
+                <strong>{item.label}</strong>
               </Link>
             ))}
-
           </nav>
-
-          {/* Right Side */}
-          <div className="flex items-center space-x-3">
-            {isAuthenticated ? (
-              <div className="hidden md:flex items-center space-x-3">
-                <NotificationBell
-                  isAdmin={isAdmin}
-                  includeProfileReminder={isProfileIncomplete}
-                />
-                <Link
-                  to="/profile"
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-xl transition-all ${
-                    isProfileIncomplete 
-                      ? 'text-yellow-200 hover:bg-yellow-300/10' 
-                      : 'text-slate-300 hover:bg-white/10 hover:text-cyan-100'
-                  }`}
-                >
-                  {isProfileIncomplete ? (
-                    <AlertCircle className="w-5 h-5" />
-                  ) : (
-                    <User className="w-5 h-5" />
-                  )}
-                  <span>{user?.nickname}</span>
-                  {isProfileIncomplete && (
-                    <span className="text-xs bg-yellow-300/15 text-yellow-100 px-2 py-0.5 rounded-full ring-1 ring-yellow-300/20">
-                      待完善
-                    </span>
-                  )}
-                </Link>
-                <Link
-                  to="/about/admin"
-                  className={`flex items-center space-x-1 px-3 py-2 rounded-xl text-sm font-medium transition-all ${
-                    isPathActive('/about/admin')
-                      ? 'text-cyan-100 bg-cyan-300/15'
-                      : 'text-slate-300 hover:text-cyan-100 hover:bg-white/10'
-                  }`}
-                >
-                  <Sparkles className="w-4 h-4" />
-                  <span>主页后台</span>
-                </Link>
-                {isAdmin && (
-                  <Link
-                    to="/admin"
-                    className={`flex items-center space-x-1 px-3 py-2 rounded-xl text-sm font-medium transition-all ${
-                      isPathActive('/admin')
-                        ? 'text-fuchsia-100 bg-fuchsia-300/15'
-                        : 'text-fuchsia-200 hover:bg-fuchsia-300/10'
-                    }`}
-                  >
-                    <Settings className="w-4 h-4" />
-                    <span>管理</span>
-                  </Link>
-                )}
-                <button
-                  onClick={logout}
-                  className="flex items-center space-x-1 text-slate-400 hover:text-red-200 px-2 py-2 rounded-xl hover:bg-red-500/10 transition-colors"
-                >
-                  <LogOut className="w-4 h-4" />
-                </button>
-              </div>
-            ) : (
-              <Link
-                to="/login"
-                className="neon-button hidden md:block px-4 py-2 rounded-xl transition-all text-sm font-semibold"
-              >
-                登录
-              </Link>
-            )}
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl text-slate-200 hover:bg-white/10"
-            >
-              {mobileMenuOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6" /> : <Menu className="h-5 w-5 sm:h-6 sm:w-6" />}
-            </button>
-          </div>
+          {isAuthenticated ? (
+            <div className="site-mobile-account">
+              <Link to="/profile"><User />我的资料</Link>
+              <Link to="/notifications"><Bell />通知中心</Link>
+              <Link to="/about/admin"><Sparkles />主页后台</Link>
+              {isAdmin && <Link to="/admin"><Settings />管理后台</Link>}
+              <button type="button" onClick={logout}><LogOut />退出登录</button>
+            </div>
+          ) : (
+            <Link to="/login" className="site-mobile-login">登录并加入社区</Link>
+          )}
         </div>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-cyan-300/10">
-            <nav className="space-y-1">
-              {navItems.map(item => (
-                <Link
-                  key={item.to}
-                  to={item.to}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center space-x-2 px-4 py-3 rounded-xl text-sm font-medium ${
-                    isNavActive(item)
-                      ? 'text-cyan-100 bg-cyan-300/15'
-                      : 'text-slate-300 hover:bg-white/10'
-                  }`}
-                >
-                  <item.icon className="w-5 h-5" />
-                  <span>{item.label}</span>
-                </Link>
-              ))}
-              {isAuthenticated ? (
-                <div className="pt-2 mt-2 border-t border-cyan-300/10">
-                  <Link
-                    to="/profile"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center space-x-2 px-4 py-3 text-sm text-slate-300 hover:bg-white/10 rounded-xl"
-                  >
-                    <User className="w-5 h-5" />
-                    <span>我的资料</span>
-                  </Link>
-                  <Link
-                    to="/notifications"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center space-x-2 px-4 py-3 text-sm text-slate-300 hover:bg-white/10 rounded-xl"
-                  >
-                    <Bell className="w-5 h-5" />
-                    <span>通知中心</span>
-                  </Link>
-                  <Link
-                    to="/about/admin"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center space-x-2 px-4 py-3 text-sm text-slate-300 hover:bg-white/10 rounded-xl"
-                  >
-                    <Sparkles className="w-5 h-5" />
-                    <span>主页后台</span>
-                  </Link>
-                  {isAdmin && (
-                    <Link
-                      to="/admin/qa"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center space-x-2 px-4 py-3 text-sm text-fuchsia-200 hover:bg-fuchsia-300/10 rounded-xl"
-                    >
-                      <Settings className="w-5 h-5" />
-                      <span>管理后台</span>
-                    </Link>
-                  )}
-                  <button
-                    onClick={() => { logout(); setMobileMenuOpen(false); }}
-                    className="flex items-center space-x-2 px-4 py-3 text-sm text-red-200 hover:bg-red-500/10 w-full rounded-xl"
-                  >
-                    <LogOut className="w-5 h-5" />
-                    <span>退出登录</span>
-                  </button>
-                </div>
-              ) : (
-                <div className="pt-2 mt-2 border-t border-cyan-300/10">
-                  <Link
-                    to="/login"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="neon-button block mx-4 text-center py-3 rounded-xl font-semibold"
-                  >
-                    登录
-                  </Link>
-                </div>
-              )}
-            </nav>
-          </div>
-        )}
-      </div>
+      )}
     </header>
   );
 };
