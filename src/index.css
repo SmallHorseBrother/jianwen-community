@@ -2154,6 +2154,85 @@
     margin-top: 0;
   }
 
+  /* The roadmap lives on the light learning surface, while these shared
+     components default to the dark hub theme above. Keep the roadmap's
+     hierarchy and contrast local to the light page. */
+  .ai-learning-page .ai-hub-section-title {
+    margin-bottom: 26px;
+  }
+
+  .ai-learning-page .ai-hub-section-title > div > span {
+    color: #087f8c;
+    font-size: 12px;
+  }
+
+  .ai-learning-page .ai-hub-section-title h2 {
+    margin: 9px 0 0;
+    color: #211f33;
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.25;
+  }
+
+  .ai-learning-page .ai-hub-section-title > p {
+    color: #5f5b70;
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .ai-learning-page .ai-route-levels {
+    gap: 14px;
+  }
+
+  .ai-learning-page .ai-route-levels article {
+    border-color: rgba(71, 58, 132, 0.14);
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 14px 36px rgba(52, 42, 95, 0.07);
+  }
+
+  .ai-learning-page .ai-route-levels article.is-recommended {
+    border-color: #18a8b6;
+    background: linear-gradient(180deg, #f4feff 0%, #fff 44%);
+    box-shadow: 0 0 0 1px rgba(24, 168, 182, 0.1), 0 20px 48px rgba(8, 127, 140, 0.12);
+  }
+
+  .ai-learning-page .ai-route-levels header {
+    color: #087f8c;
+    font-size: 11px;
+  }
+
+  .ai-learning-page .ai-route-levels header strong {
+    background: #dff8fa;
+    color: #08717c;
+    font-size: 10px;
+  }
+
+  .ai-learning-page .ai-route-levels h3 {
+    margin: 13px 0 0;
+    color: #252238;
+    font-size: 19px;
+    line-height: 1.35;
+  }
+
+  .ai-learning-page .ai-route-levels > article > small {
+    margin-top: 6px;
+    color: #6f6a7d;
+    font-size: 11px;
+  }
+
+  .ai-learning-page .ai-route-levels article > div {
+    gap: 7px;
+    margin-top: 16px;
+  }
+
+  .ai-learning-page .ai-route-levels article > div span {
+    padding: 8px 9px;
+    background: #f2f0f7;
+    color: #4f4a60;
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
   .ai-learning-roadmap-list {
     display: grid;
     gap: 14px;
