@@ -27,6 +27,10 @@ import AIRoadmap from './pages/ai/AIRoadmap';
 import AILearn from './pages/ai/AILearn';
 import AIPractice from './pages/ai/AIPractice';
 import AIProjects from './pages/ai/AIProjects';
+import AIExamCenter from './pages/ai/AIExamCenter';
+import AISpecialtyPaper from './pages/ai/AISpecialtyPaper';
+import AISpecialtyExam from './pages/ai/AISpecialtyExam';
+import AILayout from './pages/ai/AILayout';
 import Guide from './pages/Guide';
 import Tasks from './pages/Tasks';
 import Notifications from './pages/Notifications';
@@ -77,11 +81,15 @@ const AppRoutes: React.FC = () => {
       
       {/* 工具箱 */}
       <Route path="/tools" element={<Layout><Tools /></Layout>} />
-      <Route path="/tools/ai-assessment" element={<Layout><AIAssessment /></Layout>} />
+      <Route path="/tools/ai-assessment" element={<Navigate to="/ai/exams/comprehensive" replace />} />
 
-      {/* 健问 AI 测评—学习—作品闭环 */}
+      {/* AI成长中心：测评—专项卷—学习—作品闭环 */}
       <Route path="/ai" element={<AIHome />} />
-      <Route path="/ai/assessment" element={<Navigate to="/tools/ai-assessment" replace />} />
+      <Route path="/ai/assessment" element={<Navigate to="/ai/exams/comprehensive" replace />} />
+      <Route path="/ai/exams" element={<AIExamCenter />} />
+      <Route path="/ai/exams/comprehensive" element={<AILayout><AIAssessment /></AILayout>} />
+      <Route path="/ai/exams/:paperCode" element={<AISpecialtyPaper />} />
+      <Route path="/ai/exams/:paperCode/session/:sessionId" element={<AISpecialtyExam />} />
       <Route path="/ai/roadmap" element={<AIRoadmap />} />
       <Route path="/ai/learn/:stepId" element={<AILearn />} />
       <Route path="/ai/practice" element={<AIPractice />} />

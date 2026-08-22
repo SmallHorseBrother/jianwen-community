@@ -753,12 +753,12 @@ const AIAssessment: React.FC = () => {
   return (
     <main className="page-aurora min-h-screen px-3 py-6 pb-16 sm:px-6 sm:py-10">
       <div className="mx-auto max-w-4xl">
-        <button onClick={() => stage === 'home' ? navigate('/tools') : setStage('home')} className="mb-5 inline-flex items-center gap-2 text-sm text-slate-300 transition hover:text-cyan-200"><ArrowLeft className="h-4 w-4" />{stage === 'home' ? '返回产品实验室' : '返回考试首页'}</button>
+        <button onClick={() => stage === 'home' ? navigate('/ai/exams') : setStage('home')} className="mb-5 inline-flex items-center gap-2 text-sm text-slate-300 transition hover:text-cyan-200"><ArrowLeft className="h-4 w-4" />{stage === 'home' ? '返回AI考试大厅' : '返回综合考试首页'}</button>
         <section className="overflow-hidden rounded-3xl border border-cyan-200/40 bg-slate-950/90 text-slate-100 shadow-xl shadow-cyan-950/30 backdrop-blur-xl">
           <div className="bg-gradient-to-br from-slate-950 via-cyan-950 to-blue-950 px-6 py-8 text-white sm:px-10 sm:py-11">
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 ring-1 ring-white/20"><BrainCircuit className="h-7 w-7 text-cyan-100" /></div>
             <p className="mb-2 text-xs font-bold tracking-[0.2em] text-cyan-200">THE FIRST AI EXAM · 2026 试行卷</p>
-            <h1 className="text-3xl font-black tracking-tight sm:text-4xl">AI能力与风格摸底考试</h1>
+            <h1 className="text-3xl font-black tracking-tight sm:text-4xl">AI综合能力与风格考试</h1>
             <p className="mt-3 max-w-2xl leading-7 text-slate-100">本场允许不会，不建议打开另一个 AI 代考——那样主要测出的是你会不会打开 AI。</p>
           </div>
           <div className="p-5 sm:p-8">

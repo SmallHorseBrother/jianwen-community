@@ -14,6 +14,11 @@ verify_jwt = false
 # permanent account and are validated inside the function.
 verify_jwt = false
 
+[functions.ai-specialty-exam-engine]
+# A-F practice sessions support anonymous visitors. The function validates the
+# supplied user JWT and keeps hidden scoring payloads server-side.
+verify_jwt = false
+
 [functions.password-reset]
 # Visitors are not signed in while recovering an account. The function validates
 # a one-time SMS code itself before it can change an Auth password.

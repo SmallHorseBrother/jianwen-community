@@ -40,7 +40,7 @@ const AIHome: React.FC = () => {
                 <button type="button" className="ai-demo-primary-button" disabled={loading || enrolling} onClick={() => void startPath()}>
                   {loading ? '正在读取测评…' : enrolling ? '正在领取路径…' : data?.needs_assessment ? '先完成AI测评' : data?.path.enrolled ? '继续我的学习路径' : '领取免费7天路径'} <ArrowRight size={18} />
                 </button>
-                <Link to="/ai/assessment" className="ai-demo-secondary-button">查看或重新测评</Link>
+                <Link to="/ai/exams" className="ai-demo-secondary-button">进入AI考试大厅</Link>
               </div>
               <div className="ai-demo-proof-row">
                 <span><CheckCircle2 size={16} /> 真实测评定位</span>
@@ -66,6 +66,13 @@ const AIHome: React.FC = () => {
                 </>
               ) : <div className="ai-learning-empty"><Target size={30} /><h2>还没有当前能力基线</h2><p>先完成免费AI能力测评，我们再给出学习路线。</p></div>}
             </div>
+          </div>
+        </section>
+
+        <section className="ai-demo-section ai-hub-exam-preview">
+          <div className="ai-demo-container">
+            <div className="ai-demo-section-heading"><div><span className="ai-demo-kicker"><Target size={15} /> 完整考试体系</span><h2>综合卷定位置，六套专项卷找细节</h2><p>32题综合摸底＋36题风格画像＋A—F共261项专项题与实战任务。</p></div><Link to="/ai/exams" className="ai-demo-secondary-button">查看全部卷子 <ArrowRight /></Link></div>
+            <div className="ai-hub-exam-strip"><article><strong>综合</strong><span>能力与风格</span></article>{['A','B','C','D','E','F'].map((code) => <article key={code}><strong>{code}</strong><span>{code === 'A' ? '原理' : code === 'B' ? '使用' : code === 'C' ? '核验' : code === 'D' ? '编程' : code === 'E' ? 'Agent' : '实战'}</span></article>)}</div>
           </div>
         </section>
 

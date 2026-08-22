@@ -42,6 +42,20 @@ export type LearningDashboard = {
     completed_count: number;
     steps: LearningStepSummary[];
   };
+  route_library: Array<{
+    level: number;
+    title: string;
+    group_code: 'beginner' | 'application' | 'advanced';
+    gate_config: Record<string, unknown>;
+    recommended: boolean;
+    modules: Array<{
+      code: string;
+      title: string;
+      module_type: string;
+      learning_outcome: string;
+      status: string;
+    }>;
+  }>;
   group: null | {
     route_level: 'starter' | 'application' | 'practice';
     access_status: 'pending_payment' | 'active' | 'revoked';

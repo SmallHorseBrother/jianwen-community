@@ -232,6 +232,26 @@ async function groupStatus(service: ReturnType<typeof serviceClient>, userId: st
   return { ...membership, group_name: route?.group_name || null, description: route?.description || null };
 }
 
+async function routeCatalog(service: ReturnType<typeof serviceClient>, currentLevel: number | null) {
+  const { data: routes, error: routeError } = await service.from("ai_learning_routes")
+    .select("level, title, group_code, module_codes, gate_config, status").order("level", { ascending: true });
+  if (routeError) throw routeError;
+  const codes = [...new Set((routes || []).flatMap((route) => Array.isArray(route.module_codes) ? route.module_codes.map(String) : []))];
+  const { data: modules, error: moduleError } = await service.from("ai_learning_modules")
+    .select("code, title, module_type, learning_outcome, status").in("code", codes);
+  if (moduleError) throw moduleError;
+  const moduleMap = new Map((modules || []).map((module) => [module.code, module]));
+  const recommendedLevel = currentLevel === null ? null : Math.max(0, Math.min(4, currentLevel));
+  return (routes || []).map((route) => ({
+    level: route.level,
+    title: route.title,
+    group_code: route.group_code,
+    gate_config: route.gate_config,
+    recommended: route.level === recommendedLevel,
+    modules: (Array.isArray(route.module_codes) ? route.module_codes : []).map((code) => moduleMap.get(String(code))).filter(Boolean),
+  }));
+}
+
 async function dashboard(service: ReturnType<typeof serviceClient>, user: UserLike) {
   const [attempt, definition, enrollment, group] = await Promise.all([
     latestCapabilityAttempt(service, user.id),
@@ -248,6 +268,7 @@ async function dashboard(service: ReturnType<typeof serviceClient>, user: UserLi
   );
   const currentAttempt = isCurrent ? attempt! : null;
   const currentPosition = enrollment?.current_position || 1;
+  const routes = await routeCatalog(service, currentAttempt ? Number(currentAttempt.ability_level || 0) : null);
   return {
     account: {
       anonymous: isAnonymousUser(user),
@@ -291,6 +312,7 @@ async function dashboard(service: ReturnType<typeof serviceClient>, user: UserLi
         };
       }),
     },
+    route_library: routes,
     group,
   };
 }

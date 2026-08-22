@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Dumbbell, Sparkles, ExternalLink, MessageSquarePlus, X, Send, User, MessageCircle, UtensilsCrossed, BrainCircuit } from 'lucide-react';
+import { Dumbbell, Sparkles, ExternalLink, MessageSquarePlus, X, Send, User, MessageCircle, UtensilsCrossed } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { submitSuggestion, getAllSuggestions } from '../services/suggestionService';
 import AppreciationCard from '../components/Common/AppreciationCard';
@@ -297,15 +297,6 @@ const Tools: React.FC = () => {
   };
 
   const tools: ToolCard[] = [
-    {
-      title: 'AI能力与风格摸底考试',
-      description: '两套免费考试：发现你的 AI 使用风格与 Level 0–5 能力等级；完成后可生成成绩打卡图。',
-      icon: <BrainCircuit className="w-8 h-8" />,
-      link: '/tools/ai-assessment',
-      isExternal: false,
-      color: 'from-violet-500 to-cyan-600',
-      status: 'active',
-    },
     {
       title: '食探',
       description: 'AI 饮食识别与营养估算小程序，围绕拍照记录、热量估算和日常饮食管理持续迭代。',
