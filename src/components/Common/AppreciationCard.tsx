@@ -3,7 +3,8 @@
  * 显示微信赞赏二维码，支持不同显示模式
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Heart, X } from 'lucide-react';
 
 interface AppreciationCardProps {
@@ -30,6 +31,7 @@ const AppreciationCard: React.FC<AppreciationCardProps> = ({
     return (
       <>
         <button
+          type="button"
           onClick={() => setShowModal(true)}
           className={`inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-pink-500 transition-colors ${className}`}
         >
@@ -46,6 +48,7 @@ const AppreciationCard: React.FC<AppreciationCardProps> = ({
     return (
       <>
         <button
+          type="button"
           onClick={() => setShowModal(true)}
           className={`inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-pink-500 to-red-500 px-4 py-2.5 text-sm font-medium text-white shadow-lg transition-all hover:scale-105 hover:from-pink-600 hover:to-red-600 hover:shadow-xl sm:px-5 sm:text-base ${className}`}
         >
@@ -85,24 +88,47 @@ const AppreciationCard: React.FC<AppreciationCardProps> = ({
 
 // 赞赏弹窗
 const AppreciationModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-  return (
-    <div 
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose]);
+
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[1000] flex items-center justify-center overflow-y-auto bg-black/70 p-4 overscroll-contain"
       onClick={onClose}
+      role="presentation"
     >
-      <div 
-        className="bg-white rounded-2xl max-w-sm w-full p-6 relative animate-in fade-in zoom-in duration-200"
+      <div
+        aria-labelledby="appreciation-dialog-title"
+        aria-modal="true"
+        className="relative my-auto w-full max-w-sm rounded-2xl bg-white p-5 shadow-2xl sm:p-6"
         onClick={(e) => e.stopPropagation()}
+        role="dialog"
       >
         <button
+          type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition"
+          className="absolute right-3 top-3 grid h-11 w-11 touch-manipulation place-items-center rounded-full text-gray-400 transition hover:bg-gray-100 hover:text-gray-600"
+          aria-label="关闭赞赏码"
+          autoFocus
         >
           <X className="w-5 h-5" />
         </button>
         
         <div className="text-center">
-          <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2 justify-center mb-4">
+          <h3 id="appreciation-dialog-title" className="mb-4 flex items-center justify-center gap-2 pr-8 text-xl font-bold text-gray-800">
             <Heart className="w-6 h-6 text-pink-500" />
             感谢支持
           </h3>
@@ -110,7 +136,7 @@ const AppreciationModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           <img
             src="/appreciation-qr.png"
             alt="赞赏码"
-            className="w-56 h-56 mx-auto rounded-xl shadow-lg"
+            className="mx-auto aspect-square h-auto w-full max-w-56 rounded-xl object-contain shadow-lg"
           />
           
           <p className="text-gray-600 mt-4">
@@ -121,7 +147,8 @@ const AppreciationModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           </p>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 };
 
