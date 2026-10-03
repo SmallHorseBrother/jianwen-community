@@ -1,24 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import Dialog from "../Common/Dialog";
 import * as THREE from "three";
-import {
-	ArrowUpRight,
-	CheckCircle,
-	ChevronRight,
-	Expand,
-	Layers3,
-	Maximize2,
-	MessageSquareText,
-	MessageCircle,
-	Move,
-	MousePointer2,
-	Network,
-	RotateCcw,
-	Search,
-	Send,
-	Sparkles,
-	X,
-} from "lucide-react";
+import { ArrowUpRight, ChevronDown, Expand, HelpCircle, Layers3, Move, Minus, Plus, RotateCcw, Search, Sparkles, X } from "lucide-react";
 import type { Database } from "../../lib/database.types";
 import {
 	QUESTION_TOPICS,
@@ -36,31 +20,8 @@ const MAX_RENDERED_QUESTIONS_BY_MODE: Record<GranularityMode, number> = {
 	raw: 5000,
 };
 
-const topicColors: Record<string, number> = {
-	"街头健身": 0x20e8ff,
-	"疼痛康复": 0x4ade80,
-	"学习科研": 0x7dd3fc,
-	"个人成长": 0xfb70c8,
-	"AI/产品": 0xb98cff,
-	"自媒体/创业": 0xffcf5a,
-	"社区事务": 0xff7a9e,
-	"其他": 0xcbd5e1,
-};
-
-const cosmicPalette = [
-	0x22d3ee,
-	0x38bdf8,
-	0x60a5fa,
-	0x818cf8,
-	0xa78bfa,
-	0xe879f9,
-	0xf472b6,
-	0xfb7185,
-	0xfbbf24,
-	0x4ade80,
-	0x2dd4bf,
-	0xfef08a,
-];
+const topicColors: Record<string, number> = Object.fromEntries(QUESTION_TOPICS.map((topic) => [topic, 0xf4f1e8]));
+const cosmicPalette = [0xa2acb6, 0xc7c8bf, 0xf4f1e8];
 
 const topicCenters: Record<string, THREE.Vector3> = {
 	"街头健身": new THREE.Vector3(-112, 10, 10),
@@ -71,17 +32,6 @@ const topicCenters: Record<string, THREE.Vector3> = {
 	"自媒体/创业": new THREE.Vector3(96, -72, -84),
 	"社区事务": new THREE.Vector3(-12, 10, 112),
 	"其他": new THREE.Vector3(0, -8, -126),
-};
-
-const topicStarNames: Record<string, string> = {
-	"街头健身": "力场星",
-	"疼痛康复": "复原星",
-	"学习科研": "研读星",
-	"个人成长": "心智星",
-	"AI/产品": "智造星",
-	"自媒体/创业": "流量星",
-	"社区事务": "群落星",
-	"其他": "未名星",
 };
 
 interface StarNode {
@@ -174,43 +124,6 @@ const jitter = (seed: number, offset: number) => {
 	return value - Math.floor(value);
 };
 
-const shortCodeFor = (value: string) =>
-	hashString(value).toString(36).slice(0, 3).toUpperCase();
-
-const safeOwnerName = (question: Question) => {
-	const nickname = question.asker_nickname?.trim();
-	if (
-		!nickname ||
-		question.is_imported ||
-		question.is_anonymous ||
-		nickname === "匿名用户"
-	) {
-		return null;
-	}
-
-	const withoutPrivateParts = nickname
-		.replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, "")
-		.replace(/\d{4,}/g, "");
-	const clean = withoutPrivateParts
-		.replace(/[^\u4e00-\u9fa5a-zA-Z0-9_-]/g, "")
-		.slice(0, 8);
-	return clean || null;
-};
-
-const starNameFor = (question: Question) => {
-	const topic = normalizeQuestionTopic(question.topic);
-	const seed = `${question.id}-${question.content}`;
-	const owner = safeOwnerName(question);
-	const base = topicStarNames[topic] || topicStarNames["其他"];
-	const primaryTag = question.tags?.[0]?.replace(/[^\u4e00-\u9fa5a-zA-Z0-9]/g, "").slice(0, 5);
-	const suffix = shortCodeFor(seed);
-
-	if (owner) {
-		return `${owner}的${primaryTag || base}-${suffix}`;
-	}
-
-	return `${primaryTag || base}-${suffix}`;
-};
 
 const importanceFor = (question: Question) =>
 	Number(question.source_count || 1) +
@@ -331,31 +244,8 @@ const buildQuestionGroups = (
 		.slice(0, mode === "constellation" ? 520 : 1400);
 };
 
-const colorForNode = (
-	baseColor: number,
-	seed: number,
-	importance: number,
-	question: Question,
-) => {
-	const tagSeed = hashString(`${question.topic || ""}-${(question.tags || []).slice(0, 3).join("-")}`);
-	const accent = new THREE.Color(cosmicPalette[tagSeed % cosmicPalette.length]);
-	const color = new THREE.Color(baseColor).lerp(accent, 0.38 + jitter(seed, 9) * 0.44);
-	const hsl = { h: 0, s: 0, l: 0 };
-	color.getHSL(hsl);
-	hsl.h = (hsl.h + (jitter(seed, 4) - 0.5) * 0.18 + 1) % 1;
-	hsl.s = Math.min(1, Math.max(0.68, hsl.s + (jitter(seed, 5) - 0.5) * 0.18));
-	hsl.l = Math.min(
-		0.9,
-		Math.max(
-			0.5,
-			hsl.l +
-				(jitter(seed, 6) - 0.5) * 0.18 +
-				Math.min(0.18, Math.log2(importance + 1) * 0.016) +
-				(question.answer ? 0.05 : 0),
-		),
-	);
-	return new THREE.Color().setHSL(hsl.h, hsl.s, hsl.l);
-};
+const colorForNode = (_baseColor: number, seed: number, importance: number, question: Question) =>
+  new THREE.Color(question.answer ? 0xf4f1e8 : 0xa2acb6).multiplyScalar(0.72 + jitter(seed, 9) * 0.2 + Math.min(0.12, importance / 120));
 
 const createGlowTexture = () => {
 	const canvas = document.createElement("canvas");
@@ -488,7 +378,7 @@ const buildSemanticEdges = (
 	});
 	const seen = new Set<string>();
 	return semanticEdges
-		.map((edge) => {
+		.map((edge): StarEdge | null => {
 			const left = indexById.get(edge.question_id);
 			const right = indexById.get(edge.related_question_id);
 			if (left === undefined || right === undefined || left === right) return null;
@@ -505,13 +395,6 @@ const buildSemanticEdges = (
 		.filter((edge): edge is StarEdge => Boolean(edge))
 		.sort((left, right) => right.score - left.score)
 		.slice(0, mode === "constellation" ? 360 : mode === "cluster" ? 520 : 720);
-};
-
-const compactText = (value: string | null | undefined, maxLength: number) => {
-	if (!value) return "";
-	const normalized = value.replace(/\s+/g, " ").trim();
-	if (normalized.length <= maxLength) return normalized;
-	return `${normalized.slice(0, maxLength)}...`;
 };
 
 const reasonsFor = (
@@ -630,14 +513,21 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 	onGranularityChange,
 	totalLoadedStars,
 }) => {
-	const mountRef = useRef<HTMLDivElement | null>(null);
+  const location = useLocation();
+  const sceneApiRef = useRef<{ focus: (id: string) => void; reset: () => void; zoom: (delta: number) => void } | null>(null);
+  const selectedQuestionRef = useRef<string | null>(null);
+  const interactionModeRef = useRef<"rotate" | "pan">("rotate");
+  const cameraStateRef = useRef({ rotationX: 0, rotationY: 0, panX: 0, panY: 0, cameraZ: 0 });
+  const [showHelp, setShowHelp] = useState(false);
+  const [showRelated, setShowRelated] = useState(false);
+  const [renderError, setRenderError] = useState(false);
+  const mountRef = useRef<HTMLDivElement | null>(null);
 	const frameRef = useRef<number | null>(null);
 	const [selected, setSelected] = useState<Question | null>(questions[0] || null);
 	const [hovered, setHovered] = useState<Question | null>(null);
 	const [zoomLabel, setZoomLabel] = useState("1.0x");
 	const [isFullscreen, setIsFullscreen] = useState(false);
 	const [isDetailOpen, setIsDetailOpen] = useState(false);
-	const [resetSignal, setResetSignal] = useState(0);
 	const [interactionMode, setInteractionMode] = useState<"rotate" | "pan">("rotate");
 	const [isAskOpen, setIsAskOpen] = useState(false);
 	const [focusedQuestionId, setFocusedQuestionId] = useState<string | null>(null);
@@ -654,44 +544,50 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 	const activeNode = activeQuestion
 		? nodes.find((node) => node.question.id === activeQuestion.id)
 		: null;
-	const activeTopic = activeQuestion ? normalizeQuestionTopic(activeQuestion.topic) : "其他";
-	const clusteredQuestionCount = nodes.reduce(
-		(sum, node) => sum + Math.max(0, node.clusterSize - 1),
-		0,
-	);
 	const relatedQuestions = useMemo(
 		() => buildRelatedQuestions(activeQuestion, nodes, semanticEdges),
 		[activeQuestion, nodes, semanticEdges],
 	);
 
 	useEffect(() => {
-		setSelected((current) =>
-			current && nodes.some((node) => node.question.id === current.id)
-				? current
-				: nodes[0]?.question || null,
-		);
-	}, [nodes]);
+		if (selected && nodes.some((node) => node.question.id === selected.id)) return;
+    setSelected(nodes[0]?.question || null);
+    setIsDetailOpen(false);
+    setFocusedQuestionId(null);
+	}, [nodes, selected]);
 
-	useEffect(() => {
-		if (!isFullscreen) return;
-		const originalOverflow = document.body.style.overflow;
-		document.body.style.overflow = "hidden";
-		setIsDetailOpen(false);
-		window.dispatchEvent(new Event("resize"));
-		return () => {
-			document.body.style.overflow = originalOverflow;
-			window.dispatchEvent(new Event("resize"));
-		};
-	}, [isFullscreen]);
+  useEffect(() => { selectedQuestionRef.current = focusedQuestionId; }, [focusedQuestionId]);
+  useEffect(() => { interactionModeRef.current = interactionMode; }, [interactionMode]);
+  useEffect(() => {
+    const cancel = (event: KeyboardEvent) => { if (event.key === 'Escape' && !(event.target instanceof Element && event.target.closest('dialog[open]'))) { setIsFullscreen(false); setShowHelp(false); setIsDetailOpen(false); } };
+    window.addEventListener('keydown', cancel);
+    return () => window.removeEventListener('keydown', cancel);
+  }, []);
+  useEffect(() => {
+    if (!isFullscreen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = previous; };
+  }, [isFullscreen]);
+
+  const selectQuestion = (question: Question) => {
+    setSelected(question); setIsDetailOpen(true); setFocusedQuestionId(question.id);
+    sceneApiRef.current?.focus(question.id);
+  };
 
 	useEffect(() => {
 		const mount = mountRef.current;
 		if (!mount) return;
 
 		const scene = new THREE.Scene();
-		scene.fog = new THREE.FogExp2(0x030712, 0.0019);
+		scene.fog = new THREE.FogExp2(0x0a0f14, 0.0019);
 
-		const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    let renderer: THREE.WebGLRenderer;
+    try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); }
+    catch { setRenderError(true); return; }
+    setRenderError(false);
+    renderer.domElement.setAttribute('aria-label', '三维问题星图，拖动旋转，滚轮缩放；也可切换列表阅读');
+    renderer.domElement.setAttribute('role', 'img');
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
 		renderer.setSize(mount.clientWidth, mount.clientHeight);
 		mount.replaceChildren(renderer.domElement);
@@ -702,14 +598,14 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 			0.1,
 			1400,
 		);
-		const baseCameraZ = granularity === "constellation" ? 350 : granularity === "cluster" ? 390 : 430;
+		const baseCameraZ = mount.clientWidth < 600 ? 520 : granularity === "constellation" ? 350 : granularity === "cluster" ? 390 : 430;
 		camera.position.set(0, 0, baseCameraZ);
 
 		const group = new THREE.Group();
 		scene.add(group);
 
 		scene.add(new THREE.AmbientLight(0xffffff, 0.92));
-		const point = new THREE.PointLight(0x67e8f9, 1.35, 900);
+		const point = new THREE.PointLight(0xf4f1e8, 1.35, 900);
 		point.position.set(80, 130, 220);
 		scene.add(point);
 
@@ -725,7 +621,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 			const centerZ = band === 0 ? -170 : band === 1 ? 110 : band === 2 ? 40 : -70;
 			const spread = band === 2 ? 260 : 190;
 			const color = new THREE.Color(
-				band === 0 ? 0x22d3ee : band === 1 ? 0xe879f9 : band === 2 ? 0xfbbf24 : 0x4ade80,
+				0xa2acb6,
 			).lerp(new THREE.Color(0xffffff), 0.12 + jitter(seed, 8) * 0.22);
 			nebulaPositions.push(
 				centerX + (jitter(seed, 1) - 0.5) * spread * 2.4,
@@ -785,7 +681,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 			const twinkle = 1 + jitter(hashString(`${node.question.id}-${index}`), 12) * 0.62;
 			starPositions.push(node.position.x, node.position.y, node.position.z);
 			starColors.push(node.color.r, node.color.g, node.color.b);
-			starSizes.push(node.size * (isFullscreen ? 5.2 : 4.2) * twinkle);
+			starSizes.push(node.size * 2.4 * twinkle);
 		});
 		starGeometry.setAttribute(
 			"position",
@@ -868,7 +764,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 					node.position.z + radius * Math.cos(phi),
 				);
 				satelliteColors.push(color.r, color.g, color.b);
-				satelliteSizes.push((isFullscreen ? 4.2 : 3.4) * (0.7 + jitter(seed + index, 5) * 0.9));
+				satelliteSizes.push(3.4 * (0.7 + jitter(seed + index, 5) * 0.9));
 			}
 		});
 		satelliteGeometry.setAttribute(
@@ -905,7 +801,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 		);
 		const glowTexture = createGlowTexture();
 		const glowMaterial = new THREE.PointsMaterial({
-			size: isFullscreen ? 2.4 : 2,
+			size: 2,
 			sizeAttenuation: true,
 			vertexColors: true,
 			map: glowTexture || undefined,
@@ -949,7 +845,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 		const edgeMaterial = new THREE.LineBasicMaterial({
 			vertexColors: true,
 			transparent: true,
-			opacity: granularity === "constellation" ? 0.11 : granularity === "cluster" ? 0.15 : 0.13,
+			opacity: granularity === "constellation" ? 0.06 : granularity === "cluster" ? 0.09 : 0.07,
 			blending: THREE.AdditiveBlending,
 		});
 		group.add(new THREE.LineSegments(edgeGeometry, edgeMaterial));
@@ -986,11 +882,11 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 		const dust = new THREE.Points(
 			dustGeometry,
 			new THREE.PointsMaterial({
-				color: 0xbdefff,
+				color: 0xa2acb6,
 				size: 1.15,
 				vertexColors: true,
 				transparent: true,
-				opacity: 0.5,
+				opacity: 0.18,
 				blending: THREE.AdditiveBlending,
 				depthWrite: false,
 			}),
@@ -998,7 +894,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 		scene.add(dust);
 
 		const raycaster = new THREE.Raycaster();
-		raycaster.params.Points = { threshold: isFullscreen ? 14 : 11 };
+		raycaster.params.Points = { threshold: 11 };
 		const pointer = new THREE.Vector2();
 		let targetRotationX = 0;
 		let targetRotationY = 0;
@@ -1010,7 +906,13 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 		let dragMoved = 0;
 		let lastX = 0;
 		let lastY = 0;
-		let lastResetSignal = resetSignal;
+		const savedCamera = cameraStateRef.current;
+    if (savedCamera.cameraZ) {
+      targetRotationX = savedCamera.rotationX; targetRotationY = savedCamera.rotationY;
+      targetPanX = savedCamera.panX; targetPanY = savedCamera.panY; targetCameraZ = savedCamera.cameraZ;
+      group.rotation.set(targetRotationX, targetRotationY, 0); group.position.set(targetPanX, targetPanY, 0); camera.position.z = targetCameraZ;
+    }
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 		const updatePointer = (event: PointerEvent) => {
 			const rect = renderer.domElement.getBoundingClientRect();
@@ -1028,7 +930,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 		};
 
 		const focusNode = (node: StarNode) => {
-			const focusZoom = isFullscreen ? 128 : 150;
+			const focusZoom = mount.clientWidth < 600 ? 290 : 210;
 			targetPanX = Math.max(-260, Math.min(260, -node.position.x * 0.88));
 			targetPanY = Math.max(-190, Math.min(190, -node.position.y * 0.88));
 			targetRotationX = Math.max(-0.72, Math.min(0.72, -node.position.y / 360));
@@ -1037,9 +939,27 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 			setZoomLabel(`${(baseCameraZ / targetCameraZ).toFixed(1)}x`);
 		};
 
+    const highlightNode = (id: string | null) => {
+      const activeIndex = nodes.findIndex((node) => node.question.id === id);
+      const related = new Set<number>();
+      edges.forEach((edge) => { if (edge.left === activeIndex) related.add(edge.right); if (edge.right === activeIndex) related.add(edge.left); });
+      const colors = starGeometry.getAttribute('color');
+      nodes.forEach((node,index) => { const color = activeIndex < 0 ? node.color : index === activeIndex || related.has(index) ? new THREE.Color(0xff603d) : node.color.clone().multiplyScalar(0.28); colors.setXYZ(index,color.r,color.g,color.b); });
+      colors.needsUpdate = true;
+      const lineColors = edgeGeometry.getAttribute('color');
+      edges.forEach((edge,index) => { const color = new THREE.Color(activeIndex >= 0 && (edge.left === activeIndex || edge.right === activeIndex) ? 0xff603d : 0x5c6268); for (let endpoint=0;endpoint<2;endpoint++) lineColors.setXYZ(index*2+endpoint,color.r,color.g,color.b); });
+      lineColors.needsUpdate = true;
+    };
+    highlightNode(selectedQuestionRef.current);
+    sceneApiRef.current = {
+      focus: (id) => { const node = nodes.find((item) => item.question.id === id); if (node) { focusNode(node); highlightNode(id); } },
+      reset: () => { targetRotationX=0; targetRotationY=0; targetPanX=0; targetPanY=0; targetCameraZ=baseCameraZ; setZoomLabel('1.0x'); setFocusedQuestionId(null); highlightNode(null); },
+      zoom: (delta) => { targetCameraZ = Math.max(120,Math.min(620,targetCameraZ+delta)); setZoomLabel((baseCameraZ/targetCameraZ).toFixed(1)+'x'); },
+    };
+
 		const handlePointerDown = (event: PointerEvent) => {
 			isDragging = true;
-			dragMode = interactionMode === "pan" || event.shiftKey || event.altKey || event.button === 1 || event.button === 2
+			dragMode = interactionModeRef.current === "pan" || event.shiftKey || event.altKey || event.button === 1 || event.button === 2
 				? "pan"
 				: "rotate";
 			dragMoved = 0;
@@ -1070,7 +990,7 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 			}
 			const picked = pickQuestion();
 			setHovered(picked?.question || null);
-			renderer.domElement.style.cursor = interactionMode === "pan"
+			renderer.domElement.style.cursor = interactionModeRef.current === "pan"
 				? "move"
 				: picked
 					? "pointer"
@@ -1079,14 +999,15 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 
 		const handlePointerUp = (event: PointerEvent) => {
 			updatePointer(event);
-			renderer.domElement.releasePointerCapture(event.pointerId);
+			if (renderer.domElement.hasPointerCapture(event.pointerId)) renderer.domElement.releasePointerCapture(event.pointerId);
 			isDragging = false;
 			dragMode = "rotate";
 			renderer.domElement.style.cursor = "grab";
-			if (dragMoved < 8) {
+			if (event.type !== "pointercancel" && dragMoved < 8) {
 				const picked = pickQuestion();
 				if (picked) {
 					focusNode(picked.node);
+          highlightNode(picked.question.id);
 					setFocusedQuestionId(picked.question.id);
 					setSelected(picked.question);
 					setIsDetailOpen(true);
@@ -1120,26 +1041,18 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 		renderer.domElement.addEventListener("wheel", handleWheel, { passive: false });
 		renderer.domElement.addEventListener("contextmenu", handleContextMenu);
 		window.addEventListener("resize", handleResize);
+    const resizeObserver = new ResizeObserver(handleResize); resizeObserver.observe(mount);
+    renderer.domElement.addEventListener("pointercancel", handlePointerUp);
 
 		const animate = () => {
-			if (lastResetSignal !== resetSignal) {
-				lastResetSignal = resetSignal;
-				targetRotationX = 0;
-				targetRotationY = 0;
-				targetPanX = 0;
-				targetPanY = 0;
-				targetCameraZ = baseCameraZ;
-				setFocusedQuestionId(null);
-				setZoomLabel("1.0x");
-			}
-			group.rotation.y += (targetRotationY - group.rotation.y) * 0.08;
-			group.rotation.x += (targetRotationX - group.rotation.x) * 0.08;
-			group.position.x += (targetPanX - group.position.x) * 0.12;
-			group.position.y += (targetPanY - group.position.y) * 0.12;
-			camera.position.z += (targetCameraZ - camera.position.z) * 0.08;
-			dust.rotation.y -= 0.0002;
-			nebula.rotation.y += 0.00008;
-			nebula.rotation.x += 0.000035;
+      const ease = reducedMotion ? 1 : 0.1;
+      group.rotation.y += (targetRotationY-group.rotation.y)*ease;
+      group.rotation.x += (targetRotationX-group.rotation.x)*ease;
+      group.position.x += (targetPanX-group.position.x)*ease;
+      group.position.y += (targetPanY-group.position.y)*ease;
+      camera.position.z += (targetCameraZ-camera.position.z)*ease;
+      cameraStateRef.current = { rotationX: targetRotationX, rotationY: targetRotationY, panX: targetPanX, panY: targetPanY, cameraZ: targetCameraZ };
+      mount.dataset.camera = [group.rotation.x,group.rotation.y,group.position.x,group.position.y,camera.position.z].map((value) => value.toFixed(2)).join(',');
 			renderer.render(scene, camera);
 			frameRef.current = requestAnimationFrame(animate);
 		};
@@ -1153,6 +1066,8 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 			renderer.domElement.removeEventListener("wheel", handleWheel);
 			renderer.domElement.removeEventListener("contextmenu", handleContextMenu);
 			window.removeEventListener("resize", handleResize);
+      resizeObserver.disconnect(); sceneApiRef.current=null;
+      renderer.domElement.removeEventListener("pointercancel", handlePointerUp);
 			starGeometry.dispose();
 			starMaterial.dispose();
 			satelliteGeometry.dispose();
@@ -1169,489 +1084,29 @@ const QuestionStarMap: React.FC<QuestionStarMapProps> = ({
 			renderer.dispose();
 			mount.replaceChildren();
 		};
-	}, [nodes, edges, isFullscreen, resetSignal, interactionMode, granularity]);
+	}, [nodes, edges, granularity]);
 
-	return (
-		<section
-			style={
-				isFullscreen
-					? {
-						position: "fixed",
-						inset: 0,
-						width: "100vw",
-						height: "100svh",
-						margin: 0,
-					}
-					: undefined
-			}
-			className={`overflow-hidden border shadow-2xl shadow-cyan-950/30 transition-all duration-300 ${
-				isFullscreen
-					? "fixed inset-0 z-[100] rounded-none border-transparent bg-black"
-					: "relative left-1/2 w-screen -translate-x-1/2 border-transparent bg-slate-950/80"
-			}`}
-		>
-			<div
-				className="absolute inset-0 bg-[url('/images/question-cosmos-nebula.png')] bg-cover bg-center opacity-95"
-			/>
-			<div className="absolute inset-0 bg-[radial-gradient(circle_at_54%_46%,rgba(34,211,238,0.04),transparent_28%),linear-gradient(90deg,rgba(1,5,12,0.28),rgba(1,5,12,0.08)_42%,rgba(8,4,18,0.20)),linear-gradient(180deg,rgba(1,4,12,0.36),rgba(1,4,12,0.03)_34%,rgba(1,4,12,0.34))]" />
-			<div
-				className={`relative ${
-					isFullscreen
-						? "h-[100svh] min-h-[100svh]"
-						: "h-[calc(100svh-4.5rem)] min-h-[760px]"
-				}`}
-			>
-				<div className="absolute inset-0">
-					<div ref={mountRef} className="absolute inset-0" />
-					<div className="pointer-events-none absolute bottom-5 left-1/2 z-20 hidden -translate-x-1/2 flex-wrap justify-center gap-2 sm:flex">
-						<span className="inline-flex min-w-0 items-center gap-2 rounded-full border border-cyan-300/20 bg-slate-950/75 px-2.5 py-1.5 text-[11px] text-cyan-100 backdrop-blur sm:px-3 sm:text-xs">
-							<MousePointer2 className="h-3.5 w-3.5" />
-							<span className="sm:hidden">
-								{interactionMode === "pan" ? `平移 · ${zoomLabel}` : `旋转 · ${zoomLabel}`}
-							</span>
-							<span className="hidden sm:inline">
-								{interactionMode === "pan"
-									? `平移模式 · 拖拽移动 · 滚轮缩放 ${zoomLabel}`
-									: `拖拽旋转 · Shift 拖拽平移 · 滚轮缩放 ${zoomLabel}`}
-							</span>
-						</span>
-						<span className="inline-flex items-center gap-2 rounded-full border border-fuchsia-300/20 bg-slate-950/75 px-2.5 py-1.5 text-[11px] text-fuchsia-100 backdrop-blur sm:px-3 sm:text-xs">
-							<Network className="h-3.5 w-3.5" />
-							<span className="sm:hidden">{nodes.length} 星 · {edges.length} 线</span>
-							<span className="hidden sm:inline">{nodes.length} 颗可见星 · {edges.length} 条相似连线</span>
-						</span>
-						{clusteredQuestionCount > 0 && (
-							<span className="hidden items-center gap-2 rounded-full border border-amber-300/20 bg-slate-950/75 px-3 py-1.5 text-xs text-amber-100 backdrop-blur sm:inline-flex">
-								<Layers3 className="h-3.5 w-3.5" />
-								已折叠 {clusteredQuestionCount} 个相似问题
-							</span>
-						)}
-					</div>
-					<div className="pointer-events-auto absolute left-4 right-4 top-[4.2rem] z-[35] flex flex-col gap-3 rounded-[1.35rem] border border-white/12 bg-slate-950/42 p-3 shadow-2xl shadow-cyan-950/25 backdrop-blur-xl sm:left-8 sm:right-8 sm:top-6 sm:flex-row sm:items-center sm:rounded-full sm:px-4">
-						<div className="flex min-w-[150px] items-center gap-3">
-							<div className="grid h-10 w-10 place-items-center rounded-full border border-cyan-200/40 bg-cyan-200/10 shadow-lg shadow-cyan-400/20">
-								<Sparkles className="h-5 w-5 text-cyan-100" />
-							</div>
-							<div>
-								<p className="text-lg font-black leading-none text-white">问题星空</p>
-								<p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100/70">
-									Question Universe
-								</p>
-							</div>
-						</div>
-						<label className="relative min-w-0 flex-1">
-							<Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-cyan-100/60" />
-							<input
-								type="text"
-								value={searchQuery}
-								onChange={(event) => onSearchQueryChange(event.target.value)}
-								placeholder="搜索问题"
-								className="h-12 w-full rounded-full border border-white/12 bg-white/10 pl-11 pr-4 text-sm font-semibold text-white outline-none transition placeholder:font-normal placeholder:text-slate-300/70 focus:border-cyan-200/70 focus:bg-white/14 focus:ring-2 focus:ring-cyan-300/35"
-							/>
-						</label>
-						<div className="flex min-w-0 flex-[1.35] flex-wrap gap-2">
-							<button
-								type="button"
-								onClick={() => onTopicSelect(null)}
-								className={`shrink-0 rounded-full border px-3 py-2 text-xs font-semibold transition ${
-									!selectedTopic
-										? "border-cyan-200/60 bg-cyan-200/18 text-cyan-50 shadow-lg shadow-cyan-400/15"
-										: "border-white/12 bg-white/8 text-slate-200 hover:bg-white/14"
-								}`}
-							>
-								全部
-							</button>
-							{QUESTION_TOPICS.map((topic) => {
-								const active = selectedTopic === topic;
-								const count = topicCounts?.[topic];
-								return (
-									<button
-										key={topic}
-										type="button"
-										onClick={() => onTopicSelect(active ? null : topic)}
-										className={`shrink-0 rounded-full border px-3 py-2 text-xs font-semibold transition ${
-											active
-												? "border-cyan-200/60 bg-cyan-200/18 text-cyan-50 shadow-lg shadow-cyan-400/15"
-												: "border-white/12 bg-white/8 text-slate-200 hover:bg-white/14"
-										}`}
-									>
-										{topic}
-										{typeof count === "number" && (
-											<span className="ml-1 text-[10px] text-slate-400">
-												{count}
-											</span>
-										)}
-									</button>
-								);
-							})}
-						</div>
-						<div className="flex min-w-0 flex-wrap items-center gap-2">
-							<div className="inline-flex rounded-full border border-white/12 bg-white/8 p-1">
-								<button
-									type="button"
-									onClick={() => onViewModeChange?.("cosmos")}
-									className={`inline-flex h-10 items-center gap-1.5 rounded-full px-3 text-xs font-black transition ${
-										viewMode === "cosmos"
-											? "bg-cyan-300/18 text-cyan-50 shadow-lg shadow-cyan-400/15"
-											: "text-slate-300 hover:bg-white/10 hover:text-white"
-									}`}
-								>
-									<Sparkles className="h-3.5 w-3.5" />
-									星空
-								</button>
-								<button
-									type="button"
-									onClick={() => {
-										onViewModeChange?.("list");
-										setIsDetailOpen(false);
-									}}
-									className={`inline-flex h-10 items-center gap-1.5 rounded-full px-3 text-xs font-black transition ${
-										viewMode === "list"
-											? "bg-white/18 text-white shadow-lg shadow-white/10"
-											: "text-slate-300 hover:bg-white/10 hover:text-white"
-									}`}
-								>
-									<Layers3 className="h-3.5 w-3.5" />
-									列表
-								</button>
-							</div>
-							{granularityOptions.map((option) => (
-								<button
-									key={option.mode}
-									type="button"
-									onClick={() => onGranularityChange?.(option.mode)}
-									title={option.description}
-									className={`inline-flex whitespace-nowrap rounded-full px-3 py-2 text-[11px] font-semibold transition ${
-										granularity === option.mode
-											? "bg-white/18 text-white"
-											: "text-slate-300 hover:bg-white/10 hover:text-white"
-									}`}
-								>
-									<span className="sm:hidden">{option.shortLabel}</span>
-									<span className="hidden sm:inline">{option.label}</span>
-								</button>
-							))}
-							{askPanel && (
-								<button
-									type="button"
-									onClick={() => setIsAskOpen(true)}
-									className="inline-flex h-11 items-center gap-2 rounded-full border border-cyan-200/50 bg-gradient-to-r from-cyan-300 to-fuchsia-500 px-4 text-sm font-black text-white shadow-2xl shadow-fuchsia-500/25 transition hover:scale-[1.02] sm:h-12 sm:px-5"
-								>
-									<Send className="h-4 w-4" />
-									提问
-								</button>
-							)}
-							{(selectedTopic || selectedTag || searchQuery) && onClearFilters && (
-								<button
-									type="button"
-									onClick={onClearFilters}
-									className="hidden rounded-full border border-white/12 px-4 py-2 text-xs font-semibold text-slate-200 transition hover:bg-white/10 sm:inline-flex"
-								>
-									清空
-								</button>
-							)}
-						</div>
-					</div>
-					<div className="pointer-events-none absolute left-4 top-[17rem] z-20 flex flex-wrap items-center gap-2 text-[11px] text-slate-200 sm:left-10 sm:top-[6.3rem]">
-						<span className="rounded-full border border-white/10 bg-slate-950/38 px-3 py-1.5 backdrop-blur">
-							{loading && nodes.length === 0
-								? "正在生成星图"
-								: loading
-									? granularity === "raw"
-										? `正在逐步加载全部问题 · ${nodes.length} 颗可见星`
-										: `正在增密 · ${nodes.length} 颗可见星`
-									: `${nodes.length} 颗可见星`}
-						</span>
-						{typeof totalLoadedStars === "number" && totalLoadedStars > nodes.length && (
-							<span className="rounded-full border border-cyan-300/20 bg-slate-950/38 px-3 py-1.5 text-cyan-100 backdrop-blur">
-								已载入 {totalLoadedStars} 颗
-							</span>
-						)}
-						<span className="rounded-full border border-fuchsia-300/20 bg-slate-950/38 px-3 py-1.5 text-fuchsia-100 backdrop-blur">
-							{edges.length} 条相似连线
-						</span>
-						{focusedQuestionId && (
-							<span className="rounded-full border border-amber-300/25 bg-amber-300/12 px-3 py-1.5 text-amber-100 backdrop-blur">
-								深潜浏览 · {zoomLabel}
-							</span>
-						)}
-						{selectedTopic && (
-							<span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1.5 text-cyan-50 backdrop-blur">
-								{selectedTopic}
-							</span>
-						)}
-					</div>
-					{viewMode === "list" && listPanel && (
-						<div className="pointer-events-auto absolute inset-x-3 bottom-3 top-[18.5rem] z-30 overflow-hidden rounded-[1.7rem] border border-cyan-300/18 bg-slate-950/68 shadow-2xl shadow-cyan-950/35 backdrop-blur-2xl sm:inset-x-8 sm:bottom-6 sm:top-[7.7rem] lg:left-1/2 lg:w-[min(1080px,calc(100vw-4rem))] lg:-translate-x-1/2">
-							<div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,rgba(34,211,238,0.18),transparent_34%),radial-gradient(circle_at_82%_8%,rgba(217,70,239,0.14),transparent_28%),linear-gradient(180deg,rgba(15,23,42,0.16),rgba(2,6,23,0.84))]" />
-							<div className="relative h-full overflow-auto p-4 sm:p-6">
-								{listPanel}
-							</div>
-						</div>
-					)}
-					{viewMode === "cosmos" && stats.length > 0 && (
-						<div className="pointer-events-none absolute bottom-4 left-3 z-20 hidden max-w-[42rem] flex-wrap gap-2 sm:left-5 sm:flex">
-							{stats.map((item) => (
-								<div
-									key={item.label}
-									className="rounded-2xl border border-white/10 bg-slate-950/54 px-4 py-3 backdrop-blur"
-								>
-									<p className="text-lg font-black text-white">{item.value}</p>
-									<p className="mt-0.5 text-[11px] text-slate-400">{item.label}</p>
-								</div>
-							))}
-						</div>
-					)}
-					<button
-						type="button"
-						onClick={() => setResetSignal((value) => value + 1)}
-						className={`absolute right-3 inline-flex items-center gap-1.5 rounded-full border border-cyan-300/20 bg-slate-950/78 px-2.5 py-2 text-[11px] font-semibold text-cyan-50 shadow-xl shadow-slate-950/40 backdrop-blur transition hover:bg-cyan-300/10 sm:right-5 sm:gap-2 sm:px-3 sm:text-xs ${
-							isFullscreen ? "top-[8.6rem] z-30 sm:top-28" : "top-[18rem] sm:top-28"
-						} ${viewMode === "list" ? "hidden" : ""}`}
-					>
-						<RotateCcw className="h-4 w-4" />
-						居中
-					</button>
-					<button
-						type="button"
-						onClick={() =>
-							setInteractionMode((mode) => (mode === "pan" ? "rotate" : "pan"))
-						}
-						className={`absolute right-3 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-2 text-[11px] font-semibold shadow-xl shadow-slate-950/40 backdrop-blur transition sm:right-5 sm:gap-2 sm:px-3 sm:text-xs ${
-							interactionMode === "pan"
-								? "border-amber-300/35 bg-amber-300/15 text-amber-50 hover:bg-amber-300/22"
-								: "border-white/15 bg-slate-950/75 text-white hover:bg-white/10"
-						} ${isFullscreen ? "top-[11.35rem] z-30 sm:top-[10.75rem]" : "top-[20.75rem] sm:top-[10.75rem]"} ${viewMode === "list" ? "hidden" : ""}`}
-					>
-						<Move className="h-4 w-4" />
-						{interactionMode === "pan" ? "旋转模式" : "平移模式"}
-					</button>
-					<button
-						type="button"
-						onClick={() => setIsFullscreen((value) => !value)}
-						className={`absolute right-3 top-[23.5rem] inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-slate-950/78 px-2.5 py-2 text-[11px] font-semibold text-white shadow-xl shadow-slate-950/40 backdrop-blur transition hover:bg-white/10 sm:right-5 sm:top-[14.5rem] sm:gap-2 sm:px-3 sm:text-xs ${
-							isFullscreen ? "z-30" : ""
-						} ${viewMode === "list" ? "hidden" : ""}`}
-					>
-						{isFullscreen ? (
-							<>
-								<X className="h-4 w-4" />
-								退出全屏
-							</>
-						) : (
-							<>
-								<Expand className="h-4 w-4" />
-								全屏观星
-							</>
-						)}
-					</button>
-					<div
-						className={`pointer-events-none absolute bottom-4 right-3 hidden max-w-md gap-2 rounded-2xl border border-white/10 bg-slate-950/54 p-3 text-xs text-slate-300 backdrop-blur sm:right-5 sm:grid ${
-							isFullscreen ? "z-20" : ""
-						} ${viewMode === "list" ? "!hidden" : ""}`}
-					>
-						<div className="flex items-center gap-2">
-							<Maximize2 className="h-3.5 w-3.5 text-cyan-200" />
-							<span>点越大，代表“来源次数 + 同问热度 + 已回答/精选权重”越高。</span>
-						</div>
-						<div className="flex items-center gap-2">
-							<Network className="h-3.5 w-3.5 text-fuchsia-200" />
-							<span>连线来自核心词、标签、主题、需求意图和问法的混合相似度。</span>
-						</div>
-						<div className="flex items-center gap-2">
-							<Layers3 className="h-3.5 w-3.5 text-cyan-200" />
-							<span>星系视图会把高相似问题折叠成代表星；切到全部星星可查看原始问题。</span>
-						</div>
-						<div className="flex items-center gap-2">
-							<Sparkles className="h-3.5 w-3.5 text-amber-200" />
-							<span>星名会优先使用脱敏后的提交者昵称；历史导入问题按主题和标签自动命名。</span>
-						</div>
-					</div>
-				</div>
-
-				<aside
-					className={`border-white/10 bg-slate-950/72 p-4 backdrop-blur-xl sm:p-5 ${
-						isDetailOpen
-							? "absolute inset-x-3 bottom-3 top-auto z-30 max-h-[58svh] overflow-auto rounded-2xl border bg-slate-950/86 shadow-2xl shadow-black/40 sm:bottom-5 sm:left-auto sm:right-5 sm:top-20 sm:max-h-none sm:w-[min(460px,calc(100vw-2.5rem))] sm:rounded-[1.5rem]"
-							: "hidden"
-					}`}
-				>
-					{activeQuestion && isDetailOpen && (
-						<div className="flex min-h-full flex-col">
-							<div className="mb-4 flex justify-end">
-								<button
-									type="button"
-									onClick={() => setIsDetailOpen(false)}
-									className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-200 transition hover:bg-white/12"
-									aria-label="关闭问题详情"
-								>
-									<X className="h-4 w-4" />
-								</button>
-							</div>
-							<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-								<div className="flex flex-wrap items-center gap-2">
-									<span className="rounded-full border border-amber-300/20 bg-amber-300/10 px-3 py-1 text-xs font-semibold text-amber-100">
-										深潜浏览
-									</span>
-									<span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-semibold text-cyan-50">
-										{activeTopic}
-									</span>
-									<span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-slate-200">
-										{starNameFor(activeQuestion)}
-									</span>
-								</div>
-								<span className="text-xs text-slate-400">
-									{activeNode?.totalSource || activeQuestion.source_count || 1} 次来源 · {activeNode?.totalSame || activeQuestion.same_question_count || 0} 人同问
-								</span>
-							</div>
-							{activeNode && activeNode.clusterSize > 1 && (
-								<div className="mt-4 rounded-2xl border border-amber-300/15 bg-amber-300/8 p-3 text-sm text-amber-50">
-									<div className="flex items-center gap-2 font-semibold">
-										<Layers3 className="h-4 w-4" />
-										<span>
-											这是一个问题星系，代表 {activeNode.clusterSize} 个相似问题
-										</span>
-									</div>
-									<div className="mt-3 space-y-1.5 text-xs leading-5 text-amber-100/80">
-										{activeNode.members
-											.filter((member) => member.id !== activeQuestion.id)
-											.slice(0, 4)
-											.map((member) => (
-												<p key={member.id}>· {compactText(member.content, 72)}</p>
-											))}
-									</div>
-								</div>
-							)}
-							<h3 className="mt-5 text-xl font-black leading-snug text-white sm:text-2xl">
-								{activeQuestion.content}
-							</h3>
-							{hovered && hovered.id !== activeQuestion.id && (
-								<div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-3 text-xs text-slate-300">
-									正在指向 {starNameFor(hovered)}：{hovered.content.slice(0, 54)}
-									{hovered.content.length > 54 ? "..." : ""}
-								</div>
-							)}
-							<div className="mt-5 flex flex-wrap gap-2">
-								{activeQuestion.tags?.slice(0, 5).map((tag) => (
-									<span
-										key={tag}
-										className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-slate-300"
-									>
-										#{tag}
-									</span>
-								))}
-							</div>
-							<div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.03] p-3 text-sm text-slate-300 sm:p-4">
-								{activeQuestion.answer ? (
-									<div>
-										<div className="flex items-center gap-2 text-emerald-200">
-											<CheckCircle className="h-4 w-4" />
-											<span>已点亮，已有正式回答</span>
-										</div>
-										<p className="mt-3 whitespace-pre-wrap leading-6 text-slate-200">
-											{compactText(activeQuestion.answer, isFullscreen ? 360 : 220)}
-										</p>
-									</div>
-								) : (
-									<div className="flex items-center gap-2 text-amber-200">
-										<Sparkles className="h-4 w-4" />
-										<span>等待点亮，正在进入选题池</span>
-									</div>
-								)}
-							</div>
-							{relatedQuestions.length > 0 && (
-								<div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.035] p-3 sm:p-4">
-									<div className="flex items-center justify-between gap-3">
-										<h4 className="flex items-center gap-2 text-sm font-bold text-white">
-											<Network className="h-4 w-4 text-cyan-200" />
-											附近与相似问题
-										</h4>
-										<span className="text-xs text-slate-500">
-											{relatedQuestions.length} 个候选
-										</span>
-									</div>
-									<div className="mt-3 space-y-2">
-										{relatedQuestions.map(({ question, score, reasons }) => (
-											<button
-												key={question.id}
-												type="button"
-												onClick={() => {
-													setSelected(question);
-													setIsDetailOpen(true);
-												}}
-												className="w-full rounded-xl border border-white/10 bg-slate-950/45 p-3 text-left transition hover:border-cyan-300/30 hover:bg-slate-900/85"
-											>
-												<div className="flex items-start justify-between gap-3">
-													<div>
-														<p className="text-xs font-semibold text-cyan-100">
-															{starNameFor(question)}
-														</p>
-														<p className="mt-1 line-clamp-2 text-sm font-semibold leading-5 text-slate-100">
-															{question.content}
-														</p>
-													</div>
-													<ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-slate-500" />
-												</div>
-												<div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-slate-400">
-													<span>{Math.round(score * 100)}% 相关</span>
-													{question.answer && (
-														<span className="inline-flex items-center gap-1 text-emerald-200">
-															<MessageSquareText className="h-3 w-3" />
-															有回答
-														</span>
-													)}
-													{reasons.slice(0, 3).map((reason) => (
-														<span key={reason}>· {reason}</span>
-													))}
-												</div>
-											</button>
-										))}
-									</div>
-								</div>
-							)}
-							<div className="mt-auto grid gap-3 pt-6 sm:flex sm:flex-col">
-								<button
-									type="button"
-									onClick={() => onSameQuestion(activeQuestion)}
-									className="rounded-2xl border border-cyan-300/30 bg-cyan-300/10 px-4 py-3 text-sm font-semibold text-cyan-50 transition hover:bg-cyan-300/18"
-								>
-									我也想问
-								</button>
-								<Link
-									to={`/qa/${activeQuestion.id}`}
-									className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-50"
-								>
-									进入详情
-									<ArrowUpRight className="h-4 w-4" />
-								</Link>
-							</div>
-						</div>
-					)}
-				</aside>
-				{askPanel && isAskOpen && (
-					<div className="absolute inset-0 z-40 flex items-end justify-center bg-black/38 p-3 backdrop-blur-sm sm:items-center sm:p-6">
-						<div className="max-h-[min(86svh,760px)] w-full max-w-xl overflow-auto rounded-3xl border border-cyan-300/20 bg-slate-950/92 p-4 shadow-2xl shadow-cyan-950/40 sm:p-6">
-							<div className="mb-4 flex items-center justify-between gap-3">
-								<h3 className="flex items-center gap-2 text-lg font-black text-white">
-									<MessageCircle className="h-5 w-5 text-cyan-200" />
-									把问题送上星空
-								</h3>
-								<button
-									type="button"
-									onClick={() => setIsAskOpen(false)}
-									className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-200 transition hover:bg-white/12"
-									aria-label="关闭提问面板"
-								>
-									<X className="h-4 w-4" />
-								</button>
-							</div>
-							{askPanel}
-						</div>
-					</div>
-				)}
-			</div>
-		</section>
-	);
+  return <section className={isFullscreen ? 'planet-page planet-fullscreen' : 'planet-page'}>
+    <header className="page-heading planet-heading"><h1>问题星球</h1><div className="planet-heading-actions"><div className="planet-switch" aria-label="浏览方式"><button type="button" aria-pressed={viewMode === 'cosmos'} onClick={() => onViewModeChange?.('cosmos')}><Sparkles size={22} />星图</button><button type="button" aria-pressed={viewMode === 'list'} onClick={() => onViewModeChange?.('list')}><Layers3 size={22} />列表</button></div><button type="button" className="jw-action" onClick={() => setIsAskOpen(true)}><Plus />提问</button></div></header>
+    <div className="planet-search-row"><label className="planet-search"><Search aria-hidden="true" /><input aria-label="搜索问题" value={searchQuery} onChange={(event) => onSearchQueryChange(event.target.value)} placeholder="搜索你正在想的问题" />{searchQuery && <button type="button" aria-label="清空搜索" onClick={() => onSearchQueryChange('')}><X size={20} /></button>}</label><select aria-label="问题分类" value={selectedTopic || ''} onChange={(event) => onTopicSelect(event.target.value || null)}><option value="">全部</option>{QUESTION_TOPICS.map((topic) => <option key={topic} value={topic}>{topic}{topicCounts?.[topic] ? ' · '+topicCounts[topic] : ''}</option>)}</select></div>
+    <div className="planet-workspace" data-selected-question={focusedQuestionId || undefined} style={viewMode === 'list' ? {display:'none'} : undefined}>
+      <img className="planet-background" src="/images/question-cosmos-nebula.png" alt="" />
+      <div ref={mountRef} className="planet-mount" />
+      {!isDetailOpen && <div className="planet-intro"><h2>从一个问题，<br />探索更多可能。</h2><p>拖动探索 · 点击星星查看问题</p></div>}
+      {hovered && !isDetailOpen && <div className="planet-hover">{hovered.content.slice(0,55)}</div>}
+      {loading && !nodes.length ? <p role="status" className="planet-status">正在加载星图…</p> : renderError ? <div className="planet-status">当前设备无法显示 3D 星图<button type="button" onClick={() => onViewModeChange?.('list')}>使用问题列表</button></div> : !nodes.length && <div className="planet-status">没有找到匹配的问题<button type="button" onClick={onClearFilters}>清空筛选</button></div>}
+      {isDetailOpen && activeQuestion && <aside className="planet-preview" aria-label="选中的问题">
+        <div className="planet-preview-top"><span>{activeNode?.topic || activeQuestion.topic} · {activeQuestion.answer ? '已有回答' : '等待回答'}</span><button type="button" aria-label="关闭问题预览" onClick={() => {setIsDetailOpen(false);setShowRelated(false);}}><X size={22} /></button></div>
+        <h2>{activeQuestion.content}</h2>
+        <div className="planet-preview-actions"><Link to={'/qa/'+activeQuestion.id} state={{planetBackground:location}} className="preview-read">查看问题 <ArrowUpRight size={20} /></Link><button type="button" className="preview-follow" onClick={() => onSameQuestion(activeQuestion)}><Plus size={18} />我也想问</button></div>
+        <button type="button" className="related-toggle" aria-expanded={showRelated} onClick={() => setShowRelated(!showRelated)}>关联问题 · {relatedQuestions.length}<ChevronDown size={20} /></button>
+        {showRelated && <div className="planet-related">{relatedQuestions.length ? relatedQuestions.map((item) => <button type="button" key={item.question.id} onClick={() => selectQuestion(item.question)}>{item.question.content}</button>) : <p>暂未发现关联问题</p>}</div>}
+      </aside>}
+      <div className="planet-bottom"><span>{nodes.length} 颗星 · {stats.find((item) => item.label === '收录问题')?.value || totalLoadedStars || questions.length} 个问题{selectedTag ? ' · #'+selectedTag : ''}</span><div className="planet-controls"><button type="button" aria-label="缩小星图" onClick={() => sceneApiRef.current?.zoom(70)}><Minus size={20} /></button><span>{zoomLabel}</span><button type="button" aria-label="放大星图" onClick={() => sceneApiRef.current?.zoom(-70)}><Plus size={20} /></button><button type="button" aria-label="重置视角" onClick={() => {sceneApiRef.current?.reset();setIsDetailOpen(false);}}><RotateCcw size={20} /></button><button type="button" aria-label="平移模式" aria-pressed={interactionMode === 'pan'} onClick={() => setInteractionMode(interactionMode === 'pan' ? 'rotate':'pan')}><Move size={20} /></button><button type="button" aria-label={isFullscreen ? '退出全屏' : '全屏探索'} aria-pressed={isFullscreen} onClick={() => setIsFullscreen(!isFullscreen)}>{isFullscreen ? <X size={20} /> : <Expand size={20} />}</button><button type="button" aria-label="星图设置与帮助" aria-expanded={showHelp} onClick={() => setShowHelp(!showHelp)}><HelpCircle size={20} /></button></div></div>
+      {showHelp && <div className="planet-help"><p>拖动旋转星图，滚轮或加减按钮缩放。开启平移后，拖动移动视角。</p><p>点击星星查看问题。阅读后关闭窗口，继续从当前位置探索。</p><label>星图密度<select aria-label="星图密度" value={granularity} onChange={(event) => onGranularityChange?.(event.target.value as GranularityMode)}>{granularityOptions.map((option) => <option key={option.mode} value={option.mode}>{option.label}</option>)}</select></label></div>}
+    </div>
+    {viewMode === 'list' && <div className="planet-list-container">{listPanel}</div>}
+    {isAskOpen && <Dialog title="提交问题" onClose={() => setIsAskOpen(false)}>{askPanel}</Dialog>}
+  </section>;
 };
-
 export default QuestionStarMap;

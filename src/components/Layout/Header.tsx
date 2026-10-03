@@ -48,9 +48,9 @@ const Header: React.FC = () => {
     { to: '/', label: '首页', icon: Home, activePath: '/', exact: true },
     { to: '/qa', label: '问题星球', icon: Brain, activePath: '/qa' },
     { to: '/community?tab=partners', label: '找伙伴', icon: Users, activePath: '/community', activeTab: 'partners' },
-    { to: '/community?tab=moments', label: '动态', icon: Activity, activePath: '/community', activeTab: 'moments' },
-    { to: '/tools', label: '实验室', icon: Wrench, activePath: '/tools' },
-    { to: '/ai', label: 'AI 成长', icon: Bot, activePath: '/ai' },
+    { to: '/community?tab=moments', label: '社区', icon: Activity, activePath: '/community', activeTab: 'moments' },
+    { to: '/tools', label: '产品', icon: Wrench, activePath: '/tools' },
+    { to: '/ai', label: 'AI 学习', icon: Bot, activePath: '/ai' },
     { to: '/about', label: '关于', icon: Sparkles, activePath: '/about' },
   ];
 
@@ -67,8 +67,7 @@ const Header: React.FC = () => {
     <header className="site-header">
       <div className="site-header-inner">
         <Link to="/" className="site-brand" aria-label="健文社区首页">
-          <span className="site-brand-mark"><span>J</span><i /></span>
-          <span className="site-brand-copy"><strong>健文社区</strong><small>IDEAS INTO MOTION</small></span>
+          <span className="site-brand-copy"><strong>健文社区</strong></span>
         </Link>
 
         <nav className="site-nav" aria-label="主导航">
@@ -77,6 +76,7 @@ const Header: React.FC = () => {
               key={item.to}
               to={item.to}
               className={isNavActive(item) ? 'site-nav-item is-active' : 'site-nav-item'}
+              aria-current={isNavActive(item) ? 'page' : undefined}
             >
               <item.icon aria-hidden="true" />
               <span>{item.label}</span>
@@ -96,7 +96,7 @@ const Header: React.FC = () => {
               <button type="button" onClick={logout} className="site-icon-button" aria-label="退出登录"><LogOut /></button>
             </>
           ) : (
-            <Link to="/login" className="site-login-button"><span>进入社区</span><i /></Link>
+            <Link to="/login" className="site-login-button"><span>登录</span></Link>
           )}
           <button
             type="button"
@@ -113,9 +113,8 @@ const Header: React.FC = () => {
       {mobileMenuOpen && (
         <div className="site-mobile-panel">
           <nav aria-label="移动端主导航">
-            {navItems.map((item, index) => (
+            {navItems.map((item) => (
               <Link key={item.to} to={item.to} className={isNavActive(item) ? 'is-active' : ''}>
-                <span className="site-mobile-index">0{index + 1}</span>
                 <item.icon aria-hidden="true" />
                 <strong>{item.label}</strong>
               </Link>

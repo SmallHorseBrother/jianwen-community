@@ -108,7 +108,7 @@ const LoginForm: React.FC = () => {
     <div className="auth-shell flex items-center justify-center px-4 py-10">
       <div className="auth-card max-w-md w-full space-y-8 p-7 sm:p-8">
         <div className="text-center">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-cyan-200/80">Jianwen Community</p>
+          <Link to="/" className="auth-brand">健文社区</Link>
           <h2 className="auth-title text-3xl">欢迎回来</h2>
           <p className="auth-subtitle mt-2">登录您的健文社区账户</p>
           
@@ -239,12 +239,6 @@ const LoginForm: React.FC = () => {
           </div>
         </form>
         
-        {/* 推荐浏览器提示 */}
-        <div className="auth-note mt-4 p-3">
-          <p className="text-center text-xs">
-            为获得最佳体验，推荐使用 Chrome、Edge 或 Firefox 最新版本
-          </p>
-        </div>
       </div>
     </div>
   );

@@ -4,8 +4,8 @@
  */
 
 import React, { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import { ArrowUpRight, CheckCircle, MessageSquareText, Search, Send, Sparkles } from "lucide-react";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { Search, Send } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import MathCaptcha from "../components/Common/MathCaptcha";
 import QuestionStarMap from "../components/QA/QuestionStarMap";
@@ -80,6 +80,7 @@ const yieldToBrowser = () =>
 
 const QAHome: React.FC = () => {
 	const { user } = useAuth();
+  const location = useLocation();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const initialTag = searchParams.get("tag");
 
@@ -259,8 +260,8 @@ const QAHome: React.FC = () => {
 
 	const statCards = useMemo(
 		() => [
-			{ label: "收录问题", value: stats ? compactNumber(stats.total) : "2,800+" },
-			{ label: "来源渠道", value: stats ? compactNumber(Math.max(stats.sourcePlatformCount, 6)) : "6" },
+			{ label: "收录问题", value: stats ? compactNumber(stats.total) : "…" },
+			{ label: "来源渠道", value: stats ? compactNumber(stats.sourcePlatformCount) : "6" },
 			{ label: "已点亮", value: stats ? compactNumber(stats.answered) : "0" },
 			{ label: "累计同问", value: stats ? compactNumber(stats.totalSameQuestions) : "0" },
 		],
@@ -361,7 +362,8 @@ const QAHome: React.FC = () => {
 	const questionComposer = (
 		<form onSubmit={handleSubmitQuestion} className="grid gap-3">
 			<select
-				value={questionTopic}
+				aria-label="提问分类"
+        value={questionTopic}
 				onChange={(event) => setQuestionTopic(event.target.value)}
 				className="rounded-2xl border border-white/10 bg-slate-900/80 px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-cyan-400"
 			>
@@ -372,7 +374,8 @@ const QAHome: React.FC = () => {
 				))}
 			</select>
 			<textarea
-				value={questionContent}
+				aria-label="问题内容"
+        value={questionContent}
 				onChange={(event) => setQuestionContent(event.target.value)}
 				placeholder="写下一个你真正卡住的问题"
 				className="min-h-36 rounded-2xl border border-white/10 bg-slate-900/80 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-500 focus:ring-2 focus:ring-cyan-400"
@@ -442,118 +445,12 @@ const QAHome: React.FC = () => {
 		</form>
 	);
 
-	const questionListPanel = (
-		<div className="grid gap-5">
-			<div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-				<div>
-					<p className="inline-flex items-center gap-2 rounded-full border border-cyan-300/25 bg-cyan-300/10 px-3 py-1 text-xs font-semibold text-cyan-100">
-						<Sparkles className="h-3.5 w-3.5" />
-						星际索引
-					</p>
-					<h2 className="mt-3 text-2xl font-black tracking-tight text-white sm:text-3xl">
-						按问题列表快速穿梭
-					</h2>
-					<p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300">
-						这里和上方搜索、分类完全联动。想沉浸探索就回到星空，想快速扫题就切到列表。
-					</p>
-				</div>
-				<div className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-slate-300">
-					当前索引 <span className="font-black text-cyan-100">{questions.length}</span> 个问题
-				</div>
-			</div>
-
-			{loading ? (
-				<div className="rounded-3xl border border-white/10 bg-slate-950/55 p-8 text-center text-sm text-slate-300">
-					正在从星云里整理问题索引...
-				</div>
-			) : questions.length === 0 ? (
-				<div className="rounded-3xl border border-white/10 bg-slate-950/55 p-8 text-center">
-					<p className="text-lg font-bold text-white">这片星域暂时没有匹配问题</p>
-					<p className="mt-2 text-sm text-slate-400">可以清空筛选，或者直接把你的问题送上星空。</p>
-				</div>
-			) : (
-				<div className="grid gap-3">
-					{questions.map((question, index) => (
-						<article
-							key={question.id}
-							className="group rounded-[1.4rem] border border-white/10 bg-slate-950/58 p-4 shadow-xl shadow-black/20 backdrop-blur transition hover:border-cyan-300/30 hover:bg-slate-900/78 sm:p-5"
-						>
-							<div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-								<div className="min-w-0 flex-1">
-									<div className="flex flex-wrap items-center gap-2 text-xs">
-										<span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-2.5 py-1 font-semibold text-cyan-100">
-											#{String(index + 1).padStart(2, "0")}
-										</span>
-										{question.topic && (
-											<span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-slate-300">
-												{question.topic}
-											</span>
-										)}
-										{question.answer ? (
-											<span className="inline-flex items-center gap-1 rounded-full border border-emerald-300/20 bg-emerald-300/10 px-2.5 py-1 text-emerald-100">
-												<CheckCircle className="h-3 w-3" />
-												已点亮
-											</span>
-										) : (
-											<span className="inline-flex items-center gap-1 rounded-full border border-amber-300/20 bg-amber-300/10 px-2.5 py-1 text-amber-100">
-												<Sparkles className="h-3 w-3" />
-												待点亮
-											</span>
-										)}
-									</div>
-									<Link
-										to={`/qa/${question.id}`}
-										className="mt-3 block text-lg font-black leading-snug text-white transition group-hover:text-cyan-50 sm:text-xl"
-									>
-										{question.content}
-									</Link>
-									<div className="mt-3 flex flex-wrap gap-2">
-										{(question.tags || []).slice(0, 4).map((tag) => (
-											<span
-												key={tag}
-												className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs text-slate-400"
-											>
-												#{tag}
-											</span>
-										))}
-									</div>
-									<div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-slate-400">
-										<span>{question.source_count || 1} 次来源</span>
-										<span>{question.same_question_count || 0} 人同问</span>
-										{question.answer && (
-											<span className="inline-flex items-center gap-1 text-emerald-200">
-												<MessageSquareText className="h-3.5 w-3.5" />
-												已有回答
-											</span>
-										)}
-									</div>
-								</div>
-								<div className="flex shrink-0 gap-2 sm:flex-col">
-									<button
-										type="button"
-										onClick={() => handleSameQuestion(question)}
-										className="rounded-2xl border border-cyan-300/25 bg-cyan-300/10 px-4 py-2 text-xs font-bold text-cyan-50 transition hover:bg-cyan-300/18"
-									>
-										我也想问
-									</button>
-									<Link
-										to={`/qa/${question.id}`}
-										className="inline-flex items-center justify-center gap-1 rounded-2xl border border-white/10 bg-white/10 px-4 py-2 text-xs font-bold text-white transition hover:bg-white/16"
-									>
-										详情
-										<ArrowUpRight className="h-3.5 w-3.5" />
-									</Link>
-								</div>
-							</div>
-						</article>
-					))}
-				</div>
-			)}
-		</div>
-	);
+  const questionListPanel = <div className="planet-list">
+    {loading ? <p role="status" className="py-12 text-center">正在加载问题…</p> : questions.length === 0 ? <div className="py-12 text-center"><h2 className="text-2xl mb-6">没有找到匹配的问题</h2><button type="button" className="jw-action" onClick={handleClearFilters}>清空筛选</button></div> : questions.map((question) => <article className="planet-list-row" key={question.id}><div><Link to={'/qa/'+question.id} state={{planetBackground:location}}>{question.content}</Link><p>{question.topic} · {question.answer ? '已有回答' : '等待回答'} · {question.same_question_count || 0} 人同问</p></div><button type="button" onClick={() => handleSameQuestion(question)}>我也想问</button></article>)}
+  </div>;
 
 	return (
-		<div className="min-h-[calc(100svh-4rem)]">
+		<div className="redesign-qa">
 			<QuestionStarMap
 				questions={stars}
 				semanticEdges={starEdges}
@@ -577,7 +474,7 @@ const QAHome: React.FC = () => {
 			/>
 
 			{sameToast && (
-				<div className="fixed bottom-4 left-3 right-3 z-50 rounded-2xl border border-cyan-300/25 bg-slate-950/90 px-4 py-3 text-center text-sm font-semibold text-cyan-50 shadow-2xl shadow-cyan-950/40 backdrop-blur sm:bottom-6 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 sm:rounded-full sm:px-5">
+				<div role="status" className="qa-same-toast fixed bottom-4 left-3 right-3 z-50 rounded-2xl border border-cyan-300/25 bg-slate-950/90 px-4 py-3 text-center text-sm font-semibold text-cyan-50 shadow-2xl shadow-cyan-950/40 backdrop-blur sm:bottom-6 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 sm:rounded-full sm:px-5">
 					{sameToast}
 				</div>
 			)}

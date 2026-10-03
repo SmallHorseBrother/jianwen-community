@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
+import { useLocation, useNavigationType } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
-import VisualAtmosphere from '../Common/VisualAtmosphere';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const location = useLocation();
+  const navigationType = useNavigationType();
+  useLayoutEffect(() => {
+    if (navigationType !== 'POP' && !location.hash) window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [location.pathname, location.search, location.hash, navigationType]);
   return (
-    <div className="cosmic-shell site-shell min-h-screen flex flex-col text-slate-100">
-      <VisualAtmosphere />
-      <div className="site-scroll-progress" aria-hidden="true" />
+    <div className="site-shell min-h-screen flex flex-col">
+      <a href="#main-content" className="skip-link">跳到主要内容</a>
       <Header />
-      <main className="site-main relative z-10 w-full min-w-0 max-w-[1480px] mx-auto px-3 py-4 sm:px-6 sm:py-8 lg:px-10 flex-1">
+      <main id="main-content" className="site-main relative w-full min-w-0 mx-auto flex-1">
         {children}
       </main>
       <Footer />

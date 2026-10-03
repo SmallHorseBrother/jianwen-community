@@ -751,7 +751,7 @@ const AIAssessment: React.FC = () => {
   const groupImageUrl = payment?.group_qr_url || (isUnlocked && payment?.membership?.level ? paymentPlaceholders[payment.membership.level] : null);
 
   return (
-    <main className="page-aurora min-h-screen px-3 py-6 pb-16 sm:px-6 sm:py-10">
+    <main className="redesign-assessment page-aurora min-h-screen px-3 py-6 pb-16 sm:px-6 sm:py-10">
       <div className="mx-auto max-w-4xl">
         <button onClick={() => stage === 'home' ? navigate('/ai/exams') : setStage('home')} className="mb-5 inline-flex items-center gap-2 text-sm text-slate-300 transition hover:text-cyan-200"><ArrowLeft className="h-4 w-4" />{stage === 'home' ? '返回AI考试大厅' : '返回综合考试首页'}</button>
         <section className="overflow-hidden rounded-3xl border border-cyan-200/40 bg-slate-950/90 text-slate-100 shadow-xl shadow-cyan-950/30 backdrop-blur-xl">

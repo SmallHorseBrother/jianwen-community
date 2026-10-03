@@ -3,10 +3,11 @@
  * 支持图片上传
  */
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { X, Image as ImageIcon, Loader2, Send } from 'lucide-react';
 import { createCheckIn, uploadCheckInImage } from '../../services/checkInService';
 import { normalizeCheckInContent } from '../../utils/normalizeCheckInContent';
+import Dialog from '../Common/Dialog';
 
 interface CreateCheckInModalProps {
   onClose: () => void;
@@ -20,6 +21,9 @@ const CreateCheckInModal: React.FC<CreateCheckInModalProps> = ({ onClose, onSucc
   const [images, setImages] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const previewRef = useRef<string[]>([]);
+  useEffect(() => { previewRef.current = previewUrls; }, [previewUrls]);
+  useEffect(() => () => previewRef.current.forEach((url) => URL.revokeObjectURL(url)), []);
 
   const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -38,6 +42,7 @@ const CreateCheckInModal: React.FC<CreateCheckInModalProps> = ({ onClose, onSucc
   };
 
   const removeImage = (index: number) => {
+    URL.revokeObjectURL(previewUrls[index]);
     setImages(prev => prev.filter((_, i) => i !== index));
     setPreviewUrls(prev => prev.filter((_, i) => i !== index));
   };
@@ -60,34 +65,23 @@ const CreateCheckInModal: React.FC<CreateCheckInModalProps> = ({ onClose, onSucc
       await createCheckIn(normalizedContent, imageUrls, userId);
       
       onSuccess();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('发布失败', error);
-      alert('发布失败: ' + (error.message || '请重试'));
+      alert('发布失败: ' + (error instanceof Error ? error.message : '请重试'));
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
-      <div className="bg-white rounded-2xl w-full max-w-lg shadow-xl overflow-hidden animate-in zoom-in-95 duration-200">
-        {/* 标题栏 */}
-        <div className="flex justify-between items-center px-6 py-4 border-b border-gray-100">
-          <h2 className="text-xl font-bold text-gray-900">✨ 分享你的日常</h2>
-          <button 
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-500"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-
+    <Dialog title="发布打卡" onClose={onClose} dismissDisabled={isSubmitting}>
         <form onSubmit={handleSubmit}>
-          <div className="p-6">
+          <div className="pb-6">
             <textarea
+              aria-label="打卡内容"
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              placeholder="今天做了什么？健身、学习还是生活感悟？..."
+              placeholder="今天有什么进步？"
               className="w-full h-32 resize-none text-base border-none focus:ring-0 p-0 text-gray-700 placeholder:text-gray-400"
               autoFocus
             />
@@ -101,7 +95,7 @@ const CreateCheckInModal: React.FC<CreateCheckInModalProps> = ({ onClose, onSucc
                     <button
                       type="button"
                       onClick={() => removeImage(index)}
-                      className="absolute top-1 right-1 p-1 bg-black/50 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                      aria-label={`移除图片 ${index + 1}`} className="checkin-remove-image absolute top-1 right-1 w-8 h-8 flex items-center justify-center bg-black/70 text-white rounded-full"
                     >
                       <X className="w-3 h-3" />
                     </button>
@@ -112,7 +106,7 @@ const CreateCheckInModal: React.FC<CreateCheckInModalProps> = ({ onClose, onSucc
           </div>
 
           {/* 底部工具栏 */}
-          <div className="flex items-center justify-between px-6 py-4 bg-gray-50 border-t border-gray-100">
+          <div className="checkin-composer-actions flex items-center justify-between gap-3 py-4 border-t border-gray-200">
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
@@ -133,7 +127,7 @@ const CreateCheckInModal: React.FC<CreateCheckInModalProps> = ({ onClose, onSucc
             <button
               type="submit"
               disabled={isSubmitting || (!normalizeCheckInContent(content) && images.length === 0)}
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-xl font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg active:scale-95"
+              className="jw-action disabled:opacity-50"
             >
               {isSubmitting ? (
                 <>
@@ -149,9 +143,7 @@ const CreateCheckInModal: React.FC<CreateCheckInModalProps> = ({ onClose, onSucc
             </button>
           </div>
         </form>
-      </div>
-    </div>
+    </Dialog>
   );
 };
-
 export default CreateCheckInModal;

@@ -1,96 +1,22 @@
-/**
- * 打卡排行榜
- * 展示本月最活跃的用户
- */
-
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getLeaderboard } from '../../services/checkInService';
-import { Trophy, Medal, User } from 'lucide-react';
 
-interface LeaderboardUser {
-  count: number;
-  user: {
-    nickname: string;
-    avatar_url: string | null;
-    group_nickname: string | null;
-  };
-}
-
-const Leaderboard: React.FC = () => {
-  const [leaders, setLeaders] = useState<any[]>([]);
+type Leader = Awaited<ReturnType<typeof getLeaderboard>>[number];
+const Leaderboard: React.FC<{ revision?: number }> = ({ revision = 0 }) => {
+  const [leaders, setLeaders] = useState<Leader[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const [error, setError] = useState(false);
   useEffect(() => {
-    loadLeaderboard();
-  }, []);
-
-  const loadLeaderboard = async () => {
-    try {
-      const data = await getLeaderboard();
-      setLeaders(data);
-    } catch (error) {
-      console.error('加载排行榜失败', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const getRankIcon = (index: number) => {
-    switch (index) {
-      case 0: return <Trophy className="w-5 h-5 text-yellow-500 fill-current" />;
-      case 1: return <Medal className="w-5 h-5 text-gray-400 fill-current" />;
-      case 2: return <Medal className="w-5 h-5 text-orange-600 fill-current" />;
-      default: return <span className="text-sm font-bold text-gray-400 w-5 text-center">{index + 1}</span>;
-    }
-  };
-
-  return (
-    <div className="bg-white rounded-2xl shadow-sm border border-orange-100 overflow-hidden sticky top-24">
-      <div className="bg-gradient-to-r from-orange-500 to-red-500 p-4 text-white">
-        <h3 className="font-bold flex items-center gap-2">
-          <Trophy className="w-5 h-5" />
-          活跃榜 (Top 10)
-        </h3>
-        <p className="text-orange-100 text-xs mt-1">坚持打卡，见证更好的自己</p>
-      </div>
-
-      <div className="p-2">
-        {loading ? (
-          <div className="text-center py-6 text-gray-400 text-sm">加载中...</div>
-        ) : leaders.length === 0 ? (
-          <div className="text-center py-6 text-gray-400 text-sm">虚位以待，快来打卡！</div>
-        ) : (
-          <div className="space-y-1">
-            {leaders.map((item, index) => (
-              <div key={index} className="flex items-center gap-3 p-2 hover:bg-orange-50 rounded-lg transition-colors">
-                <div className="flex-shrink-0 w-8 flex justify-center">
-                  {getRankIcon(index)}
-                </div>
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-100 overflow-hidden">
-                  {item.user.avatar_url ? (
-                    <img src={item.user.avatar_url} alt="" className="w-full h-full object-cover" />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-xs text-gray-400">
-                      <User className="w-4 h-4" />
-                    </div>
-                  )}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold text-gray-800 truncate">{item.user.nickname}</p>
-                  {item.user.group_nickname && (
-                    <p className="text-xs text-gray-400 truncate">{item.user.group_nickname}</p>
-                  )}
-                </div>
-                <div className="text-sm font-medium text-orange-600">
-                  {item.count} <span className="text-xs text-gray-400 font-normal">次</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
+    let active = true;
+    setError(false);
+    void getLeaderboard().then((data) => { if (active) setLeaders(data); }).catch(() => { if (active) setError(true); }).finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, [revision]);
+  return <div className="ranking-panel">
+    <h2>打卡排行榜</h2><p>Top 10 · 最近 200 条打卡</p>
+    {loading ? <p className="py-6" role="status">正在加载排行榜…</p> : error ? <p className="py-6" role="status">排行榜暂时无法加载，请刷新重试。</p> : leaders.length === 0 ? <p className="py-6">等你来打卡。</p> : <ol>{leaders.map((item,index) => <li className="ranking-row" key={item.user.nickname + index}>
+      <span className="ranking-position">{index + 1}</span><span className="ranking-avatar">{item.user.avatar_url ? <img src={item.user.avatar_url} alt="" loading="lazy" /> : item.user.nickname?.slice(0,1) || '友'}</span><span className="ranking-name" title={item.user.nickname}>{item.user.nickname}</span><span className="ranking-count">{item.count} <small>次</small></span>
+    </li>)}</ol>}
+  </div>;
 };
-
 export default Leaderboard;

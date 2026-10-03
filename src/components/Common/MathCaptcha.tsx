@@ -116,7 +116,7 @@ const MathCaptcha: React.FC<MathCaptchaProps> = ({ onVerify, className = '' }) =
           ? '没有对准目标区，请再试一次。'
           : status === 'success'
             ? '已确认是真人操作。'
-            : '将滑块停在蓝色高亮区域内即可继续。'}
+            : '将滑块停在高亮区域内即可继续。'}
       </p>
     </div>
   );

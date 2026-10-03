@@ -17,6 +17,7 @@ import {
 } from '../../services/checkInService';
 import CheckInShareModal from './CheckInShareModal';
 import { normalizeCheckInContent } from '../../utils/normalizeCheckInContent';
+import CheckInImagePreview, { type ImageOrigin } from './CheckInImagePreview';
 
 interface CheckInCardProps {
   checkIn: CheckIn;
@@ -31,6 +32,7 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
   const [replyTarget, setReplyTarget] = useState<CheckInComment | null>(null);
   const [submittingComment, setSubmittingComment] = useState(false);
   const [likeAnimating, setLikeAnimating] = useState(false);
+  const [previewImage, setPreviewImage] = useState<{src: string; origin: ImageOrigin} | null>(null);
   const [showShareModal, setShowShareModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const normalizedContent = normalizeCheckInContent(checkIn.content || '');
@@ -237,7 +239,7 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
   return (
     <div
       id={`check-in-${checkIn.id}`}
-      className={`mb-3 rounded-xl bg-white p-4 transition-all sm:mb-4 sm:rounded-2xl sm:p-5 ${
+      className={`checkin-card mb-3 rounded-xl bg-white p-4 transition-all sm:mb-4 sm:rounded-2xl sm:p-5 ${
         highlighted
           ? 'border-2 border-cyan-300 shadow-xl shadow-cyan-200/40 ring-4 ring-cyan-100'
           : 'border border-gray-100 shadow-sm hover:shadow-md'
@@ -329,37 +331,20 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
         )}
       </div>
 
-      {/* 图片网格 */}
       {checkIn.image_urls && checkIn.image_urls.length > 0 && (
-        <div className={`mb-4 grid gap-1.5 sm:gap-2 ${
-          checkIn.image_urls.length === 1 ? 'grid-cols-1 sm:max-w-sm' : 
-          checkIn.image_urls.length === 2 ? 'grid-cols-2' : 
-          'grid-cols-3'
-        }`}>
-          {checkIn.image_urls.map((url, index) => (
-            <div 
-              key={index} 
-              className={`relative rounded-xl overflow-hidden bg-gray-100 ${
-                checkIn.image_urls?.length === 1 ? 'aspect-auto' : 'aspect-square'
-              }`}
-            >
-              <img 
-                src={url} 
-                alt={`check-in-${index}`} 
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                onClick={() => window.open(url, '_blank')} // 简单的大图预览
-              />
-            </div>
-          ))}
+        <div className={`checkin-images mb-4 grid gap-2 ${checkIn.image_urls.length === 1 ? 'single grid-cols-1' : checkIn.image_urls.length === 2 ? 'grid-cols-2' : 'grid-cols-3'}`}>
+          {checkIn.image_urls.map((url,index) => <button type="button" key={url + index} aria-label={`查看打卡图片 ${index + 1}`} onClick={(event) => { const {x,y,width,height} = event.currentTarget.getBoundingClientRect(); setPreviewImage({src:url,origin:{x,y,width,height}}); }} className="relative rounded-lg overflow-hidden bg-gray-100 aspect-square"><img src={url} alt={`打卡照片 ${index + 1}`} loading="lazy" className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" /></button>)}
         </div>
       )}
 
       {/* 操作栏 */}
       <div className="flex items-center justify-between border-t border-gray-50 pt-3">
-        <div className="flex flex-wrap items-center gap-3 sm:gap-6">
+        <div className="checkin-actions flex flex-wrap items-center gap-3 sm:gap-6">
           <button 
             type="button"
             onClick={handleLike}
+            aria-pressed={isLiked}
+            disabled={likeAnimating}
             className={`flex items-center gap-1.5 transition-all text-sm group ${
               isLiked ? 'text-pink-500 font-medium' : 'text-gray-500 hover:text-gray-900'
             }`}
@@ -452,6 +437,7 @@ const CheckInCard: React.FC<CheckInCardProps> = ({ checkIn, onUpdate, highlighte
         </div>
       )}
 
+      {previewImage && <CheckInImagePreview src={previewImage.src} origin={previewImage.origin} onClose={() => setPreviewImage(null)} />}
       {showShareModal && canShareCheckIn && (
         <CheckInShareModal
           checkIn={checkIn}

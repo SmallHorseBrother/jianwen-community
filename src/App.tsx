@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigate, type Location } from 'react-router-dom';
+import Dialog from './components/Common/Dialog';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 
 // Import debug utilities (available in browser console as window.debugAuth)
@@ -66,8 +67,12 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
 // App Routes Component
 const AppRoutes: React.FC = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const background = (location.state as { planetBackground?: Location } | null)?.planetBackground;
   return (
-    <Routes>
+    <>
+    <Routes location={background || location}>
       {/* ========== V2.0 核心路由 ========== */}
       {/* 默认页 - 社区宣传入口 */}
       <Route path="/" element={<Layout><Home /></Layout>} />
@@ -144,6 +149,8 @@ const AppRoutes: React.FC = () => {
       {/* 404 Page - must be last */}
       <Route path="*" element={<NotFound />} />
     </Routes>
+    {background && location.pathname.startsWith('/qa/') && <Dialog title="问题与回答" onClose={() => navigate(-1)} className="planet-reading-dialog"><Routes><Route path="/qa/:id" element={<QADetail />} /></Routes></Dialog>}
+    </>
   );
 };
 

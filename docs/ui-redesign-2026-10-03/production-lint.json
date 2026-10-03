@@ -1,0 +1,13 @@
+{
+  "baselineCount": 8,
+  "currentCount": 1,
+  "introduced": [],
+  "remaining": [
+    {
+      "file": "src/pages/QAHome.tsx",
+      "rule": "react-hooks/exhaustive-deps",
+      "severity": 1,
+      "message": "React Hook useEffect has a missing dependency: 'loadQuestionData'. Either include it or remove the dependency array."
+    }
+  ]
+}

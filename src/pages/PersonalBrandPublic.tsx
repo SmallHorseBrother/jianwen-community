@@ -1,9 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import {
   BookOpen,
   Briefcase,
-  Award,
   Camera,
   Download,
   ExternalLink,
@@ -12,7 +10,6 @@ import {
   Image as ImageIcon,
   Lightbulb,
   Loader,
-  MapPin,
   MessageCircle,
   Medal,
   Phone,
@@ -277,6 +274,7 @@ const FileCard: React.FC<{ file: PersonalFile }> = ({ file }) => (
 const AchievementMediaWall: React.FC<{ files: PersonalFile[] }> = ({ files }) => {
   const mediaFiles = files.filter((file) => isImageFile(file) || isVideoFile(file)).slice(0, 12);
   const hasMedia = mediaFiles.length > 0;
+  if (!hasMedia) return null;
 
   return (
     <section className="about-panel overflow-hidden">
@@ -291,20 +289,6 @@ const AchievementMediaWall: React.FC<{ files: PersonalFile[] }> = ({ files }) =>
                 <h2 className="about-panel-title text-xl">奖状奖牌影像墙</h2>
                 <p className="about-panel-muted text-sm mt-1">证书、奖牌、比赛现场、训练视频和内容作品都可以在这里聚合</p>
               </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-3 gap-3 text-center">
-            <div className="about-subpanel px-4 py-3">
-              <div className="about-panel-title text-2xl">70+</div>
-              <div className="about-panel-muted text-xs mt-1">奖状奖牌</div>
-            </div>
-            <div className="about-subpanel px-4 py-3">
-              <div className="about-panel-title text-2xl">4</div>
-              <div className="about-panel-muted text-xs mt-1">成长阶段</div>
-            </div>
-            <div className="about-subpanel px-4 py-3">
-              <div className="about-panel-title text-2xl">{hasMedia ? mediaFiles.length : '待传'}</div>
-              <div className="about-panel-muted text-xs mt-1">精选素材</div>
             </div>
           </div>
         </div>
@@ -492,7 +476,8 @@ const PersonalBrandPublic: React.FC = () => {
   const [messages, setMessages] = useState<DigitalHumanMessage[]>([]);
   const [question, setQuestion] = useState('');
   const [answering, setAnswering] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const [introExpanded, setIntroExpanded] = useState(false);
+  const messageListRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const loadBundle = async () => {
@@ -529,7 +514,8 @@ const PersonalBrandPublic: React.FC = () => {
   }, [bundle?.profile.aiEnabled, bundle?.profile.id, bundle?.profile.slug, messages]);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ block: 'end', behavior: 'smooth' });
+    const list = messageListRef.current;
+    list?.scrollTo({ top: list.scrollHeight, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   }, [answering, messages]);
 
   const groupedEntries = useMemo(() => {
@@ -625,147 +611,12 @@ const PersonalBrandPublic: React.FC = () => {
 
   return (
     <div className="about-page space-y-8">
-      <section className="hero-cyber rounded-[1.5rem] text-white">
-        <div className="relative z-10 px-6 py-10 md:px-10 md:py-14">
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-center">
-            <div className="max-w-4xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/30 bg-cyan-300/12 px-4 py-1.5 text-sm font-medium text-cyan-50 mb-5 shadow-lg shadow-cyan-950/20">
-                <Sparkles className="w-4 h-4" />
-                关于我与 AI 分身
-              </div>
-              <h1 className="text-4xl md:text-6xl font-black tracking-normal text-white">
-                {bundle.profile.displayName || '未命名主页'}
-              </h1>
-              {bundle.profile.headline && (
-                <p className="mt-4 text-lg md:text-xl font-medium text-cyan-50">{bundle.profile.headline}</p>
-              )}
-              {bundle.profile.intro && (
-                <p className="mt-5 max-w-3xl text-base text-slate-100 leading-8 whitespace-pre-wrap">
-                  {bundle.profile.intro}
-                </p>
-              )}
+      <header className="page-heading"><div><h1>关于</h1><p>认识马健文，也认识这个社区。</p></div></header>
 
-              <div className="mt-6 flex flex-wrap gap-3 text-sm text-cyan-100">
-                {bundle.profile.location && (
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/12 px-3 py-1.5">
-                    <MapPin className="w-4 h-4" />
-                    {bundle.profile.location}
-                  </span>
-                )}
-                {bundle.profile.expertise.map((item) => (
-                  <span key={item} className="rounded-full border border-white/15 bg-white/12 px-3 py-1.5">
-                    {item}
-                  </span>
-                ))}
-              </div>
 
-              {socialLinks.length > 0 && (
-                <div className="mt-6">
-                  <div className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-100/60">
-                    重要链接
-                  </div>
-                  <div className="flex flex-wrap gap-3">
-                    {socialLinks.slice(0, 8).map((link) => (
-                      <a
-                        key={link.key}
-                        href={link.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex min-h-10 items-center gap-2 rounded-full border border-cyan-300/30 bg-cyan-300/12 px-4 py-2 text-sm font-medium text-cyan-50 transition hover:bg-cyan-300/18"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        {link.label}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <div className="mt-6 flex flex-wrap gap-3 text-sm">
-                <span className="rounded-full border border-white/15 bg-white/12 px-4 py-2 text-slate-50">
-                  这里是 AI 分身即时回答，不会自动进入公开问答广场
-                </span>
-                <Link
-                  to="/qa"
-                  className="rounded-full border border-cyan-300/35 bg-cyan-300/12 px-4 py-2 font-medium text-cyan-50 hover:bg-cyan-300/18 transition"
-                >
-                  想提交真人回答的问题，去公开问答
-                </Link>
-              </div>
-            </div>
-
-            <div className="about-hero-proof">
-              <div className="about-hero-proof-top">
-                <Award className="h-6 w-6 text-amber-200" />
-                <div>
-                  <div className="text-sm text-cyan-100/80">成就档案</div>
-                  <div className="text-4xl font-black text-white">70+</div>
-                </div>
-              </div>
-              <div className="mt-5 grid grid-cols-2 gap-3">
-                {[
-                  ['本科成绩', '专业 1 / 202'],
-                  ['科研成果', 'ACL 2025'],
-                  ['体育表现', '北大校纪录'],
-                  ['AI 创业', '3 个产品方向'],
-                ].map(([title, value]) => (
-                  <div key={title} className="rounded-2xl border border-white/12 bg-white/10 p-4">
-                    <div className="text-xs text-cyan-100/75">{title}</div>
-                    <div className="mt-1 text-sm font-semibold text-white">{value}</div>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-5 rounded-2xl border border-amber-200/20 bg-amber-200/10 p-4 text-sm leading-6 text-amber-50">
-                从高考未进入北大，到南航专业第一，再到北大直博：比奖项更重要的是一条可以重新设计的成长路径。
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_360px] gap-8 items-start">
-        <div className="space-y-8">
-          {bundle.profile.longBio && (
-            <section className="about-panel p-6 md:p-8">
-              <h2 className="about-panel-title text-xl mb-4">基础信息</h2>
-              <p className="about-panel-copy leading-8 whitespace-pre-wrap">{bundle.profile.longBio}</p>
-            </section>
-          )}
-
-          {SECTION_ORDER.map((entryType) => (
-            <PublicSection
-              key={entryType}
-              entryType={entryType}
-              entries={groupedEntries.get(entryType) || []}
-            />
-          ))}
-
-          <AchievementMediaWall files={bundle.files} />
-
-          {bundle.files.length > 0 && (
-            <section className="about-panel p-6 md:p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="about-icon">
-                  <Download className="w-5 h-5" />
-                </div>
-                <div>
-                  <h2 className="about-panel-title text-xl">附件资料</h2>
-                  <p className="about-panel-muted text-sm mt-1">简历、论文、项目说明书等文件</p>
-                </div>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {bundle.files.map((file) => (
-                  <FileCard key={file.id} file={file} />
-                ))}
-              </div>
-            </section>
-          )}
-
-          <ContactPanel wechatPublic={bundle.profile.wechatPublic} />
-          <CollaborationPanel />
-        </div>
-
-        <aside className="xl:sticky xl:top-24">
+      <div className="about-layout">
+      <section className="about-introduction"><img src="/images/community/avatar-founder.jpg" alt={bundle.profile.displayName} /><div><h2>{bundle.profile.displayName}</h2><p className="about-headline"><span>{bundle.profile.headline.split(/\s*\/\s*/)[0]}</span>{bundle.profile.headline.includes("/") && <span>{bundle.profile.headline.split(/\s*\/\s*/).slice(1).join(" · ")}</span>}</p><p className={introExpanded ? 'about-intro-copy is-expanded' : 'about-intro-copy'}>{bundle.profile.intro}</p>{bundle.profile.intro.length > 80 && <button type="button" className="about-intro-toggle" aria-expanded={introExpanded} onClick={() => setIntroExpanded(!introExpanded)}>{introExpanded ? '收起简介' : '展开简介'}</button>}<div className="about-social-links">{socialLinks.map((link) => <a key={link.key} href={link.url} target="_blank" rel="noreferrer">{link.label}<ExternalLink size={18} /></a>)}</div><a href="#about-contact" className="jw-action">联系与合作 <ExternalLink size={20} /></a></div></section>
+        <aside className="about-chat-column">
           <div className="about-chat-shell">
             <div className="about-chat-head px-6 py-5">
               <div className="flex items-start justify-between gap-4">
@@ -774,7 +625,7 @@ const PersonalBrandPublic: React.FC = () => {
                     <MessageCircle className="w-5 h-5 text-cyan-300" />
                     和我的 AI 分身聊聊
                   </div>
-                  <div className="about-panel-muted mt-1 text-xs">本机保留历史</div>
+                  <div className="about-panel-muted mt-1 text-xs">AI 分身 · 对话保存在本机</div>
                 </div>
                 {bundle.profile.aiEnabled && messages.length > 1 && (
                   <button
@@ -789,13 +640,13 @@ const PersonalBrandPublic: React.FC = () => {
                 )}
               </div>
               <p className="about-panel-muted mt-2 text-sm leading-6">
-                这里会基于公开资料即时回答关于经历、论文、创业和项目的问题，不代表我本人实时在线，也不会自动发布到公开问答广场。
+                基于公开资料回答经历与项目问题，由 AI 回复。
               </p>
             </div>
 
             {bundle.profile.aiEnabled ? (
               <>
-                <div className="p-5 space-y-4 max-h-[32rem] overflow-y-auto">
+                <div ref={messageListRef} className="p-5 space-y-4 max-h-[32rem] overflow-y-auto">
                   {messages.map((message, index) => (
                     <div
                       key={`${message.role}-${index}`}
@@ -820,7 +671,6 @@ const PersonalBrandPublic: React.FC = () => {
                       </div>
                     </div>
                   )}
-                  <div ref={messagesEndRef} />
                 </div>
 
                 <form onSubmit={handleAsk} className="border-t border-slate-700/60 p-4">
@@ -829,7 +679,8 @@ const PersonalBrandPublic: React.FC = () => {
                       value={question}
                       onChange={(event) => setQuestion(event.target.value)}
                       rows={3}
-                      placeholder="例如：你最值得讲的一段创业经历是什么？如果我想看真人公开回答，请去公开问答页提交。"
+                      aria-label="向 AI 分身提问"
+                      placeholder="想了解我的哪段经历？"
                       className="flex-1 rounded-2xl border border-slate-600/70 bg-slate-950/70 px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400"
                     />
                     <button
@@ -848,6 +699,46 @@ const PersonalBrandPublic: React.FC = () => {
             )}
           </div>
         </aside>
+      </div>
+      <div className="about-content space-y-8">
+          {bundle.profile.longBio && (
+            <section className="about-panel p-6 md:p-8">
+              <h2 className="about-panel-title text-xl mb-4">基础信息</h2>
+              <details className="about-biography"><summary>了解我的经历</summary><p className="about-panel-copy leading-8 whitespace-pre-wrap mt-5">{bundle.profile.longBio}</p></details>
+            </section>
+          )}
+
+          {SECTION_ORDER.filter((entryType) => groupedEntries.get(entryType)?.length).map((entryType) => (
+            <details className="about-section-disclosure" key={entryType}><summary>{SECTION_META[entryType].title}</summary><PublicSection
+              key={entryType}
+              entryType={entryType}
+              entries={groupedEntries.get(entryType) || []}
+            /></details>
+          ))}
+
+          <AchievementMediaWall files={bundle.files} />
+
+          {bundle.files.length > 0 && (
+            <section className="about-panel p-6 md:p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="about-icon">
+                  <Download className="w-5 h-5" />
+                </div>
+                <div>
+                  <h2 className="about-panel-title text-xl">附件资料</h2>
+                  <p className="about-panel-muted text-sm mt-1">简历、论文、项目说明书等文件</p>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {bundle.files.map((file) => (
+                  <FileCard key={file.id} file={file} />
+                ))}
+              </div>
+            </section>
+          )}
+
+          <div id="about-contact"><ContactPanel wechatPublic={bundle.profile.wechatPublic} /></div>
+          <CollaborationPanel />
       </div>
     </div>
   );

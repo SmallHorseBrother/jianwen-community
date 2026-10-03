@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Calendar, CheckCircle, Eye, Tag, Share2, Star, User, Send, Users, Trash2, Sparkles, Zap } from 'lucide-react';
 import { getQuestionById, getCommunityAnswers, submitCommunityAnswer, deleteCommunityAnswer, markSameQuestion, normalizeQuestionTopic } from '../services/questionService';
@@ -12,6 +13,7 @@ import type { Database } from '../lib/database.types';
 
 type Question = Database['public']['Tables']['questions']['Row'];
 type CommunityAnswer = Database['public']['Tables']['community_answers']['Row'];
+const platformLabels: Record<string, string> = { dm: '私信', group_message: '群聊', manual: '社区提问' };
 
 const QADetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -200,7 +202,7 @@ const QADetail: React.FC = () => {
   const isAnswered = Boolean(question.answer);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 pb-12">
+    <div className="qa-reading min-h-screen pb-12">
       {/* 顶部导航 */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -224,7 +226,7 @@ const QADetail: React.FC = () => {
       <div className="max-w-3xl mx-auto px-0 py-5 sm:px-4 sm:py-8">
         <article className="bg-white rounded-2xl shadow-lg overflow-hidden">
           {/* 问题区 */}
-          <div className="bg-gradient-to-r from-slate-950 via-blue-950 to-indigo-950 text-white p-5 md:p-8">
+          <div className="qa-question-heading p-5 md:p-8">
             {question.is_featured && (
               <div className="flex items-center gap-1 text-yellow-300 text-sm mb-3">
                 <Star className="w-4 h-4 fill-current" />
@@ -250,7 +252,9 @@ const QADetail: React.FC = () => {
             <h1 className="text-lg md:text-2xl font-bold leading-relaxed">
               {question.content}
             </h1>
-            <div className="mt-4 grid grid-cols-2 gap-3 text-sm text-blue-100 sm:flex sm:flex-wrap sm:items-center sm:gap-4">
+            <details className="qa-question-record mt-4">
+              <summary>来源与记录 · {question.same_question_count || 0} 人同问</summary>
+              <div className="mt-3 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-4">
               <span className="flex items-center gap-1">
                 <User className="w-4 h-4" />
                 {question.is_anonymous ? '匿名用户' : question.asker_nickname || '用户'}
@@ -271,19 +275,21 @@ const QADetail: React.FC = () => {
                 <Zap className="w-4 h-4" />
                 {question.source_count || 1} 次来源
               </span>
-            </div>
+              {question.source_platforms?.length ? <span>来自 {question.source_platforms.slice(0, 6).map((platform) => platformLabels[platform] || platform).join(' / ')}</span> : null}
+              </div>
+            </details>
             <div className="mt-5 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
               <button
                 type="button"
                 onClick={handleSameQuestion}
-                className="rounded-full border border-cyan-300/35 bg-cyan-300/12 px-4 py-2 text-sm font-semibold text-cyan-50 hover:bg-cyan-300/20 transition"
+                className="jw-action"
               >
                 我也想问
               </button>
               <button
                 type="button"
                 onClick={handleShare}
-                className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/15 transition"
+                className="jw-action secondary"
               >
                 {copied ? '已复制分享文案' : '分享这颗星'}
               </button>
@@ -315,12 +321,8 @@ const QADetail: React.FC = () => {
           ) : (
             <div className="p-5 md:p-8 border-b border-gray-100">
               <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5">
-                <div className="flex items-center gap-2 text-amber-700 font-semibold">
-                  <Sparkles className="w-5 h-5" />
-                  等待点亮
-                </div>
-                <p className="mt-2 text-sm leading-6 text-amber-800">
-                  这个问题已经进入问题星球。更多同问会提高它进入正式回答和视频选题的优先级。
+                <p className="text-sm leading-6 text-amber-800">
+                  问题等待回答中。同问人数会影响回答和视频选题的优先级。
                 </p>
               </div>
             </div>
@@ -374,7 +376,6 @@ const QADetail: React.FC = () => {
             ) : (
               <div className="text-center py-8 bg-gray-50 rounded-xl mb-6">
                 <p className="text-gray-400 text-sm">暂无群友回答</p>
-                <p className="text-gray-400 text-xs mt-1">成为第一个帮助解答的人吧！</p>
               </div>
             )}
 
@@ -434,23 +435,15 @@ const QADetail: React.FC = () => {
               </div>
             </div>
           )}
-          {question.source_platforms && question.source_platforms.length > 0 && (
-            <div className="px-6 md:px-8 pb-6 border-t border-gray-100 pt-6">
-              <div className="text-sm text-gray-500">
-                来源：{question.source_platforms.slice(0, 6).join(' / ')}
-              </div>
-            </div>
-          )}
         </article>
 
         {/* 底部提示 */}
         <div className="text-center mt-8">
-          <p className="text-gray-500 text-sm mb-3">还有问题想问？</p>
           <Link
             to="/qa"
             className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition"
           >
-            去提问
+            返回问题星球
           </Link>
         </div>
       </div>
