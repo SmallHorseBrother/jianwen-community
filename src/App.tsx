@@ -46,6 +46,7 @@ import LearningKnowledge from './pages/learning/LearningKnowledge';
 import LearningToolbox from './pages/learning/LearningToolbox';
 import MatchingCenter from './pages/MatchingCenter';
 import CommunityProfiles from './pages/CommunityProfiles';
+const NetworkAtlas = React.lazy(() => import('./pages/NetworkAtlas'));
 import ComingSoon from './components/Common/ComingSoon';
 import NotFound from './components/Common/NotFound';
 
@@ -86,6 +87,7 @@ const AppRoutes: React.FC = () => {
       
       {/* 工具箱 */}
       <Route path="/tools" element={<Layout><Tools /></Layout>} />
+      <Route path="/network" element={<React.Suspense fallback={<div className="min-h-screen bg-slate-950 text-slate-200 flex items-center justify-center">正在加载人脉星图…</div>}><NetworkAtlas /></React.Suspense>} />
       <Route path="/tools/ai-assessment" element={<Navigate to="/ai/exams/comprehensive" replace />} />
 
       {/* AI成长中心：测评—专项卷—学习—作品闭环 */}

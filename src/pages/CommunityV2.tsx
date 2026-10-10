@@ -166,6 +166,7 @@ const CommunityV2: React.FC = () => {
     <div className="redesign-community">
       <header className={isPartnersView ? 'page-heading' : 'page-heading community-heading'}>
         <div><h1>{isPartnersView ? '找伙伴' : '社区'}</h1><p>{isPartnersView ? '技能互补，一起向前。' : '今天也有进步。'}</p></div>
+        {isPartnersView && <Link to="/network" className="jw-action secondary">打开人脉星图 <ExternalLink size={16} /></Link>}
         {isPartnersView ? <Link to={user ? '/profile' : '/login'} className="jw-action">完善我的名片</Link> : <button type="button" onClick={openCheckIn} className="jw-action"><Camera /> 发布打卡</button>}
       </header>
       {activeTab === 'moments' && <>

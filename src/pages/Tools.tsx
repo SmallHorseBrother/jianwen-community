@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Dumbbell, Sparkles, MessageSquarePlus, Send, User, MessageCircle, UtensilsCrossed, ArrowUpRight } from 'lucide-react';
+import { Dumbbell, Sparkles, MessageSquarePlus, Send, User, MessageCircle, UtensilsCrossed, ArrowUpRight, GitBranch } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { submitSuggestion, getAllSuggestions } from '../services/suggestionService';
 import Dialog from '../components/Common/Dialog';
@@ -265,6 +265,14 @@ const Tools: React.FC = () => {
   };
 
   const tools: ToolCard[] = [
+    {
+      title: '人脉星图',
+      description: '从群友的自我介绍出发，发现共同方向、资源与合作机会。',
+      icon: <GitBranch className="w-8 h-8" />,
+      link: '/network',
+      isExternal: false,
+      status: 'active',
+    },
     {
       title: '食探',
       description: '拍照记录饮食，了解热量与营养。',
