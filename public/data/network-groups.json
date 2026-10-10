@@ -9,7 +9,8 @@
       "members": 67,
       "introductions": 60,
       "messages": 893,
-      "generatedAt": "2026-10-10T07:52:41.640Z"
+      "generatedAt": "2026-10-10T07:52:41.640Z",
+      "kind": "entrepreneurship"
     },
     {
       "id": "learning",
@@ -18,7 +19,8 @@
       "members": 348,
       "introductions": 71,
       "messages": 39857,
-      "generatedAt": "2026-10-10T07:53:01.556Z"
+      "generatedAt": "2026-10-10T07:53:01.556Z",
+      "kind": "learning"
     },
     {
       "id": "fitness",
@@ -27,7 +29,8 @@
       "members": 279,
       "introductions": 50,
       "messages": 34993,
-      "generatedAt": "2026-10-10T07:53:15.761Z"
+      "generatedAt": "2026-10-10T07:53:15.761Z",
+      "kind": "fitness"
     },
     {
       "id": "academy-1",
@@ -36,7 +39,8 @@
       "members": 424,
       "introductions": 0,
       "messages": 71481,
-      "generatedAt": "2026-10-10T07:53:39.289Z"
+      "generatedAt": "2026-10-10T07:53:39.289Z",
+      "kind": "learning"
     },
     {
       "id": "academy-2",
@@ -45,7 +49,8 @@
       "members": 375,
       "introductions": 0,
       "messages": 53440,
-      "generatedAt": "2026-10-10T07:53:58.351Z"
+      "generatedAt": "2026-10-10T07:53:58.351Z",
+      "kind": "learning"
     },
     {
       "id": "academy-3",
@@ -54,7 +59,8 @@
       "members": 336,
       "introductions": 0,
       "messages": 7798,
-      "generatedAt": "2026-10-10T07:54:23.603Z"
+      "generatedAt": "2026-10-10T07:54:23.603Z",
+      "kind": "learning"
     },
     {
       "id": "fitness-1",
@@ -63,7 +69,8 @@
       "members": 420,
       "introductions": 0,
       "messages": 69770,
-      "generatedAt": "2026-10-10T07:58:24.469Z"
+      "generatedAt": "2026-10-10T07:58:24.469Z",
+      "kind": "fitness"
     },
     {
       "id": "fitness-2",
@@ -72,7 +79,8 @@
       "members": 381,
       "introductions": 0,
       "messages": 107245,
-      "generatedAt": "2026-10-10T07:55:22.158Z"
+      "generatedAt": "2026-10-10T07:55:22.158Z",
+      "kind": "fitness"
     },
     {
       "id": "fitness-3",
@@ -81,7 +89,8 @@
       "members": 440,
       "introductions": 1,
       "messages": 60475,
-      "generatedAt": "2026-10-10T07:55:51.896Z"
+      "generatedAt": "2026-10-10T07:55:51.896Z",
+      "kind": "fitness"
     }
   ]
 }

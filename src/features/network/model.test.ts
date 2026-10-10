@@ -4,6 +4,14 @@ import type { NetworkPerson } from './types';
 
 const base:NetworkPerson={id:'a',name:'甲',nickname:'原名',groupNickname:'甲',avatar:'',joinedAt:null,lastActiveAt:null,messageCount:1,topic:'hardware',topics:['hardware','ai'],tags:['机器人'],summary:'机器人硬件开发',offers:['提供电路开发'],needs:['寻找算法伙伴'],stage:'正在实践',introductions:[]};
 describe('network directory',()=>{
+  it('filters and exports domain goals without leaking project stages into learning',()=>{
+    const learner={...base,goals:['考研 / 保研','学习搭子']};
+    expect(filterPeople([learner,base],'','',false,'','学习搭子')).toEqual([learner]);
+    expect(filterPeople([learner,base],'','',false,'','待补充')).toEqual([base]);
+    expect(filterPeople([learner],'学习搭子','',false,'')).toEqual([learner]);
+    const csv=exportPeopleCsv([learner],'学习目标');
+    expect(csv).toContain('学习目标');expect(csv).toContain('考研 / 保研');expect(csv).not.toContain('正在实践');
+  });
   it('combines name/resource search, secondary topics, needs and stage',()=>{
     expect(filterPeople([base],'电路 算法','ai',true,'正在实践')).toHaveLength(1);
     expect(filterPeople([base],'不存在','',false,'')).toHaveLength(0);

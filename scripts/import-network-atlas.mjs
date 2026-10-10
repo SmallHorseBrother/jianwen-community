@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import { TOPICS, publicId, xmlField, redact, profileDetails, inferredEdges } from './network-atlas-lib.mjs';
 import { sourceDirectory, readMembers, readMessages, joinedMembers } from './network-atlas-source.mjs';
+import { taxonomyForGroup, publicTaxonomy } from './network-taxonomies.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const config=JSON.parse(fs.readFileSync(path.join(root,'scripts/network-atlas.config.json'),'utf8'));
@@ -11,6 +12,29 @@ const write=process.argv.includes('--write'),avatars=process.argv.includes('--av
 const groupArg=process.argv.indexOf('--group'),groupId=groupArg>=0?process.argv[groupArg+1]:null;
 if(groupArg>=0&&!config.groups.some(g=>g.id===groupId))throw new Error('Unknown --group');
 const groups=groupId?config.groups.filter(g=>g.id===groupId):config.groups;
+// Reclassify only reviewed public material; preserve source timestamps, avatars and facts.
+if(process.argv.includes('--reclassify')) {
+  for(const group of groups) {
+    const file=path.join(root,'public/data',group.id===config.defaultGroup?'network-atlas.json':`network/${group.id}.json`);
+    const data=JSON.parse(fs.readFileSync(file,'utf8')),taxonomy=taxonomyForGroup(group.id);
+    data.classification=publicTaxonomy(taxonomy);
+    data.topics=(taxonomy.topics||TOPICS).map(({words,...t})=>t);
+    data.people=data.people.map(person=>{
+      const details=profileDetails(person.introductions,person.groupNickname,taxonomy);
+      return {...person,...details,summary:person.introductions.length?details.summary:person.summary};
+    });
+    const facts=data.edges.filter(e=>e.kind==='interaction'||e.kind==='collaboration');
+    data.edges=[...facts,...inferredEdges(data.people,facts,taxonomy)];
+    if(write)fs.writeFileSync(file,JSON.stringify(data,null,2)+'\n');
+    console.log(JSON.stringify({group:group.id,classification:taxonomy.kind,members:data.people.length,written:write}));
+  }
+  if(write) {
+    const file=path.join(root,'public/data/network-groups.json'),catalog=JSON.parse(fs.readFileSync(file,'utf8'));
+    catalog.groups=catalog.groups.map(g=>({...g,kind:taxonomyForGroup(g.id).kind}));
+    fs.writeFileSync(file,JSON.stringify(catalog,null,2)+'\n');
+  }
+  process.exit(0);
+}
 const directory=sourceDirectory(),avatarDir=path.join(root,'public/images/network');
 const contactUpdated=fs.statSync(path.join(directory,'contact.db')).mtime.toISOString();
 const iso=time=>time?new Date(time*1000).toISOString():null;
@@ -22,6 +46,7 @@ const publicCatalog=path.join(root,'public/data/network-groups.json');
 let entries=fs.existsSync(publicCatalog)?JSON.parse(fs.readFileSync(publicCatalog,'utf8')).groups:[];
 
 for(const group of groups) {
+  const taxonomy=taxonomyForGroup(group.id);
   const members=readMembers(directory,group.groupId);
   if(!members.length)throw new Error(`${group.title}: 群成员为空，停止导出`);
   const ids=new Set(members.map(m=>m.username)),stats=new Map(),joins=new Map(),edges=new Map(),reviewedRows=new Map();
@@ -61,13 +86,13 @@ for(const group of groups) {
   const people=members.map(m=>{
     const stat=stats.get(m.username)||{count:0,last:0,introductions:[]};
     const intro=stat.introductions.sort((a,b)=>a.at.localeCompare(b.at)),nickname=redact(m.nick_name||''),groupNickname=redact(m.groupNickname);
-    const profile=profileDetails(intro,groupNickname);
+    const profile=profileDetails(intro,groupNickname,taxonomy);
     if(!intro.length)profile.summary=stat.count?`本群可见记录中有 ${stat.count.toLocaleString('zh-CN')} 条发言，暂未整理到明确自我介绍。`:'本群可见记录中暂无发言，个人介绍待补充。';
     return {id:publicId(m.username),name:groupNickname||nickname||'未命名成员',nickname,groupNickname,avatar:'',joinedAt:iso(joins.get(m.username)),messageCount:stat.count,lastActiveAt:iso(stat.last),introductions:intro,...profile};
   });
   for(const pair of group.collaborations||[]){const from=reviewedRows.get(pair.fromIntroductionId),to=reviewedRows.get(pair.toIntroductionId);if(from&&to)addInteraction(from.user_name,to.user_name,from,'collaboration',pair.reason);}
   const factualEdges=[...edges.values()].sort((a,b)=>b.count-a.count||a.id.localeCompare(b.id));
-  const relations=[...factualEdges,...inferredEdges(people,factualEdges)];
+  const relations=[...factualEdges,...inferredEdges(people,factualEdges,taxonomy)];
   const byId=new Map(people.map(p=>[p.id,p]));
   if(write)fs.mkdirSync(avatarDir,{recursive:true});
   let avatarSaved=0,avatarFailed=0;
@@ -87,8 +112,8 @@ for(const group of groups) {
       person.avatar=`/images/network/${id}.webp`;avatarSaved++;
     }catch{avatarFailed++;}
   }));
-  const dataset={schemaVersion:1,groupId:group.id,title:group.title,generatedAt:new Date().toISOString(),contactUpdatedAt:contactUpdated,firstMessageAt:iso(first),lastMessageAt:iso(last),messageTotal:messages,topics:TOPICS.map(({words,...t})=>t),people,edges:relations,notes:'仅统计本机可见记录，不代表完整群历史。群昵称与核对后的自我介绍用于资料整理；互动不代表合作，未发言不代表从未发言。'};
-  const entry={id:group.id,title:group.title,path:datasetPath(group),members:people.length,introductions:people.filter(p=>p.introductions.length).length,messages,generatedAt:dataset.generatedAt};
+  const dataset={schemaVersion:1,groupId:group.id,title:group.title,classification:publicTaxonomy(taxonomy),generatedAt:new Date().toISOString(),contactUpdatedAt:contactUpdated,firstMessageAt:iso(first),lastMessageAt:iso(last),messageTotal:messages,topics:(taxonomy.topics||TOPICS).map(({words,...t})=>t),people,edges:relations,notes:'仅统计本机可见记录，不代表完整群历史。群昵称与核对后的自我介绍用于资料整理；互动不代表合作，未发言不代表从未发言。'};
+  const entry={id:group.id,kind:taxonomy.kind,title:group.title,path:datasetPath(group),members:people.length,introductions:people.filter(p=>p.introductions.length).length,messages,generatedAt:dataset.generatedAt};
   if(write){const out=path.join(root,'public',datasetPath(group));fs.mkdirSync(path.dirname(out),{recursive:true});fs.writeFileSync(out,JSON.stringify(dataset,null,2)+'\n');entries=entries.filter(e=>e.id!==entry.id);entries.push(entry);}
   console.log(JSON.stringify({...entry,written:write,duplicates,groupNicknames:people.filter(p=>p.groupNickname).length,edges:relations.length,avatarSaved,avatarFailed,bytes:Buffer.byteLength(JSON.stringify(dataset))}));
 }

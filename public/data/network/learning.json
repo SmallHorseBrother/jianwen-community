@@ -9,39 +9,44 @@
   "messageTotal": 39857,
   "topics": [
     {
-      "id": "ai",
-      "name": "AI 应用与企业服务",
+      "id": "computing",
+      "name": "计算机与人工智能",
       "color": "#68ddc3"
     },
     {
-      "id": "hardware",
-      "name": "具身、硬件与产业",
+      "id": "science",
+      "name": "数学与自然科学",
       "color": "#8db3ff"
     },
     {
-      "id": "health",
-      "name": "健康、运动与医疗",
-      "color": "#f1a1bc"
-    },
-    {
-      "id": "data",
-      "name": "数据、量化与财税",
-      "color": "#b6ce91"
-    },
-    {
-      "id": "education",
-      "name": "教育、科研与求职",
+      "id": "engineering",
+      "name": "工程与技术",
       "color": "#e8c27a"
     },
     {
-      "id": "content",
-      "name": "内容、品牌与增长",
+      "id": "biomed",
+      "name": "生命科学与医学",
+      "color": "#f1a1bc"
+    },
+    {
+      "id": "humanities",
+      "name": "人文与社会科学",
       "color": "#b6a0ef"
     },
     {
-      "id": "commerce",
-      "name": "跨境、电商与零售",
+      "id": "business",
+      "name": "经济与管理",
+      "color": "#b6ce91"
+    },
+    {
+      "id": "language",
+      "name": "语言与表达",
       "color": "#75cbdc"
+    },
+    {
+      "id": "design",
+      "name": "艺术与设计",
+      "color": "#eeab82"
     },
     {
       "id": "other",
@@ -60,17 +65,14 @@
       "messageCount": 2951,
       "lastActiveAt": "2026-10-10T05:39:10.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "博士"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 2,951 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e34c14dd1e6f5c06",
@@ -82,17 +84,14 @@
       "messageCount": 110,
       "lastActiveAt": "2026-09-17T08:10:10.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "研究生"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 110 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "98f51129dcd7c7bf",
@@ -110,17 +109,16 @@
           "text": "大家好，我是马哥小迷弟，目前在清华读博，研究动力电池与动力系统智能控制。也比较喜欢运动"
         }
       ],
-      "topic": "health",
-      "tags": [
-        "运动"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是马哥小迷弟，目前在清华读博，研究动力电池与动力系统智能控制。也比较喜欢运动",
-      "offers": [],
+      "offers": [
+        "大家好，我是马哥小迷弟，目前在清华读博，研究动力电池与动力系统智能控制"
+      ],
       "needs": [],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "6ec46a3f8ce0af82",
@@ -132,17 +130,18 @@
       "messageCount": 153,
       "lastActiveAt": "2026-08-11T16:16:54.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "biomed",
       "tags": [
         "生物"
       ],
       "topics": [
-        "health"
+        "biomed"
       ],
       "summary": "本群可见记录中有 153 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c58b9e04313d8089",
@@ -154,19 +153,18 @@
       "messageCount": 3,
       "lastActiveAt": "2026-06-16T11:41:11.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "computing",
       "tags": [
-        "学习",
         "AI"
       ],
       "topics": [
-        "education",
-        "ai"
+        "computing"
       ],
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "90a72f0d4f544c33",
@@ -184,7 +182,8 @@
       "summary": "本群可见记录中有 40 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d3784bd027e276d0",
@@ -202,17 +201,18 @@
           "text": "大家好，我是来自山东财经大学审计学专业2402班的孙晨耀，很高兴认识大家，希望跟大家一起学习进步[玫瑰][玫瑰][玫瑰][爱心][爱心]"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是来自山东财经大学审计学专业2402班的孙晨耀，很高兴认识大家，希望跟大家一起学习进步[玫瑰][玫瑰][玫瑰][爱心][爱心]",
       "offers": [],
-      "needs": [],
-      "stage": "探索交流"
+      "needs": [
+        "大家好，我是来自山东财经大学审计学专业2402班的孙晨耀，很高兴认识大家，希望跟大家一起学习进步[玫瑰][玫瑰][玫瑰][爱心][爱心]"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "学习搭子"
+      ]
     },
     {
       "id": "58b1ac9acc29c3f5",
@@ -230,7 +230,8 @@
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "ab6dc4762aa91a9c",
@@ -248,7 +249,8 @@
       "summary": "本群可见记录中有 86 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "24419c60a74537ec",
@@ -260,19 +262,14 @@
       "messageCount": 2,
       "lastActiveAt": "2026-02-17T07:15:04.000Z",
       "introductions": [],
-      "topic": "hardware",
-      "tags": [
-        "具身",
-        "学习"
-      ],
-      "topics": [
-        "hardware",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "911c3ee52c3de22b",
@@ -284,18 +281,14 @@
       "messageCount": 109,
       "lastActiveAt": "2026-09-17T12:31:22.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "硕士",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 109 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "32cdbe5f6e374998",
@@ -313,17 +306,16 @@
           "text": "大家好，大一审计专业，在考ACCA，最近在学vibe coding"
         }
       ],
-      "topic": "ai",
-      "tags": [
-        "开发"
-      ],
-      "topics": [
-        "ai"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，大一审计专业，在考ACCA，最近在学vibe coding",
-      "offers": [],
+      "offers": [
+        "大家好，大一审计专业，在考ACCA，最近在学vibe coding"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e23fbb33e287ea61",
@@ -341,7 +333,8 @@
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f1c8dce03647e8a7",
@@ -359,7 +352,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "065dab3b76edc56f",
@@ -371,13 +365,18 @@
       "messageCount": 1,
       "lastActiveAt": "2026-01-10T08:40:52.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "engineering",
+      "tags": [
+        "电气"
+      ],
+      "topics": [
+        "engineering"
+      ],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "61479747269b8e41",
@@ -395,18 +394,17 @@
           "text": "大家好，我是可乐， 教育从业者，没动力的时候会看马哥的直播学习。进入这个学习群是想和大家一起交流学习，共同进步。"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "教育",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是可乐， 教育从业者，没动力的时候会看马哥的直播学习。进入这个学习群是想和大家一起交流学习，共同进步",
-      "offers": [],
+      "offers": [
+        "大家好，我是可乐， 教育从业者，没动力的时候会看马哥的直播学习",
+        "进入这个学习群是想和大家一起交流学习，共同进步"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2bae621b4afe1a9f",
@@ -418,18 +416,14 @@
       "messageCount": 89,
       "lastActiveAt": "2026-10-05T14:33:08.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "考研",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 89 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d44d67b754945d58",
@@ -441,17 +435,14 @@
       "messageCount": 1,
       "lastActiveAt": "2026-01-10T08:43:24.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2b5d3205a18d856e",
@@ -469,17 +460,14 @@
           "text": "大家好，我是Stephen，Sdu大四在读，未来研究生希望在CASIA从事模式识别理论方向"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "研究生"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是Stephen，Sdu大四在读，未来研究生希望在CASIA从事模式识别理论方向",
       "offers": [],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "45d0347f2db521a0",
@@ -497,19 +485,16 @@
           "text": "大家好晚上，我做个自我介绍，本人现在在做牛马，想在业余时间提升自己，不想白白浪费大好光阴，群里也都是全国各地努力提升自己的有志青年，以后请多指教互相学习进步"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好晚上，我做个自我介绍，本人现在在做牛马，想在业余时间提升自己，不想白白浪费大好光阴，群里也都是全国各地努力提升自己的有志青年，以后请多指教互相学习进步",
       "offers": [
         "大家好晚上，我做个自我介绍，本人现在在做牛马，想在业余时间提升自己，不想白白浪费大好光阴，群里也都是全国各地努力提升自己的有志青年，以后请多指教互相学习进步"
       ],
       "needs": [],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2fc03d95f23d2a8b",
@@ -521,17 +506,18 @@
       "messageCount": 28,
       "lastActiveAt": "2026-10-09T03:01:45.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "engineering",
       "tags": [
-        "学习"
+        "机械"
       ],
       "topics": [
-        "education"
+        "engineering"
       ],
       "summary": "本群可见记录中有 28 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2d8161bf522fc2dc",
@@ -543,17 +529,14 @@
       "messageCount": 197,
       "lastActiveAt": "2026-10-09T09:14:18.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "考研"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 197 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "58b8769b7d972e85",
@@ -565,17 +548,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
+      "topic": "computing",
       "tags": [
-        "硕士"
+        "计算机"
       ],
       "topics": [
-        "education"
+        "computing"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "408e874b4c2603d5",
@@ -593,24 +577,22 @@
           "text": "大家好，我的昵称是.   目前已经博士毕业了。喜爱阅读和健身，希望和大家一起学习交流，激励自己。"
         }
       ],
-      "topic": "education",
+      "topic": "business",
       "tags": [
-        "博士",
-        "学习",
-        "健身",
         "经济"
       ],
       "topics": [
-        "education",
-        "health",
-        "data"
+        "business"
       ],
       "summary": "大家好，我的昵称是.   目前已经博士毕业了。喜爱阅读和健身，希望和大家一起学习交流，激励自己",
       "offers": [],
       "needs": [
         "喜爱阅读和健身，希望和大家一起学习交流，激励自己"
       ],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": [
+        "学习搭子"
+      ]
     },
     {
       "id": "d6658ea6085a72d6",
@@ -628,7 +610,8 @@
       "summary": "本群可见记录中有 6 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "808e9edd9287d43a",
@@ -640,17 +623,18 @@
       "messageCount": 6,
       "lastActiveAt": "2026-06-15T06:23:52.000Z",
       "introductions": [],
-      "topic": "data",
+      "topic": "business",
       "tags": [
         "经济"
       ],
       "topics": [
-        "data"
+        "business"
       ],
       "summary": "本群可见记录中有 6 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "1bca3cc462824a44",
@@ -662,17 +646,14 @@
       "messageCount": 72,
       "lastActiveAt": "2026-10-03T01:46:13.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 72 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a865081cbd07cbee",
@@ -684,17 +665,14 @@
       "messageCount": 8,
       "lastActiveAt": "2026-02-18T10:32:42.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 8 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "bcf4f1e45e59682b",
@@ -712,7 +690,8 @@
       "summary": "本群可见记录中有 27 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "180b9615f7f9b28c",
@@ -724,17 +703,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "cead74f313414fdc",
@@ -752,7 +728,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "65650286b6e64b17",
@@ -764,13 +741,18 @@
       "messageCount": 4,
       "lastActiveAt": "2026-09-14T12:29:42.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "language",
+      "tags": [
+        "写作"
+      ],
+      "topics": [
+        "language"
+      ],
       "summary": "本群可见记录中有 4 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "646be4e0ec605478",
@@ -782,17 +764,18 @@
       "messageCount": 1,
       "lastActiveAt": "2026-01-14T13:34:45.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "engineering",
       "tags": [
-        "学习"
+        "土木"
       ],
       "topics": [
-        "education"
+        "engineering"
       ],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e4348fe3677611bc",
@@ -810,20 +793,19 @@
           "text": "大家好[玫瑰]我是从隔壁健身群过来的，现在从事养老行业后面打算考研，希望和大家一起学习进步"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "考研",
-        "学习",
-        "健身"
-      ],
-      "topics": [
-        "education",
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好[玫瑰]我是从隔壁健身群过来的，现在从事养老行业后面打算考研，希望和大家一起学习进步",
       "offers": [],
-      "needs": [],
-      "stage": "探索交流"
+      "needs": [
+        "大家好[玫瑰]我是从隔壁健身群过来的，现在从事养老行业后面打算考研，希望和大家一起学习进步"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "考研 / 保研",
+        "学习搭子"
+      ]
     },
     {
       "id": "c39237d1e562b457",
@@ -841,18 +823,20 @@
           "text": "大佬们好，我是火箭，在准备考研，进群为了向大佬们学习，共同进步。"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "考研",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大佬们好，我是火箭，在准备考研，进群为了向大佬们学习，共同进步",
-      "offers": [],
-      "needs": [],
-      "stage": "探索交流"
+      "offers": [
+        "大佬们好，我是火箭，在准备考研，进群为了向大佬们学习，共同进步"
+      ],
+      "needs": [
+        "大佬们好，我是火箭，在准备考研，进群为了向大佬们学习，共同进步"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "考研 / 保研"
+      ]
     },
     {
       "id": "785b552ce05b3f25",
@@ -864,17 +848,14 @@
       "messageCount": 699,
       "lastActiveAt": "2026-10-08T13:04:15.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 699 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "5120d65535483298",
@@ -892,22 +873,18 @@
           "text": "大家好，我是气，目前从事医疗领域，考公ing，到学习群希望打破圈子，更新认知，向大家学习，探索更多可能"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "学习",
-        "考公",
-        "医疗"
-      ],
-      "topics": [
-        "education",
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是气，目前从事医疗领域，考公ing，到学习群希望打破圈子，更新认知，向大家学习，探索更多可能",
       "offers": [],
       "needs": [
         "大家好，我是气，目前从事医疗领域，考公ing，到学习群希望打破圈子，更新认知，向大家学习，探索更多可能"
       ],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": [
+        "考公 / 考编"
+      ]
     },
     {
       "id": "497696309e47ae3b",
@@ -925,17 +902,20 @@
           "text": "介绍：\n李志萍，英语老师。平时喜欢阅读，运动，写废话文学。\n进本群目的，是想接触好的氛围和正能量圈。[太阳][太阳][太阳]\n希望跟大家在 26 年共同进步，成为更好的自己"
         }
       ],
-      "topic": "health",
+      "topic": "humanities",
       "tags": [
-        "运动"
+        "文学",
+        "英语"
       ],
       "topics": [
-        "health"
+        "humanities",
+        "language"
       ],
       "summary": "介绍：。李志萍，英语老师…",
       "offers": [],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d9b9f58a57056b27",
@@ -953,19 +933,18 @@
           "text": "大家好，我是乐高蒸蛋，希望以后和大家一起学习交流[太阳][太阳]"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是乐高蒸蛋，希望以后和大家一起学习交流[太阳][太阳]",
       "offers": [],
       "needs": [
         "大家好，我是乐高蒸蛋，希望以后和大家一起学习交流[太阳][太阳]"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": [
+        "学习搭子"
+      ]
     },
     {
       "id": "a856413b72751a6c",
@@ -983,19 +962,23 @@
           "text": "大家好，我是鱼摆摆， 一个小白哲学生，平时看看马哥的直播以及看看群聊。目前主要是写论文了，有点小小的拖延症，希望能坚持下去和大家一起学习进步。"
         }
       ],
-      "topic": "education",
+      "topic": "humanities",
       "tags": [
-        "论文",
-        "硕士",
-        "学习"
+        "哲学"
       ],
       "topics": [
-        "education"
+        "humanities"
       ],
       "summary": "大家好，我是鱼摆摆， 一个小白哲学生，平时看看马哥的直播以及看看群聊。目前主要是写论文了，有点小小的拖延症，希望能坚持下去和大家一起学习进步",
       "offers": [],
-      "needs": [],
-      "stage": "正在实践"
+      "needs": [
+        "目前主要是写论文了，有点小小的拖延症，希望能坚持下去和大家一起学习进步"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "科研 / 论文",
+        "学习搭子"
+      ]
     },
     {
       "id": "094bc08570bb228b",
@@ -1007,17 +990,14 @@
       "messageCount": 306,
       "lastActiveAt": "2026-09-27T04:15:36.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 306 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "443e2a0ed78ae9e3",
@@ -1029,17 +1009,14 @@
       "messageCount": 2,
       "lastActiveAt": "2026-06-15T12:08:46.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "9dd84b2c9f540cc2",
@@ -1057,18 +1034,16 @@
           "text": "今年年底把工作辞了，准备换工作，想坚持学习省考，学前教育专业，只能考三不限，不太喜欢幼儿园"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "教育",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "今年年底把工作辞了，准备换工作，想坚持学习省考，学前教育专业，只能考三不限，不太喜欢幼儿园",
-      "offers": [],
+      "offers": [
+        "今年年底把工作辞了，准备换工作，想坚持学习省考，学前教育专业，只能考三不限，不太喜欢幼儿园"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "529b9c804687d730",
@@ -1086,7 +1061,8 @@
       "summary": "本群可见记录中有 21 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e9274c92ede0f9bc",
@@ -1098,17 +1074,18 @@
       "messageCount": 1,
       "lastActiveAt": "2026-05-01T11:32:19.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "humanities",
       "tags": [
-        "考研"
+        "心理学"
       ],
       "topics": [
-        "education"
+        "humanities"
       ],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "479d940cf27ff10b",
@@ -1120,17 +1097,14 @@
       "messageCount": 2,
       "lastActiveAt": "2026-03-07T11:35:15.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "606ade0cd7076987",
@@ -1142,17 +1116,14 @@
       "messageCount": 1,
       "lastActiveAt": "2026-01-10T08:41:16.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e0d185e5481ba80f",
@@ -1164,19 +1135,14 @@
       "messageCount": 655,
       "lastActiveAt": "2026-10-08T16:10:47.000Z",
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "医疗",
-        "学习"
-      ],
-      "topics": [
-        "health",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 655 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "be3d635f52a3e049",
@@ -1188,17 +1154,14 @@
       "messageCount": 8,
       "lastActiveAt": "2026-04-29T09:22:55.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "考研"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 8 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "60b7ab9865acddaf",
@@ -1216,7 +1179,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "13a34fed5e45378b",
@@ -1228,17 +1192,14 @@
       "messageCount": 186,
       "lastActiveAt": "2026-10-07T09:29:09.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 186 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "25b79250967efb6e",
@@ -1250,17 +1211,14 @@
       "messageCount": 12,
       "lastActiveAt": "2026-05-17T09:57:19.000Z",
       "introductions": [],
-      "topic": "ai",
-      "tags": [
-        "AI"
-      ],
-      "topics": [
-        "ai"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 12 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "8996198bd1d525ac",
@@ -1278,17 +1236,16 @@
           "text": "大家好，俺是bogyung，sdu的，已经工作了，希望能在繁忙的生活中保持学习，找到普通人存在这个世界上的意义吧，今年目标只要马哥开播就要点进去学会～"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，俺是bogyung，sdu的，已经工作了，希望能在繁忙的生活中保持学习，找到普通人存在这个世界上的意义吧，今年目标只要马哥开播就要点进去学会～",
       "offers": [],
-      "needs": [],
-      "stage": "正在实践"
+      "needs": [
+        "大家好，俺是bogyung，sdu的，已经工作了，希望能在繁忙的生活中保持学习，找到普通人存在这个世界上的意义吧，今年目标只要马哥开播就要点进去学会～"
+      ],
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "702021ef7174bc76",
@@ -1306,7 +1263,8 @@
       "summary": "本群可见记录中有 96 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7ffbfa43bf9efed7",
@@ -1318,17 +1276,14 @@
       "messageCount": 36,
       "lastActiveAt": "2026-08-25T05:20:44.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "考研"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 36 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "fef61b56d83d0449",
@@ -1346,19 +1301,18 @@
           "text": "大家好，我是tran，希望以后和大家一起学习交流[太阳][太阳]"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是tran，希望以后和大家一起学习交流[太阳][太阳]",
       "offers": [],
       "needs": [
         "大家好，我是tran，希望以后和大家一起学习交流[太阳][太阳]"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": [
+        "学习搭子"
+      ]
     },
     {
       "id": "09edaf4770ac11d4",
@@ -1370,13 +1324,18 @@
       "messageCount": 1,
       "lastActiveAt": "2026-01-10T08:43:07.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "humanities",
+      "tags": [
+        "法学"
+      ],
+      "topics": [
+        "humanities"
+      ],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "0006d5d330db6a18",
@@ -1388,17 +1347,14 @@
       "messageCount": 852,
       "lastActiveAt": "2026-09-20T23:19:32.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 852 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "8b323f8883eee1d9",
@@ -1416,7 +1372,8 @@
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2b57dc3c8201034d",
@@ -1434,7 +1391,8 @@
       "summary": "本群可见记录中有 1,214 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "3074f6550d8852d3",
@@ -1452,7 +1410,8 @@
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "514c8a84c2f2f4aa",
@@ -1470,20 +1429,20 @@
           "text": "大家好，我是aimer，目前备战考研中，进群感受学习氛围，开拓眼界，共同进步[拳头]"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "考研",
-        "学习",
-        "AI"
-      ],
-      "topics": [
-        "education",
-        "ai"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是aimer，目前备战考研中，进群感受学习氛围，开拓眼界，共同进步[拳头]",
-      "offers": [],
-      "needs": [],
-      "stage": "正在实践"
+      "offers": [
+        "大家好，我是aimer，目前备战考研中，进群感受学习氛围，开拓眼界，共同进步[拳头]"
+      ],
+      "needs": [
+        "大家好，我是aimer，目前备战考研中，进群感受学习氛围，开拓眼界，共同进步[拳头]"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "考研 / 保研"
+      ]
     },
     {
       "id": "df63b112f3af82d8",
@@ -1495,17 +1454,14 @@
       "messageCount": 54,
       "lastActiveAt": "2026-06-03T01:08:18.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "考研"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 54 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f8f78dcb8460d813",
@@ -1523,7 +1479,8 @@
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "cf333931aba55d97",
@@ -1541,17 +1498,16 @@
           "text": "大家好，我是Will，一名自由从业人员，看马哥直播是为了下班后寻找学习氛围养成学习习惯"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是Will，一名自由从业人员，看马哥直播是为了下班后寻找学习氛围养成学习习惯",
-      "offers": [],
+      "offers": [
+        "大家好，我是Will，一名自由从业人员，看马哥直播是为了下班后寻找学习氛围养成学习习惯"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "aed2d88705dc4f96",
@@ -1569,17 +1525,18 @@
           "text": "大家好我是汪达克，njau大一本科，想和大家一起学习交流进步[呲牙]"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好我是汪达克，njau大一本科，想和大家一起学习交流进步[呲牙]",
-      "offers": [],
+      "offers": [
+        "大家好我是汪达克，njau大一本科，想和大家一起学习交流进步[呲牙]"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": [
+        "学习搭子"
+      ]
     },
     {
       "id": "b3d50789fce7891a",
@@ -1597,18 +1554,18 @@
           "text": "各位好,双非毕业,原来工作不喜欢,选择考研,学习自己喜欢的专业,平时太懒了,进群希望督促懒猪一样的自己"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "考研",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "各位好,双非毕业,原来工作不喜欢,选择考研,学习自己喜欢的专业,平时太懒了,进群希望督促懒猪一样的自己",
       "offers": [],
-      "needs": [],
-      "stage": "探索交流"
+      "needs": [
+        "各位好,双非毕业,原来工作不喜欢,选择考研,学习自己喜欢的专业,平时太懒了,进群希望督促懒猪一样的自己"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "考研 / 保研"
+      ]
     },
     {
       "id": "93eec4eb295058fe",
@@ -1620,17 +1577,14 @@
       "messageCount": 65,
       "lastActiveAt": "2026-05-14T15:52:04.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 65 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e4bc19a3e0a54ad3",
@@ -1642,17 +1596,14 @@
       "messageCount": 70,
       "lastActiveAt": "2026-10-09T17:21:19.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 70 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "fe473333075409c9",
@@ -1670,19 +1621,22 @@
           "text": "这是一条自我介绍（大家好哦我是小仓，本科是南大心理，现在澳洲学习行为分析，目前关注的课题是，ACT疗法干预焦虑症，生活行为习惯的塑造，以及AI和佩戴设备在前两个领域的使用"
         }
       ],
-      "topic": "education",
+      "topic": "computing",
       "tags": [
-        "学习",
         "AI"
       ],
       "topics": [
-        "education",
-        "ai"
+        "computing"
       ],
       "summary": "这是一条自我介绍（大家好哦我是小仓，本科是南大心理，现在澳洲学习行为分析，目前关注的课题是，ACT疗法干预焦虑症，生活行为习惯的塑造，以及AI和佩戴设备在前两个领域的使用",
-      "offers": [],
+      "offers": [
+        "这是一条自我介绍（大家好哦我是小仓，本科是南大心理，现在澳洲学习行为分析，目前关注的课题是，ACT疗法干预焦虑症，生活行为习惯的塑造，以及AI和佩戴设备在前两个领域的使用"
+      ],
       "needs": [],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": [
+        "科研 / 论文"
+      ]
     },
     {
       "id": "9b8142ac59fe1993",
@@ -1700,18 +1654,22 @@
           "text": "大家好 我是ytkong 川大本 电气专业 已参加26考研等待出分中 希望与大家共同成长"
         }
       ],
-      "topic": "education",
+      "topic": "engineering",
       "tags": [
-        "考研",
-        "学习"
+        "电气"
       ],
       "topics": [
-        "education"
+        "engineering"
       ],
       "summary": "大家好 我是ytkong 川大本 电气专业 已参加26考研等待出分中 希望与大家共同成长",
       "offers": [],
-      "needs": [],
-      "stage": "探索交流"
+      "needs": [
+        "大家好 我是ytkong 川大本 电气专业 已参加26考研等待出分中 希望与大家共同成长"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "考研 / 保研"
+      ]
     },
     {
       "id": "9c37d42098c8692e",
@@ -1729,17 +1687,16 @@
           "text": "我叫小古，毕业已6年，网工运维行业，目前离职在家学习打算明年找一份dba或者linux运维的工作"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "我叫小古，毕业已6年，网工运维行业，目前离职在家学习打算明年找一份dba或者linux运维的工作",
-      "offers": [],
+      "offers": [
+        "我叫小古，毕业已6年，网工运维行业，目前离职在家学习打算明年找一份dba或者linux运维的工作"
+      ],
       "needs": [],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "8f6e6a46748c2c4f",
@@ -1757,7 +1714,8 @@
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "cba57db71b082cf4",
@@ -1775,21 +1733,16 @@
           "text": "昵称 旺仔水饺\n爱好:\n健身\n投资理财\n国学\n穿搭\n希望能在群里进行学习分享 交流"
         }
       ],
-      "topic": "health",
-      "tags": [
-        "健身",
-        "学习"
-      ],
-      "topics": [
-        "health",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "昵称 旺仔水饺。爱好:…",
       "offers": [],
       "needs": [
         "希望能在群里进行学习分享 交流"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b4a934e086cb0d34",
@@ -1807,20 +1760,18 @@
           "text": "大家好，我是山顶见， 双非应用统计硕士，专业方向为工业统计可靠性方向，，喜欢健身，紧跟大部队一起学习一起成长"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "硕士",
-        "学习",
-        "健身"
-      ],
-      "topics": [
-        "education",
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是山顶见， 双非应用统计硕士，专业方向为工业统计可靠性方向，，喜欢健身，紧跟大部队一起学习一起成长",
-      "offers": [],
+      "offers": [
+        "大家好，我是山顶见， 双非应用统计硕士，专业方向为工业统计可靠性方向，，喜欢健身，紧跟大部队一起学习一起成长"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": [
+        "学习搭子"
+      ]
     },
     {
       "id": "d7b2436fe2ff843b",
@@ -1838,17 +1789,16 @@
           "text": "大家好 我是皮蛋solo 教师在职 向大佬们学习保持学习习惯"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好 我是皮蛋solo 教师在职 向大佬们学习保持学习习惯",
-      "offers": [],
+      "offers": [
+        "大家好 我是皮蛋solo 教师在职 向大佬们学习保持学习习惯"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "3ddfc688ef9352a9",
@@ -1860,17 +1810,18 @@
       "messageCount": 50,
       "lastActiveAt": "2026-09-19T16:41:55.000Z",
       "introductions": [],
-      "topic": "data",
+      "topic": "business",
       "tags": [
         "会计"
       ],
       "topics": [
-        "data"
+        "business"
       ],
       "summary": "本群可见记录中有 50 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "91c720f3ced906ac",
@@ -1888,19 +1839,18 @@
           "text": "大家好，我的昵称是胆小鬼！叫我小鬼就行！是水利水电专业的一名大二学生！目前是在健身学习双开！进群的主要目的是提升自己的学习能力！和大家一同进步！"
         }
       ],
-      "topic": "health",
-      "tags": [
-        "健身",
-        "学习"
-      ],
-      "topics": [
-        "health",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我的昵称是胆小鬼。叫我小鬼就行…",
-      "offers": [],
+      "offers": [
+        "是水利水电专业的一名大二学生",
+        "目前是在健身学习双开",
+        "进群的主要目的是提升自己的学习能力"
+      ],
       "needs": [],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "1a7d70e1603488b4",
@@ -1912,17 +1862,18 @@
       "messageCount": 45,
       "lastActiveAt": "2026-08-23T05:02:16.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "computing",
       "tags": [
-        "考研"
+        "计算机"
       ],
       "topics": [
-        "education"
+        "computing"
       ],
       "summary": "本群可见记录中有 45 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "eb9d18d3382a0186",
@@ -1940,7 +1891,8 @@
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "48e6be22dd5b3af9",
@@ -1958,7 +1910,8 @@
       "summary": "本群可见记录中有 37 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "27100b18f0ad3fc5",
@@ -1970,18 +1923,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "博士",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "94fbf1932633f26b",
@@ -1993,13 +1942,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "computing",
+      "tags": [
+        "计算机"
+      ],
+      "topics": [
+        "computing"
+      ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "ba72ea6f971df50a",
@@ -2017,7 +1971,8 @@
       "summary": "本群可见记录中有 466 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f1d0d901a8c00194",
@@ -2035,17 +1990,22 @@
           "text": "大家好 我是clay 天津普通双非大学大三计算机专业，希望大家一起学习进步！"
         }
       ],
-      "topic": "education",
+      "topic": "computing",
       "tags": [
-        "学习"
+        "计算机"
       ],
       "topics": [
-        "education"
+        "computing"
       ],
       "summary": "大家好 我是clay 天津普通双非大学大三计算机专业，希望大家一起学习进步",
       "offers": [],
-      "needs": [],
-      "stage": "探索交流"
+      "needs": [
+        "大家好 我是clay 天津普通双非大学大三计算机专业，希望大家一起学习进步"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "学习搭子"
+      ]
     },
     {
       "id": "09faa3a5f87ff808",
@@ -2057,17 +2017,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f2cb2cc17e25571a",
@@ -2085,17 +2042,23 @@
           "text": "大家好 我是HOHO 一名中医学生 平时会看马哥的学习直播或者视频 目前在沉淀医术中 希望和大家一起学习进步"
         }
       ],
-      "topic": "education",
+      "topic": "biomed",
       "tags": [
-        "学习"
+        "医学",
+        "医学生"
       ],
       "topics": [
-        "education"
+        "biomed"
       ],
       "summary": "大家好 我是HOHO 一名中医学生 平时会看马哥的学习直播或者视频 目前在沉淀医术中 希望和大家一起学习进步",
       "offers": [],
-      "needs": [],
-      "stage": "正在实践"
+      "needs": [
+        "大家好 我是HOHO 一名中医学生 平时会看马哥的学习直播或者视频 目前在沉淀医术中 希望和大家一起学习进步"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "学习搭子"
+      ]
     },
     {
       "id": "bf998e06183d9920",
@@ -2113,18 +2076,18 @@
           "text": "大家好，我是柒， 文科双非考研备考法硕非法，想要向各位大佬和马哥学习，开阔视野激励促进自身成长。"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "考研",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是柒， 文科双非考研备考法硕非法，想要向各位大佬和马哥学习，开阔视野激励促进自身成长",
       "offers": [],
-      "needs": [],
-      "stage": "探索交流"
+      "needs": [
+        "大家好，我是柒， 文科双非考研备考法硕非法，想要向各位大佬和马哥学习，开阔视野激励促进自身成长"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "考研 / 保研"
+      ]
     },
     {
       "id": "7fa2ddf4f80e7488",
@@ -2142,7 +2105,8 @@
       "summary": "本群可见记录中有 5 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a28a1230b3584131",
@@ -2154,13 +2118,18 @@
       "messageCount": 5,
       "lastActiveAt": "2026-06-28T08:57:26.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "science",
+      "tags": [
+        "数学"
+      ],
+      "topics": [
+        "science"
+      ],
       "summary": "本群可见记录中有 5 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a778ec39cfc2a35a",
@@ -2172,17 +2141,14 @@
       "messageCount": 1,
       "lastActiveAt": "2026-04-18T13:19:41.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f1605a60a2dc875d",
@@ -2194,13 +2160,18 @@
       "messageCount": 158,
       "lastActiveAt": "2026-10-09T11:52:40.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "computing",
+      "tags": [
+        "计算机"
+      ],
+      "topics": [
+        "computing"
+      ],
       "summary": "本群可见记录中有 158 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "4e27390803672919",
@@ -2212,18 +2183,14 @@
       "messageCount": 10,
       "lastActiveAt": "2026-06-16T11:42:50.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "考研",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 10 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "bdace1d6d4732394",
@@ -2241,7 +2208,8 @@
       "summary": "本群可见记录中有 42 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f146bd9682b38dd8",
@@ -2253,13 +2221,18 @@
       "messageCount": 1,
       "lastActiveAt": "2026-05-11T16:41:25.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "humanities",
+      "tags": [
+        "法学"
+      ],
+      "topics": [
+        "humanities"
+      ],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "800d16f638a3c9c1",
@@ -2277,7 +2250,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "efcc666caff71498",
@@ -2295,22 +2269,22 @@
           "text": "大家好我是彼岸花开花落，目前大四，保研 thu 软院硕，感兴趣 ai 方向，希望互相交流，向大家学习[社会社会]"
         }
       ],
-      "topic": "education",
+      "topic": "computing",
       "tags": [
-        "保研",
-        "学习",
         "AI"
       ],
       "topics": [
-        "education",
-        "ai"
+        "computing"
       ],
       "summary": "大家好我是彼岸花开花落，目前大四，保研 thu 软院硕，感兴趣 ai 方向，希望互相交流，向大家学习[社会社会]",
       "offers": [],
       "needs": [
         "大家好我是彼岸花开花落，目前大四，保研 thu 软院硕，感兴趣 ai 方向，希望互相交流，向大家学习[社会社会]"
       ],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": [
+        "考研 / 保研"
+      ]
     },
     {
       "id": "7b77b70337ba9d0f",
@@ -2328,7 +2302,8 @@
       "summary": "本群可见记录中有 263 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "776855443d72f63f",
@@ -2346,18 +2321,18 @@
           "text": "Hello大家，大家可以称呼我为玖，目前是在旅游行业做产品经理，希望跟大家一起学习，一向想要的明天有去[太陽]"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "教育",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "Hello大家，大家可以称呼我为玖，目前是在旅游行业做产品经理，希望跟大家一起学习，一向想要的明天有去[太陽]",
       "offers": [],
-      "needs": [],
-      "stage": "正在实践"
+      "needs": [
+        "Hello大家，大家可以称呼我为玖，目前是在旅游行业做产品经理，希望跟大家一起学习，一向想要的明天有去[太陽]"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "学习搭子"
+      ]
     },
     {
       "id": "0d4c3e1137058894",
@@ -2369,17 +2344,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d004b0eb357fcfa2",
@@ -2391,17 +2363,14 @@
       "messageCount": 1,
       "lastActiveAt": "2026-01-10T08:36:40.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "9ec9107adc7ec8c7",
@@ -2413,17 +2382,20 @@
       "messageCount": 336,
       "lastActiveAt": "2026-10-10T04:35:07.000Z",
       "introductions": [],
-      "topic": "ai",
+      "topic": "biomed",
       "tags": [
+        "医学",
         "AI"
       ],
       "topics": [
-        "ai"
+        "biomed",
+        "computing"
       ],
       "summary": "本群可见记录中有 336 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "5758726673aacae3",
@@ -2435,19 +2407,19 @@
       "messageCount": 3,
       "lastActiveAt": "2026-06-28T07:03:03.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "computing",
       "tags": [
-        "学习",
+        "计算机",
         "AI"
       ],
       "topics": [
-        "education",
-        "ai"
+        "computing"
       ],
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "20521c5bc5a06b0f",
@@ -2465,7 +2437,8 @@
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "14676f28d1e46227",
@@ -2483,19 +2456,16 @@
           "text": "我是小阪，广东机电本科生大二，喜欢健身，对自己学习方面有要求，想和大家一起进步"
         }
       ],
-      "topic": "health",
-      "tags": [
-        "健身",
-        "学习"
-      ],
-      "topics": [
-        "health",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "我是小阪，广东机电本科生大二，喜欢健身，对自己学习方面有要求，想和大家一起进步",
-      "offers": [],
+      "offers": [
+        "我是小阪，广东机电本科生大二，喜欢健身，对自己学习方面有要求，想和大家一起进步"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2a0d834a8ee98261",
@@ -2507,13 +2477,18 @@
       "messageCount": 4,
       "lastActiveAt": "2026-03-24T05:56:28.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "design",
+      "tags": [
+        "音乐"
+      ],
+      "topics": [
+        "design"
+      ],
       "summary": "本群可见记录中有 4 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "444f74ac2ab45a4d",
@@ -2531,19 +2506,18 @@
           "text": "大家好，我是H，基层医生，非全硕在读，目的是顺利毕业＋考公不值夜班正常双休，和大家一起进步，爱好健身和打金铲铲[转圈]"
         }
       ],
-      "topic": "health",
-      "tags": [
-        "健身",
-        "考公"
-      ],
-      "topics": [
-        "health",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是H，基层医生，非全硕在读，目的是顺利毕业＋考公不值夜班正常双休，和大家一起进步，爱好健身和打金铲铲[转圈]",
-      "offers": [],
+      "offers": [
+        "大家好，我是H，基层医生，非全硕在读，目的是顺利毕业＋考公不值夜班正常双休，和大家一起进步，爱好健身和打金铲铲[转圈]"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": [
+        "考公 / 考编"
+      ]
     },
     {
       "id": "1354b32808a68f64",
@@ -2555,17 +2529,14 @@
       "messageCount": 24,
       "lastActiveAt": "2026-09-18T01:40:38.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 24 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e24b29741ac3fff0",
@@ -2583,7 +2554,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "97f82f4dbbc80807",
@@ -2595,19 +2567,18 @@
       "messageCount": 2,
       "lastActiveAt": "2026-05-21T13:26:46.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "computing",
       "tags": [
-        "街健",
         "AI"
       ],
       "topics": [
-        "health",
-        "ai"
+        "computing"
       ],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "6a2f06be41be285d",
@@ -2625,20 +2596,22 @@
           "text": "大家好我是Amos Zhou，北理工博士生在读，想和大家一起学习交流进步[呲牙]"
         }
       ],
-      "topic": "education",
+      "topic": "computing",
       "tags": [
-        "博士",
-        "学习",
         "AI"
       ],
       "topics": [
-        "education",
-        "ai"
+        "computing"
       ],
       "summary": "大家好我是Amos Zhou，北理工博士生在读，想和大家一起学习交流进步[呲牙]",
-      "offers": [],
+      "offers": [
+        "大家好我是Amos Zhou，北理工博士生在读，想和大家一起学习交流进步[呲牙]"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": [
+        "学习搭子"
+      ]
     },
     {
       "id": "0dee2f26f22e4f79",
@@ -2656,19 +2629,20 @@
           "text": "大家好，我是林玲羽，正在考研中，进群和大家一起交流学习。[握手]"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "考研",
-        "研究生",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是林玲羽，正在考研中，进群和大家一起交流学习。[握手]",
-      "offers": [],
-      "needs": [],
-      "stage": "探索交流"
+      "offers": [
+        "大家好，我是林玲羽，正在考研中，进群和大家一起交流学习"
+      ],
+      "needs": [
+        "大家好，我是林玲羽，正在考研中，进群和大家一起交流学习"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "考研 / 保研"
+      ]
     },
     {
       "id": "4a4f7a5c42b01462",
@@ -2686,21 +2660,19 @@
           "text": "大家好，我是b站用户沉默寡言猫猫[旺柴]，神内在读硕士，干的湿的都在做，对干的更感兴趣。想进群获得不同专业不同背景的视角，当然放松瞎聊也行。"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "硕士"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是b站用户沉默寡言猫猫[旺柴]，神内在读硕士，干的湿的都在做，对干的更感兴趣。想进群获得不同专业不同背景的视角，当然放松瞎聊也行",
       "offers": [
-        "大家好，我是b站用户沉默寡言猫猫[旺柴]，神内在读硕士，干的湿的都在做，对干的更感兴趣"
+        "大家好，我是b站用户沉默寡言猫猫[旺柴]，神内在读硕士，干的湿的都在做，对干的更感兴趣",
+        "想进群获得不同专业不同背景的视角，当然放松瞎聊也行"
       ],
       "needs": [
         "大家好，我是b站用户沉默寡言猫猫[旺柴]，神内在读硕士，干的湿的都在做，对干的更感兴趣"
       ],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "8e808611a60b2ff9",
@@ -2718,7 +2690,8 @@
       "summary": "本群可见记录中有 56 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7c93ff6b9fb62f03",
@@ -2730,17 +2703,18 @@
       "messageCount": 1,
       "lastActiveAt": "2026-01-10T08:38:50.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "science",
       "tags": [
-        "学习"
+        "数学"
       ],
       "topics": [
-        "education"
+        "science"
       ],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d9342df6b5d0fb1a",
@@ -2758,22 +2732,18 @@
           "text": "大家好我是喃喃自语，复旦大学cisl实验室研究生，目前在做memory system和search agent相关的工作，希望能与大家多多交流"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "研究生",
-        "学习",
-        "agent"
-      ],
-      "topics": [
-        "education",
-        "ai"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好我是喃喃自语，复旦大学cisl实验室研究生，目前在做memory system和search agent相关的工作，希望能与大家多多交流",
       "offers": [],
       "needs": [
         "大家好我是喃喃自语，复旦大学cisl实验室研究生，目前在做memory system和search agent相关的工作，希望能与大家多多交流"
       ],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": [
+        "科研 / 论文"
+      ]
     },
     {
       "id": "b93d932112b356aa",
@@ -2785,17 +2755,18 @@
       "messageCount": 1,
       "lastActiveAt": "2026-04-08T20:14:10.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "engineering",
       "tags": [
-        "博士"
+        "通信"
       ],
       "topics": [
-        "education"
+        "engineering"
       ],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7c745bdcd9e4659d",
@@ -2813,20 +2784,17 @@
           "text": "大家好，我是乌萨奇，休闲体育在读，一名街健小白，看马哥的街健健身分享和直播。到学习群是想学习更多知识领域，一起进步💫"
         }
       ],
-      "topic": "health",
-      "tags": [
-        "健身",
-        "街健",
-        "学习"
-      ],
-      "topics": [
-        "health",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是乌萨奇，休闲体育在读，一名街健小白，看马哥的街健健身分享和直播。到学习群是想学习更多知识领域，一起进步💫",
-      "offers": [],
+      "offers": [
+        "大家好，我是乌萨奇，休闲体育在读，一名街健小白，看马哥的街健健身分享和直播",
+        "到学习群是想学习更多知识领域，一起进步💫"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "35fab46e024a1649",
@@ -2838,13 +2806,18 @@
       "messageCount": 34,
       "lastActiveAt": "2026-08-28T11:04:12.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "biomed",
+      "tags": [
+        "药学"
+      ],
+      "topics": [
+        "biomed"
+      ],
       "summary": "本群可见记录中有 34 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "ad0adf4367742cfe",
@@ -2856,17 +2829,18 @@
       "messageCount": 13,
       "lastActiveAt": "2026-06-09T16:41:04.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "engineering",
       "tags": [
-        "学习"
+        "电子"
       ],
       "topics": [
-        "education"
+        "engineering"
       ],
       "summary": "本群可见记录中有 13 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "ce24b21451922bcb",
@@ -2878,17 +2852,18 @@
       "messageCount": 542,
       "lastActiveAt": "2026-08-25T13:20:06.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "biomed",
       "tags": [
-        "学习"
+        "临床"
       ],
       "topics": [
-        "education"
+        "biomed"
       ],
       "summary": "本群可见记录中有 542 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2ddc5cc348fa3ab2",
@@ -2906,19 +2881,20 @@
           "text": "大家好，我是小花，广东普通一本会计学，很高兴认识大家，和大家学习~"
         }
       ],
-      "topic": "data",
+      "topic": "business",
       "tags": [
-        "会计",
-        "学习"
+        "会计"
       ],
       "topics": [
-        "data",
-        "education"
+        "business"
       ],
       "summary": "大家好，我是小花，广东普通一本会计学，很高兴认识大家，和大家学习~",
-      "offers": [],
+      "offers": [
+        "大家好，我是小花，广东普通一本会计学，很高兴认识大家，和大家学习~"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "ac07adb7d59e5420",
@@ -2936,19 +2912,16 @@
           "text": "大家好，我是童趣，目前工作是文员，希望和大家一起交流学习，一起成长"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是童趣，目前工作是文员，希望和大家一起交流学习，一起成长",
       "offers": [],
       "needs": [
         "大家好，我是童趣，目前工作是文员，希望和大家一起交流学习，一起成长"
       ],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "be9c2080c02471d5",
@@ -2966,19 +2939,20 @@
           "text": "大家好，我是Mazal，两财一贸金融学硕研一，希望能在这个充满热情跟朝气的学习群里跟各位小伙伴一起进步[机智]"
         }
       ],
-      "topic": "data",
+      "topic": "business",
       "tags": [
-        "金融",
-        "学习"
+        "金融"
       ],
       "topics": [
-        "data",
-        "education"
+        "business"
       ],
       "summary": "大家好，我是Mazal，两财一贸金融学硕研一，希望能在这个充满热情跟朝气的学习群里跟各位小伙伴一起进步[机智]",
       "offers": [],
-      "needs": [],
-      "stage": "探索交流"
+      "needs": [
+        "大家好，我是Mazal，两财一贸金融学硕研一，希望能在这个充满热情跟朝气的学习群里跟各位小伙伴一起进步[机智]"
+      ],
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e7f2b513b7b08b3a",
@@ -2990,13 +2964,19 @@
       "messageCount": 2,
       "lastActiveAt": "2026-05-14T16:39:00.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "biomed",
+      "tags": [
+        "医学",
+        "临床"
+      ],
+      "topics": [
+        "biomed"
+      ],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2ea3ad50b355229f",
@@ -3008,17 +2988,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "硕士"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "568cdf0a93b6da37",
@@ -3036,7 +3013,8 @@
       "summary": "本群可见记录中有 42 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "af6213573a680634",
@@ -3054,7 +3032,8 @@
       "summary": "本群可见记录中有 16 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "9c55268c8a14e67f",
@@ -3072,7 +3051,8 @@
       "summary": "本群可见记录中有 5 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7cb988e875a7355c",
@@ -3090,21 +3070,20 @@
           "text": "大家好，我来自河北，目前从事后端开发。期待能和各位在学习交流，提升自我"
         }
       ],
-      "topic": "education",
+      "topic": "computing",
       "tags": [
-        "学习",
-        "开发"
+        "后端"
       ],
       "topics": [
-        "education",
-        "ai"
+        "computing"
       ],
       "summary": "大家好，我来自河北，目前从事后端开发。期待能和各位在学习交流，提升自我",
       "offers": [
-        "大家好，我来自河北，目前从事后端开发"
+        "期待能和各位在学习交流，提升自我"
       ],
       "needs": [],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "384bd3f097da72f6",
@@ -3122,17 +3101,22 @@
           "text": "大家好，我来自湖南，目前湘雅医学院研一在读。期待能和各位在学习交流，提升自我"
         }
       ],
-      "topic": "education",
+      "topic": "biomed",
       "tags": [
-        "学习"
+        "医学",
+        "医学院"
       ],
       "topics": [
-        "education"
+        "biomed"
       ],
       "summary": "大家好，我来自湖南，目前湘雅医学院研一在读。期待能和各位在学习交流，提升自我",
-      "offers": [],
+      "offers": [
+        "大家好，我来自湖南，目前湘雅医学院研一在读",
+        "期待能和各位在学习交流，提升自我"
+      ],
       "needs": [],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f4058f025512fd30",
@@ -3150,7 +3134,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c22cba8e78d89838",
@@ -3162,17 +3147,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "ai",
+      "topic": "computing",
       "tags": [
         "AI"
       ],
       "topics": [
-        "ai"
+        "computing"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a574982a1cf16fa2",
@@ -3190,20 +3176,22 @@
           "text": "大家好，我来自河南，准备考教育博士，，向群主及群里各位朋友学习交流[握手][握手]"
         }
       ],
-      "topic": "education",
+      "topic": "humanities",
       "tags": [
-        "教育",
-        "硕士",
-        "博士",
-        "学习"
+        "法学"
       ],
       "topics": [
-        "education"
+        "humanities"
       ],
       "summary": "大家好，我来自河南，准备考教育博士，，向群主及群里各位朋友学习交流[握手][握手]",
-      "offers": [],
-      "needs": [],
-      "stage": "探索交流"
+      "offers": [
+        "大家好，我来自河南，准备考教育博士，，向群主及群里各位朋友学习交流[握手][握手]"
+      ],
+      "needs": [
+        "大家好，我来自河南，准备考教育博士，，向群主及群里各位朋友学习交流[握手][握手]"
+      ],
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d61337b479a0cb9c",
@@ -3215,19 +3203,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "引体",
-        "学习"
-      ],
-      "topics": [
-        "health",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d9c7c40bb6844a07",
@@ -3245,7 +3228,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "edf14d5fe8f9c79e",
@@ -3257,17 +3241,14 @@
       "messageCount": 4,
       "lastActiveAt": "2026-10-09T08:45:41.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 4 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c2d1f5250d28ca4c",
@@ -3285,7 +3266,8 @@
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "0248394ca5a5e17c",
@@ -3297,17 +3279,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "考研"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c736d6afa4c924dc",
@@ -3319,17 +3298,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "考公"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "fbea786c57b9f615",
@@ -3341,19 +3317,14 @@
       "messageCount": 12,
       "lastActiveAt": "2026-06-24T08:29:00.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "科研",
-        "开发"
-      ],
-      "topics": [
-        "education",
-        "ai"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 12 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e9eaa64f1cb580c2",
@@ -3365,17 +3336,14 @@
       "messageCount": 1,
       "lastActiveAt": "2026-05-24T01:13:19.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "8b0aad559760f726",
@@ -3387,17 +3355,18 @@
       "messageCount": 1,
       "lastActiveAt": "2026-02-24T13:42:17.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "engineering",
       "tags": [
-        "学习"
+        "材料"
       ],
       "topics": [
-        "education"
+        "engineering"
       ],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "52f338fdcf9ffa3e",
@@ -3415,7 +3384,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "cebae30c32c4d6a8",
@@ -3427,17 +3397,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2062cc25dc021eab",
@@ -3449,17 +3416,14 @@
       "messageCount": 2,
       "lastActiveAt": "2026-05-08T16:45:59.000Z",
       "introductions": [],
-      "topic": "hardware",
-      "tags": [
-        "具身"
-      ],
-      "topics": [
-        "hardware"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a91ec98cb91e9f72",
@@ -3471,17 +3435,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "87a068db160d0315",
@@ -3493,17 +3454,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "9c6e5bcc84211527",
@@ -3515,17 +3473,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "99d429d8d6962253",
@@ -3543,7 +3498,8 @@
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "60e5656ddb72ca0f",
@@ -3561,7 +3517,8 @@
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "5b21ee6ce4f81118",
@@ -3573,17 +3530,18 @@
       "messageCount": 71,
       "lastActiveAt": "2026-06-03T07:02:32.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "engineering",
       "tags": [
-        "学习"
+        "电气"
       ],
       "topics": [
-        "education"
+        "engineering"
       ],
       "summary": "本群可见记录中有 71 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f0f87c0cf51440e4",
@@ -3595,17 +3553,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b1d8763ea860937e",
@@ -3623,7 +3578,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2943299d12b675f9",
@@ -3635,17 +3591,14 @@
       "messageCount": 1,
       "lastActiveAt": "2026-07-31T03:25:34.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "9f82014cee6ed3c7",
@@ -3663,7 +3616,8 @@
       "summary": "本群可见记录中有 161 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a17cf3a423fc1093",
@@ -3681,7 +3635,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "402c87bac823e2f1",
@@ -3693,17 +3648,14 @@
       "messageCount": 693,
       "lastActiveAt": "2026-10-06T02:21:40.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 693 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d3f9b175b2a5f599",
@@ -3721,7 +3673,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "6768d0ccec9bdf6b",
@@ -3739,7 +3692,8 @@
       "summary": "本群可见记录中有 98 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "508cedfdcc7c0a33",
@@ -3751,13 +3705,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "science",
+      "tags": [
+        "物理"
+      ],
+      "topics": [
+        "science"
+      ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "1ab5c7551d9a1d19",
@@ -3769,17 +3728,14 @@
       "messageCount": 2,
       "lastActiveAt": "2026-02-28T02:12:29.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "8e5be81939f49866",
@@ -3797,7 +3753,8 @@
       "summary": "本群可见记录中有 9 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "da265be9780d0f9f",
@@ -3815,7 +3772,8 @@
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2d2405c94c1a77bc",
@@ -3833,19 +3791,14 @@
           "text": "我来自山东日照市，篮球，自行车爱好者，从事水泥建材行业，大家多多指教"
         }
       ],
-      "topic": "health",
-      "tags": [
-        "篮球",
-        "学习"
-      ],
-      "topics": [
-        "health",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "我来自山东日照市，篮球，自行车爱好者，从事水泥建材行业，大家多多指教",
       "offers": [],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "8861af629ffd7c8b",
@@ -3857,17 +3810,14 @@
       "messageCount": 10,
       "lastActiveAt": "2026-07-14T06:44:22.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 10 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c3e910ab15eaea00",
@@ -3879,13 +3829,18 @@
       "messageCount": 40,
       "lastActiveAt": "2026-09-08T02:08:28.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "biomed",
+      "tags": [
+        "临床"
+      ],
+      "topics": [
+        "biomed"
+      ],
       "summary": "本群可见记录中有 40 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "6d24507a3bc1efb3",
@@ -3897,17 +3852,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "3c1c5251d33323d9",
@@ -3925,7 +3877,8 @@
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b2f2a79a6379cdc7",
@@ -3937,18 +3890,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "硕士",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a7f6c02914e19b50",
@@ -3966,18 +3915,21 @@
           "text": "大家好，我是南理机械专业研究生，加群主要是为了多交朋友，多学习，多交流，不断提升自我！！！"
         }
       ],
-      "topic": "education",
+      "topic": "engineering",
       "tags": [
-        "研究生",
-        "学习"
+        "机械",
+        "电子"
       ],
       "topics": [
-        "education"
+        "engineering"
       ],
       "summary": "大家好，我是南理机械专业研究生，加群主要是为了多交朋友，多学习，多交流，不断提升自我",
-      "offers": [],
+      "offers": [
+        "大家好，我是南理机械专业研究生，加群主要是为了多交朋友，多学习，多交流，不断提升自我"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c55ebb6d8d0af632",
@@ -3989,17 +3941,18 @@
       "messageCount": 44,
       "lastActiveAt": "2026-10-09T12:57:55.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "engineering",
       "tags": [
-        "学习"
+        "通信"
       ],
       "topics": [
-        "education"
+        "engineering"
       ],
       "summary": "本群可见记录中有 44 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "203fba3fcc2fbf61",
@@ -4017,17 +3970,18 @@
           "text": "大家好，我是河大软工专业本科学生，加入群留是为了和大家一起学习交流，不断提升自我[玫瑰][玫瑰]"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是河大软工专业本科学生，加入群留是为了和大家一起学习交流，不断提升自我[玫瑰][玫瑰]",
-      "offers": [],
+      "offers": [
+        "大家好，我是河大软工专业本科学生，加入群留是为了和大家一起学习交流，不断提升自我[玫瑰][玫瑰]"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": [
+        "学习搭子"
+      ]
     },
     {
       "id": "d9958f801f5219e5",
@@ -4045,19 +3999,18 @@
           "text": "自我介绍，我是在读大学生，喜欢健身，加入群想跟大家一起交流健身知识，一起学习！"
         }
       ],
-      "topic": "health",
-      "tags": [
-        "健身",
-        "学习"
-      ],
-      "topics": [
-        "health",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "自我介绍，我是在读大学生，喜欢健身，加入群想跟大家一起交流健身知识，一起学习",
-      "offers": [],
+      "offers": [
+        "自我介绍，我是在读大学生，喜欢健身，加入群想跟大家一起交流健身知识，一起学习"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": [
+        "学习搭子"
+      ]
     },
     {
       "id": "ede7f0db87fa3028",
@@ -4075,17 +4028,14 @@
           "text": "大家好，我是静止，进群是想跟大家交流，更新自己对新事物的了解和理解，提升自我。"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是静止，进群是想跟大家交流，更新自己对新事物的了解和理解，提升自我",
       "offers": [],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d36954caeeb0830c",
@@ -4103,18 +4053,18 @@
           "text": "大家好 我是blaze 目前是tu berlin的硕士生 希望和大家一起学习进化"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "硕士",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好 我是blaze 目前是tu berlin的硕士生 希望和大家一起学习进化",
       "offers": [],
-      "needs": [],
-      "stage": "正在实践"
+      "needs": [
+        "大家好 我是blaze 目前是tu berlin的硕士生 希望和大家一起学习进化"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "学习搭子"
+      ]
     },
     {
       "id": "425571f9dfe2abad",
@@ -4132,7 +4082,8 @@
       "summary": "本群可见记录中有 4 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7e6b14b7ab029386",
@@ -4150,19 +4101,16 @@
           "text": "大家好，我是汪昊。是一名刚入学的大学生，也是一名狂热的技术爱好者。希望以后能与大家一起交流知识与技术、畅想未来、共同进步！"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是汪昊。是一名刚入学的大学生，也是一名狂热的技术爱好者…",
       "offers": [],
       "needs": [
         "希望以后能与大家一起交流知识与技术、畅想未来、共同进步"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "aaf12e7d8c737b71",
@@ -4180,7 +4128,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "34b8b82a9ac3d46b",
@@ -4192,17 +4141,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "49258b82fc108717",
@@ -4214,18 +4160,14 @@
       "messageCount": 8,
       "lastActiveAt": "2026-08-18T12:07:01.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "硕士",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 8 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "6655f65421e06298",
@@ -4237,17 +4179,18 @@
       "messageCount": 3,
       "lastActiveAt": "2026-03-12T04:50:13.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "biomed",
       "tags": [
         "口腔"
       ],
       "topics": [
-        "health"
+        "biomed"
       ],
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "16ed4749991fcf78",
@@ -4259,17 +4202,14 @@
       "messageCount": 4,
       "lastActiveAt": "2026-03-13T01:22:37.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 4 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2815b38213942be0",
@@ -4281,17 +4221,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "健身"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "cc4f462f7e4e375c",
@@ -4309,21 +4246,23 @@
           "text": "大家晚上好，我是一名在校大学生，对计算机相关知识和人工智能比较感兴趣，也希望能与大家多交流，共同学习"
         }
       ],
-      "topic": "ai",
+      "topic": "computing",
       "tags": [
-        "人工智能",
-        "学习"
+        "计算机",
+        "人工智能"
       ],
       "topics": [
-        "ai",
-        "education"
+        "computing"
       ],
       "summary": "大家晚上好，我是一名在校大学生，对计算机相关知识和人工智能比较感兴趣，也希望能与大家多交流，共同学习",
       "offers": [],
       "needs": [
         "大家晚上好，我是一名在校大学生，对计算机相关知识和人工智能比较感兴趣，也希望能与大家多交流，共同学习"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": [
+        "学习搭子"
+      ]
     },
     {
       "id": "07104baeda0048e3",
@@ -4335,17 +4274,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "56cc6023a493b1fe",
@@ -4363,7 +4299,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "4d49f26f9e532be3",
@@ -4375,19 +4312,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "data",
+      "topic": "business",
       "tags": [
-        "会计",
-        "硕士"
+        "会计"
       ],
       "topics": [
-        "data",
-        "education"
+        "business"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "3b670e481b9a017f",
@@ -4405,7 +4341,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "dcdc07e50009b241",
@@ -4423,21 +4360,18 @@
           "text": "大家好，我是刚进组的研0，本科是大连海事。\n现在准备在组开一个具身方向，目前还在学习。\n希望能与群里的大佬多多交流[社会社会]"
         }
       ],
-      "topic": "hardware",
-      "tags": [
-        "具身",
-        "学习"
-      ],
-      "topics": [
-        "hardware",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是刚进组的研0，本科是大连海事。现在准备在组开一个具身方向，目前还在学习…",
-      "offers": [],
+      "offers": [
+        "现在准备在组开一个具身方向，目前还在学习"
+      ],
       "needs": [
         "希望能与群里的大佬多多交流[社会社会]"
       ],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "50151ec1368c2b54",
@@ -4455,7 +4389,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "1102d7719a4128f8",
@@ -4473,7 +4408,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "537775d0231d54d3",
@@ -4491,7 +4427,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "60a2c6cbf65aee3e",
@@ -4503,17 +4440,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "ai",
+      "topic": "computing",
       "tags": [
         "AI"
       ],
       "topics": [
-        "ai"
+        "computing"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "8197978e1bce3697",
@@ -4531,7 +4469,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "4dcd57de27eb99b9",
@@ -4543,20 +4482,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "ai",
+      "topic": "computing",
       "tags": [
-        "大模型",
-        "开发",
-        "学习"
+        "大模型"
       ],
       "topics": [
-        "ai",
-        "education"
+        "computing"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b03e17205ac72825",
@@ -4568,17 +4505,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c51b1a309c6ae26b",
@@ -4590,19 +4524,18 @@
       "messageCount": 18,
       "lastActiveAt": "2026-06-15T16:09:54.000Z",
       "introductions": [],
-      "topic": "ai",
+      "topic": "computing",
       "tags": [
-        "人工智能",
-        "考研"
+        "人工智能"
       ],
       "topics": [
-        "ai",
-        "education"
+        "computing"
       ],
       "summary": "本群可见记录中有 18 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b83ef6650a28f9df",
@@ -4620,7 +4553,8 @@
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "11b08af1839c0a7f",
@@ -4638,17 +4572,18 @@
           "text": "大家好我是痕-工作比较偏游戏后期制作等各类型，来这边主要想增加一些自学的激励"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好我是痕-工作比较偏游戏后期制作等各类型，来这边主要想增加一些自学的激励",
-      "offers": [],
+      "offers": [
+        "大家好我是痕-工作比较偏游戏后期制作等各类型，来这边主要想增加一些自学的激励"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": [
+        "技能提升"
+      ]
     },
     {
       "id": "7a804867bf2d7b87",
@@ -4660,17 +4595,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "街健"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "13dff298abe013a3",
@@ -4682,17 +4614,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "002918e1613b8c6f",
@@ -4710,20 +4639,20 @@
           "text": "大家好，我是祈，27届推免生，研究生有可能走ai4s方向，来这想要了解下AI4S的前景，看小红书上说企业这个方向招的挺少的[捂脸]"
         }
       ],
-      "topic": "education",
+      "topic": "computing",
       "tags": [
-        "研究生",
-        "学习",
         "AI"
       ],
       "topics": [
-        "education",
-        "ai"
+        "computing"
       ],
       "summary": "大家好，我是祈，27届推免生，研究生有可能走ai4s方向，来这想要了解下AI4S的前景，看小红书上说企业这个方向招的挺少的[捂脸]",
       "offers": [],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": [
+        "考研 / 保研"
+      ]
     },
     {
       "id": "81d181340af8935c",
@@ -4735,17 +4664,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "研究生"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "987b897c47ffa830",
@@ -4763,7 +4689,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "dde001062f2ad8b5",
@@ -4775,17 +4702,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b242a4168e5d13a5",
@@ -4797,19 +4721,20 @@
       "messageCount": 2,
       "lastActiveAt": "2026-08-28T06:20:28.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "science",
       "tags": [
-        "硕士",
+        "物理",
         "AI"
       ],
       "topics": [
-        "education",
-        "ai"
+        "science",
+        "computing"
       ],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c0c389e99ff64923",
@@ -4827,7 +4752,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "34980601f1dba820",
@@ -4839,17 +4765,14 @@
       "messageCount": 3,
       "lastActiveAt": "2026-06-27T12:36:41.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f17521a4e1fba0ca",
@@ -4867,7 +4790,8 @@
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e0e890de4765def9",
@@ -4885,21 +4809,22 @@
           "text": "大家好，我是中南大学的大一学生，喜欢数学和编程，希望可以和大家多多交流，共同进步[加油]"
         }
       ],
-      "topic": "ai",
+      "topic": "computing",
       "tags": [
         "编程",
-        "学习"
+        "数学"
       ],
       "topics": [
-        "ai",
-        "education"
+        "computing",
+        "science"
       ],
       "summary": "大家好，我是中南大学的大一学生，喜欢数学和编程，希望可以和大家多多交流，共同进步[加油]",
       "offers": [],
       "needs": [
         "大家好，我是中南大学的大一学生，喜欢数学和编程，希望可以和大家多多交流，共同进步[加油]"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "64aa1f4ada159dc1",
@@ -4917,7 +4842,8 @@
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7becc1c71e598159",
@@ -4929,17 +4855,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b1a982b68008dc62",
@@ -4951,13 +4874,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "design",
+      "tags": [
+        "设计"
+      ],
+      "topics": [
+        "design"
+      ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "68f670f4b8b2a024",
@@ -4969,17 +4897,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "ef793ac4abab13ca",
@@ -4997,7 +4922,8 @@
       "summary": "本群可见记录中有 27 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "5cb5cd0302b274e0",
@@ -5009,17 +4935,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
+      "topic": "design",
       "tags": [
-        "学习"
+        "设计"
       ],
       "topics": [
-        "education"
+        "design"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7196ec25a8234780",
@@ -5037,22 +4964,20 @@
           "text": "大家好，我是凯瑟琳，博士生在读，植物保护分子生物学专业，希望可以一起交流一起进步"
         }
       ],
-      "topic": "education",
+      "topic": "biomed",
       "tags": [
-        "博士",
-        "学习",
         "生物"
       ],
       "topics": [
-        "education",
-        "health"
+        "biomed"
       ],
       "summary": "大家好，我是凯瑟琳，博士生在读，植物保护分子生物学专业，希望可以一起交流一起进步",
       "offers": [],
       "needs": [
         "大家好，我是凯瑟琳，博士生在读，植物保护分子生物学专业，希望可以一起交流一起进步"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7eed4b1ad504f8e9",
@@ -5070,7 +4995,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "999052b7b00088bc",
@@ -5082,17 +5008,14 @@
       "messageCount": 3,
       "lastActiveAt": "2026-08-23T23:16:50.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "考研"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c5f5a951f507743e",
@@ -5110,18 +5033,20 @@
           "text": "大家好，我是史努比，广东深圳人，现在研究生在读，历史学专业，一起交流学习进步口牙！"
         }
       ],
-      "topic": "education",
+      "topic": "humanities",
       "tags": [
-        "研究生",
-        "学习"
+        "历史"
       ],
       "topics": [
-        "education"
+        "humanities"
       ],
       "summary": "大家好，我是史努比，广东深圳人，现在研究生在读，历史学专业，一起交流学习进步口牙",
-      "offers": [],
+      "offers": [
+        "大家好，我是史努比，广东深圳人，现在研究生在读，历史学专业，一起交流学习进步口牙"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e2f2c09021267edc",
@@ -5133,17 +5058,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "健身"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "64150311c2b42ea8",
@@ -5155,19 +5077,18 @@
       "messageCount": 291,
       "lastActiveAt": "2026-09-22T20:01:25.000Z",
       "introductions": [],
-      "topic": "data",
+      "topic": "business",
       "tags": [
-        "财务",
-        "学习"
+        "财务"
       ],
       "topics": [
-        "data",
-        "education"
+        "business"
       ],
       "summary": "本群可见记录中有 291 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "57b9e12139fef5d4",
@@ -5179,18 +5100,18 @@
       "messageCount": 6,
       "lastActiveAt": "2026-05-12T06:55:55.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "humanities",
       "tags": [
-        "硕士",
-        "学习"
+        "法学"
       ],
       "topics": [
-        "education"
+        "humanities"
       ],
       "summary": "本群可见记录中有 6 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "0b3a100f202fb4ea",
@@ -5202,20 +5123,18 @@
       "messageCount": 2,
       "lastActiveAt": "2026-09-25T09:33:14.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "biomed",
       "tags": [
-        "生物",
-        "医药",
-        "AI"
+        "生物"
       ],
       "topics": [
-        "health",
-        "ai"
+        "biomed"
       ],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "4ed82e06aac0c5b1",
@@ -5227,17 +5146,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
+      "topic": "computing",
       "tags": [
-        "学习"
+        "Python"
       ],
       "topics": [
-        "education"
+        "computing"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "9235d1b1b6f0a1fd",
@@ -5249,18 +5169,14 @@
       "messageCount": 1,
       "lastActiveAt": "2026-06-09T12:34:32.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "教育",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "5812ab08d3e9075a",
@@ -5278,7 +5194,8 @@
       "summary": "本群可见记录中有 69 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "202943504ec07d76",
@@ -5290,17 +5207,18 @@
       "messageCount": 211,
       "lastActiveAt": "2026-10-08T15:18:35.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "biomed",
       "tags": [
-        "学习"
+        "医学"
       ],
       "topics": [
-        "education"
+        "biomed"
       ],
       "summary": "本群可见记录中有 211 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b1eedd51ffc0b7e3",
@@ -5318,7 +5236,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "253261a21b2ba710",
@@ -5330,17 +5249,14 @@
       "messageCount": 3,
       "lastActiveAt": "2026-06-21T17:25:32.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b6f6ce9e2c44c593",
@@ -5358,21 +5274,25 @@
           "text": "姓名：明明\n年级：博三\n专业：城乡规划\n兴趣爱好：城市调研、规划设计手绘、阅读行业前沿论文、户外运动、拓展人脉交流学习"
         }
       ],
-      "topic": "education",
+      "topic": "engineering",
       "tags": [
-        "论文",
-        "博士",
-        "学习",
-        "运动"
+        "建筑",
+        "设计"
       ],
       "topics": [
-        "education",
-        "health"
+        "engineering",
+        "design"
       ],
       "summary": "姓名：明明。年级：博三…",
-      "offers": [],
+      "offers": [
+        "专业：城乡规划",
+        "兴趣爱好：城市调研、规划设计手绘、阅读行业前沿论文、户外运动、拓展人脉交流学习"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": [
+        "科研 / 论文"
+      ]
     },
     {
       "id": "0ef7da24606901e9",
@@ -5390,18 +5310,21 @@
           "text": "大家好，谢谢马哥的直播陪伴！\n姓名：玉米\n年级：社会牛马第六年\n专业：药学\n工作行业：药物临床试验\n兴趣爱好：羽毛球，户外，正在学游泳"
         }
       ],
-      "topic": "health",
+      "topic": "biomed",
       "tags": [
-        "游泳",
-        "羽毛球"
+        "临床",
+        "药学"
       ],
       "topics": [
-        "health"
+        "biomed"
       ],
       "summary": "大家好，谢谢马哥的直播陪伴。姓名：玉米…",
-      "offers": [],
+      "offers": [
+        "专业：药学"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "aa123bf83a604a9e",
@@ -5419,7 +5342,8 @@
       "summary": "本群可见记录中有 4 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "1252343f8619c6c7",
@@ -5437,7 +5361,8 @@
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "4addc734cd9d5ed4",
@@ -5449,17 +5374,14 @@
       "messageCount": 2,
       "lastActiveAt": "2026-04-22T09:21:04.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "49e3a5ef5607ae0d",
@@ -5477,19 +5399,16 @@
           "text": "大家晚上好，我目前正在备考中，希望能和大家交流，了解不太熟悉的各种领域，坚持学习习惯"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家晚上好，我目前正在备考中，希望能和大家交流，了解不太熟悉的各种领域，坚持学习习惯",
       "offers": [],
       "needs": [
         "大家晚上好，我目前正在备考中，希望能和大家交流，了解不太熟悉的各种领域，坚持学习习惯"
       ],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "8228557d7604e268",
@@ -5507,7 +5426,8 @@
       "summary": "本群可见记录中有 13 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "0c961e930f380dbe",
@@ -5519,19 +5439,18 @@
       "messageCount": 7,
       "lastActiveAt": "2026-04-19T15:44:58.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "computing",
       "tags": [
-        "学习",
         "AI"
       ],
       "topics": [
-        "education",
-        "ai"
+        "computing"
       ],
       "summary": "本群可见记录中有 7 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "669eb3a20465add0",
@@ -5543,18 +5462,14 @@
       "messageCount": 32,
       "lastActiveAt": "2026-09-28T16:09:18.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "硕士",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 32 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "8dfe7ed11a688aa0",
@@ -5566,17 +5481,14 @@
       "messageCount": 1632,
       "lastActiveAt": "2026-10-08T08:33:30.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 1,632 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "23f063797c3a8a45",
@@ -5594,7 +5506,8 @@
       "summary": "本群可见记录中有 208 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "0c1aa5207766646b",
@@ -5606,19 +5519,18 @@
       "messageCount": 2,
       "lastActiveAt": "2026-05-11T16:21:53.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "design",
       "tags": [
-        "学习",
-        "电商"
+        "设计"
       ],
       "topics": [
-        "education",
-        "commerce"
+        "design"
       ],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f9576a3ca8c8648f",
@@ -5636,7 +5548,8 @@
       "summary": "本群可见记录中有 54 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "17e89f6294955866",
@@ -5648,17 +5561,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "ai",
+      "topic": "computing",
       "tags": [
         "AI"
       ],
       "topics": [
-        "ai"
+        "computing"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "45424c464948d55b",
@@ -5670,17 +5584,14 @@
       "messageCount": 372,
       "lastActiveAt": "2026-08-23T12:02:45.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 372 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "30e32a0c18cca948",
@@ -5692,18 +5603,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "考研",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f35408145368743a",
@@ -5715,17 +5622,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f67a7b513d3c105f",
@@ -5737,17 +5641,14 @@
       "messageCount": 1345,
       "lastActiveAt": "2026-10-09T11:40:45.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 1,345 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "6e21b7b1013eb323",
@@ -5759,17 +5660,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d67372fff51117be",
@@ -5781,17 +5679,18 @@
       "messageCount": 131,
       "lastActiveAt": "2026-10-07T11:12:56.000Z",
       "introductions": [],
-      "topic": "hardware",
+      "topic": "engineering",
       "tags": [
-        "电力"
+        "电子"
       ],
       "topics": [
-        "hardware"
+        "engineering"
       ],
       "summary": "本群可见记录中有 131 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "495f1522d79947f7",
@@ -5809,7 +5708,8 @@
       "summary": "本群可见记录中有 661 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "cc9a79b46ef4959a",
@@ -5827,7 +5727,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "6ff6131f42649b37",
@@ -5845,21 +5746,25 @@
           "text": "大家好，我昨天新进来的也自我介绍一下。我是下半年即将到上海入学的直博博0，研究方向为ai，多模态，agent，MBTI是INTP，兴趣爱好也是锻炼，不过科研和锻炼都是新手，进群也是感觉自己自制力比较薄弱，想和大家交流学习。假如有机会也想找个学习的搭子日常打卡监督"
         }
       ],
-      "topic": "ai",
+      "topic": "computing",
       "tags": [
-        "AI",
-        "agent",
-        "科研",
-        "学习"
+        "AI"
       ],
       "topics": [
-        "ai",
-        "education"
+        "computing"
       ],
       "summary": "大家好，我昨天新进来的也自我介绍一下。我是下半年即将到上海入学的直博博0，研究方向为ai，多模态，agent，MBTI是INTP，兴趣爱好也是锻炼，不过科研和锻炼都是新手，进群也是感觉自己自制力比较薄弱，想和大家交流学习…",
-      "offers": [],
-      "needs": [],
-      "stage": "探索交流"
+      "offers": [
+        "我是下半年即将到上海入学的直博博0，研究方向为ai，多模态，agent，MBTI是INTP，兴趣爱好也是锻炼，不过科研和锻炼都是新手，进群也是感觉自己自制力比较薄弱，想和大家交流学习",
+        "假如有机会也想找个学习的搭子日常打卡监督"
+      ],
+      "needs": [
+        "假如有机会也想找个学习的搭子日常打卡监督"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "科研 / 论文"
+      ]
     },
     {
       "id": "a18ce8a49842bf23",
@@ -5871,17 +5776,14 @@
       "messageCount": 502,
       "lastActiveAt": "2026-10-09T09:12:29.000Z",
       "introductions": [],
-      "topic": "data",
-      "tags": [
-        "量化"
-      ],
-      "topics": [
-        "data"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 502 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "69783f88ece8e679",
@@ -5893,17 +5795,14 @@
       "messageCount": 11,
       "lastActiveAt": "2026-05-17T06:42:14.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 11 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "1d4978f162e388a1",
@@ -5915,18 +5814,14 @@
       "messageCount": 17,
       "lastActiveAt": "2026-08-05T10:40:02.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "研究生",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 17 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f9f0f92956bbffb3",
@@ -5944,7 +5839,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "022ee6be0a4bbbfc",
@@ -5956,17 +5852,14 @@
       "messageCount": 36,
       "lastActiveAt": "2026-07-31T01:25:53.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 36 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "ee7d7e4aeb251959",
@@ -5978,17 +5871,14 @@
       "messageCount": 27,
       "lastActiveAt": "2026-09-27T01:01:03.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 27 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "245acf3ff1f0be64",
@@ -6006,7 +5896,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d3afc06dcb2f706f",
@@ -6024,7 +5915,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "484b437d73d608d2",
@@ -6036,13 +5928,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "language",
+      "tags": [
+        "英语"
+      ],
+      "topics": [
+        "language"
+      ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e883f27a75ad1427",
@@ -6060,7 +5957,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7d306dad876b38f7",
@@ -6072,17 +5970,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
+      "topic": "language",
       "tags": [
-        "学习"
+        "英语"
       ],
       "topics": [
-        "education"
+        "language"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "4110d76b049b3008",
@@ -6094,17 +5993,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
+      "topic": "engineering",
       "tags": [
-        "学习"
+        "建筑"
       ],
       "topics": [
-        "education"
+        "engineering"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b6821d0371b18480",
@@ -6122,7 +6022,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "946abfd058082600",
@@ -6134,19 +6035,18 @@
       "messageCount": 2,
       "lastActiveAt": "2026-06-15T00:21:56.000Z",
       "introductions": [],
-      "topic": "hardware",
+      "topic": "engineering",
       "tags": [
-        "机器人",
-        "学习"
+        "机器人"
       ],
       "topics": [
-        "hardware",
-        "education"
+        "engineering"
       ],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "0423bb363e27ecc2",
@@ -6158,13 +6058,18 @@
       "messageCount": 1,
       "lastActiveAt": "2026-05-10T12:38:34.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "engineering",
+      "tags": [
+        "建筑"
+      ],
+      "topics": [
+        "engineering"
+      ],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "1b817f969015a70f",
@@ -6176,17 +6081,14 @@
       "messageCount": 5,
       "lastActiveAt": "2026-05-23T14:42:15.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 5 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "391018679c2fc5e5",
@@ -6204,7 +6106,8 @@
       "summary": "本群可见记录中有 6 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e6a4c92ea27dc4a9",
@@ -6216,17 +6119,14 @@
       "messageCount": 15,
       "lastActiveAt": "2026-09-11T04:02:22.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 15 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e91ef66883b5efbe",
@@ -6244,7 +6144,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2a8e3327acd9c61a",
@@ -6256,19 +6157,20 @@
       "messageCount": 585,
       "lastActiveAt": "2026-10-01T08:11:55.000Z",
       "introductions": [],
-      "topic": "data",
+      "topic": "business",
       "tags": [
         "金融",
-        "学习"
+        "艺术"
       ],
       "topics": [
-        "data",
-        "education"
+        "business",
+        "design"
       ],
       "summary": "本群可见记录中有 585 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "49e47c5a3feff2cf",
@@ -6280,22 +6182,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "computing",
       "tags": [
-        "运动",
-        "康复",
-        "学习",
         "AI"
       ],
       "topics": [
-        "health",
-        "education",
-        "ai"
+        "computing"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "8ba6854fd4f055fb",
@@ -6307,17 +6205,14 @@
       "messageCount": 41,
       "lastActiveAt": "2026-07-31T17:03:23.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 41 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "26662ea59716d8d7",
@@ -6329,17 +6224,14 @@
       "messageCount": 75,
       "lastActiveAt": "2026-10-02T13:39:38.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 75 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2b0b854d75e5e797",
@@ -6357,7 +6249,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e086480afc329d62",
@@ -6375,19 +6268,22 @@
           "text": "大家好，我是欢欢喜喜，做财会的，希望和大家一起学习。[笑脸]"
         }
       ],
-      "topic": "data",
+      "topic": "business",
       "tags": [
-        "会计",
-        "学习"
+        "会计"
       ],
       "topics": [
-        "data",
-        "education"
+        "business"
       ],
       "summary": "大家好，我是欢欢喜喜，做财会的，希望和大家一起学习。[笑脸]",
       "offers": [],
-      "needs": [],
-      "stage": "探索交流"
+      "needs": [
+        "大家好，我是欢欢喜喜，做财会的，希望和大家一起学习"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "学习搭子"
+      ]
     },
     {
       "id": "9b8ecf10ea1abb13",
@@ -6399,19 +6295,14 @@
       "messageCount": 51,
       "lastActiveAt": "2026-06-06T03:07:07.000Z",
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "医疗",
-        "学习"
-      ],
-      "topics": [
-        "health",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 51 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "58f6bbd6c0ac8d17",
@@ -6429,7 +6320,8 @@
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "76af57d7e4e5c996",
@@ -6447,7 +6339,8 @@
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "76042f0c5afe6d79",
@@ -6459,17 +6352,14 @@
       "messageCount": 37,
       "lastActiveAt": "2026-09-09T05:26:05.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 37 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c6e0d23d07652a49",
@@ -6487,7 +6377,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e0d10c095fb2bbc9",
@@ -6505,7 +6396,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "5ce65b839c5cd6ff",
@@ -6523,17 +6415,14 @@
           "text": "大家好[握手][握手]我是一位石材创业者，很高兴认识大家，往后请多多指教"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好[握手][握手]我是一位石材创业者，很高兴认识大家，往后请多多指教",
       "offers": [],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "de9f7af314bbcf57",
@@ -6545,17 +6434,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "454b6325d1bdeb10",
@@ -6573,7 +6459,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "0b463640df8cc902",
@@ -6585,17 +6472,14 @@
       "messageCount": 18,
       "lastActiveAt": "2026-08-11T09:23:10.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 18 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "1d8eb58b82356a5c",
@@ -6607,17 +6491,14 @@
       "messageCount": 4,
       "lastActiveAt": "2026-10-05T14:49:59.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 4 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a3a0588b33b30ee3",
@@ -6635,7 +6516,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c9b511af00b3120c",
@@ -6653,19 +6535,20 @@
           "text": "Hello大家，我是温洛，华师AI本科大三在读。进群围观大佬讨论👀"
         }
       ],
-      "topic": "education",
+      "topic": "computing",
       "tags": [
-        "学习",
         "AI"
       ],
       "topics": [
-        "education",
-        "ai"
+        "computing"
       ],
       "summary": "Hello大家，我是温洛，华师AI本科大三在读。进群围观大佬讨论👀",
-      "offers": [],
+      "offers": [
+        "Hello大家，我是温洛，华师AI本科大三在读"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "39a506e0ef6471ff",
@@ -6683,19 +6566,18 @@
           "text": "大家好，我硕士已毕业，目前在备考考公，进群是希望能和群友互相鼓励和督促学习！[加油][加油]"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "硕士",
-        "学习",
-        "考公"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我硕士已毕业，目前在备考考公，进群是希望能和群友互相鼓励和督促学习。[加油][加油]",
       "offers": [],
-      "needs": [],
-      "stage": "正在实践"
+      "needs": [
+        "大家好，我硕士已毕业，目前在备考考公，进群是希望能和群友互相鼓励和督促学习"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "考公 / 考编"
+      ]
     },
     {
       "id": "e6432c2ac74fdf3d",
@@ -6707,19 +6589,18 @@
       "messageCount": 51,
       "lastActiveAt": "2026-09-17T13:26:38.000Z",
       "introductions": [],
-      "topic": "data",
+      "topic": "business",
       "tags": [
-        "金融",
-        "学习"
+        "金融"
       ],
       "topics": [
-        "data",
-        "education"
+        "business"
       ],
       "summary": "本群可见记录中有 51 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e78e33c69f90f579",
@@ -6731,19 +6612,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "健身",
-        "学习"
-      ],
-      "topics": [
-        "health",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d0dbf42a1c3708d6",
@@ -6761,7 +6637,8 @@
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "ed45549c78b09de0",
@@ -6779,7 +6656,8 @@
       "summary": "本群可见记录中有 196 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b8096b981668a22e",
@@ -6797,7 +6675,8 @@
       "summary": "本群可见记录中有 14 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e1dde14dcdc5190f",
@@ -6809,19 +6688,14 @@
       "messageCount": 6,
       "lastActiveAt": "2026-10-01T08:19:17.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习",
-        "电商"
-      ],
-      "topics": [
-        "education",
-        "commerce"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 6 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b0d4efe8acff3661",
@@ -6839,7 +6713,8 @@
       "summary": "本群可见记录中有 66 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "07b0ff9619d01706",
@@ -6857,7 +6732,8 @@
       "summary": "本群可见记录中有 21 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c7d28b8a8258c143",
@@ -6869,18 +6745,14 @@
       "messageCount": 1,
       "lastActiveAt": "2026-10-07T18:23:09.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "研究生",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "6cc4ed8a7222ae02",
@@ -6892,17 +6764,18 @@
       "messageCount": 2,
       "lastActiveAt": "2026-10-03T10:28:43.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "humanities",
       "tags": [
-        "学习"
+        "法学"
       ],
       "topics": [
-        "education"
+        "humanities"
       ],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "323c3b158cc7fbb0",
@@ -6920,7 +6793,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "133def91371e2300",
@@ -6938,19 +6812,16 @@
           "text": "大家好！我叫阿龙 坐标绍兴 目前是一个看书超不过三页就犯困的状态😂，希望能和大家学习交流怎么进入一个高效学习的状态 包括学习/记忆的方法，如有好的学习资料 我也很乐意分享给大家 谢谢！"
         }
       ],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好。我叫阿龙 坐标绍兴 目前是一个看书超不过三页就犯困的状态😂，希望能和大家学习交流怎么进入一个高效学习的状态 包括学习/记忆的方法，如有好的学习资料 我也很乐意分享给大家 谢谢",
       "offers": [],
       "needs": [
         "我叫阿龙 坐标绍兴 目前是一个看书超不过三页就犯困的状态😂，希望能和大家学习交流怎么进入一个高效学习的状态 包括学习/记忆的方法，如有好的学习资料 我也很乐意分享给大家 谢谢"
       ],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b52a9e86fb15f616",
@@ -6962,18 +6833,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "教育",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "fd2e5c6a7d6ede60",
@@ -6985,17 +6852,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "96dc507c729cdc21",
@@ -7007,17 +6871,14 @@
       "messageCount": 1,
       "lastActiveAt": "2026-06-21T15:14:00.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c109d1880dfdf409",
@@ -7029,17 +6890,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "考研"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "51155611662834f0",
@@ -7057,17 +6915,22 @@
           "text": "大家好，我是小洛，正像备注所说现在无业（有些不好意思但无所谓拉），因为无业很多时间，在自学外语，但自制力不强，学这学这就想这玩，所以进这个群的目的只有一个“自律”"
         }
       ],
-      "topic": "education",
+      "topic": "language",
       "tags": [
-        "学习"
+        "外语"
       ],
       "topics": [
-        "education"
+        "language"
       ],
       "summary": "大家好，我是小洛，正像备注所说现在无业（有些不好意思但无所谓拉），因为无业很多时间，在自学外语，但自制力不强，学这学这就想这玩，所以进这个群的目的只有一个“自律”",
-      "offers": [],
+      "offers": [
+        "大家好，我是小洛，正像备注所说现在无业（有些不好意思但无所谓拉），因为无业很多时间，在自学外语，但自制力不强，学这学这就想这玩，所以进这个群的目的只有一个“自律”"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": [
+        "技能提升"
+      ]
     },
     {
       "id": "c7cf5766ac50717e",
@@ -7085,7 +6948,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "52990a56b8f439f3",
@@ -7097,17 +6961,14 @@
       "messageCount": 1,
       "lastActiveAt": "2026-07-06T03:16:02.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "考研"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e7397289585c1ed4",
@@ -7125,7 +6986,8 @@
       "summary": "本群可见记录中有 31 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "bffd8d4f21e7752b",
@@ -7143,20 +7005,19 @@
           "text": "大家好，我是华中科技大学研一的何宇博，现在方向是在做agent开发，想要在明年暑假找实习，希望能和大家一起学习一起进步！"
         }
       ],
-      "topic": "ai",
-      "tags": [
-        "agent",
-        "开发",
-        "学习"
-      ],
-      "topics": [
-        "ai",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是华中科技大学研一的何宇博，现在方向是在做agent开发，想要在明年暑假找实习，希望能和大家一起学习一起进步",
       "offers": [],
-      "needs": [],
-      "stage": "正在实践"
+      "needs": [
+        "大家好，我是华中科技大学研一的何宇博，现在方向是在做agent开发，想要在明年暑假找实习，希望能和大家一起学习一起进步"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "求职 / 职业发展",
+        "学习搭子"
+      ]
     },
     {
       "id": "9b6208a3287f895f",
@@ -7168,17 +7029,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "446452f19477258d",
@@ -7196,7 +7054,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "3bfedd27a3053f4c",
@@ -7214,7 +7073,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "9aaf481af28bb505",
@@ -7226,17 +7086,18 @@
       "messageCount": 1,
       "lastActiveAt": "2026-07-30T16:44:14.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "engineering",
       "tags": [
-        "考研"
+        "电气"
       ],
       "topics": [
-        "education"
+        "engineering"
       ],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e2b01cfaf4670ab9",
@@ -7254,7 +7115,8 @@
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "913850077cc9fb67",
@@ -7272,7 +7134,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "04b4187b760265f9",
@@ -7290,21 +7153,20 @@
           "text": "大家好，我叫姚理，我是软件工程专业的，希望能和大家一起交流学习有关的问题，一起探讨前沿技术，无限进步！[加油]"
         }
       ],
-      "topic": "ai",
+      "topic": "computing",
       "tags": [
-        "软件",
-        "学习"
+        "软件工程"
       ],
       "topics": [
-        "ai",
-        "education"
+        "computing"
       ],
       "summary": "大家好，我叫姚理，我是软件工程专业的，希望能和大家一起交流学习有关的问题，一起探讨前沿技术，无限进步。[加油]",
       "offers": [],
       "needs": [
         "大家好，我叫姚理，我是软件工程专业的，希望能和大家一起交流学习有关的问题，一起探讨前沿技术，无限进步"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "25aa5e3cf8a08f3a",
@@ -7316,17 +7178,14 @@
       "messageCount": 4,
       "lastActiveAt": "2026-08-31T21:41:02.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 4 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "4511be5acab92c09",
@@ -7338,17 +7197,18 @@
       "messageCount": 2769,
       "lastActiveAt": "2026-10-09T21:21:50.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "engineering",
       "tags": [
-        "学习"
+        "建筑"
       ],
       "topics": [
-        "education"
+        "engineering"
       ],
       "summary": "本群可见记录中有 2,769 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "0feaea66e246f551",
@@ -7360,17 +7220,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "考研"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "5723ac594ab12f20",
@@ -7382,17 +7239,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
+      "topic": "design",
       "tags": [
-        "学习"
+        "设计"
       ],
       "topics": [
-        "education"
+        "design"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "91c8547fd49f9b2e",
@@ -7410,7 +7268,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "938bfcf6b8454fd8",
@@ -7422,18 +7281,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "硕士",
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "69aad867a01b890b",
@@ -7445,13 +7300,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "science",
+      "tags": [
+        "化学"
+      ],
+      "topics": [
+        "science"
+      ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a48f8bd04323b197",
@@ -7463,17 +7323,14 @@
       "messageCount": 66,
       "lastActiveAt": "2026-10-01T04:00:52.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 66 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "42536959d0ad3fe6",
@@ -7485,19 +7342,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "ai",
+      "topic": "computing",
       "tags": [
-        "人工智能",
-        "学习"
+        "人工智能"
       ],
       "topics": [
-        "ai",
-        "education"
+        "computing"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e1b275acc78c58b7",
@@ -7509,19 +7365,18 @@
       "messageCount": 19,
       "lastActiveAt": "2026-09-06T12:29:00.000Z",
       "introductions": [],
-      "topic": "education",
+      "topic": "computing",
       "tags": [
-        "学习",
         "AI"
       ],
       "topics": [
-        "education",
-        "ai"
+        "computing"
       ],
       "summary": "本群可见记录中有 19 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "ce7bd2fe129f9f7e",
@@ -7533,13 +7388,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "engineering",
+      "tags": [
+        "电气"
+      ],
+      "topics": [
+        "engineering"
+      ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "3e9411192fca1e72",
@@ -7551,17 +7411,14 @@
       "messageCount": 6,
       "lastActiveAt": "2026-10-09T21:19:18.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 6 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "0cff0abd226008f4",
@@ -7579,7 +7436,8 @@
       "summary": "本群可见记录中有 4 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "67fb5b576144a55f",
@@ -7591,17 +7449,14 @@
       "messageCount": 1,
       "lastActiveAt": "2026-10-08T01:13:11.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f931a68a0ddbad17",
@@ -7619,7 +7474,8 @@
       "summary": "本群可见记录中有 4 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f687871b01ff9f38",
@@ -7637,7 +7493,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d1f00e186754bf01",
@@ -7655,7 +7512,8 @@
       "summary": "本群可见记录中有 20 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "27a977f5d67323fb",
@@ -7667,19 +7525,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "引体",
-        "学习"
-      ],
-      "topics": [
-        "health",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "63d6462a1cbcde9c",
@@ -7691,17 +7544,14 @@
       "messageCount": 2,
       "lastActiveAt": "2026-10-08T01:13:03.000Z",
       "introductions": [],
-      "topic": "ai",
-      "tags": [
-        "AI"
-      ],
-      "topics": [
-        "ai"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "177d17e317a062ea",
@@ -7713,19 +7563,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "computing",
       "tags": [
-        "运动",
         "AI"
       ],
       "topics": [
-        "health",
-        "ai"
+        "computing"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "0634f2ac2d7d15b3",
@@ -7737,19 +7586,14 @@
       "messageCount": 1,
       "lastActiveAt": "2026-10-08T15:40:22.000Z",
       "introductions": [],
-      "topic": "hardware",
-      "tags": [
-        "具身",
-        "考研"
-      ],
-      "topics": [
-        "hardware",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d4d223019c170bda",
@@ -7767,7 +7611,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "6295d79248246d69",
@@ -7779,17 +7624,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "47b45757362d524f",
@@ -7801,19 +7643,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "健身",
-        "学习"
-      ],
-      "topics": [
-        "health",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "82521472343fbee0",
@@ -7831,7 +7668,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "48450f46d0b6cef6",
@@ -7849,7 +7687,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "92e57e3154819528",
@@ -7861,17 +7700,18 @@
       "messageCount": 1,
       "lastActiveAt": "2026-10-09T03:01:27.000Z",
       "introductions": [],
-      "topic": "ai",
+      "topic": "computing",
       "tags": [
         "AI"
       ],
       "topics": [
-        "ai"
+        "computing"
       ],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     }
   ],
   "edges": [
@@ -15464,575 +15304,28 @@
       "evidence": [],
       "firstAt": "2026-07-07T02:47:01.000Z",
       "lastAt": "2026-07-07T02:47:01.000Z"
-    },
-    {
-      "id": "408e874b4c2603d5:45d0347f2db521a0",
-      "source": "45d0347f2db521a0",
-      "target": "408e874b4c2603d5",
-      "kind": "match",
-      "reason": "夜雨微澜+精密仪器工程师+近朱者赤的自述资源与. 经济学博士的兴趣或需求涉及「学习」，可进一步了解。",
-      "evidence": []
-    },
-    {
-      "id": "45d0347f2db521a0:5120d65535483298",
-      "source": "45d0347f2db521a0",
-      "target": "5120d65535483298",
-      "kind": "match",
-      "reason": "夜雨微澜+精密仪器工程师+近朱者赤的自述资源与陈住气-中药-学习交流的兴趣或需求涉及「学习」，可进一步了解。",
-      "evidence": []
-    },
-    {
-      "id": "45d0347f2db521a0:d9b9f58a57056b27",
-      "source": "45d0347f2db521a0",
-      "target": "d9b9f58a57056b27",
-      "kind": "match",
-      "reason": "夜雨微澜+精密仪器工程师+近朱者赤的自述资源与乐高蒸蛋 SXNU本科生-谦虚学习的兴趣或需求涉及「学习」，可进一步了解。",
-      "evidence": []
-    },
-    {
-      "id": "24419c60a74537ec:dcdc07e50009b241",
-      "source": "24419c60a74537ec",
-      "target": "dcdc07e50009b241",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「具身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "911c3ee52c3de22b:a856413b72751a6c",
-      "source": "911c3ee52c3de22b",
-      "target": "a856413b72751a6c",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「硕士、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "911c3ee52c3de22b:b4a934e086cb0d34",
-      "source": "911c3ee52c3de22b",
-      "target": "b4a934e086cb0d34",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「硕士、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "911c3ee52c3de22b:a574982a1cf16fa2",
-      "source": "911c3ee52c3de22b",
-      "target": "a574982a1cf16fa2",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「硕士、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "61479747269b8e41:9dd84b2c9f540cc2",
-      "source": "61479747269b8e41",
-      "target": "9dd84b2c9f540cc2",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「教育、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "61479747269b8e41:776855443d72f63f",
-      "source": "61479747269b8e41",
-      "target": "776855443d72f63f",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「教育、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "61479747269b8e41:a574982a1cf16fa2",
-      "source": "61479747269b8e41",
-      "target": "a574982a1cf16fa2",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「教育、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "2bae621b4afe1a9f:e4348fe3677611bc",
-      "source": "2bae621b4afe1a9f",
-      "target": "e4348fe3677611bc",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「考研、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "2bae621b4afe1a9f:c39237d1e562b457",
-      "source": "2bae621b4afe1a9f",
-      "target": "c39237d1e562b457",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「考研、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "2bae621b4afe1a9f:514c8a84c2f2f4aa",
-      "source": "2bae621b4afe1a9f",
-      "target": "514c8a84c2f2f4aa",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「考研、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "408e874b4c2603d5:e4348fe3677611bc",
-      "source": "408e874b4c2603d5",
-      "target": "e4348fe3677611bc",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「学习、健身」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "408e874b4c2603d5:cba57db71b082cf4",
-      "source": "408e874b4c2603d5",
-      "target": "cba57db71b082cf4",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「学习、健身」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "c39237d1e562b457:e4348fe3677611bc",
-      "source": "e4348fe3677611bc",
-      "target": "c39237d1e562b457",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「考研、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "514c8a84c2f2f4aa:c39237d1e562b457",
-      "source": "c39237d1e562b457",
-      "target": "514c8a84c2f2f4aa",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「考研、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "5120d65535483298:e0d185e5481ba80f",
-      "source": "5120d65535483298",
-      "target": "e0d185e5481ba80f",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「学习、医疗」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "5120d65535483298:9b8ecf10ea1abb13",
-      "source": "5120d65535483298",
-      "target": "9b8ecf10ea1abb13",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「学习、医疗」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "a856413b72751a6c:b4a934e086cb0d34",
-      "source": "a856413b72751a6c",
-      "target": "b4a934e086cb0d34",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「硕士、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "a574982a1cf16fa2:a856413b72751a6c",
-      "source": "a856413b72751a6c",
-      "target": "a574982a1cf16fa2",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「硕士、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "776855443d72f63f:9dd84b2c9f540cc2",
-      "source": "9dd84b2c9f540cc2",
-      "target": "776855443d72f63f",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「教育、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "9235d1b1b6f0a1fd:9dd84b2c9f540cc2",
-      "source": "9dd84b2c9f540cc2",
-      "target": "9235d1b1b6f0a1fd",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「教育、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "514c8a84c2f2f4aa:b3d50789fce7891a",
-      "source": "514c8a84c2f2f4aa",
-      "target": "b3d50789fce7891a",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「考研、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "9b8142ac59fe1993:b3d50789fce7891a",
-      "source": "b3d50789fce7891a",
-      "target": "9b8142ac59fe1993",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「考研、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "b3d50789fce7891a:bf998e06183d9920",
-      "source": "b3d50789fce7891a",
-      "target": "bf998e06183d9920",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「考研、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "9b8142ac59fe1993:bf998e06183d9920",
-      "source": "9b8142ac59fe1993",
-      "target": "bf998e06183d9920",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「考研、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "4e27390803672919:9b8142ac59fe1993",
-      "source": "9b8142ac59fe1993",
-      "target": "4e27390803672919",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「考研、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "b4a934e086cb0d34:cba57db71b082cf4",
-      "source": "cba57db71b082cf4",
-      "target": "b4a934e086cb0d34",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "91c720f3ced906ac:cba57db71b082cf4",
-      "source": "cba57db71b082cf4",
-      "target": "91c720f3ced906ac",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "14676f28d1e46227:91c720f3ced906ac",
-      "source": "91c720f3ced906ac",
-      "target": "14676f28d1e46227",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "7c745bdcd9e4659d:91c720f3ced906ac",
-      "source": "91c720f3ced906ac",
-      "target": "7c745bdcd9e4659d",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "27100b18f0ad3fc5:6a2f06be41be285d",
-      "source": "27100b18f0ad3fc5",
-      "target": "6a2f06be41be285d",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「博士、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "27100b18f0ad3fc5:7196ec25a8234780",
-      "source": "27100b18f0ad3fc5",
-      "target": "7196ec25a8234780",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「博士、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "27100b18f0ad3fc5:b6f6ce9e2c44c593",
-      "source": "27100b18f0ad3fc5",
-      "target": "b6f6ce9e2c44c593",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「博士、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "4e27390803672919:bf998e06183d9920",
-      "source": "bf998e06183d9920",
-      "target": "4e27390803672919",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「考研、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "0dee2f26f22e4f79:4e27390803672919",
-      "source": "4e27390803672919",
-      "target": "0dee2f26f22e4f79",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「考研、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "776855443d72f63f:9235d1b1b6f0a1fd",
-      "source": "776855443d72f63f",
-      "target": "9235d1b1b6f0a1fd",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「教育、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "14676f28d1e46227:7c745bdcd9e4659d",
-      "source": "14676f28d1e46227",
-      "target": "7c745bdcd9e4659d",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "14676f28d1e46227:d9958f801f5219e5",
-      "source": "14676f28d1e46227",
-      "target": "d9958f801f5219e5",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "6a2f06be41be285d:7196ec25a8234780",
-      "source": "6a2f06be41be285d",
-      "target": "7196ec25a8234780",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「博士、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "6a2f06be41be285d:b6f6ce9e2c44c593",
-      "source": "6a2f06be41be285d",
-      "target": "b6f6ce9e2c44c593",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「博士、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "0dee2f26f22e4f79:d9342df6b5d0fb1a",
-      "source": "0dee2f26f22e4f79",
-      "target": "d9342df6b5d0fb1a",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「研究生、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "0dee2f26f22e4f79:a7f6c02914e19b50",
-      "source": "0dee2f26f22e4f79",
-      "target": "a7f6c02914e19b50",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「研究生、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "a7f6c02914e19b50:d9342df6b5d0fb1a",
-      "source": "d9342df6b5d0fb1a",
-      "target": "a7f6c02914e19b50",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「研究生、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "002918e1613b8c6f:d9342df6b5d0fb1a",
-      "source": "d9342df6b5d0fb1a",
-      "target": "002918e1613b8c6f",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「研究生、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "7c745bdcd9e4659d:d9958f801f5219e5",
-      "source": "7c745bdcd9e4659d",
-      "target": "d9958f801f5219e5",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "2ddc5cc348fa3ab2:e086480afc329d62",
-      "source": "2ddc5cc348fa3ab2",
-      "target": "e086480afc329d62",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「会计、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "27a977f5d67323fb:d61337b479a0cb9c",
-      "source": "d61337b479a0cb9c",
-      "target": "27a977f5d67323fb",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「引体、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "b2f2a79a6379cdc7:d36954caeeb0830c",
-      "source": "b2f2a79a6379cdc7",
-      "target": "d36954caeeb0830c",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「硕士、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "49258b82fc108717:b2f2a79a6379cdc7",
-      "source": "b2f2a79a6379cdc7",
-      "target": "49258b82fc108717",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「硕士、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "57b9e12139fef5d4:b2f2a79a6379cdc7",
-      "source": "b2f2a79a6379cdc7",
-      "target": "57b9e12139fef5d4",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「硕士、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "002918e1613b8c6f:a7f6c02914e19b50",
-      "source": "a7f6c02914e19b50",
-      "target": "002918e1613b8c6f",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「研究生、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "d9958f801f5219e5:e78e33c69f90f579",
-      "source": "d9958f801f5219e5",
-      "target": "e78e33c69f90f579",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "49258b82fc108717:d36954caeeb0830c",
-      "source": "d36954caeeb0830c",
-      "target": "49258b82fc108717",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「硕士、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "57b9e12139fef5d4:d36954caeeb0830c",
-      "source": "d36954caeeb0830c",
-      "target": "57b9e12139fef5d4",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「硕士、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "49258b82fc108717:57b9e12139fef5d4",
-      "source": "49258b82fc108717",
-      "target": "57b9e12139fef5d4",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「硕士、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "42536959d0ad3fe6:cc4f462f7e4e375c",
-      "source": "cc4f462f7e4e375c",
-      "target": "42536959d0ad3fe6",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「人工智能、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "002918e1613b8c6f:c5f5a951f507743e",
-      "source": "002918e1613b8c6f",
-      "target": "c5f5a951f507743e",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「研究生、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "7196ec25a8234780:b6f6ce9e2c44c593",
-      "source": "7196ec25a8234780",
-      "target": "b6f6ce9e2c44c593",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「博士、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "1d4978f162e388a1:c5f5a951f507743e",
-      "source": "c5f5a951f507743e",
-      "target": "1d4978f162e388a1",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「研究生、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "c5f5a951f507743e:c7d28b8a8258c143",
-      "source": "c5f5a951f507743e",
-      "target": "c7d28b8a8258c143",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「研究生、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "9235d1b1b6f0a1fd:b52a9e86fb15f616",
-      "source": "9235d1b1b6f0a1fd",
-      "target": "b52a9e86fb15f616",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「教育、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "39a506e0ef6471ff:669eb3a20465add0",
-      "source": "669eb3a20465add0",
-      "target": "39a506e0ef6471ff",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「硕士、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "669eb3a20465add0:938bfcf6b8454fd8",
-      "source": "669eb3a20465add0",
-      "target": "938bfcf6b8454fd8",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「硕士、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "0c1aa5207766646b:e1dde14dcdc5190f",
-      "source": "0c1aa5207766646b",
-      "target": "e1dde14dcdc5190f",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「学习、电商」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "6ff6131f42649b37:bffd8d4f21e7752b",
-      "source": "6ff6131f42649b37",
-      "target": "bffd8d4f21e7752b",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「agent、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "1d4978f162e388a1:c7d28b8a8258c143",
-      "source": "1d4978f162e388a1",
-      "target": "c7d28b8a8258c143",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「研究生、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "2a8e3327acd9c61a:e6432c2ac74fdf3d",
-      "source": "2a8e3327acd9c61a",
-      "target": "e6432c2ac74fdf3d",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「金融、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "39a506e0ef6471ff:938bfcf6b8454fd8",
-      "source": "39a506e0ef6471ff",
-      "target": "938bfcf6b8454fd8",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「硕士、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "47b45757362d524f:e78e33c69f90f579",
-      "source": "e78e33c69f90f579",
-      "target": "47b45757362d524f",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
     }
   ],
-  "notes": "仅统计本机可见记录，不代表完整群历史。群昵称与核对后的自我介绍用于资料整理；互动不代表合作，未发言不代表从未发言。"
+  "notes": "仅统计本机可见记录，不代表完整群历史。群昵称与核对后的自我介绍用于资料整理；互动不代表合作，未发言不代表从未发言。",
+  "classification": {
+    "kind": "learning",
+    "label": "学习交流",
+    "topicLabel": "学科与技能",
+    "goalLabel": "学习目标",
+    "offersLabel": "学习方向 / 擅长分享",
+    "needsLabel": "学习目标 / 寻找同伴",
+    "eyebrow": "一起学习，彼此启发",
+    "description": "按学科、技能和学习目标，认识可以一起进步的人。",
+    "matchLabel": "学习互助线索",
+    "sharedLabel": "共同学习方向",
+    "goals": [
+      "考研 / 保研",
+      "考博",
+      "科研 / 论文",
+      "考公 / 考编",
+      "技能提升",
+      "求职 / 职业发展",
+      "学习搭子"
+    ]
+  }
 }

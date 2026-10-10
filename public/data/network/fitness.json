@@ -9,39 +9,44 @@
   "messageTotal": 34993,
   "topics": [
     {
-      "id": "ai",
-      "name": "AI 应用与企业服务",
+      "id": "calisthenics",
+      "name": "街健与自重训练",
       "color": "#68ddc3"
     },
     {
-      "id": "hardware",
-      "name": "具身、硬件与产业",
+      "id": "strength",
+      "name": "力量训练与力量举",
       "color": "#8db3ff"
     },
     {
-      "id": "health",
-      "name": "健康、运动与医疗",
+      "id": "bodybuilding",
+      "name": "健美与塑形",
       "color": "#f1a1bc"
     },
     {
-      "id": "data",
-      "name": "数据、量化与财税",
+      "id": "running",
+      "name": "跑步与耐力运动",
       "color": "#b6ce91"
     },
     {
-      "id": "education",
-      "name": "教育、科研与求职",
+      "id": "balls",
+      "name": "球类运动",
       "color": "#e8c27a"
     },
     {
-      "id": "content",
-      "name": "内容、品牌与增长",
+      "id": "swimming",
+      "name": "游泳与水上运动",
+      "color": "#75cbdc"
+    },
+    {
+      "id": "mobility",
+      "name": "瑜伽与柔韧训练",
       "color": "#b6a0ef"
     },
     {
-      "id": "commerce",
-      "name": "跨境、电商与零售",
-      "color": "#75cbdc"
+      "id": "outdoor",
+      "name": "户外与其他运动",
+      "color": "#eeab82"
     },
     {
       "id": "other",
@@ -66,20 +71,24 @@
           "text": "自我介绍，我举个例子，我叫马健文（枭马葛），主要练力量举街头健身，同时小时候也接触过标枪三级跳远跳绳赛艇等多项运动，近期目标主要是康复训练以及提升streetlifting的成绩。"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "健身",
-        "运动",
-        "康复",
+        "街头健身",
         "力量举"
       ],
       "topics": [
-        "health"
+        "calisthenics",
+        "strength"
       ],
       "summary": "自我介绍，我举个例子，我叫马健文（枭马葛），主要练力量举街头健身，同时小时候也接触过标枪三级跳远跳绳赛艇等多项运动，近期目标主要是康复训练以及提升streetlifting的成绩",
-      "offers": [],
-      "needs": [],
-      "stage": "探索交流"
+      "offers": [
+        "自我介绍，我举个例子，我叫马健文（枭马葛），主要练力量举街头健身，同时小时候也接触过标枪三级跳远跳绳赛艇等多项运动，近期目标主要是康复训练以及提升streetlifting的成绩"
+      ],
+      "needs": [
+        "自我介绍，我举个例子，我叫马健文（枭马葛），主要练力量举街头健身，同时小时候也接触过标枪三级跳远跳绳赛艇等多项运动，近期目标主要是康复训练以及提升streetlifting的成绩"
+      ],
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "57de101daa8125c9",
@@ -97,7 +106,8 @@
       "summary": "本群可见记录中有 43 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a73cf39f3ae30c7d",
@@ -109,17 +119,18 @@
       "messageCount": 457,
       "lastActiveAt": "2026-10-09T13:41:33.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 457 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "fc93ce5e39d564dd",
@@ -137,7 +148,8 @@
       "summary": "本群可见记录中有 835 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "5901b36fd4911a8a",
@@ -149,17 +161,18 @@
       "messageCount": 3,
       "lastActiveAt": "2026-05-14T01:11:23.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "882fe4a1d0a3769a",
@@ -177,18 +190,24 @@
           "text": "大家好，我是草人，主练街健，爱好篮球乒乓球排球，争做六边形战士"
         }
       ],
-      "topic": "health",
+      "topic": "balls",
       "tags": [
-        "街健",
-        "篮球"
+        "篮球",
+        "乒乓球",
+        "排球",
+        "街健"
       ],
       "topics": [
-        "health"
+        "balls",
+        "calisthenics"
       ],
       "summary": "大家好，我是草人，主练街健，爱好篮球乒乓球排球，争做六边形战士",
-      "offers": [],
+      "offers": [
+        "大家好，我是草人，主练街健，爱好篮球乒乓球排球，争做六边形战士"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2a68769c714ba056",
@@ -200,17 +219,18 @@
       "messageCount": 765,
       "lastActiveAt": "2026-10-08T05:39:50.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 765 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "58b1ac9acc29c3f5",
@@ -228,7 +248,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "983bf5ac301d64af",
@@ -240,17 +261,14 @@
       "messageCount": 2,
       "lastActiveAt": "2026-01-10T13:25:24.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "ab6dc4762aa91a9c",
@@ -268,7 +286,8 @@
       "summary": "本群可见记录中有 55 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a83882a4c0e59d63",
@@ -286,7 +305,8 @@
       "summary": "本群可见记录中有 14 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d46ab85350303d20",
@@ -304,17 +324,24 @@
           "text": "大家好我是执炬迎风，喜欢街健、三大项，目前的主要目标是提升塔基力量顺带解锁些街健神技"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "大家好我是执炬迎风，喜欢街健、三大项，目前的主要目标是提升塔基力量顺带解锁些街健神技",
-      "offers": [],
-      "needs": [],
-      "stage": "正在实践"
+      "offers": [
+        "大家好我是执炬迎风，喜欢街健、三大项，目前的主要目标是提升塔基力量顺带解锁些街健神技"
+      ],
+      "needs": [
+        "大家好我是执炬迎风，喜欢街健、三大项，目前的主要目标是提升塔基力量顺带解锁些街健神技"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "技能突破"
+      ]
     },
     {
       "id": "c850cc42750b476f",
@@ -332,7 +359,8 @@
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "24419c60a74537ec",
@@ -344,18 +372,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "健身",
-        "健康"
+        "街头健身"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "79a435cebf4726b6",
@@ -367,17 +395,19 @@
       "messageCount": 117,
       "lastActiveAt": "2026-06-10T10:26:12.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "引体"
+        "引体",
+        "双杠"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 117 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "32cdbe5f6e374998",
@@ -389,18 +419,20 @@
       "messageCount": 2,
       "lastActiveAt": "2026-03-16T13:47:48.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健",
         "游泳"
       ],
       "topics": [
-        "health"
+        "calisthenics",
+        "swimming"
       ],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "84f0296ab8c1ca23",
@@ -412,17 +444,18 @@
       "messageCount": 5,
       "lastActiveAt": "2026-08-29T12:29:01.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 5 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "3717b068836dfe9f",
@@ -440,20 +473,22 @@
           "text": "大家好我是徐瑞翔，大四学生一枚，喜欢街健，也去健身房练力量形体，主要以街健耐力爆发力训练为主，喜欢在群里可以跟大家互相学习一同进步"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "健身",
         "街健",
-        "学习"
+        "形体"
       ],
       "topics": [
-        "health",
-        "education"
+        "calisthenics",
+        "bodybuilding"
       ],
       "summary": "大家好我是徐瑞翔，大四学生一枚，喜欢街健，也去健身房练力量形体，主要以街健耐力爆发力训练为主，喜欢在群里可以跟大家互相学习一同进步",
-      "offers": [],
+      "offers": [
+        "大家好我是徐瑞翔，大四学生一枚，喜欢街健，也去健身房练力量形体，主要以街健耐力爆发力训练为主，喜欢在群里可以跟大家互相学习一同进步"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "44c3a81d3b20453e",
@@ -471,19 +506,22 @@
           "text": "大家好我是一名不愿透露姓名的帅气网友，主练街健和健美。目的是学习成为最强的男人"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健",
-        "学习"
+        "健美"
       ],
       "topics": [
-        "health",
-        "education"
+        "calisthenics",
+        "bodybuilding"
       ],
       "summary": "大家好我是一名不愿透露姓名的帅气网友，主练街健和健美。目的是学习成为最强的男人",
-      "offers": [],
+      "offers": [
+        "大家好我是一名不愿透露姓名的帅气网友，主练街健和健美"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "403352c2e1c35823",
@@ -501,17 +539,16 @@
           "text": "我是浅颓，训练年限3年，热爱多种运动项目，爱看运动类节目，偏爱街举，练的杂，看的相关的书多也杂，工作原因停练近4个月，最近刚恢复训练，一起进步！！！"
         }
       ],
-      "topic": "health",
-      "tags": [
-        "运动"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "我是浅颓，训练年限3年，热爱多种运动项目，爱看运动类节目，偏爱街举，练的杂，看的相关的书多也杂，工作原因停练近4个月，最近刚恢复训练，一起进步",
-      "offers": [],
+      "offers": [
+        "我是浅颓，训练年限3年，热爱多种运动项目，爱看运动类节目，偏爱街举，练的杂，看的相关的书多也杂，工作原因停练近4个月，最近刚恢复训练，一起进步"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "451f9cbf3a9c8773",
@@ -529,19 +566,20 @@
           "text": "大家好，我是刘星喜欢练负重和自重引体，希望和大家一起交流进步"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "大家好，我是刘星喜欢练负重和自重引体，希望和大家一起交流进步",
       "offers": [],
       "needs": [
         "大家好，我是刘星喜欢练负重和自重引体，希望和大家一起交流进步"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "3f7df39334d154b0",
@@ -553,18 +591,20 @@
       "messageCount": 39,
       "lastActiveAt": "2026-06-02T15:28:51.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体",
         "卧推"
       ],
       "topics": [
-        "health"
+        "calisthenics",
+        "strength"
       ],
       "summary": "本群可见记录中有 39 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "ad684a995d8518ff",
@@ -582,17 +622,23 @@
           "text": "大家好，我叫杨正威，目前本科体能训练在读，喜欢负重引体，高翻等技术打磨，想解锁双力臂"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "引体"
+        "引体",
+        "双力臂"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "大家好，我叫杨正威，目前本科体能训练在读，喜欢负重引体，高翻等技术打磨，想解锁双力臂",
-      "offers": [],
+      "offers": [
+        "大家好，我叫杨正威，目前本科体能训练在读，喜欢负重引体，高翻等技术打磨，想解锁双力臂"
+      ],
       "needs": [],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": [
+        "技能突破"
+      ]
     },
     {
       "id": "2b5d3205a18d856e",
@@ -604,17 +650,18 @@
       "messageCount": 17,
       "lastActiveAt": "2026-08-03T09:52:08.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "strength",
       "tags": [
         "力量举"
       ],
       "topics": [
-        "health"
+        "strength"
       ],
       "summary": "本群可见记录中有 17 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d1afee85aa78cd8d",
@@ -626,17 +673,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2d8161bf522fc2dc",
@@ -648,13 +692,18 @@
       "messageCount": 45,
       "lastActiveAt": "2026-09-04T08:33:08.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "bodybuilding",
+      "tags": [
+        "健美"
+      ],
+      "topics": [
+        "bodybuilding"
+      ],
       "summary": "本群可见记录中有 45 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "829a6a17cb11054e",
@@ -666,17 +715,14 @@
       "messageCount": 53,
       "lastActiveAt": "2026-06-05T04:08:13.000Z",
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "健身"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 53 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "9ecd6edc5ffca3d6",
@@ -688,17 +734,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "健身"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "58b8769b7d972e85",
@@ -710,17 +753,20 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "街健"
+        "街健",
+        "健体"
       ],
       "topics": [
-        "health"
+        "calisthenics",
+        "bodybuilding"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "1bca3cc462824a44",
@@ -732,17 +778,14 @@
       "messageCount": 71,
       "lastActiveAt": "2026-10-03T22:17:21.000Z",
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "健身"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 71 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a865081cbd07cbee",
@@ -754,17 +797,18 @@
       "messageCount": 56,
       "lastActiveAt": "2026-03-14T02:30:30.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 56 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "cead74f313414fdc",
@@ -782,7 +826,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "65650286b6e64b17",
@@ -800,7 +845,8 @@
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "9666c020ce61d590",
@@ -812,17 +858,18 @@
       "messageCount": 421,
       "lastActiveAt": "2026-10-09T13:02:48.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 421 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "5120d65535483298",
@@ -840,21 +887,20 @@
           "text": "大家好，我是气，医药背景，看了马哥视频开始练负重引体，目前引体40kg，希望跟大家共同迭代进步💪"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "医药",
         "引体",
-        "跑步",
-        "学习"
+        "跑步"
       ],
       "topics": [
-        "health",
-        "education"
+        "calisthenics",
+        "running"
       ],
       "summary": "大家好，我是气，医药背景，看了马哥视频开始练负重引体，目前引体40kg，希望跟大家共同迭代进步💪",
       "offers": [],
       "needs": [],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "094bc08570bb228b",
@@ -866,17 +912,18 @@
       "messageCount": 17,
       "lastActiveAt": "2026-10-09T11:31:52.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "running",
       "tags": [
         "马拉松"
       ],
       "topics": [
-        "health"
+        "running"
       ],
       "summary": "本群可见记录中有 17 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b9b3173247643ae3",
@@ -894,7 +941,8 @@
       "summary": "本群可见记录中有 204 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7eff546a98041f39",
@@ -906,17 +954,18 @@
       "messageCount": 1,
       "lastActiveAt": "2026-01-10T08:55:06.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "strength",
       "tags": [
         "卧推"
       ],
       "topics": [
-        "health"
+        "strength"
       ],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "fafae96d1b68d2ac",
@@ -928,17 +977,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "58c60bf90744a1a9",
@@ -950,19 +996,18 @@
       "messageCount": 1010,
       "lastActiveAt": "2026-10-09T11:24:38.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "街健",
-        "学习"
+        "街健"
       ],
       "topics": [
-        "health",
-        "education"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 1,010 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c77dc5456ef879b6",
@@ -980,7 +1025,8 @@
       "summary": "本群可见记录中有 17 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "bd14dbeef5bd645a",
@@ -998,19 +1044,21 @@
           "text": "大家好，我叫钱，喜欢街健顺带街举，有2年训练时间了，负重引体还没到一倍[撇嘴]，希望各位大佬带我飞"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健",
         "引体",
         "力量举"
       ],
       "topics": [
-        "health"
+        "calisthenics",
+        "strength"
       ],
       "summary": "大家好，我叫钱，喜欢街健顺带街举，有2年训练时间了，负重引体还没到一倍[撇嘴]，希望各位大佬带我飞",
       "offers": [],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "6e67bb52f492f9cd",
@@ -1028,19 +1076,22 @@
           "text": "大家好，我是東，喜欢街健，大四学生一枚，目前的目标是俄挺和前水平，希望和大家一起交流进步"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "街健"
+        "街健",
+        "俄挺",
+        "前水平"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "大家好，我是東，喜欢街健，大四学生一枚，目前的目标是俄挺和前水平，希望和大家一起交流进步",
       "offers": [],
       "needs": [
         "大家好，我是東，喜欢街健，大四学生一枚，目前的目标是俄挺和前水平，希望和大家一起交流进步"
       ],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e8ca6b96b4f525fa",
@@ -1052,17 +1103,20 @@
       "messageCount": 2,
       "lastActiveAt": "2026-05-19T11:58:00.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "bodybuilding",
       "tags": [
+        "健体",
         "跑步"
       ],
       "topics": [
-        "health"
+        "bodybuilding",
+        "running"
       ],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "9b4474906b6bfb73",
@@ -1080,21 +1134,28 @@
           "text": "大家好，我叫荆维松，微信名就是我真实名字。学习过拳击、自由搏击、游泳、射箭，参加过马拉松，梦想是成为小说中游侠一样的人物。因为射箭需要背部力量，逐渐开始训练负重引体，然后逐渐认识大家。后面的日子，与大家共勉。"
         }
       ],
-      "topic": "health",
+      "topic": "outdoor",
       "tags": [
+        "拳击",
+        "搏击",
         "引体",
         "马拉松",
-        "游泳",
-        "学习"
+        "游泳"
       ],
       "topics": [
-        "health",
-        "education"
+        "outdoor",
+        "calisthenics",
+        "running",
+        "swimming"
       ],
       "summary": "大家好，我叫荆维松，微信名就是我真实名字。学习过拳击、自由搏击、游泳、射箭，参加过马拉松，梦想是成为小说中游侠一样的人物…",
-      "offers": [],
+      "offers": [
+        "学习过拳击、自由搏击、游泳、射箭，参加过马拉松，梦想是成为小说中游侠一样的人物",
+        "因为射箭需要背部力量，逐渐开始训练负重引体，然后逐渐认识大家"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "943b9dcebc7dc781",
@@ -1112,17 +1173,23 @@
           "text": "大家好，我叫q3，主要练力量举和街头力量举，同时会练各种握力项目，近期目标主要是减脂和提升力量举三大项及街头力量举四大项的成绩"
         }
       ],
-      "topic": "health",
+      "topic": "strength",
       "tags": [
         "力量举"
       ],
       "topics": [
-        "health"
+        "strength"
       ],
       "summary": "大家好，我叫q3，主要练力量举和街头力量举，同时会练各种握力项目，近期目标主要是减脂和提升力量举三大项及街头力量举四大项的成绩",
       "offers": [],
-      "needs": [],
-      "stage": "探索交流"
+      "needs": [
+        "大家好，我叫q3，主要练力量举和街头力量举，同时会练各种握力项目，近期目标主要是减脂和提升力量举三大项及街头力量举四大项的成绩"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "减脂",
+        "力量提升"
+      ]
     },
     {
       "id": "06d1e5e8b501a758",
@@ -1134,17 +1201,18 @@
       "messageCount": 77,
       "lastActiveAt": "2026-07-17T14:45:00.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 77 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "93cf711a53315039",
@@ -1156,19 +1224,14 @@
       "messageCount": 2,
       "lastActiveAt": "2026-04-16T08:36:47.000Z",
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "健身",
-        "学习"
-      ],
-      "topics": [
-        "health",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "529b9c804687d730",
@@ -1180,17 +1243,18 @@
       "messageCount": 27,
       "lastActiveAt": "2026-08-27T09:35:56.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 27 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "64bfb438e6fb7af6",
@@ -1202,17 +1266,18 @@
       "messageCount": 175,
       "lastActiveAt": "2026-10-07T05:15:18.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 175 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "479d940cf27ff10b",
@@ -1224,20 +1289,19 @@
       "messageCount": 18,
       "lastActiveAt": "2026-03-07T11:40:51.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健",
-        "引体",
-        "学习"
+        "引体"
       ],
       "topics": [
-        "health",
-        "education"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 18 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "8fd794185483cebf",
@@ -1249,17 +1313,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "be3d635f52a3e049",
@@ -1271,17 +1336,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "97d431bbc23ee4d5",
@@ -1293,17 +1359,18 @@
       "messageCount": 43,
       "lastActiveAt": "2026-10-10T05:12:46.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 43 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "828020df10395a63",
@@ -1315,17 +1382,14 @@
       "messageCount": 2,
       "lastActiveAt": "2026-09-17T12:56:29.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "55ea3d1a36acbaee",
@@ -1337,17 +1401,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "60b7ab9865acddaf",
@@ -1365,7 +1430,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e8f9c0fab6032a72",
@@ -1383,7 +1449,8 @@
       "summary": "本群可见记录中有 470 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "22944270e9e79391",
@@ -1395,13 +1462,18 @@
       "messageCount": 3,
       "lastActiveAt": "2026-02-25T14:31:09.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "strength",
+      "tags": [
+        "深蹲"
+      ],
+      "topics": [
+        "strength"
+      ],
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a3dab5777f91b497",
@@ -1413,19 +1485,18 @@
       "messageCount": 3,
       "lastActiveAt": "2026-01-28T12:30:13.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "引体",
-        "学习"
+        "引体"
       ],
       "topics": [
-        "health",
-        "education"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "3dabcd2991091147",
@@ -1437,17 +1508,14 @@
       "messageCount": 8,
       "lastActiveAt": "2026-01-10T09:59:44.000Z",
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "运动"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 8 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "ab680a1d0ba2dd33",
@@ -1465,17 +1533,20 @@
           "text": "大家好，我叫梁协盟，目前专科在读，喜欢负重引体，徒手引体，目前希望通过训练，提升自重竞速引体向上个数"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "大家好，我叫梁协盟，目前专科在读，喜欢负重引体，徒手引体，目前希望通过训练，提升自重竞速引体向上个数",
       "offers": [],
-      "needs": [],
-      "stage": "正在实践"
+      "needs": [
+        "大家好，我叫梁协盟，目前专科在读，喜欢负重引体，徒手引体，目前希望通过训练，提升自重竞速引体向上个数"
+      ],
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "501688d637594c16",
@@ -1487,17 +1558,18 @@
       "messageCount": 685,
       "lastActiveAt": "2026-10-10T01:33:28.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 685 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "8b323f8883eee1d9",
@@ -1515,7 +1587,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2b57dc3c8201034d",
@@ -1533,20 +1606,23 @@
           "text": "大家好，我是法兰西特派，是一名健身爱好者，平常喜欢打网球，打乒乓球，跑步，现在在备考中，结束后能进行全面系统的健身训练，希望能和大家一起交流"
         }
       ],
-      "topic": "health",
+      "topic": "balls",
       "tags": [
-        "健身",
+        "乒乓球",
+        "网球",
         "跑步"
       ],
       "topics": [
-        "health"
+        "balls",
+        "running"
       ],
       "summary": "大家好，我是法兰西特派，是一名健身爱好者，平常喜欢打网球，打乒乓球，跑步，现在在备考中，结束后能进行全面系统的健身训练，希望能和大家一起交流",
       "offers": [],
       "needs": [
         "大家好，我是法兰西特派，是一名健身爱好者，平常喜欢打网球，打乒乓球，跑步，现在在备考中，结束后能进行全面系统的健身训练，希望能和大家一起交流"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "3074f6550d8852d3",
@@ -1564,7 +1640,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "8feebec451be119e",
@@ -1582,21 +1659,16 @@
           "text": "大家好，我叫萧默光，喜欢徒手健身，有2年健身的经历，水平普通，希望和大家交流学习"
         }
       ],
-      "topic": "health",
-      "tags": [
-        "健身",
-        "学习"
-      ],
-      "topics": [
-        "health",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我叫萧默光，喜欢徒手健身，有2年健身的经历，水平普通，希望和大家交流学习",
       "offers": [],
       "needs": [
         "大家好，我叫萧默光，喜欢徒手健身，有2年健身的经历，水平普通，希望和大家交流学习"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "514c8a84c2f2f4aa",
@@ -1614,22 +1686,29 @@
           "text": "兄弟们好，我叫姜朝阳，平日里健身房健身，跑步，打篮球，小时候踢足球。目前目标仍是减脂塑形，保持精神充实和精力充沛"
         }
       ],
-      "topic": "health",
+      "topic": "balls",
       "tags": [
-        "健身",
-        "跑步",
         "篮球",
         "足球",
-        "AI"
+        "塑形",
+        "跑步"
       ],
       "topics": [
-        "health",
-        "ai"
+        "balls",
+        "bodybuilding",
+        "running"
       ],
       "summary": "兄弟们好，我叫姜朝阳，平日里健身房健身，跑步，打篮球，小时候踢足球。目前目标仍是减脂塑形，保持精神充实和精力充沛",
-      "offers": [],
-      "needs": [],
-      "stage": "正在实践"
+      "offers": [
+        "兄弟们好，我叫姜朝阳，平日里健身房健身，跑步，打篮球，小时候踢足球"
+      ],
+      "needs": [
+        "目前目标仍是减脂塑形，保持精神充实和精力充沛"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "减脂"
+      ]
     },
     {
       "id": "df63b112f3af82d8",
@@ -1647,22 +1726,26 @@
           "text": "大家好我是小楠，爱好健身，100m(成绩11.33)，马拉松(二级)，足球，游泳，羽毛球~很高兴和大家一起进步~"
         }
       ],
-      "topic": "health",
+      "topic": "running",
       "tags": [
-        "健身",
         "跑步",
         "马拉松",
-        "游泳",
+        "足球",
         "羽毛球",
-        "足球"
+        "游泳"
       ],
       "topics": [
-        "health"
+        "running",
+        "balls",
+        "swimming"
       ],
       "summary": "大家好我是小楠，爱好健身，100m(成绩11.33)，马拉松(二级)，足球，游泳，羽毛球~很高兴和大家一起进步~",
-      "offers": [],
+      "offers": [
+        "大家好我是小楠，爱好健身，100m(成绩11.33)，马拉松(二级)，足球，游泳，羽毛球~很高兴和大家一起进步~"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e8b694065a4f80d8",
@@ -1674,17 +1757,18 @@
       "messageCount": 8,
       "lastActiveAt": "2026-06-20T14:10:08.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 8 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "34431d19bef11af1",
@@ -1702,21 +1786,20 @@
           "text": "大家好，我是街健孩子王，喜欢垂直类拉力动作，希望跟大家一起交流学习"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "街健",
-        "学习"
+        "街健"
       ],
       "topics": [
-        "health",
-        "education"
+        "calisthenics"
       ],
       "summary": "大家好，我是街健孩子王，喜欢垂直类拉力动作，希望跟大家一起交流学习",
       "offers": [],
       "needs": [
         "大家好，我是街健孩子王，喜欢垂直类拉力动作，希望跟大家一起交流学习"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "98501f631ad5e09b",
@@ -1728,17 +1811,18 @@
       "messageCount": 440,
       "lastActiveAt": "2026-10-05T08:15:38.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 440 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7e059a687e55e29f",
@@ -1750,17 +1834,18 @@
       "messageCount": 76,
       "lastActiveAt": "2026-09-24T04:56:42.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 76 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "82f3e3162c462ffe",
@@ -1772,19 +1857,18 @@
       "messageCount": 48,
       "lastActiveAt": "2026-09-05T22:58:14.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "街健",
-        "学习"
+        "街健"
       ],
       "topics": [
-        "health",
-        "education"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 48 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "9b8142ac59fe1993",
@@ -1802,19 +1886,22 @@
           "text": "大家好 我是ytkong 喜欢打篮球 健身目的是提高运动表现 力量 弹跳 协调性等"
         }
       ],
-      "topic": "health",
+      "topic": "balls",
       "tags": [
-        "健身",
-        "运动",
         "篮球"
       ],
       "topics": [
-        "health"
+        "balls"
       ],
       "summary": "大家好 我是ytkong 喜欢打篮球 健身目的是提高运动表现 力量 弹跳 协调性等",
-      "offers": [],
+      "offers": [
+        "大家好 我是ytkong 喜欢打篮球 健身目的是提高运动表现 力量 弹跳 协调性等"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": [
+        "耐力 / 运动表现"
+      ]
     },
     {
       "id": "9c37d42098c8692e",
@@ -1832,7 +1919,8 @@
       "summary": "本群可见记录中有 93 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "37f2a20fa4ec2475",
@@ -1844,20 +1932,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "balls",
       "tags": [
-        "健身",
-        "篮球",
-        "学习"
+        "篮球"
       ],
       "topics": [
-        "health",
-        "education"
+        "balls"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "9944402c4c549999",
@@ -1875,7 +1961,8 @@
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7495e5e0d5e113bb",
@@ -1893,7 +1980,8 @@
       "summary": "本群可见记录中有 7 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "6efdbd75ba2a5873",
@@ -1905,17 +1993,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "running",
       "tags": [
         "跑步"
       ],
       "topics": [
-        "health"
+        "running"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "26c2a1da9acd8a77",
@@ -1933,7 +2022,8 @@
       "summary": "本群可见记录中有 2,342 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d7b2436fe2ff843b",
@@ -1945,17 +2035,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e82157cf8f100280",
@@ -1973,7 +2060,8 @@
       "summary": "本群可见记录中有 6 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b76d408d3f9c5c57",
@@ -1985,18 +2073,20 @@
       "messageCount": 60,
       "lastActiveAt": "2026-09-24T14:51:32.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体",
         "力量举"
       ],
       "topics": [
-        "health"
+        "calisthenics",
+        "strength"
       ],
       "summary": "本群可见记录中有 60 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "3ddfc688ef9352a9",
@@ -2014,7 +2104,8 @@
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "814fa1cc3c039451",
@@ -2032,7 +2123,8 @@
       "summary": "本群可见记录中有 2,888 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "91c720f3ced906ac",
@@ -2044,18 +2136,18 @@
       "messageCount": 170,
       "lastActiveAt": "2026-10-06T14:35:22.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "运动",
         "街健"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 170 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "47388edb701db499",
@@ -2067,19 +2159,18 @@
       "messageCount": 297,
       "lastActiveAt": "2026-09-29T13:20:00.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "引体",
-        "学习"
+        "引体"
       ],
       "topics": [
-        "health",
-        "education"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 297 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "4cd0e2fe4ef85850",
@@ -2097,7 +2188,8 @@
       "summary": "本群可见记录中有 3,577 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "0460fc7b517a2beb",
@@ -2115,7 +2207,8 @@
       "summary": "本群可见记录中有 134 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "708acb2839475384",
@@ -2133,17 +2226,20 @@
           "text": "大家好我是小丁，喜欢负重引体和公路车，主练负重引体，目标是进群欣赏大佬们的视频"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "大家好我是小丁，喜欢负重引体和公路车，主练负重引体，目标是进群欣赏大佬们的视频",
       "offers": [],
-      "needs": [],
-      "stage": "探索交流"
+      "needs": [
+        "大家好我是小丁，喜欢负重引体和公路车，主练负重引体，目标是进群欣赏大佬们的视频"
+      ],
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c364841cd87f2a5d",
@@ -2155,17 +2251,18 @@
       "messageCount": 17,
       "lastActiveAt": "2026-10-09T11:24:57.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 17 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "668fb43a3a36af11",
@@ -2183,7 +2280,8 @@
       "summary": "本群可见记录中有 488 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "09f06efbed3fb0b4",
@@ -2195,13 +2293,18 @@
       "messageCount": 1430,
       "lastActiveAt": "2026-10-10T05:18:55.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "calisthenics",
+      "tags": [
+        "双杠"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
       "summary": "本群可见记录中有 1,430 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c8da2b942d944b09",
@@ -2213,17 +2316,18 @@
       "messageCount": 332,
       "lastActiveAt": "2026-10-07T14:33:45.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 332 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "9318878e1b26331a",
@@ -2235,13 +2339,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "balls",
+      "tags": [
+        "网球"
+      ],
+      "topics": [
+        "balls"
+      ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "eb9d18d3382a0186",
@@ -2253,17 +2362,18 @@
       "messageCount": 43,
       "lastActiveAt": "2026-07-27T11:06:40.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 43 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "ca01ca1ea00ad8aa",
@@ -2275,17 +2385,14 @@
       "messageCount": 35,
       "lastActiveAt": "2026-10-04T15:12:23.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 35 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "27100b18f0ad3fc5",
@@ -2297,19 +2404,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "running",
       "tags": [
-        "马拉松",
-        "学习"
+        "马拉松"
       ],
       "topics": [
-        "health",
-        "education"
+        "running"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "1690efe21a811135",
@@ -2327,20 +2433,22 @@
           "text": "大家好，我是王杰，喜欢引体和马拉松，目前目标是提高负重引体水平，以及恢复3千米水平，希望和大家相互交流"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体",
         "马拉松"
       ],
       "topics": [
-        "health"
+        "calisthenics",
+        "running"
       ],
       "summary": "大家好，我是王杰，喜欢引体和马拉松，目前目标是提高负重引体水平，以及恢复3千米水平，希望和大家相互交流",
       "offers": [],
       "needs": [
         "大家好，我是王杰，喜欢引体和马拉松，目前目标是提高负重引体水平，以及恢复3千米水平，希望和大家相互交流"
       ],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "99a9443e4e8a2ef3",
@@ -2358,7 +2466,8 @@
       "summary": "本群可见记录中有 517 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f2cb2cc17e25571a",
@@ -2376,24 +2485,23 @@
           "text": "大家好 我是HOHO 一名中医学生 平时主练卧推和负重引体 看过较多量化力训理论体系的书 目前在实践中 希望和大家多多交流"
         }
       ],
-      "topic": "health",
+      "topic": "strength",
       "tags": [
-        "健身",
-        "引体",
         "力量举",
         "卧推",
-        "量化"
+        "引体"
       ],
       "topics": [
-        "health",
-        "data"
+        "strength",
+        "calisthenics"
       ],
       "summary": "大家好 我是HOHO 一名中医学生 平时主练卧推和负重引体 看过较多量化力训理论体系的书 目前在实践中 希望和大家多多交流",
       "offers": [],
       "needs": [
         "大家好 我是HOHO 一名中医学生 平时主练卧推和负重引体 看过较多量化力训理论体系的书 目前在实践中 希望和大家多多交流"
       ],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7fa2ddf4f80e7488",
@@ -2405,13 +2513,18 @@
       "messageCount": 1,
       "lastActiveAt": "2026-06-11T14:55:41.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "running",
+      "tags": [
+        "长跑"
+      ],
+      "topics": [
+        "running"
+      ],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a778ec39cfc2a35a",
@@ -2429,7 +2542,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f1605a60a2dc875d",
@@ -2447,7 +2561,8 @@
       "summary": "本群可见记录中有 34 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "cfa9251b22f0384f",
@@ -2459,18 +2574,20 @@
       "messageCount": 86,
       "lastActiveAt": "2026-09-28T18:23:48.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体",
         "卧推"
       ],
       "topics": [
-        "health"
+        "calisthenics",
+        "strength"
       ],
       "summary": "本群可见记录中有 86 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "bdace1d6d4732394",
@@ -2482,17 +2599,18 @@
       "messageCount": 931,
       "lastActiveAt": "2026-10-09T03:54:49.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 931 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f146bd9682b38dd8",
@@ -2510,7 +2628,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "efcc666caff71498",
@@ -2528,20 +2647,18 @@
           "text": "大家好我是彼岸花开花落，爱锻炼，主要是在健身房练力量，希望能提高运动表现和水平，共同努力！"
         }
       ],
-      "topic": "health",
-      "tags": [
-        "健身",
-        "运动",
-        "AI"
-      ],
-      "topics": [
-        "health",
-        "ai"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好我是彼岸花开花落，爱锻炼，主要是在健身房练力量，希望能提高运动表现和水平，共同努力",
       "offers": [],
-      "needs": [],
-      "stage": "探索交流"
+      "needs": [
+        "大家好我是彼岸花开花落，爱锻炼，主要是在健身房练力量，希望能提高运动表现和水平，共同努力"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "耐力 / 运动表现"
+      ]
     },
     {
       "id": "c65616e6029ff499",
@@ -2553,17 +2670,18 @@
       "messageCount": 117,
       "lastActiveAt": "2026-09-15T14:47:44.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 117 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "673aac40b057b304",
@@ -2581,20 +2699,22 @@
           "text": "大家好，我是齐夏，喜欢练跑步健身乒乓球，希望提升自己和大家一起交流进步"
         }
       ],
-      "topic": "health",
+      "topic": "running",
       "tags": [
-        "健身",
-        "跑步"
+        "跑步",
+        "乒乓球"
       ],
       "topics": [
-        "health"
+        "running",
+        "balls"
       ],
       "summary": "大家好，我是齐夏，喜欢练跑步健身乒乓球，希望提升自己和大家一起交流进步",
       "offers": [],
       "needs": [
         "大家好，我是齐夏，喜欢练跑步健身乒乓球，希望提升自己和大家一起交流进步"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e84da1a7afd8f4d5",
@@ -2612,7 +2732,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "1043b4f02543130f",
@@ -2624,17 +2745,18 @@
       "messageCount": 63,
       "lastActiveAt": "2026-09-09T15:20:30.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 63 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "776855443d72f63f",
@@ -2652,22 +2774,22 @@
           "text": "大家好哦，我是玖，平常主要练习瑜伽类运动，喜欢打羽毛球，初中田径队，大学游泳队，目前健身是为了保持身体机能以及训练习惯，希望跟大家一起为身体健康而努力，一起健康的生活吧~"
         }
       ],
-      "topic": "health",
+      "topic": "mobility",
       "tags": [
-        "健身",
-        "健康",
-        "运动",
         "瑜伽",
-        "游泳",
-        "羽毛球"
+        "羽毛球",
+        "游泳"
       ],
       "topics": [
-        "health"
+        "mobility",
+        "balls",
+        "swimming"
       ],
       "summary": "大家好哦，我是玖，平常主要练习瑜伽类运动，喜欢打羽毛球，初中田径队，大学游泳队，目前健身是为了保持身体机能以及训练习惯，希望跟大家一起为身体健康而努力，一起健康的生活吧~",
       "offers": [],
       "needs": [],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "dfee612c9abbb43f",
@@ -2679,17 +2801,18 @@
       "messageCount": 2,
       "lastActiveAt": "2026-01-11T04:07:24.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "ef5b02785ad09c9b",
@@ -2707,21 +2830,23 @@
           "text": "大家好我叫凉海，主要练负重引体，同时也练负重臂屈伸，近期目标主要是提升自重运动表现，希望和大家一起交流进步"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "运动",
         "街健",
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "大家好我叫凉海，主要练负重引体，同时也练负重臂屈伸，近期目标主要是提升自重运动表现，希望和大家一起交流进步",
       "offers": [],
       "needs": [
         "大家好我叫凉海，主要练负重引体，同时也练负重臂屈伸，近期目标主要是提升自重运动表现，希望和大家一起交流进步"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": [
+        "耐力 / 运动表现"
+      ]
     },
     {
       "id": "61b2ef9addedcfc8",
@@ -2733,13 +2858,18 @@
       "messageCount": 80,
       "lastActiveAt": "2026-08-27T07:39:42.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "bodybuilding",
+      "tags": [
+        "健美"
+      ],
+      "topics": [
+        "bodybuilding"
+      ],
       "summary": "本群可见记录中有 80 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a3f8b544ff9a4b1f",
@@ -2751,17 +2881,18 @@
       "messageCount": 776,
       "lastActiveAt": "2026-10-02T11:17:58.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 776 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "659e7b5777489c3c",
@@ -2779,7 +2910,8 @@
       "summary": "本群可见记录中有 21 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "1354b32808a68f64",
@@ -2791,17 +2923,14 @@
       "messageCount": 11,
       "lastActiveAt": "2026-06-19T04:39:00.000Z",
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "健身"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 11 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f04a37df0e6d9e7f",
@@ -2819,7 +2948,8 @@
       "summary": "本群可见记录中有 141 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a8cbd631bf9fd0da",
@@ -2837,21 +2967,25 @@
           "text": "大家好，我是石家庄赵子龙，马哥的超级粉丝！之前是主练街健和健美式训练，现在在马哥的影响下已转力量举。加入本群的目的是和各位交流一下训练的心得体会、学习下大家先进的健身理念！"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "健身",
         "街健",
         "力量举",
-        "学习"
+        "健美"
       ],
       "topics": [
-        "health",
-        "education"
+        "calisthenics",
+        "strength",
+        "bodybuilding"
       ],
       "summary": "大家好，我是石家庄赵子龙，马哥的超级粉丝。之前是主练街健和健美式训练，现在在马哥的影响下已转力量举…",
-      "offers": [],
+      "offers": [
+        "之前是主练街健和健美式训练，现在在马哥的影响下已转力量举",
+        "加入本群的目的是和各位交流一下训练的心得体会、学习下大家先进的健身理念"
+      ],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "0dee2f26f22e4f79",
@@ -2863,13 +2997,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "running",
+      "tags": [
+        "慢跑"
+      ],
+      "topics": [
+        "running"
+      ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "6577997dfcfb3f7b",
@@ -2881,17 +3020,18 @@
       "messageCount": 1,
       "lastActiveAt": "2026-01-10T08:57:24.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b7560bc4bdf2ed12",
@@ -2909,7 +3049,8 @@
       "summary": "本群可见记录中有 46 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d9342df6b5d0fb1a",
@@ -2927,20 +3068,20 @@
           "text": "大家好我是喃喃自语，喜欢有氧慢跑，最近也在尝试健身房器械运动，小时候在市队练过一段时间击剑，希望能跟大家多多交流"
         }
       ],
-      "topic": "health",
+      "topic": "running",
       "tags": [
-        "健身",
-        "运动"
+        "慢跑"
       ],
       "topics": [
-        "health"
+        "running"
       ],
       "summary": "大家好我是喃喃自语，喜欢有氧慢跑，最近也在尝试健身房器械运动，小时候在市队练过一段时间击剑，希望能跟大家多多交流",
       "offers": [],
       "needs": [
         "大家好我是喃喃自语，喜欢有氧慢跑，最近也在尝试健身房器械运动，小时候在市队练过一段时间击剑，希望能跟大家多多交流"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7c745bdcd9e4659d",
@@ -2952,19 +3093,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "街健",
-        "学习"
+        "街健"
       ],
       "topics": [
-        "health",
-        "education"
+        "calisthenics"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "ce24b21451922bcb",
@@ -2982,20 +3122,18 @@
           "text": "大家好，我是白泽，兴趣广泛，时间不多，偏瘦，但想通过健身保持健康"
         }
       ],
-      "topic": "health",
-      "tags": [
-        "健身",
-        "健康"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是白泽，兴趣广泛，时间不多，偏瘦，但想通过健身保持健康",
-      "offers": [],
+      "offers": [
+        "大家好，我是白泽，兴趣广泛，时间不多，偏瘦，但想通过健身保持健康"
+      ],
       "needs": [
         "大家好，我是白泽，兴趣广泛，时间不多，偏瘦，但想通过健身保持健康"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "47cc2c13bbb62359",
@@ -3013,19 +3151,24 @@
           "text": "我叫剥一颗 爱好街健 腕力 握力 乒乓球 街健五神技算是马马虎虎解锁了 腕力65kg级别不算菜 握力104kg已拿下万嘉275磅 希望和大家一起交流进步"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "街健"
+        "街健",
+        "乒乓球"
       ],
       "topics": [
-        "health"
+        "calisthenics",
+        "balls"
       ],
       "summary": "我叫剥一颗 爱好街健 腕力 握力 乒乓球 街健五神技算是马马虎虎解锁了 腕力65kg级别不算菜 握力104kg已拿下万嘉275磅 希望和大家一起交流进步",
       "offers": [],
       "needs": [
         "我叫剥一颗 爱好街健 腕力 握力 乒乓球 街健五神技算是马马虎虎解锁了 腕力65kg级别不算菜 握力104kg已拿下万嘉275磅 希望和大家一起交流进步"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": [
+        "技能突破"
+      ]
     },
     {
       "id": "ac07adb7d59e5420",
@@ -3043,22 +3186,23 @@
           "text": "大家好，我是童趣，想通过健身增强体质，最喜欢的是跑步和打羽毛球，希望和大家一起进步"
         }
       ],
-      "topic": "health",
+      "topic": "running",
       "tags": [
-        "健身",
-        "健康",
         "跑步",
+        "慢跑",
         "羽毛球"
       ],
       "topics": [
-        "health"
+        "running",
+        "balls"
       ],
       "summary": "大家好，我是童趣，想通过健身增强体质，最喜欢的是跑步和打羽毛球，希望和大家一起进步",
       "offers": [],
       "needs": [
         "大家好，我是童趣，想通过健身增强体质，最喜欢的是跑步和打羽毛球，希望和大家一起进步"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d259701ed5177c25",
@@ -3076,21 +3220,21 @@
           "text": "自我介绍：大家好，我是芊里，中年男，常看小马哥视频，目前在练习引体，能力在负重20kg做5*5，持续学习ing。。。谢谢[加油][强][旺柴]"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体",
-        "学习"
+        "单杠"
       ],
       "topics": [
-        "health",
-        "education"
+        "calisthenics"
       ],
       "summary": "自我介绍：大家好，我是芊里，中年男，常看小马哥视频，目前在练习引体，能力在负重20kg做5*5，持续学习ing。谢谢[加油][强][旺柴]",
       "offers": [
         "自我介绍：大家好，我是芊里，中年男，常看小马哥视频，目前在练习引体，能力在负重20kg做5*5，持续学习ing"
       ],
       "needs": [],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "46aeef618289c96c",
@@ -3108,7 +3252,8 @@
       "summary": "本群可见记录中有 8 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "ed70056398fb1fde",
@@ -3126,7 +3271,8 @@
       "summary": "本群可见记录中有 11 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "1ae86e88d43f8f76",
@@ -3144,7 +3290,8 @@
       "summary": "本群可见记录中有 152 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "06bf064ac395be3d",
@@ -3156,19 +3303,14 @@
       "messageCount": 111,
       "lastActiveAt": "2026-09-22T14:52:05.000Z",
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "健身",
-        "学习"
-      ],
-      "topics": [
-        "health",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 111 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "568cdf0a93b6da37",
@@ -3186,7 +3328,8 @@
       "summary": "本群可见记录中有 5 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "af6213573a680634",
@@ -3198,17 +3341,19 @@
       "messageCount": 29,
       "lastActiveAt": "2026-06-08T15:41:18.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "引体"
+        "引体",
+        "俄挺"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 29 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "9c55268c8a14e67f",
@@ -3220,17 +3365,14 @@
       "messageCount": 8,
       "lastActiveAt": "2026-05-04T04:57:38.000Z",
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "运动"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 8 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "384bd3f097da72f6",
@@ -3242,13 +3384,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "calisthenics",
+      "tags": [
+        "双力臂"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f4058f025512fd30",
@@ -3266,7 +3413,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c22cba8e78d89838",
@@ -3284,7 +3432,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b57132abcc7b53e3",
@@ -3296,17 +3445,18 @@
       "messageCount": 1059,
       "lastActiveAt": "2026-09-09T05:51:53.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 1,059 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a574982a1cf16fa2",
@@ -3324,7 +3474,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d61337b479a0cb9c",
@@ -3336,17 +3487,18 @@
       "messageCount": 88,
       "lastActiveAt": "2026-10-06T12:44:42.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 88 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c2d1f5250d28ca4c",
@@ -3358,17 +3510,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "strength",
       "tags": [
         "力量训练"
       ],
       "topics": [
-        "health"
+        "strength"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "63e6477ed3697565",
@@ -3380,18 +3533,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "健身",
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "0248394ca5a5e17c",
@@ -3403,17 +3556,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c736d6afa4c924dc",
@@ -3425,17 +3575,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "fbea786c57b9f615",
@@ -3453,19 +3604,20 @@
           "text": "自我介绍：大家好，我是小雨，有过三段集中力训、一次6周20斤减重的经历。群内俄挺和负重大佬们开屏雷击，学习学习了[抱拳]\n进群希望和大家保持一个长期一致的步调、忙或闲都保持良好的健康状态=)"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "健康",
-        "学习"
+        "俄挺"
       ],
       "topics": [
-        "health",
-        "education"
+        "calisthenics"
       ],
       "summary": "自我介绍：大家好，我是小雨，有过三段集中力训、一次6周20斤减重的经历。群内俄挺和负重大佬们开屏雷击，学习学习了[抱拳]…",
       "offers": [],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": [
+        "减脂"
+      ]
     },
     {
       "id": "e9eaa64f1cb580c2",
@@ -3477,19 +3629,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "引体",
-        "学习"
+        "引体"
       ],
       "topics": [
-        "health",
-        "education"
+        "calisthenics"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "8b0aad559760f726",
@@ -3501,17 +3652,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "balls",
       "tags": [
         "羽毛球"
       ],
       "topics": [
-        "health"
+        "balls"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "52f338fdcf9ffa3e",
@@ -3523,18 +3675,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "running",
       "tags": [
-        "健身",
         "跑步"
       ],
       "topics": [
-        "health"
+        "running"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "cebae30c32c4d6a8",
@@ -3546,18 +3698,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "健身",
-        "健康"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "4185f48e2e65520c",
@@ -3569,17 +3717,18 @@
       "messageCount": 145,
       "lastActiveAt": "2026-10-09T11:34:56.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "strength",
       "tags": [
         "力量训练"
       ],
       "topics": [
-        "health"
+        "strength"
       ],
       "summary": "本群可见记录中有 145 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2062cc25dc021eab",
@@ -3597,7 +3746,8 @@
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a91ec98cb91e9f72",
@@ -3609,17 +3759,20 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "bodybuilding",
       "tags": [
+        "健体",
         "跑步"
       ],
       "topics": [
-        "health"
+        "bodybuilding",
+        "running"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f933ea750c93858a",
@@ -3637,17 +3790,19 @@
           "text": "大家好，我是新入群的，江西财大毕业，经常看小马哥直播，本人比较瘦，想锻炼增肌，希望和大家一起锻炼，自律[加油][加油]"
         }
       ],
-      "topic": "health",
-      "tags": [
-        "健身"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好，我是新入群的，江西财大毕业，经常看小马哥直播，本人比较瘦，想锻炼增肌，希望和大家一起锻炼，自律[加油][加油]",
       "offers": [],
-      "needs": [],
-      "stage": "探索交流"
+      "needs": [
+        "大家好，我是新入群的，江西财大毕业，经常看小马哥直播，本人比较瘦，想锻炼增肌，希望和大家一起锻炼，自律[加油][加油]"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "增肌",
+        "寻找训练搭子"
+      ]
     },
     {
       "id": "9c6e5bcc84211527",
@@ -3659,17 +3814,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "outdoor",
       "tags": [
-        "健身"
+        "攀岩"
       ],
       "topics": [
-        "health"
+        "outdoor"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "60e5656ddb72ca0f",
@@ -3681,13 +3837,18 @@
       "messageCount": 1,
       "lastActiveAt": "2026-03-03T19:19:51.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "balls",
+      "tags": [
+        "乒乓球"
+      ],
+      "topics": [
+        "balls"
+      ],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b1d8763ea860937e",
@@ -3705,7 +3866,8 @@
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "9f82014cee6ed3c7",
@@ -3723,7 +3885,8 @@
       "summary": "本群可见记录中有 133 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a17cf3a423fc1093",
@@ -3741,7 +3904,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "402c87bac823e2f1",
@@ -3759,7 +3923,8 @@
       "summary": "本群可见记录中有 272 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b13d447a29039ded",
@@ -3777,7 +3942,8 @@
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "da265be9780d0f9f",
@@ -3795,7 +3961,8 @@
       "summary": "本群可见记录中有 9 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2d2405c94c1a77bc",
@@ -3813,19 +3980,20 @@
           "text": "我来自山东日照市，篮球，自行车爱好者，从事水泥建材行业，大家多多指教"
         }
       ],
-      "topic": "health",
+      "topic": "running",
       "tags": [
-        "篮球",
-        "学习"
+        "自行车",
+        "篮球"
       ],
       "topics": [
-        "health",
-        "education"
+        "running",
+        "balls"
       ],
       "summary": "我来自山东日照市，篮球，自行车爱好者，从事水泥建材行业，大家多多指教",
       "offers": [],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "8861af629ffd7c8b",
@@ -3837,20 +4005,18 @@
       "messageCount": 15,
       "lastActiveAt": "2026-07-02T01:15:58.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "running",
       "tags": [
-        "健身",
-        "跑步",
-        "AI"
+        "跑步"
       ],
       "topics": [
-        "health",
-        "ai"
+        "running"
       ],
       "summary": "本群可见记录中有 15 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c3e910ab15eaea00",
@@ -3862,18 +4028,20 @@
       "messageCount": 56,
       "lastActiveAt": "2026-10-09T14:23:14.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健",
         "跑步"
       ],
       "topics": [
-        "health"
+        "calisthenics",
+        "running"
       ],
       "summary": "本群可见记录中有 56 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7a5694a7866b6197",
@@ -3885,19 +4053,18 @@
       "messageCount": 4,
       "lastActiveAt": "2026-09-09T07:12:34.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "健身",
-        "学习"
+        "街头健身"
       ],
       "topics": [
-        "health",
-        "education"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 4 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "6d24507a3bc1efb3",
@@ -3915,7 +4082,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c55ebb6d8d0af632",
@@ -3927,13 +4095,18 @@
       "messageCount": 2,
       "lastActiveAt": "2026-09-17T00:51:45.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "running",
+      "tags": [
+        "骑行"
+      ],
+      "topics": [
+        "running"
+      ],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "3a16804ffc89d950",
@@ -3951,7 +4124,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "ede7f0db87fa3028",
@@ -3963,17 +4137,18 @@
       "messageCount": 1,
       "lastActiveAt": "2026-03-11T21:44:19.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "running",
       "tags": [
         "跑步"
       ],
       "topics": [
-        "health"
+        "running"
       ],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "425571f9dfe2abad",
@@ -3991,7 +4166,8 @@
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "87eb8a0dbf01d556",
@@ -4003,17 +4179,14 @@
       "messageCount": 10,
       "lastActiveAt": "2026-08-04T09:54:43.000Z",
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "健身"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 10 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7a226ef6d9d58ecc",
@@ -4031,20 +4204,21 @@
           "text": "大家好，我是歧路英雄，街头健身是我坚持最久的爱好，从2015年至今，希望同一个领域内的爱好者共同交流，共同进步。"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "健身",
-        "街健"
+        "街健",
+        "街头健身"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "大家好，我是歧路英雄，街头健身是我坚持最久的爱好，从2015年至今，希望同一个领域内的爱好者共同交流，共同进步",
       "offers": [],
       "needs": [
         "大家好，我是歧路英雄，街头健身是我坚持最久的爱好，从2015年至今，希望同一个领域内的爱好者共同交流，共同进步"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7e6b14b7ab029386",
@@ -4062,17 +4236,18 @@
           "text": "大家好，我是汪昊。从去年高考结束开始健身，希望与大家共同进步，强健体魄。"
         }
       ],
-      "topic": "health",
+      "topic": "bodybuilding",
       "tags": [
-        "健身"
+        "健体"
       ],
       "topics": [
-        "health"
+        "bodybuilding"
       ],
       "summary": "大家好，我是汪昊。从去年高考结束开始健身，希望与大家共同进步，强健体魄",
       "offers": [],
       "needs": [],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "aaf12e7d8c737b71",
@@ -4090,7 +4265,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "34b8b82a9ac3d46b",
@@ -4102,17 +4278,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "running",
       "tags": [
         "跑步"
       ],
       "topics": [
-        "health"
+        "running"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "49258b82fc108717",
@@ -4124,17 +4301,18 @@
       "messageCount": 86,
       "lastActiveAt": "2026-09-26T13:45:49.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "strength",
       "tags": [
-        "运动"
+        "举重"
       ],
       "topics": [
-        "health"
+        "strength"
       ],
       "summary": "本群可见记录中有 86 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2815b38213942be0",
@@ -4146,18 +4324,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "running",
       "tags": [
-        "健身",
         "跑步"
       ],
       "topics": [
-        "health"
+        "running"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "07104baeda0048e3",
@@ -4175,7 +4353,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "56cc6023a493b1fe",
@@ -4187,17 +4366,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "4d49f26f9e532be3",
@@ -4209,19 +4389,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "data",
-      "tags": [
-        "会计",
-        "硕士"
-      ],
-      "topics": [
-        "data",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "3b670e481b9a017f",
@@ -4239,7 +4414,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "dde001062f2ad8b5",
@@ -4257,7 +4433,8 @@
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b242a4168e5d13a5",
@@ -4269,17 +4446,18 @@
       "messageCount": 3,
       "lastActiveAt": "2026-07-26T08:12:01.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c0c389e99ff64923",
@@ -4297,7 +4475,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "8800f110f738f6a3",
@@ -4309,17 +4488,18 @@
       "messageCount": 23,
       "lastActiveAt": "2026-07-19T09:52:37.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 23 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "34980601f1dba820",
@@ -4331,13 +4511,18 @@
       "messageCount": 3,
       "lastActiveAt": "2026-04-11T10:06:36.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "running",
+      "tags": [
+        "长跑"
+      ],
+      "topics": [
+        "running"
+      ],
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7becc1c71e598159",
@@ -4349,18 +4534,20 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "strength",
       "tags": [
         "力量举",
         "篮球"
       ],
       "topics": [
-        "health"
+        "strength",
+        "balls"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b1a982b68008dc62",
@@ -4372,17 +4559,20 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "bodybuilding",
       "tags": [
+        "塑形",
         "跑步"
       ],
       "topics": [
-        "health"
+        "bodybuilding",
+        "running"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "68f670f4b8b2a024",
@@ -4394,17 +4584,20 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "引体"
+        "引体",
+        "形体"
       ],
       "topics": [
-        "health"
+        "calisthenics",
+        "bodybuilding"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "ef793ac4abab13ca",
@@ -4422,7 +4615,8 @@
       "summary": "本群可见记录中有 7 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "5cb5cd0302b274e0",
@@ -4434,17 +4628,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "健身"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7196ec25a8234780",
@@ -4462,20 +4653,22 @@
           "text": "大家好，我是凯瑟琳，喜欢游泳跑步和跳舞，希望可以一起交流一起进步"
         }
       ],
-      "topic": "health",
+      "topic": "running",
       "tags": [
         "跑步",
         "游泳"
       ],
       "topics": [
-        "health"
+        "running",
+        "swimming"
       ],
       "summary": "大家好，我是凯瑟琳，喜欢游泳跑步和跳舞，希望可以一起交流一起进步",
       "offers": [],
       "needs": [
         "大家好，我是凯瑟琳，喜欢游泳跑步和跳舞，希望可以一起交流一起进步"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c5f5a951f507743e",
@@ -4493,22 +4686,27 @@
           "text": "大家好，可以叫我史努比，每天有慢跑，每星期有和同学打几次乒乓球，比较喜欢这两个运动，不过也挺希望可以接触一下健身（街健那种？可以在宿舍做的那种）和慢跑的技巧什么的，希望可以一起交流一起进步"
         }
       ],
-      "topic": "health",
+      "topic": "running",
       "tags": [
-        "健身",
-        "运动",
+        "跑步",
+        "慢跑",
         "街健",
-        "跑步"
+        "健体",
+        "乒乓球"
       ],
       "topics": [
-        "health"
+        "running",
+        "calisthenics",
+        "bodybuilding",
+        "balls"
       ],
       "summary": "大家好，可以叫我史努比，每天有慢跑，每星期有和同学打几次乒乓球，比较喜欢这两个运动，不过也挺希望可以接触一下健身（街健那种。可以在宿舍做的那种）和慢跑的技巧什么的，希望可以一起交流一起进步",
       "offers": [],
       "needs": [
         "可以在宿舍做的那种）和慢跑的技巧什么的，希望可以一起交流一起进步"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "be149113517a092d",
@@ -4526,7 +4724,8 @@
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "aa123bf83a604a9e",
@@ -4538,17 +4737,18 @@
       "messageCount": 1,
       "lastActiveAt": "2026-04-17T09:59:33.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "running",
       "tags": [
         "跑步"
       ],
       "topics": [
-        "health"
+        "running"
       ],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "23f063797c3a8a45",
@@ -4566,7 +4766,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c71aa59f4478b771",
@@ -4578,17 +4779,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "健身"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "8d8e1008e41e89f2",
@@ -4606,7 +4804,8 @@
       "summary": "本群可见记录中有 11 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d299523c03aec8f7",
@@ -4618,19 +4817,18 @@
       "messageCount": 6,
       "lastActiveAt": "2026-05-19T10:56:58.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "引体",
-        "学习"
+        "引体"
       ],
       "topics": [
-        "health",
-        "education"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 6 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "861c52eec0ce63ed",
@@ -4642,17 +4840,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "strength",
       "tags": [
         "力量训练"
       ],
       "topics": [
-        "health"
+        "strength"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "20b70c77c86b332d",
@@ -4670,7 +4869,8 @@
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "962e26e4b820418b",
@@ -4688,7 +4888,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "6e21b7b1013eb323",
@@ -4706,7 +4907,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "ba10f88050aa8ccd",
@@ -4724,7 +4926,8 @@
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "b8c6e6870a752026",
@@ -4736,19 +4939,18 @@
       "messageCount": 104,
       "lastActiveAt": "2026-06-06T05:07:04.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "健身",
-        "学习"
+        "街头健身"
       ],
       "topics": [
-        "health",
-        "education"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 104 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "cc9a79b46ef4959a",
@@ -4766,7 +4968,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "25808a4672f7fb4e",
@@ -4778,17 +4981,18 @@
       "messageCount": 68,
       "lastActiveAt": "2026-10-09T08:34:43.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 68 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "bb17921a8063964d",
@@ -4800,19 +5004,18 @@
       "messageCount": 1,
       "lastActiveAt": "2026-06-20T13:25:20.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "街健",
-        "学习"
+        "街健"
       ],
       "topics": [
-        "health",
-        "education"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "6ff6131f42649b37",
@@ -4830,7 +5033,8 @@
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7d306dad876b38f7",
@@ -4842,18 +5046,20 @@
       "messageCount": 7,
       "lastActiveAt": "2026-05-14T02:06:12.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健",
         "马拉松"
       ],
       "topics": [
-        "health"
+        "calisthenics",
+        "running"
       ],
       "summary": "本群可见记录中有 7 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "4110d76b049b3008",
@@ -4865,17 +5071,20 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "running",
       "tags": [
+        "慢跑",
         "游泳"
       ],
       "topics": [
-        "health"
+        "running",
+        "swimming"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "0423bb363e27ecc2",
@@ -4887,20 +5096,20 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "running",
       "tags": [
-        "运动",
-        "足球",
-        "学习"
+        "骑行",
+        "足球"
       ],
       "topics": [
-        "health",
-        "education"
+        "running",
+        "balls"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "1b817f969015a70f",
@@ -4918,7 +5127,8 @@
       "summary": "本群可见记录中有 4 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "391018679c2fc5e5",
@@ -4936,7 +5146,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e91ef66883b5efbe",
@@ -4954,7 +5165,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "2a8e3327acd9c61a",
@@ -4977,23 +5189,22 @@
           "text": "另外我对营养学 饮食健康也有兴趣 希望可以跟大家讨论交流学习"
         }
       ],
-      "topic": "health",
+      "topic": "mobility",
       "tags": [
-        "健身",
-        "健康",
-        "普拉提",
-        "学习"
+        "普拉提"
       ],
       "topics": [
-        "health",
-        "education"
+        "mobility"
       ],
       "summary": "大家好，我是星星。平时慢慢健身锻炼，会去一下健身房，跳操和普拉提…",
-      "offers": [],
+      "offers": [
+        "平时慢慢健身锻炼，会去一下健身房，跳操和普拉提"
+      ],
       "needs": [
         "另外我对营养学 饮食健康也有兴趣 希望可以跟大家讨论交流学习"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f2d301467205a82d",
@@ -5011,7 +5222,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "6adfd6fa4c5e7a66",
@@ -5023,19 +5235,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "running",
       "tags": [
-        "跑步",
-        "学习"
+        "跑步"
       ],
       "topics": [
-        "health",
-        "education"
+        "running"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "49e47c5a3feff2cf",
@@ -5047,17 +5258,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "strength",
       "tags": [
         "力量举"
       ],
       "topics": [
-        "health"
+        "strength"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "0127bfd535c4b745",
@@ -5075,7 +5287,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "26662ea59716d8d7",
@@ -5087,17 +5300,18 @@
       "messageCount": 13,
       "lastActiveAt": "2026-09-24T14:18:46.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "mobility",
       "tags": [
         "瑜伽"
       ],
       "topics": [
-        "health"
+        "mobility"
       ],
       "summary": "本群可见记录中有 13 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a6e28c7023f5368b",
@@ -5115,20 +5329,20 @@
           "text": "hi～新人报道，一位喜好游泳的健身小白，希望能跟各位群友多多学习～"
         }
       ],
-      "topic": "health",
+      "topic": "swimming",
       "tags": [
-        "健身",
-        "游泳",
-        "学习"
+        "游泳"
       ],
       "topics": [
-        "health",
-        "education"
+        "swimming"
       ],
       "summary": "hi～新人报道，一位喜好游泳的健身小白，希望能跟各位群友多多学习～",
       "offers": [],
-      "needs": [],
-      "stage": "探索交流"
+      "needs": [
+        "hi～新人报道，一位喜好游泳的健身小白，希望能跟各位群友多多学习～"
+      ],
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e1b2dff9aa42d5af",
@@ -5146,7 +5360,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "76af57d7e4e5c996",
@@ -5164,7 +5379,8 @@
       "summary": "本群可见记录中有 90 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c6e0d23d07652a49",
@@ -5176,17 +5392,18 @@
       "messageCount": 17,
       "lastActiveAt": "2026-07-12T03:34:21.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "健身"
+        "俄挺"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 17 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e0d10c095fb2bbc9",
@@ -5204,7 +5421,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "01646f5501fbae85",
@@ -5216,17 +5434,18 @@
       "messageCount": 63,
       "lastActiveAt": "2026-09-23T14:06:33.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "街健"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 63 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "de9f7af314bbcf57",
@@ -5238,17 +5457,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "454b6325d1bdeb10",
@@ -5266,7 +5482,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "8e424e70ec5ee9b8",
@@ -5284,7 +5501,8 @@
       "summary": "本群可见记录中有 4 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "0b463640df8cc902",
@@ -5296,18 +5514,18 @@
       "messageCount": 7,
       "lastActiveAt": "2026-08-08T02:27:49.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "running",
       "tags": [
-        "健身",
         "跑步"
       ],
       "topics": [
-        "health"
+        "running"
       ],
       "summary": "本群可见记录中有 7 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "462da2d04ce9be13",
@@ -5319,19 +5537,14 @@
       "messageCount": 2,
       "lastActiveAt": "2026-05-29T14:38:37.000Z",
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "健身",
-        "学习"
-      ],
-      "topics": [
-        "health",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "1d8eb58b82356a5c",
@@ -5343,17 +5556,14 @@
       "messageCount": 5,
       "lastActiveAt": "2026-06-28T10:28:30.000Z",
       "introductions": [],
-      "topic": "education",
-      "tags": [
-        "学习"
-      ],
-      "topics": [
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 5 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a3a0588b33b30ee3",
@@ -5371,7 +5581,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "39a506e0ef6471ff",
@@ -5383,18 +5594,18 @@
       "messageCount": 2,
       "lastActiveAt": "2026-06-01T05:16:54.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "running",
       "tags": [
-        "健康",
         "跑步"
       ],
       "topics": [
-        "health"
+        "running"
       ],
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e6432c2ac74fdf3d",
@@ -5406,17 +5617,20 @@
       "messageCount": 5,
       "lastActiveAt": "2026-06-02T17:24:52.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "strength",
       "tags": [
+        "撸铁",
         "跑步"
       ],
       "topics": [
-        "health"
+        "strength",
+        "running"
       ],
       "summary": "本群可见记录中有 5 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e78e33c69f90f579",
@@ -5428,19 +5642,14 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "健身",
-        "学习"
-      ],
-      "topics": [
-        "health",
-        "education"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d0dbf42a1c3708d6",
@@ -5452,13 +5661,20 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "bodybuilding",
+      "tags": [
+        "健体",
+        "网球"
+      ],
+      "topics": [
+        "bodybuilding",
+        "balls"
+      ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "76fbb94735893063",
@@ -5470,17 +5686,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "running",
       "tags": [
-        "健身"
+        "骑行"
       ],
       "topics": [
-        "health"
+        "running"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "323c3b158cc7fbb0",
@@ -5492,17 +5709,20 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "街健"
+        "街健",
+        "健体"
       ],
       "topics": [
-        "health"
+        "calisthenics",
+        "bodybuilding"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "133def91371e2300",
@@ -5520,22 +5740,22 @@
           "text": "大家好！我叫阿龙 一名健身爱好者 之前做过健身教练 目前正在减脂 如有同好可以互相监督，往后也希望和大伙一块学习交流"
         }
       ],
-      "topic": "health",
+      "topic": "strength",
       "tags": [
-        "健身",
-        "力量训练",
-        "学习"
+        "力量训练"
       ],
       "topics": [
-        "health",
-        "education"
+        "strength"
       ],
       "summary": "大家好。我叫阿龙 一名健身爱好者 之前做过健身教练 目前正在减脂 如有同好可以互相监督，往后也希望和大伙一块学习交流",
       "offers": [],
       "needs": [
         "我叫阿龙 一名健身爱好者 之前做过健身教练 目前正在减脂 如有同好可以互相监督，往后也希望和大伙一块学习交流"
       ],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": [
+        "减脂"
+      ]
     },
     {
       "id": "6ce309c6ee76796d",
@@ -5553,19 +5773,26 @@
           "text": "自我介绍：我是paper，喜欢田径力量举街健，运动的目标是强身健体（"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "运动",
         "街健",
-        "力量举"
+        "力量举",
+        "健体"
       ],
       "topics": [
-        "health"
+        "calisthenics",
+        "strength",
+        "bodybuilding"
       ],
       "summary": "自我介绍：我是paper，喜欢田径力量举街健，运动的目标是强身健体（",
-      "offers": [],
-      "needs": [],
-      "stage": "探索交流"
+      "offers": [
+        "自我介绍：我是paper，喜欢田径力量举街健，运动的目标是强身健体（"
+      ],
+      "needs": [
+        "自我介绍：我是paper，喜欢田径力量举街健，运动的目标是强身健体（"
+      ],
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "fd2e5c6a7d6ede60",
@@ -5577,17 +5804,14 @@
       "messageCount": 1,
       "lastActiveAt": "2026-06-21T14:44:15.000Z",
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "健身"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c109d1880dfdf409",
@@ -5599,17 +5823,19 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "引体"
+        "引体",
+        "双力臂"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "f2b9fc6c6f50a03b",
@@ -5627,7 +5853,8 @@
       "summary": "本群可见记录中有 4 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "c7cf5766ac50717e",
@@ -5639,19 +5866,18 @@
       "messageCount": 3,
       "lastActiveAt": "2026-07-07T09:46:01.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "街健",
-        "学习"
+        "街健"
       ],
       "topics": [
-        "health",
-        "education"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "e7397289585c1ed4",
@@ -5669,7 +5895,8 @@
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "11efdd5ab464796e",
@@ -5681,13 +5908,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "calisthenics",
+      "tags": [
+        "双力臂"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "446452f19477258d",
@@ -5705,7 +5937,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "3bfedd27a3053f4c",
@@ -5723,7 +5956,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "6b6a823337982ac5",
@@ -5741,7 +5975,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "04b4187b760265f9",
@@ -5759,21 +5994,22 @@
           "text": "大家好，我叫姚理，我喜欢打篮球和健身，希望能和大家一起交流健身有关的问题，一起进步，一起变强！[加油]"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "健身",
         "引体",
         "篮球"
       ],
       "topics": [
-        "health"
+        "calisthenics",
+        "balls"
       ],
       "summary": "大家好，我叫姚理，我喜欢打篮球和健身，希望能和大家一起交流健身有关的问题，一起进步，一起变强。[加油]",
       "offers": [],
       "needs": [
         "大家好，我叫姚理，我喜欢打篮球和健身，希望能和大家一起交流健身有关的问题，一起进步，一起变强"
       ],
-      "stage": "探索交流"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "85ff3aae0e6821a3",
@@ -5785,17 +6021,18 @@
       "messageCount": 97,
       "lastActiveAt": "2026-10-03T14:23:24.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 97 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "7b58134cacb78926",
@@ -5813,7 +6050,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "9c8a2ed11a342b5b",
@@ -5831,7 +6069,8 @@
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "69aad867a01b890b",
@@ -5843,17 +6082,18 @@
       "messageCount": 1,
       "lastActiveAt": "2026-09-28T13:24:00.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
         "引体"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "本群可见记录中有 1 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "31f851789d1b4c0a",
@@ -5871,7 +6111,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "729f5d7a5c3bc36a",
@@ -5889,7 +6130,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a48f8bd04323b197",
@@ -5901,19 +6143,20 @@
       "messageCount": 3,
       "lastActiveAt": "2026-09-16T12:22:25.000Z",
       "introductions": [],
-      "topic": "health",
+      "topic": "running",
       "tags": [
-        "健康",
         "跑步",
         "游泳"
       ],
       "topics": [
-        "health"
+        "running",
+        "swimming"
       ],
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "df75868bedbc5ccf",
@@ -5931,7 +6174,8 @@
       "summary": "本群可见记录中有 2 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "ce7bd2fe129f9f7e",
@@ -5943,17 +6187,18 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "strength",
       "tags": [
         "力量训练"
       ],
       "topics": [
-        "health"
+        "strength"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "df481ac55c460f74",
@@ -5971,7 +6216,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "3e9411192fca1e72",
@@ -5983,17 +6229,14 @@
       "messageCount": 3,
       "lastActiveAt": "2026-10-08T22:39:43.000Z",
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "健身"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 3 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "a86d076021463f0d",
@@ -6011,7 +6254,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "60e8e17641be72d2",
@@ -6023,17 +6267,14 @@
       "messageCount": 10,
       "lastActiveAt": "2026-09-27T03:45:49.000Z",
       "introductions": [],
-      "topic": "health",
-      "tags": [
-        "健身"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "本群可见记录中有 10 条发言，暂未整理到明确自我介绍。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "948c2988ef17c98d",
@@ -6051,7 +6292,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "431903723cc8b0a3",
@@ -6069,17 +6311,21 @@
           "text": "做个自我介绍[愉快]，大家好，我是北京大一新生，街健萌新一枚，目前双力臂10+，单引2-3个，很高兴认识大家[爱心]"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "街健"
+        "街健",
+        "双力臂"
       ],
       "topics": [
-        "health"
+        "calisthenics"
       ],
       "summary": "做个自我介绍[愉快]，大家好，我是北京大一新生，街健萌新一枚，目前双力臂10+，单引2-3个，很高兴认识大家[爱心]",
-      "offers": [],
+      "offers": [
+        "做个自我介绍[愉快]，大家好，我是北京大一新生，街健萌新一枚，目前双力臂10+，单引2-3个，很高兴认识大家[爱心]"
+      ],
       "needs": [],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "af09fd6717bd7846",
@@ -6097,7 +6343,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "177d17e317a062ea",
@@ -6115,7 +6362,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "0634f2ac2d7d15b3",
@@ -6127,18 +6375,20 @@
       "messageCount": 0,
       "lastActiveAt": null,
       "introductions": [],
-      "topic": "health",
+      "topic": "running",
       "tags": [
         "跑步",
         "篮球"
       ],
       "topics": [
-        "health"
+        "running",
+        "balls"
       ],
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "d4d223019c170bda",
@@ -6156,7 +6406,8 @@
       "summary": "本群可见记录中暂无发言，个人介绍待补充。",
       "offers": [],
       "needs": [],
-      "stage": "待补充"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "82521472343fbee0",
@@ -6174,17 +6425,24 @@
           "text": "大家好！我是yhope，目前保持每周一天力训+三天跑步，主要的计划是减脂增强体质，目前已减30斤，计划3个月再减10斤并维持体重"
         }
       ],
-      "topic": "health",
+      "topic": "running",
       "tags": [
         "跑步"
       ],
       "topics": [
-        "health"
+        "running"
       ],
       "summary": "大家好。我是yhope，目前保持每周一天力训+三天跑步，主要的计划是减脂增强体质，目前已减30斤，计划3个月再减10斤并维持体重",
-      "offers": [],
-      "needs": [],
-      "stage": "正在实践"
+      "offers": [
+        "我是yhope，目前保持每周一天力训+三天跑步，主要的计划是减脂增强体质，目前已减30斤，计划3个月再减10斤并维持体重"
+      ],
+      "needs": [
+        "我是yhope，目前保持每周一天力训+三天跑步，主要的计划是减脂增强体质，目前已减30斤，计划3个月再减10斤并维持体重"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "减脂"
+      ]
     },
     {
       "id": "fd9927c5bb34c78f",
@@ -6202,17 +6460,16 @@
           "text": "大家好！我是Wander，目前215磅，计划每天HIIT+一周至少三次健身房，主要的计划是在一个月瘦15磅，三个月瘦35磅到180磅，减掉腹部腰部赘肉练出薄肌，深刻践行all in投资自己的理论，掌控自己人生"
         }
       ],
-      "topic": "health",
-      "tags": [
-        "健身"
-      ],
-      "topics": [
-        "health"
-      ],
+      "topic": "other",
+      "tags": [],
+      "topics": [],
       "summary": "大家好。我是Wander，目前215磅，计划每天HIIT+一周至少三次健身房，主要的计划是在一个月瘦15磅，三个月瘦35磅到180磅，减掉腹部腰部赘肉练出薄肌，深刻践行all in投资自己的理论，掌控自己人生",
-      "offers": [],
+      "offers": [
+        "我是Wander，目前215磅，计划每天HIIT+一周至少三次健身房，主要的计划是在一个月瘦15磅，三个月瘦35磅到180磅，减掉腹部腰部赘肉练出薄肌，深刻践行all in投资自己的理论，掌控自己人生"
+      ],
       "needs": [],
-      "stage": "正在实践"
+      "stage": "待补充",
+      "goals": []
     },
     {
       "id": "92e57e3154819528",
@@ -6230,13 +6487,24 @@
           "text": "大家好！我是kino，目前保持每周两天力训+每天的街舞！主要的计划是在压力不爆的情况下，逐步增肌+补充营养学相关知识！街舞的计划是进行漫展演出同时替代一些身体灵活性训练"
         }
       ],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
+      "topic": "mobility",
+      "tags": [
+        "灵活性训练"
+      ],
+      "topics": [
+        "mobility"
+      ],
       "summary": "大家好。我是kino，目前保持每周两天力训+每天的街舞…",
-      "offers": [],
-      "needs": [],
-      "stage": "正在实践"
+      "offers": [
+        "街舞的计划是进行漫展演出同时替代一些身体灵活性训练"
+      ],
+      "needs": [
+        "主要的计划是在压力不爆的情况下，逐步增肌+补充营养学相关知识"
+      ],
+      "stage": "待补充",
+      "goals": [
+        "增肌"
+      ]
     },
     {
       "id": "e1198b026a793d58",
@@ -6254,20 +6522,24 @@
           "text": "大家好，我是GOB街健新手，目前70kg，计划是每周四次力量训练和大量街健基础训练，目标是完成街健各种动作"
         }
       ],
-      "topic": "health",
+      "topic": "calisthenics",
       "tags": [
-        "力量训练",
         "街健",
-        "学习"
+        "力量训练"
       ],
       "topics": [
-        "health",
-        "education"
+        "calisthenics",
+        "strength"
       ],
       "summary": "大家好，我是GOB街健新手，目前70kg，计划是每周四次力量训练和大量街健基础训练，目标是完成街健各种动作",
-      "offers": [],
-      "needs": [],
-      "stage": "正在实践"
+      "offers": [
+        "大家好，我是GOB街健新手，目前70kg，计划是每周四次力量训练和大量街健基础训练，目标是完成街健各种动作"
+      ],
+      "needs": [
+        "大家好，我是GOB街健新手，目前70kg，计划是每周四次力量训练和大量街健基础训练，目标是完成街健各种动作"
+      ],
+      "stage": "待补充",
+      "goals": []
     }
   ],
   "edges": [
@@ -14665,115 +14937,19 @@
       "lastAt": "2026-07-04T10:40:33.000Z"
     },
     {
-      "id": "451f9cbf3a9c8773:d259701ed5177c25",
-      "source": "d259701ed5177c25",
-      "target": "451f9cbf3a9c8773",
-      "kind": "match",
-      "reason": "芊里+单杠引体+提高负重和自重个数的自述资源与刘   引体的兴趣或需求涉及「引体」，可进一步了解。",
-      "evidence": []
-    },
-    {
-      "id": "8feebec451be119e:d259701ed5177c25",
-      "source": "d259701ed5177c25",
-      "target": "8feebec451be119e",
-      "kind": "match",
-      "reason": "芊里+单杠引体+提高负重和自重个数的自述资源与萧默光＋徒手健身＋提升自身水平的兴趣或需求涉及「学习」，可进一步了解。",
-      "evidence": []
-    },
-    {
-      "id": "34431d19bef11af1:d259701ed5177c25",
-      "source": "d259701ed5177c25",
-      "target": "34431d19bef11af1",
-      "kind": "match",
-      "reason": "芊里+单杠引体+提高负重和自重个数的自述资源与街健孩子王-垂直拉力-交流学习的兴趣或需求涉及「学习」，可进一步了解。",
-      "evidence": []
-    },
-    {
-      "id": "552cdd3376358c74:9b8142ac59fe1993",
-      "source": "552cdd3376358c74",
-      "target": "9b8142ac59fe1993",
+      "id": "47cc2c13bbb62359:882fe4a1d0a3769a",
+      "source": "882fe4a1d0a3769a",
+      "target": "47cc2c13bbb62359",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、运动」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「乒乓球、街健」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
-      "id": "552cdd3376358c74:f2cb2cc17e25571a",
-      "source": "552cdd3376358c74",
-      "target": "f2cb2cc17e25571a",
+      "id": "882fe4a1d0a3769a:c5f5a951f507743e",
+      "source": "882fe4a1d0a3769a",
+      "target": "c5f5a951f507743e",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、力量举」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "552cdd3376358c74:efcc666caff71498",
-      "source": "552cdd3376358c74",
-      "target": "efcc666caff71498",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、运动」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "24419c60a74537ec:776855443d72f63f",
-      "source": "24419c60a74537ec",
-      "target": "776855443d72f63f",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、健康」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "24419c60a74537ec:ce24b21451922bcb",
-      "source": "24419c60a74537ec",
-      "target": "ce24b21451922bcb",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、健康」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "24419c60a74537ec:ac07adb7d59e5420",
-      "source": "24419c60a74537ec",
-      "target": "ac07adb7d59e5420",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、健康」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "3717b068836dfe9f:44c3a81d3b20453e",
-      "source": "3717b068836dfe9f",
-      "target": "44c3a81d3b20453e",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「街健、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "3717b068836dfe9f:58c60bf90744a1a9",
-      "source": "3717b068836dfe9f",
-      "target": "58c60bf90744a1a9",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「街健、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "3717b068836dfe9f:93cf711a53315039",
-      "source": "3717b068836dfe9f",
-      "target": "93cf711a53315039",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "44c3a81d3b20453e:479d940cf27ff10b",
-      "source": "44c3a81d3b20453e",
-      "target": "479d940cf27ff10b",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「街健、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "34431d19bef11af1:44c3a81d3b20453e",
-      "source": "44c3a81d3b20453e",
-      "target": "34431d19bef11af1",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「街健、学习」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「乒乓球、街健」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
@@ -14781,7 +14957,7 @@
       "source": "3f7df39334d154b0",
       "target": "f2cb2cc17e25571a",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「引体、卧推」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「引体、卧推」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
@@ -14789,47 +14965,47 @@
       "source": "3f7df39334d154b0",
       "target": "cfa9251b22f0384f",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「引体、卧推」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「引体、卧推」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
-      "id": "5120d65535483298:9b4474906b6bfb73",
-      "source": "5120d65535483298",
-      "target": "9b4474906b6bfb73",
+      "id": "ad684a995d8518ff:c109d1880dfdf409",
+      "source": "ad684a995d8518ff",
+      "target": "c109d1880dfdf409",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「引体、学习」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「引体、双力臂」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
-      "id": "479d940cf27ff10b:5120d65535483298",
-      "source": "5120d65535483298",
+      "id": "58b8769b7d972e85:c5f5a951f507743e",
+      "source": "58b8769b7d972e85",
+      "target": "c5f5a951f507743e",
+      "kind": "shared",
+      "reason": "群昵称或自我介绍共同涉及「街健、健体」，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "323c3b158cc7fbb0:58b8769b7d972e85",
+      "source": "58b8769b7d972e85",
+      "target": "323c3b158cc7fbb0",
+      "kind": "shared",
+      "reason": "群昵称或自我介绍共同涉及「街健、健体」，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "58b8769b7d972e85:6ce309c6ee76796d",
+      "source": "58b8769b7d972e85",
+      "target": "6ce309c6ee76796d",
+      "kind": "shared",
+      "reason": "群昵称或自我介绍共同涉及「街健、健体」，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "479d940cf27ff10b:bd14dbeef5bd645a",
+      "source": "bd14dbeef5bd645a",
       "target": "479d940cf27ff10b",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「引体、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "5120d65535483298:a3dab5777f91b497",
-      "source": "5120d65535483298",
-      "target": "a3dab5777f91b497",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「引体、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "479d940cf27ff10b:58c60bf90744a1a9",
-      "source": "58c60bf90744a1a9",
-      "target": "479d940cf27ff10b",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「街健、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "34431d19bef11af1:58c60bf90744a1a9",
-      "source": "58c60bf90744a1a9",
-      "target": "34431d19bef11af1",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「街健、学习」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「街健、引体」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
@@ -14837,7 +15013,7 @@
       "source": "bd14dbeef5bd645a",
       "target": "b76d408d3f9c5c57",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「引体、力量举」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「引体、力量举」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
@@ -14845,23 +15021,23 @@
       "source": "bd14dbeef5bd645a",
       "target": "f2cb2cc17e25571a",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「引体、力量举」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「引体、力量举」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
-      "id": "bd14dbeef5bd645a:ef5b02785ad09c9b",
-      "source": "bd14dbeef5bd645a",
-      "target": "ef5b02785ad09c9b",
+      "id": "a91ec98cb91e9f72:e8ca6b96b4f525fa",
+      "source": "e8ca6b96b4f525fa",
+      "target": "a91ec98cb91e9f72",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「街健、引体」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「健体、跑步」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
-      "id": "9b4474906b6bfb73:a3dab5777f91b497",
-      "source": "9b4474906b6bfb73",
-      "target": "a3dab5777f91b497",
+      "id": "c5f5a951f507743e:e8ca6b96b4f525fa",
+      "source": "e8ca6b96b4f525fa",
+      "target": "c5f5a951f507743e",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「引体、学习」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「健体、跑步」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
@@ -14869,47 +15045,23 @@
       "source": "9b4474906b6bfb73",
       "target": "df63b112f3af82d8",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「马拉松、游泳」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「马拉松、游泳」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
-      "id": "8feebec451be119e:93cf711a53315039",
-      "source": "93cf711a53315039",
-      "target": "8feebec451be119e",
+      "id": "1690efe21a811135:9b4474906b6bfb73",
+      "source": "9b4474906b6bfb73",
+      "target": "1690efe21a811135",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「引体、马拉松」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
-      "id": "37f2a20fa4ec2475:93cf711a53315039",
-      "source": "93cf711a53315039",
-      "target": "37f2a20fa4ec2475",
+      "id": "479d940cf27ff10b:ef5b02785ad09c9b",
+      "source": "479d940cf27ff10b",
+      "target": "ef5b02785ad09c9b",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "47388edb701db499:a3dab5777f91b497",
-      "source": "a3dab5777f91b497",
-      "target": "47388edb701db499",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「引体、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "2b57dc3c8201034d:514c8a84c2f2f4aa",
-      "source": "2b57dc3c8201034d",
-      "target": "514c8a84c2f2f4aa",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、跑步」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "2b57dc3c8201034d:df63b112f3af82d8",
-      "source": "2b57dc3c8201034d",
-      "target": "df63b112f3af82d8",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、跑步」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「街健、引体」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
@@ -14917,15 +15069,7 @@
       "source": "2b57dc3c8201034d",
       "target": "673aac40b057b304",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、跑步」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "37f2a20fa4ec2475:8feebec451be119e",
-      "source": "8feebec451be119e",
-      "target": "37f2a20fa4ec2475",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「乒乓球、跑步」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
@@ -14933,287 +15077,47 @@
       "source": "514c8a84c2f2f4aa",
       "target": "df63b112f3af82d8",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、跑步、足球」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「足球、跑步」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
-      "id": "514c8a84c2f2f4aa:9b8142ac59fe1993",
+      "id": "514c8a84c2f2f4aa:b1a982b68008dc62",
       "source": "514c8a84c2f2f4aa",
-      "target": "9b8142ac59fe1993",
+      "target": "b1a982b68008dc62",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、篮球」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「塑形、跑步」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
-      "id": "82f3e3162c462ffe:a8cbd631bf9fd0da",
-      "source": "82f3e3162c462ffe",
-      "target": "a8cbd631bf9fd0da",
+      "id": "0634f2ac2d7d15b3:514c8a84c2f2f4aa",
+      "source": "514c8a84c2f2f4aa",
+      "target": "0634f2ac2d7d15b3",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「街健、学习」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「篮球、跑步」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
-      "id": "7c745bdcd9e4659d:82f3e3162c462ffe",
-      "source": "82f3e3162c462ffe",
-      "target": "7c745bdcd9e4659d",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「街健、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "82f3e3162c462ffe:bb17921a8063964d",
-      "source": "82f3e3162c462ffe",
-      "target": "bb17921a8063964d",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「街健、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "37f2a20fa4ec2475:9b8142ac59fe1993",
-      "source": "9b8142ac59fe1993",
-      "target": "37f2a20fa4ec2475",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、篮球」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "91c720f3ced906ac:ef5b02785ad09c9b",
-      "source": "91c720f3ced906ac",
-      "target": "ef5b02785ad09c9b",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「运动、街健」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "91c720f3ced906ac:c5f5a951f507743e",
-      "source": "91c720f3ced906ac",
-      "target": "c5f5a951f507743e",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「运动、街健」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "6ce309c6ee76796d:91c720f3ced906ac",
-      "source": "91c720f3ced906ac",
-      "target": "6ce309c6ee76796d",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「运动、街健」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "47388edb701db499:e9eaa64f1cb580c2",
-      "source": "47388edb701db499",
-      "target": "e9eaa64f1cb580c2",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「引体、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "47388edb701db499:d299523c03aec8f7",
-      "source": "47388edb701db499",
-      "target": "d299523c03aec8f7",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「引体、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "776855443d72f63f:efcc666caff71498",
-      "source": "efcc666caff71498",
+      "id": "776855443d72f63f:df63b112f3af82d8",
+      "source": "df63b112f3af82d8",
       "target": "776855443d72f63f",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、运动」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「羽毛球、游泳」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
-      "id": "d9342df6b5d0fb1a:efcc666caff71498",
-      "source": "efcc666caff71498",
-      "target": "d9342df6b5d0fb1a",
+      "id": "b76d408d3f9c5c57:f2cb2cc17e25571a",
+      "source": "b76d408d3f9c5c57",
+      "target": "f2cb2cc17e25571a",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、运动」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「引体、力量举」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
-      "id": "673aac40b057b304:ac07adb7d59e5420",
-      "source": "673aac40b057b304",
-      "target": "ac07adb7d59e5420",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、跑步」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "52f338fdcf9ffa3e:673aac40b057b304",
-      "source": "673aac40b057b304",
-      "target": "52f338fdcf9ffa3e",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、跑步」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "776855443d72f63f:d9342df6b5d0fb1a",
-      "source": "776855443d72f63f",
-      "target": "d9342df6b5d0fb1a",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、运动」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "c5f5a951f507743e:ef5b02785ad09c9b",
-      "source": "ef5b02785ad09c9b",
-      "target": "c5f5a951f507743e",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「运动、街健」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "7c745bdcd9e4659d:a8cbd631bf9fd0da",
+      "id": "6ce309c6ee76796d:a8cbd631bf9fd0da",
       "source": "a8cbd631bf9fd0da",
-      "target": "7c745bdcd9e4659d",
+      "target": "6ce309c6ee76796d",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「街健、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "06bf064ac395be3d:a8cbd631bf9fd0da",
-      "source": "a8cbd631bf9fd0da",
-      "target": "06bf064ac395be3d",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "c5f5a951f507743e:d9342df6b5d0fb1a",
-      "source": "d9342df6b5d0fb1a",
-      "target": "c5f5a951f507743e",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、运动」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "7c745bdcd9e4659d:bb17921a8063964d",
-      "source": "7c745bdcd9e4659d",
-      "target": "bb17921a8063964d",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「街健、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "ac07adb7d59e5420:ce24b21451922bcb",
-      "source": "ce24b21451922bcb",
-      "target": "ac07adb7d59e5420",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、健康」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "ce24b21451922bcb:cebae30c32c4d6a8",
-      "source": "ce24b21451922bcb",
-      "target": "cebae30c32c4d6a8",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、健康」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "06bf064ac395be3d:7a5694a7866b6197",
-      "source": "06bf064ac395be3d",
-      "target": "7a5694a7866b6197",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "06bf064ac395be3d:b8c6e6870a752026",
-      "source": "06bf064ac395be3d",
-      "target": "b8c6e6870a752026",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "04b4187b760265f9:63e6477ed3697565",
-      "source": "63e6477ed3697565",
-      "target": "04b4187b760265f9",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、引体」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "2a8e3327acd9c61a:fbea786c57b9f615",
-      "source": "fbea786c57b9f615",
-      "target": "2a8e3327acd9c61a",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健康、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "d299523c03aec8f7:e9eaa64f1cb580c2",
-      "source": "e9eaa64f1cb580c2",
-      "target": "d299523c03aec8f7",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「引体、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "52f338fdcf9ffa3e:8861af629ffd7c8b",
-      "source": "52f338fdcf9ffa3e",
-      "target": "8861af629ffd7c8b",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、跑步」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "2815b38213942be0:52f338fdcf9ffa3e",
-      "source": "52f338fdcf9ffa3e",
-      "target": "2815b38213942be0",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、跑步」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "2a8e3327acd9c61a:cebae30c32c4d6a8",
-      "source": "cebae30c32c4d6a8",
-      "target": "2a8e3327acd9c61a",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、健康」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "2815b38213942be0:8861af629ffd7c8b",
-      "source": "8861af629ffd7c8b",
-      "target": "2815b38213942be0",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、跑步」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "0b463640df8cc902:8861af629ffd7c8b",
-      "source": "8861af629ffd7c8b",
-      "target": "0b463640df8cc902",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、跑步」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "7a5694a7866b6197:b8c6e6870a752026",
-      "source": "7a5694a7866b6197",
-      "target": "b8c6e6870a752026",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "2a8e3327acd9c61a:7a5694a7866b6197",
-      "source": "7a5694a7866b6197",
-      "target": "2a8e3327acd9c61a",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "0b463640df8cc902:2815b38213942be0",
-      "source": "2815b38213942be0",
-      "target": "0b463640df8cc902",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、跑步」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「街健、力量举」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
@@ -15221,89 +15125,38 @@
       "source": "7196ec25a8234780",
       "target": "a48f8bd04323b197",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「跑步、游泳」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「跑步、游泳」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     },
     {
-      "id": "a6e28c7023f5368b:b8c6e6870a752026",
-      "source": "b8c6e6870a752026",
-      "target": "a6e28c7023f5368b",
+      "id": "323c3b158cc7fbb0:6ce309c6ee76796d",
+      "source": "323c3b158cc7fbb0",
+      "target": "6ce309c6ee76796d",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "bb17921a8063964d:c7cf5766ac50717e",
-      "source": "bb17921a8063964d",
-      "target": "c7cf5766ac50717e",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「街健、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "462da2d04ce9be13:a6e28c7023f5368b",
-      "source": "a6e28c7023f5368b",
-      "target": "462da2d04ce9be13",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "a6e28c7023f5368b:e78e33c69f90f579",
-      "source": "a6e28c7023f5368b",
-      "target": "e78e33c69f90f579",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "462da2d04ce9be13:e78e33c69f90f579",
-      "source": "462da2d04ce9be13",
-      "target": "e78e33c69f90f579",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "133def91371e2300:462da2d04ce9be13",
-      "source": "462da2d04ce9be13",
-      "target": "133def91371e2300",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "39a506e0ef6471ff:a48f8bd04323b197",
-      "source": "39a506e0ef6471ff",
-      "target": "a48f8bd04323b197",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健康、跑步」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "133def91371e2300:e78e33c69f90f579",
-      "source": "e78e33c69f90f579",
-      "target": "133def91371e2300",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "133def91371e2300:e1198b026a793d58",
-      "source": "133def91371e2300",
-      "target": "e1198b026a793d58",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「力量训练、学习」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "c7cf5766ac50717e:e1198b026a793d58",
-      "source": "c7cf5766ac50717e",
-      "target": "e1198b026a793d58",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「街健、学习」，尚无合作确认。",
+      "reason": "群昵称或自我介绍共同涉及「街健、健体」，仅为共同兴趣线索，不代表已结伴。",
       "evidence": []
     }
   ],
-  "notes": "仅统计本机可见记录，不代表完整群历史。群昵称与核对后的自我介绍用于资料整理；互动不代表合作，未发言不代表从未发言。"
+  "notes": "仅统计本机可见记录，不代表完整群历史。群昵称与核对后的自我介绍用于资料整理；互动不代表合作，未发言不代表从未发言。",
+  "classification": {
+    "kind": "fitness",
+    "label": "健身交流",
+    "topicLabel": "运动项目",
+    "goalLabel": "训练目标",
+    "offersLabel": "训练项目 / 经验分享",
+    "needsLabel": "训练目标 / 寻找搭子",
+    "eyebrow": "一起训练，共同进步",
+    "description": "从喜欢的运动和训练目标出发，认识同路的伙伴。",
+    "matchLabel": "训练交流线索",
+    "sharedLabel": "共同运动兴趣",
+    "goals": [
+      "增肌",
+      "减脂",
+      "力量提升",
+      "技能突破",
+      "耐力 / 运动表现",
+      "保持运动习惯",
+      "寻找训练搭子"
+    ]
+  }
 }

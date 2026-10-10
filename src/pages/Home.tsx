@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Orbit, Users } from 'lucide-react';
+import { ArrowUpRight, GitBranch, Orbit, Users } from 'lucide-react';
 import { getPublicPartnerProfiles } from '../services/partnerService';
 
 const Home: React.FC = () => {
@@ -15,6 +15,7 @@ const Home: React.FC = () => {
   return (
     <div className="redesign-home">
       <header className="page-heading"><div><h1>健文社区</h1><p>学习 · 训练 · 交流</p></div></header>
+      <Link to="/network" className="home-network"><GitBranch aria-hidden="true"/><div><h2>人脉星图</h2><p>学习、健身、创业，从共同方向认识群友。</p><span>无需登录 · 直接探索</span></div><ArrowUpRight aria-hidden="true"/></Link>
       <div className="home-stage">
         <Link to="/community?tab=moments" className="home-checkin">
           <h2>打卡</h2><p>今天也有进步。</p>

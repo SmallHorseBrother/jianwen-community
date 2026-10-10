@@ -16,6 +16,8 @@ try {
   const navLink=page.getByRole('navigation',{name:'主导航',exact:true}).getByRole('link',{name:'人脉星图',exact:true});
   await navLink.waitFor({state:'visible'});
   assert.equal(await navLink.getAttribute('href'),'/network');
+  assert.equal(await page.locator('.home-network').getAttribute('href'),'/network');
+  assert.equal(await page.locator('.home-partners').getAttribute('href'),'/community?tab=partners');
   await page.screenshot({path:path.join(output,'network-navigation-desktop.png')});
   await page.setViewportSize({width:1024,height:844});
   const navBox=await page.locator('.site-nav').boundingBox();
@@ -91,6 +93,12 @@ try {
   await page.screenshot({path:path.join(output,'network-learning-desktop.png')});
   await page.getByRole('button',{name:'名录',exact:true}).click();
   assert.equal(await page.locator('.network-person-card').count(),learning.people.length);
+  assert.equal(await page.getByRole('combobox',{name:'项目阶段'}).count(),0);
+  assert.match(await page.locator('.network-topics').innerText(),/计算机与人工智能/);
+  assert.ok(!(await page.locator('.network-topics').innerText()).includes('企业服务'));
+  await page.getByRole('combobox',{name:'学习目标',exact:true}).selectOption('考研 / 保研');
+  assert.equal(await page.locator('.network-person-card').count(),learning.people.filter(p=>p.goals.includes('考研 / 保研')).length);
+  await page.getByRole('combobox',{name:'学习目标',exact:true}).selectOption('');
   const member=learning.people.find(p=>p.introductions.length&&p.messageCount>0);
   await page.getByRole('textbox',{name:'搜索成员'}).fill(member.name);
   await page.locator('.network-person-card').filter({hasText:member.name}).first().click();
@@ -104,9 +112,13 @@ try {
   assert.equal(await page.locator('.network-person-card').count(),learning.people.filter(p=>!p.messageCount).length);
   await page.getByRole('combobox',{name:'切换群聊',exact:true}).selectOption('fitness-3');
   await page.getByRole('heading',{name:'枭马葛—健身群（三）',exact:true}).waitFor();
+  await page.getByRole('combobox',{name:'训练目标',exact:true}).waitFor();
+  assert.match(await page.locator('.network-topics').innerText(),/街健与自重训练/);
+  assert.ok(!(await page.locator('.network-topics').innerText()).includes('企业服务'));
   assert.equal(await page.getByRole('combobox',{name:'成员资料'}).inputValue(),'');
   await page.getByRole('combobox',{name:'切换群聊',exact:true}).selectOption(catalog.defaultGroup);
   await page.getByRole('heading',{name:'枭马葛创业交流群',exact:true}).waitFor();
+  await page.getByRole('combobox',{name:'项目阶段',exact:true}).waitFor();
   await page.goto(`${base}/network?group=unknown`,{waitUntil:'commit'});
   assert.match(await page.getByRole('alert').innerText(),/没有找到这个群/);
   assert.deepEqual(errors,[]);
