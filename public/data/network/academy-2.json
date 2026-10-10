@@ -67,16 +67,98 @@
       "introductions": [],
       "topic": "humanities",
       "tags": [
-        "文学"
+        "文学",
+        "大模型",
+        "深度学习",
+        "机器学习",
+        "编程",
+        "Python",
+        "材料",
+        "电子",
+        "机器人",
+        "机械",
+        "英语",
+        "演讲"
       ],
       "topics": [
-        "humanities"
+        "humanities",
+        "computing",
+        "engineering",
+        "language"
       ],
-      "summary": "本群可见记录中有 2,961 条发言，暂未整理到明确自我介绍。",
+      "summary": "根据发言推测：可能关注计算机与人工智能、工程与技术、语言与表达；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注计算机与人工智能、工程与技术、语言与表达；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 1184,
+        "firstAt": "2025-03-09T10:55:14.000Z",
+        "lastAt": "2026-10-10T05:15:47.000Z",
+        "topics": [
+          {
+            "id": "computing",
+            "name": "计算机与人工智能",
+            "keywords": [
+              "大模型",
+              "深度学习",
+              "机器学习",
+              "编程",
+              "Python"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 15,
+            "dayCount": 11,
+            "firstAt": "2025-04-13T08:09:02.000Z",
+            "lastAt": "2026-09-15T15:10:49.000Z"
+          },
+          {
+            "id": "engineering",
+            "name": "工程与技术",
+            "keywords": [
+              "材料",
+              "电子",
+              "机器人",
+              "机械"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 5,
+            "dayCount": 5,
+            "firstAt": "2025-03-09T10:55:14.000Z",
+            "lastAt": "2026-09-15T15:10:09.000Z"
+          },
+          {
+            "id": "language",
+            "name": "语言与表达",
+            "keywords": [
+              "英语",
+              "演讲"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 4,
+            "dayCount": 3,
+            "firstAt": "2025-09-06T15:07:36.000Z",
+            "lastAt": "2026-01-10T17:12:39.000Z"
+          },
+          {
+            "id": "humanities",
+            "name": "人文与社会科学",
+            "keywords": [
+              "文学",
+              "心理学"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 3,
+            "firstAt": "2025-04-27T11:42:35.000Z",
+            "lastAt": "2025-08-25T12:20:19.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "e34c14dd1e6f5c06",
@@ -91,11 +173,31 @@
       "topic": "other",
       "tags": [],
       "topics": [],
-      "summary": "本群可见记录中有 267 条发言，暂未整理到明确自我介绍。",
+      "summary": "根据发言推测：发言中曾表达过科研 / 论文相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "科研 / 论文"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "发言中曾表达过科研 / 论文相关意向。",
+        "analyzedMessages": 75,
+        "firstAt": "2025-04-13T02:49:57.000Z",
+        "lastAt": "2026-08-29T02:16:23.000Z",
+        "topics": [],
+        "goals": [
+          {
+            "name": "科研 / 论文",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-06-01T08:49:34.000Z",
+            "lastAt": "2026-06-01T08:49:34.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "6111caf811d9eafd",
@@ -114,7 +216,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ddc380e5526e9f41",
@@ -133,7 +237,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "88574d1ecaecde43",
@@ -152,7 +258,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0f7cd9215055533a",
@@ -171,7 +279,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6ec46a3f8ce0af82",
@@ -185,16 +295,65 @@
       "introductions": [],
       "topic": "biomed",
       "tags": [
-        "生物"
+        "生物",
+        "文学",
+        "历史"
       ],
       "topics": [
-        "biomed"
+        "biomed",
+        "humanities"
       ],
-      "summary": "本群可见记录中有 2,330 条发言，暂未整理到明确自我介绍。",
+      "summary": "根据发言推测：可能关注人文与社会科学、生命科学与医学；这是根据群内讨论归纳的兴趣线索。发言中曾表达过考研 / 保研相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "考研 / 保研"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注人文与社会科学、生命科学与医学；这是根据群内讨论归纳的兴趣线索。发言中曾表达过考研 / 保研相关意向。",
+        "analyzedMessages": 1133,
+        "firstAt": "2025-03-31T15:29:54.000Z",
+        "lastAt": "2026-08-17T04:18:27.000Z",
+        "topics": [
+          {
+            "id": "humanities",
+            "name": "人文与社会科学",
+            "keywords": [
+              "文学",
+              "历史"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 25,
+            "dayCount": 21,
+            "firstAt": "2025-06-01T05:22:30.000Z",
+            "lastAt": "2026-08-17T04:18:27.000Z"
+          },
+          {
+            "id": "biomed",
+            "name": "生命科学与医学",
+            "keywords": [
+              "生物"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 2,
+            "firstAt": "2025-06-12T16:04:08.000Z",
+            "lastAt": "2025-07-31T00:11:01.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "考研 / 保研",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-06-09T01:22:26.000Z",
+            "lastAt": "2025-06-09T01:22:26.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "90a72f0d4f544c33",
@@ -213,7 +372,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1de82e397fab2f05",
@@ -232,7 +393,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "58b1ac9acc29c3f5",
@@ -251,7 +414,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5b86e2aa09b31d19",
@@ -270,7 +435,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ab6dc4762aa91a9c",
@@ -289,7 +456,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "16d2e7b042325a97",
@@ -308,7 +477,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "df2ec5ad4b5ee6bf",
@@ -327,7 +498,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3e82663eb56ed869",
@@ -346,7 +519,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "83975812c711bd15",
@@ -365,7 +540,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "32c72d291b583b25",
@@ -384,7 +561,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "23d6b8526c2cd2ae",
@@ -403,7 +582,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0b752d700a2b33b1",
@@ -422,7 +603,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7ab6837c18a77424",
@@ -441,7 +624,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "44584b0b31242cc7",
@@ -460,7 +645,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b2e3ce16c948213f",
@@ -479,7 +666,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "46e6b05adc0499c4",
@@ -498,7 +687,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "911c3ee52c3de22b",
@@ -510,14 +701,41 @@
       "messageCount": 1160,
       "lastActiveAt": "2026-10-10T05:26:30.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 1,160 条发言，暂未整理到明确自我介绍。",
+      "topic": "language",
+      "tags": [
+        "英语"
+      ],
+      "topics": [
+        "language"
+      ],
+      "summary": "根据发言推测：可能关注语言与表达；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注语言与表达；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 475,
+        "firstAt": "2025-03-30T11:04:40.000Z",
+        "lastAt": "2026-10-09T06:50:14.000Z",
+        "topics": [
+          {
+            "id": "language",
+            "name": "语言与表达",
+            "keywords": [
+              "英语"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 3,
+            "firstAt": "2025-06-09T02:38:22.000Z",
+            "lastAt": "2026-02-28T03:00:02.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "32cdbe5f6e374998",
@@ -536,7 +754,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0f5cb2aa2352bc42",
@@ -555,7 +775,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e23fbb33e287ea61",
@@ -574,7 +796,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f1c8dce03647e8a7",
@@ -593,7 +817,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "16dc4e197edcad2e",
@@ -616,7 +842,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "nickname"
     },
     {
       "id": "ed7c67e446ebe355",
@@ -635,7 +863,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0cb0a4eb63f8b0d9",
@@ -654,7 +884,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5f9a6e831c4917bd",
@@ -666,14 +898,119 @@
       "messageCount": 1842,
       "lastActiveAt": "2026-10-07T16:23:42.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 1,842 条发言，暂未整理到明确自我介绍。",
+      "topic": "engineering",
+      "tags": [
+        "土木",
+        "机械",
+        "电子",
+        "自动化",
+        "材料",
+        "药学",
+        "医学",
+        "医学生",
+        "护理",
+        "生物",
+        "数学",
+        "物理"
+      ],
+      "topics": [
+        "engineering",
+        "biomed",
+        "science",
+        "language"
+      ],
+      "summary": "根据发言推测：可能关注工程与技术、生命科学与医学、数学与自然科学；这是根据群内讨论归纳的兴趣线索。发言中曾表达过考公 / 考编、考研 / 保研相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "考公 / 考编",
+        "考研 / 保研"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注工程与技术、生命科学与医学、数学与自然科学；这是根据群内讨论归纳的兴趣线索。发言中曾表达过考公 / 考编、考研 / 保研相关意向。",
+        "analyzedMessages": 891,
+        "firstAt": "2025-03-15T13:14:21.000Z",
+        "lastAt": "2026-09-11T12:49:34.000Z",
+        "topics": [
+          {
+            "id": "engineering",
+            "name": "工程与技术",
+            "keywords": [
+              "土木",
+              "机械",
+              "电子",
+              "自动化",
+              "材料"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 14,
+            "dayCount": 9,
+            "firstAt": "2025-08-24T16:54:25.000Z",
+            "lastAt": "2026-09-07T09:30:26.000Z"
+          },
+          {
+            "id": "biomed",
+            "name": "生命科学与医学",
+            "keywords": [
+              "药学",
+              "医学",
+              "医学生",
+              "护理",
+              "生物"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 8,
+            "dayCount": 3,
+            "firstAt": "2025-08-24T17:36:36.000Z",
+            "lastAt": "2026-01-08T06:28:01.000Z"
+          },
+          {
+            "id": "science",
+            "name": "数学与自然科学",
+            "keywords": [
+              "数学",
+              "物理",
+              "地质"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 6,
+            "dayCount": 4,
+            "firstAt": "2025-08-12T17:19:16.000Z",
+            "lastAt": "2026-03-17T14:34:33.000Z"
+          },
+          {
+            "id": "language",
+            "name": "语言与表达",
+            "keywords": [
+              "英语"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 4,
+            "dayCount": 3,
+            "firstAt": "2025-06-27T15:48:28.000Z",
+            "lastAt": "2025-12-21T14:38:44.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "考公 / 考编",
+            "messageCount": 2,
+            "dayCount": 2,
+            "firstAt": "2025-12-21T14:15:19.000Z",
+            "lastAt": "2026-03-17T15:27:36.000Z"
+          },
+          {
+            "name": "考研 / 保研",
+            "messageCount": 6,
+            "dayCount": 4,
+            "firstAt": "2025-08-24T16:50:38.000Z",
+            "lastAt": "2026-03-05T08:45:10.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "3fc8fb5ece6c4463",
@@ -692,7 +1029,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "68e11edb2b3d9323",
@@ -711,7 +1050,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "21df3e664423f0fb",
@@ -730,7 +1071,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a1d81039687ec99b",
@@ -749,7 +1092,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "edf261d6340f176a",
@@ -768,7 +1113,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "859c8637a058eb8a",
@@ -787,7 +1134,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2bae621b4afe1a9f",
@@ -806,7 +1155,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "94c91faf06a18075",
@@ -825,7 +1176,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "eb28ea701694fbf3",
@@ -844,7 +1197,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ee313c9115fe4afc",
@@ -863,7 +1218,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a2443360cbc2921c",
@@ -882,7 +1239,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7c5ab377f276df72",
@@ -901,7 +1260,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e1d31138d62bf328",
@@ -920,7 +1281,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3c84acf07a778dcf",
@@ -939,7 +1302,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e0485c8b8d85d81f",
@@ -958,7 +1323,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b76c9090c32ea3fc",
@@ -977,7 +1344,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d3b3bbf99525d091",
@@ -996,7 +1365,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "594b7048d7cc1e88",
@@ -1015,7 +1386,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d44d67b754945d58",
@@ -1034,7 +1407,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3f7df39334d154b0",
@@ -1053,7 +1428,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c9407ef91a510c5b",
@@ -1072,7 +1449,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a52e20b78d75959f",
@@ -1091,7 +1470,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2c53001399f92f85",
@@ -1110,7 +1491,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2b5d3205a18d856e",
@@ -1122,14 +1505,97 @@
       "messageCount": 471,
       "lastActiveAt": "2026-08-29T15:13:07.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 471 条发言，暂未整理到明确自我介绍。",
+      "topic": "language",
+      "tags": [
+        "英语",
+        "物理",
+        "化学",
+        "数学",
+        "生物",
+        "自动化"
+      ],
+      "topics": [
+        "language",
+        "science",
+        "biomed",
+        "engineering"
+      ],
+      "summary": "根据发言推测：可能关注语言与表达、数学与自然科学、生命科学与医学；这是根据群内讨论归纳的兴趣线索。发言中曾表达过考研 / 保研相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "考研 / 保研"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注语言与表达、数学与自然科学、生命科学与医学；这是根据群内讨论归纳的兴趣线索。发言中曾表达过考研 / 保研相关意向。",
+        "analyzedMessages": 255,
+        "firstAt": "2025-04-11T07:21:22.000Z",
+        "lastAt": "2026-08-29T02:56:32.000Z",
+        "topics": [
+          {
+            "id": "language",
+            "name": "语言与表达",
+            "keywords": [
+              "英语"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 4,
+            "dayCount": 3,
+            "firstAt": "2025-09-02T16:06:19.000Z",
+            "lastAt": "2025-12-19T13:16:38.000Z"
+          },
+          {
+            "id": "science",
+            "name": "数学与自然科学",
+            "keywords": [
+              "物理",
+              "化学",
+              "数学"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 3,
+            "firstAt": "2025-05-04T04:08:13.000Z",
+            "lastAt": "2025-10-07T08:09:33.000Z"
+          },
+          {
+            "id": "biomed",
+            "name": "生命科学与医学",
+            "keywords": [
+              "生物"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 2,
+            "firstAt": "2025-06-15T16:36:00.000Z",
+            "lastAt": "2025-09-04T05:33:17.000Z"
+          },
+          {
+            "id": "engineering",
+            "name": "工程与技术",
+            "keywords": [
+              "自动化"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 2,
+            "dayCount": 2,
+            "firstAt": "2025-05-04T04:08:13.000Z",
+            "lastAt": "2025-09-02T16:10:21.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "考研 / 保研",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-10-07T15:28:25.000Z",
+            "lastAt": "2025-10-07T15:28:25.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "2dc6d887b111a5fb",
@@ -1148,7 +1614,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "96f703b0a8f1cc64",
@@ -1167,7 +1635,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "363dd2f71255f61e",
@@ -1186,7 +1656,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6a1ee685c7673165",
@@ -1205,7 +1677,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "dbd19aeac1dd06c7",
@@ -1224,7 +1698,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a82ffe90de468d48",
@@ -1243,7 +1719,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "030ddb4869390361",
@@ -1262,7 +1740,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a05caf3b4669e623",
@@ -1281,7 +1761,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b5f6e86ddea63637",
@@ -1300,7 +1782,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ca1a80c13d155f9c",
@@ -1319,7 +1803,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5b2f9642218cef82",
@@ -1338,7 +1824,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2fc03d95f23d2a8b",
@@ -1357,7 +1845,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b4858c8b4248a51a",
@@ -1376,7 +1866,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "76e5ac5cfeade929",
@@ -1395,7 +1887,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8109097731e445e0",
@@ -1414,7 +1908,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "408e874b4c2603d5",
@@ -1433,7 +1929,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c4ab5da2510d1811",
@@ -1452,7 +1950,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a865081cbd07cbee",
@@ -1471,7 +1971,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c08e3de737468b60",
@@ -1490,7 +1992,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0df6b0f98fc258aa",
@@ -1509,7 +2013,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "693cf23206eceb01",
@@ -1528,7 +2034,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9d2c23fcbc112ef4",
@@ -1540,14 +2048,119 @@
       "messageCount": 5439,
       "lastActiveAt": "2026-10-09T10:48:16.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 5,439 条发言，暂未整理到明确自我介绍。",
+      "topic": "science",
+      "tags": [
+        "化学",
+        "数学",
+        "物理",
+        "自动化",
+        "机械",
+        "机器人",
+        "电子",
+        "英语",
+        "德语",
+        "写作",
+        "人工智能",
+        "大模型"
+      ],
+      "topics": [
+        "science",
+        "engineering",
+        "language",
+        "computing"
+      ],
+      "summary": "根据发言推测：可能关注数学与自然科学、工程与技术、语言与表达；这是根据群内讨论归纳的兴趣线索。发言中曾表达过考研 / 保研、考公 / 考编相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "考研 / 保研",
+        "考公 / 考编"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注数学与自然科学、工程与技术、语言与表达；这是根据群内讨论归纳的兴趣线索。发言中曾表达过考研 / 保研、考公 / 考编相关意向。",
+        "analyzedMessages": 2275,
+        "firstAt": "2025-03-09T12:05:51.000Z",
+        "lastAt": "2026-10-09T07:11:06.000Z",
+        "topics": [
+          {
+            "id": "science",
+            "name": "数学与自然科学",
+            "keywords": [
+              "化学",
+              "数学",
+              "物理"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 14,
+            "dayCount": 11,
+            "firstAt": "2025-04-29T10:36:19.000Z",
+            "lastAt": "2026-09-04T14:30:16.000Z"
+          },
+          {
+            "id": "engineering",
+            "name": "工程与技术",
+            "keywords": [
+              "自动化",
+              "机械",
+              "机器人",
+              "电子"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 10,
+            "dayCount": 10,
+            "firstAt": "2025-03-09T12:05:51.000Z",
+            "lastAt": "2026-07-08T02:01:50.000Z"
+          },
+          {
+            "id": "language",
+            "name": "语言与表达",
+            "keywords": [
+              "英语",
+              "德语",
+              "写作"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 8,
+            "dayCount": 7,
+            "firstAt": "2025-07-07T07:14:50.000Z",
+            "lastAt": "2026-10-03T11:24:03.000Z"
+          },
+          {
+            "id": "computing",
+            "name": "计算机与人工智能",
+            "keywords": [
+              "人工智能",
+              "大模型",
+              "AI",
+              "前端"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 7,
+            "dayCount": 6,
+            "firstAt": "2025-12-08T05:04:47.000Z",
+            "lastAt": "2026-09-04T14:41:04.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "考研 / 保研",
+            "messageCount": 2,
+            "dayCount": 2,
+            "firstAt": "2025-08-27T15:29:44.000Z",
+            "lastAt": "2026-01-06T21:25:03.000Z"
+          },
+          {
+            "name": "考公 / 考编",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-11-15T16:00:07.000Z",
+            "lastAt": "2025-11-15T16:00:07.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "07398e7518f37c60",
@@ -1566,7 +2179,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8590a85c0b6e969f",
@@ -1585,7 +2200,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "62c3490ef316d0a0",
@@ -1604,7 +2221,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ba2782bc78f6c186",
@@ -1623,7 +2242,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c3c2cfe643ec978e",
@@ -1642,7 +2263,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "63126a7ebc11d7b4",
@@ -1661,7 +2284,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5120d65535483298",
@@ -1680,7 +2305,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6381c0e66daa7f80",
@@ -1699,7 +2326,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6cd75ee46e05ba0b",
@@ -1718,7 +2347,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f2c64fb6341d7b7e",
@@ -1737,7 +2368,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "59120ff6776c65e4",
@@ -1756,7 +2389,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "497696309e47ae3b",
@@ -1775,7 +2410,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d9b9f58a57056b27",
@@ -1794,7 +2431,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f6b06684dbdd2683",
@@ -1806,14 +2445,53 @@
       "messageCount": 33,
       "lastActiveAt": "2026-10-02T06:06:51.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 33 条发言，暂未整理到明确自我介绍。",
+      "topic": "language",
+      "tags": [
+        "英语",
+        "日语"
+      ],
+      "topics": [
+        "language"
+      ],
+      "summary": "根据发言推测：可能关注语言与表达；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能提升相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "技能提升"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注语言与表达；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能提升相关意向。",
+        "analyzedMessages": 17,
+        "firstAt": "2025-04-27T14:33:47.000Z",
+        "lastAt": "2025-11-23T03:57:29.000Z",
+        "topics": [
+          {
+            "id": "language",
+            "name": "语言与表达",
+            "keywords": [
+              "英语",
+              "日语"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 4,
+            "dayCount": 2,
+            "firstAt": "2025-09-07T11:51:39.000Z",
+            "lastAt": "2025-10-08T12:57:49.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "技能提升",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-10-08T12:57:15.000Z",
+            "lastAt": "2025-10-08T12:57:15.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "e84c98b4778a8605",
@@ -1832,7 +2510,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9bf8b6468204c76f",
@@ -1851,7 +2531,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "443e2a0ed78ae9e3",
@@ -1870,7 +2552,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e9277560cb5ab702",
@@ -1889,7 +2573,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e78e9f75a2fd924f",
@@ -1908,7 +2594,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2274429425a327bd",
@@ -1927,7 +2615,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9dd84b2c9f540cc2",
@@ -1939,14 +2629,97 @@
       "messageCount": 465,
       "lastActiveAt": "2026-03-31T09:04:18.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 465 条发言，暂未整理到明确自我介绍。",
+      "topic": "engineering",
+      "tags": [
+        "材料",
+        "心理学",
+        "文学",
+        "教育学",
+        "数学",
+        "医学"
+      ],
+      "topics": [
+        "engineering",
+        "humanities",
+        "science",
+        "biomed"
+      ],
+      "summary": "根据发言推测：可能关注工程与技术、人文与社会科学、数学与自然科学；这是根据群内讨论归纳的兴趣线索。发言中曾表达过考公 / 考编相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "考公 / 考编"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注工程与技术、人文与社会科学、数学与自然科学；这是根据群内讨论归纳的兴趣线索。发言中曾表达过考公 / 考编相关意向。",
+        "analyzedMessages": 261,
+        "firstAt": "2025-04-04T07:54:31.000Z",
+        "lastAt": "2026-03-31T09:04:18.000Z",
+        "topics": [
+          {
+            "id": "engineering",
+            "name": "工程与技术",
+            "keywords": [
+              "材料"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 4,
+            "dayCount": 1,
+            "firstAt": "2026-03-17T15:07:54.000Z",
+            "lastAt": "2026-03-17T15:09:44.000Z"
+          },
+          {
+            "id": "humanities",
+            "name": "人文与社会科学",
+            "keywords": [
+              "心理学",
+              "文学",
+              "教育学"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 3,
+            "firstAt": "2025-07-06T13:18:41.000Z",
+            "lastAt": "2026-03-17T15:13:34.000Z"
+          },
+          {
+            "id": "science",
+            "name": "数学与自然科学",
+            "keywords": [
+              "数学"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 2,
+            "dayCount": 2,
+            "firstAt": "2025-07-07T07:18:26.000Z",
+            "lastAt": "2026-03-17T13:44:25.000Z"
+          },
+          {
+            "id": "biomed",
+            "name": "生命科学与医学",
+            "keywords": [
+              "医学"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-03-17T15:36:21.000Z",
+            "lastAt": "2026-03-17T15:36:21.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "考公 / 考编",
+            "messageCount": 3,
+            "dayCount": 1,
+            "firstAt": "2026-03-17T13:42:52.000Z",
+            "lastAt": "2026-03-17T15:26:43.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "8424560de1dfe156",
@@ -1965,7 +2738,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bbbb4f5b0937bcf9",
@@ -1984,7 +2759,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ac8c12b7d4ca87dc",
@@ -2003,7 +2780,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "62942b34a07664c9",
@@ -2022,7 +2801,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9cb15b81e38189ef",
@@ -2041,7 +2822,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "df10736447f3cdb4",
@@ -2060,7 +2843,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5d2f200f4aafeeb6",
@@ -2079,7 +2864,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c31aedabaa0f0b9c",
@@ -2098,7 +2885,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "04516ef3e02a676e",
@@ -2110,14 +2899,41 @@
       "messageCount": 31,
       "lastActiveAt": "2026-01-14T07:42:52.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 31 条发言，暂未整理到明确自我介绍。",
+      "topic": "biomed",
+      "tags": [
+        "生物"
+      ],
+      "topics": [
+        "biomed"
+      ],
+      "summary": "根据发言推测：可能关注生命科学与医学；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注生命科学与医学；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 20,
+        "firstAt": "2025-05-08T06:23:26.000Z",
+        "lastAt": "2026-01-14T07:42:52.000Z",
+        "topics": [
+          {
+            "id": "biomed",
+            "name": "生命科学与医学",
+            "keywords": [
+              "生物"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 2,
+            "dayCount": 2,
+            "firstAt": "2025-05-09T10:17:10.000Z",
+            "lastAt": "2025-07-21T02:09:39.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "cf2e5aa96768a63b",
@@ -2129,14 +2945,69 @@
       "messageCount": 146,
       "lastActiveAt": "2026-09-15T15:12:56.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 146 条发言，暂未整理到明确自我介绍。",
+      "topic": "humanities",
+      "tags": [
+        "文学",
+        "设计",
+        "自动化"
+      ],
+      "topics": [
+        "humanities",
+        "design",
+        "engineering"
+      ],
+      "summary": "根据发言推测：可能关注人文与社会科学、艺术与设计、工程与技术；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注人文与社会科学、艺术与设计、工程与技术；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 61,
+        "firstAt": "2025-03-30T09:50:30.000Z",
+        "lastAt": "2026-09-15T15:12:56.000Z",
+        "topics": [
+          {
+            "id": "humanities",
+            "name": "人文与社会科学",
+            "keywords": [
+              "文学"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 3,
+            "firstAt": "2025-10-20T09:31:51.000Z",
+            "lastAt": "2026-07-04T13:23:58.000Z"
+          },
+          {
+            "id": "design",
+            "name": "艺术与设计",
+            "keywords": [
+              "设计"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-10-19T09:53:57.000Z",
+            "lastAt": "2025-10-19T09:53:57.000Z"
+          },
+          {
+            "id": "engineering",
+            "name": "工程与技术",
+            "keywords": [
+              "自动化"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-10-19T09:53:57.000Z",
+            "lastAt": "2025-10-19T09:53:57.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "ec718a658d1eb815",
@@ -2155,7 +3026,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "776523ace1f49bba",
@@ -2174,7 +3047,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "02e97922413249b6",
@@ -2193,7 +3068,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "606ade0cd7076987",
@@ -2212,7 +3089,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "69d1312d9464aa58",
@@ -2231,7 +3110,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "be3d635f52a3e049",
@@ -2250,7 +3131,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "44deed7d41ca9238",
@@ -2269,7 +3152,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "82b18d40935580ce",
@@ -2288,7 +3173,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bfdc55f9b3ed8a5c",
@@ -2307,7 +3194,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1d061466a2cd3f2c",
@@ -2326,7 +3215,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "29b233956ea15375",
@@ -2345,7 +3236,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4140fccb36e31e23",
@@ -2357,14 +3250,104 @@
       "messageCount": 5335,
       "lastActiveAt": "2026-10-10T06:01:37.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 5,335 条发言，暂未整理到明确自我介绍。",
+      "topic": "language",
+      "tags": [
+        "英语",
+        "日语",
+        "演讲",
+        "雅思",
+        "写作",
+        "通信",
+        "机械",
+        "土木",
+        "建筑",
+        "电气",
+        "护理",
+        "医学"
+      ],
+      "topics": [
+        "language",
+        "engineering",
+        "biomed",
+        "computing"
+      ],
+      "summary": "根据发言推测：可能关注语言与表达、工程与技术、生命科学与医学；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注语言与表达、工程与技术、生命科学与医学；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 2890,
+        "firstAt": "2025-03-30T09:49:44.000Z",
+        "lastAt": "2026-10-10T04:51:19.000Z",
+        "topics": [
+          {
+            "id": "language",
+            "name": "语言与表达",
+            "keywords": [
+              "英语",
+              "日语",
+              "演讲",
+              "雅思",
+              "写作"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 30,
+            "dayCount": 21,
+            "firstAt": "2025-06-10T04:06:38.000Z",
+            "lastAt": "2026-10-08T10:39:02.000Z"
+          },
+          {
+            "id": "engineering",
+            "name": "工程与技术",
+            "keywords": [
+              "通信",
+              "机械",
+              "土木",
+              "建筑",
+              "电气"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 12,
+            "dayCount": 9,
+            "firstAt": "2025-07-30T19:32:39.000Z",
+            "lastAt": "2026-09-20T14:29:41.000Z"
+          },
+          {
+            "id": "biomed",
+            "name": "生命科学与医学",
+            "keywords": [
+              "护理",
+              "医学",
+              "医学院",
+              "药学",
+              "生物"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 11,
+            "dayCount": 7,
+            "firstAt": "2025-06-23T05:07:26.000Z",
+            "lastAt": "2025-11-04T15:18:00.000Z"
+          },
+          {
+            "id": "computing",
+            "name": "计算机与人工智能",
+            "keywords": [
+              "计算机",
+              "人工智能"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 10,
+            "dayCount": 7,
+            "firstAt": "2025-08-03T11:01:13.000Z",
+            "lastAt": "2026-06-24T04:04:12.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "38655ade6a545213",
@@ -2383,7 +3366,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8b82097234bb8bbe",
@@ -2402,7 +3387,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7f67a3567efcecf1",
@@ -2421,7 +3408,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "13a34fed5e45378b",
@@ -2440,7 +3429,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2eeda697c4390bb5",
@@ -2459,7 +3450,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "27e2e9887128c7f4",
@@ -2471,14 +3464,59 @@
       "messageCount": 101,
       "lastActiveAt": "2026-09-03T13:15:05.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 101 条发言，暂未整理到明确自我介绍。",
+      "topic": "computing",
+      "tags": [
+        "AI"
+      ],
+      "topics": [
+        "computing"
+      ],
+      "summary": "根据发言推测：可能关注计算机与人工智能；这是根据群内讨论归纳的兴趣线索。发言中曾表达过科研 / 论文、考研 / 保研相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "科研 / 论文",
+        "考研 / 保研"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注计算机与人工智能；这是根据群内讨论归纳的兴趣线索。发言中曾表达过科研 / 论文、考研 / 保研相关意向。",
+        "analyzedMessages": 44,
+        "firstAt": "2025-04-13T07:09:26.000Z",
+        "lastAt": "2026-09-03T13:15:05.000Z",
+        "topics": [
+          {
+            "id": "computing",
+            "name": "计算机与人工智能",
+            "keywords": [
+              "AI"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-05-08T11:13:29.000Z",
+            "lastAt": "2025-05-08T11:13:29.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "科研 / 论文",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-05-08T10:40:32.000Z",
+            "lastAt": "2025-05-08T10:40:32.000Z"
+          },
+          {
+            "name": "考研 / 保研",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-04-13T08:36:02.000Z",
+            "lastAt": "2025-04-13T08:36:02.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "73b31d8d3ad9d4b1",
@@ -2497,7 +3535,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "26766487db997b8b",
@@ -2516,7 +3556,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "eea608f0c87ab802",
@@ -2535,7 +3577,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c9f70527f05d3e39",
@@ -2554,7 +3598,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1fb013c36d1d11e6",
@@ -2573,7 +3619,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2f13590430ee17a5",
@@ -2592,7 +3640,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "57d3e0a0252b985a",
@@ -2611,7 +3661,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3131363742459c59",
@@ -2630,7 +3682,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8891fa13055ef5a7",
@@ -2649,7 +3703,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d3f1f68cfa2ced64",
@@ -2668,7 +3724,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e74150bc7897d422",
@@ -2687,7 +3745,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "028365e50866099a",
@@ -2706,7 +3766,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "abdabe13374f5330",
@@ -2725,7 +3787,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "effeeb4c4da585f9",
@@ -2744,7 +3808,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5ad9f90de947cdf3",
@@ -2763,7 +3829,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c05b643053749ad6",
@@ -2782,7 +3850,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8622ccd119e8c111",
@@ -2801,7 +3871,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "64f9db4d38ace0a8",
@@ -2820,7 +3892,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "fa5f07436aab5ddc",
@@ -2839,7 +3913,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d1c17c033ab0e54c",
@@ -2858,7 +3934,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "20993558a1849027",
@@ -2870,14 +3948,81 @@
       "messageCount": 423,
       "lastActiveAt": "2026-09-30T10:09:18.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 423 条发言，暂未整理到明确自我介绍。",
+      "topic": "computing",
+      "tags": [
+        "计算机",
+        "大模型",
+        "机器人",
+        "数学"
+      ],
+      "topics": [
+        "computing",
+        "engineering",
+        "science"
+      ],
+      "summary": "根据发言推测：可能关注计算机与人工智能、工程与技术、数学与自然科学；这是根据群内讨论归纳的兴趣线索。发言中曾表达过科研 / 论文相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "科研 / 论文"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注计算机与人工智能、工程与技术、数学与自然科学；这是根据群内讨论归纳的兴趣线索。发言中曾表达过科研 / 论文相关意向。",
+        "analyzedMessages": 215,
+        "firstAt": "2025-04-19T09:20:34.000Z",
+        "lastAt": "2026-09-14T11:54:01.000Z",
+        "topics": [
+          {
+            "id": "computing",
+            "name": "计算机与人工智能",
+            "keywords": [
+              "计算机",
+              "大模型"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 5,
+            "dayCount": 5,
+            "firstAt": "2025-09-26T11:04:08.000Z",
+            "lastAt": "2026-03-17T10:19:57.000Z"
+          },
+          {
+            "id": "engineering",
+            "name": "工程与技术",
+            "keywords": [
+              "机器人"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-10-05T09:30:41.000Z",
+            "lastAt": "2025-10-05T09:30:41.000Z"
+          },
+          {
+            "id": "science",
+            "name": "数学与自然科学",
+            "keywords": [
+              "数学"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-03-23T09:40:55.000Z",
+            "lastAt": "2026-03-23T09:40:55.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "科研 / 论文",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-12-16T08:50:37.000Z",
+            "lastAt": "2025-12-16T08:50:37.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "080d8dc4592853d8",
@@ -2896,7 +4041,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ed236f0a3746d9b6",
@@ -2915,7 +4062,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8768c0c9626167f3",
@@ -2934,7 +4083,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "25b79250967efb6e",
@@ -2949,11 +4100,31 @@
       "topic": "other",
       "tags": [],
       "topics": [],
-      "summary": "本群可见记录中有 23 条发言，暂未整理到明确自我介绍。",
+      "summary": "根据发言推测：发言中曾表达过考研 / 保研相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "考研 / 保研"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "发言中曾表达过考研 / 保研相关意向。",
+        "analyzedMessages": 14,
+        "firstAt": "2025-04-28T07:26:18.000Z",
+        "lastAt": "2025-10-09T13:16:44.000Z",
+        "topics": [],
+        "goals": [
+          {
+            "name": "考研 / 保研",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-09-30T02:23:04.000Z",
+            "lastAt": "2025-09-30T02:23:04.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "07695119a5c37161",
@@ -2972,7 +4143,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7b88964f8827c45b",
@@ -2991,7 +4164,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d8325313c9b841e3",
@@ -3010,7 +4185,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "09ffbc589331bd52",
@@ -3029,7 +4206,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "82520d831da006d6",
@@ -3048,7 +4227,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ab1aa27183185185",
@@ -3067,7 +4248,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5fc2011e8d800d7a",
@@ -3079,14 +4262,59 @@
       "messageCount": 1186,
       "lastActiveAt": "2026-10-07T16:25:34.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 1,186 条发言，暂未整理到明确自我介绍。",
+      "topic": "engineering",
+      "tags": [
+        "电子",
+        "机器人",
+        "Python",
+        "编程"
+      ],
+      "topics": [
+        "engineering",
+        "computing"
+      ],
+      "summary": "根据发言推测：可能关注工程与技术、计算机与人工智能；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注工程与技术、计算机与人工智能；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 488,
+        "firstAt": "2025-04-29T13:01:28.000Z",
+        "lastAt": "2026-10-07T16:25:34.000Z",
+        "topics": [
+          {
+            "id": "engineering",
+            "name": "工程与技术",
+            "keywords": [
+              "电子",
+              "机器人"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 4,
+            "dayCount": 2,
+            "firstAt": "2025-12-31T10:02:24.000Z",
+            "lastAt": "2026-01-14T04:55:28.000Z"
+          },
+          {
+            "id": "computing",
+            "name": "计算机与人工智能",
+            "keywords": [
+              "Python",
+              "编程"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 3,
+            "firstAt": "2025-12-27T17:45:07.000Z",
+            "lastAt": "2026-01-08T08:19:59.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "8996198bd1d525ac",
@@ -3098,14 +4326,67 @@
       "messageCount": 2036,
       "lastActiveAt": "2026-10-04T16:16:13.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 2,036 条发言，暂未整理到明确自我介绍。",
+      "topic": "humanities",
+      "tags": [
+        "文学",
+        "历史",
+        "生物"
+      ],
+      "topics": [
+        "humanities",
+        "biomed"
+      ],
+      "summary": "根据发言推测：可能关注人文与社会科学、生命科学与医学；这是根据群内讨论归纳的兴趣线索。发言中曾表达过考研 / 保研相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "考研 / 保研"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注人文与社会科学、生命科学与医学；这是根据群内讨论归纳的兴趣线索。发言中曾表达过考研 / 保研相关意向。",
+        "analyzedMessages": 982,
+        "firstAt": "2025-04-21T00:56:28.000Z",
+        "lastAt": "2026-10-04T16:16:13.000Z",
+        "topics": [
+          {
+            "id": "humanities",
+            "name": "人文与社会科学",
+            "keywords": [
+              "文学",
+              "历史"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 14,
+            "dayCount": 14,
+            "firstAt": "2025-04-25T13:21:25.000Z",
+            "lastAt": "2026-02-28T10:08:28.000Z"
+          },
+          {
+            "id": "biomed",
+            "name": "生命科学与医学",
+            "keywords": [
+              "生物"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 11,
+            "dayCount": 8,
+            "firstAt": "2025-06-09T01:54:31.000Z",
+            "lastAt": "2025-08-13T01:07:28.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "考研 / 保研",
+            "messageCount": 2,
+            "dayCount": 2,
+            "firstAt": "2025-07-07T07:34:07.000Z",
+            "lastAt": "2025-09-30T01:36:35.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "52b6bdbf33becc49",
@@ -3124,7 +4405,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "702021ef7174bc76",
@@ -3136,14 +4419,55 @@
       "messageCount": 543,
       "lastActiveAt": "2026-10-10T06:24:32.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 543 条发言，暂未整理到明确自我介绍。",
+      "topic": "computing",
+      "tags": [
+        "前端",
+        "编程",
+        "AI"
+      ],
+      "topics": [
+        "computing"
+      ],
+      "summary": "根据发言推测：可能关注计算机与人工智能；这是根据群内讨论归纳的兴趣线索。发言中曾表达过科研 / 论文相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "科研 / 论文"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注计算机与人工智能；这是根据群内讨论归纳的兴趣线索。发言中曾表达过科研 / 论文相关意向。",
+        "analyzedMessages": 279,
+        "firstAt": "2025-05-08T06:21:08.000Z",
+        "lastAt": "2026-10-10T06:24:32.000Z",
+        "topics": [
+          {
+            "id": "computing",
+            "name": "计算机与人工智能",
+            "keywords": [
+              "前端",
+              "编程",
+              "AI"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 5,
+            "dayCount": 5,
+            "firstAt": "2026-09-04T09:07:32.000Z",
+            "lastAt": "2026-10-06T07:01:24.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "科研 / 论文",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-09-04T14:15:02.000Z",
+            "lastAt": "2026-09-04T14:15:02.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "7ba597b3a98b90cb",
@@ -3162,7 +4486,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "19a7d600a021a908",
@@ -3181,7 +4507,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7ffbfa43bf9efed7",
@@ -3200,7 +4528,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0e76f8a5996a1ec6",
@@ -3219,7 +4549,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "fef61b56d83d0449",
@@ -3238,7 +4570,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "30a1404ccb448aa3",
@@ -3257,7 +4591,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "06eca7a22dea0d4c",
@@ -3276,7 +4612,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "169550fec9a45aa0",
@@ -3295,7 +4633,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "dc9d2e16b2321de6",
@@ -3314,7 +4654,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "560518dc26aa35b2",
@@ -3333,7 +4675,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "810e2f1ab63d8138",
@@ -3352,7 +4696,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8f4a6e56ea7425a8",
@@ -3371,7 +4717,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3aea540491625789",
@@ -3390,7 +4738,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d142f192821c8c28",
@@ -3409,7 +4759,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "03292aba814f79f1",
@@ -3428,7 +4780,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "09edaf4770ac11d4",
@@ -3447,7 +4801,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a6b4785bedeaba84",
@@ -3466,7 +4822,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e93ded4963b95dcf",
@@ -3485,7 +4843,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "589731f0131fc8e3",
@@ -3504,7 +4864,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "eb27e83d5ba322bf",
@@ -3523,7 +4885,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8b323f8883eee1d9",
@@ -3542,7 +4906,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ab3d1730f899976b",
@@ -3561,7 +4927,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "999e004f45a6b8d2",
@@ -3580,7 +4948,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3f0b2a7a728de029",
@@ -3599,7 +4969,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f7dd41e29bfa3ecb",
@@ -3618,7 +4990,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2b57dc3c8201034d",
@@ -3637,7 +5011,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "84911c71a5fea6da",
@@ -3656,7 +5032,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d9dd66646a9a527c",
@@ -3675,7 +5053,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1739c747727b99bb",
@@ -3694,7 +5074,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "af5dfd831658323f",
@@ -3713,7 +5095,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "44ce794c265c6661",
@@ -3725,14 +5109,41 @@
       "messageCount": 351,
       "lastActiveAt": "2026-02-27T13:26:47.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 351 条发言，暂未整理到明确自我介绍。",
+      "topic": "science",
+      "tags": [
+        "数学"
+      ],
+      "topics": [
+        "science"
+      ],
+      "summary": "根据发言推测：可能关注数学与自然科学；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注数学与自然科学；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 146,
+        "firstAt": "2025-05-09T03:24:53.000Z",
+        "lastAt": "2026-02-27T13:26:47.000Z",
+        "topics": [
+          {
+            "id": "science",
+            "name": "数学与自然科学",
+            "keywords": [
+              "数学"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-06-06T15:42:46.000Z",
+            "lastAt": "2025-06-06T15:42:46.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "7bfe962ebab8cca4",
@@ -3751,7 +5162,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "90e0ba550b37b6b9",
@@ -3770,7 +5183,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5241a62ec516639a",
@@ -3789,7 +5204,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "514c8a84c2f2f4aa",
@@ -3808,7 +5225,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "df63b112f3af82d8",
@@ -3827,7 +5246,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "700873eb29161d60",
@@ -3846,7 +5267,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d5c2ffb5832cf18f",
@@ -3865,7 +5288,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4028f3bc963bc20d",
@@ -3884,7 +5309,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ee59b3f9b32125b8",
@@ -3903,7 +5330,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4d452a370b9f0fb5",
@@ -3922,7 +5351,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b1fb12c68aabceab",
@@ -3934,14 +5365,53 @@
       "messageCount": 63,
       "lastActiveAt": "2026-09-21T04:24:44.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 63 条发言，暂未整理到明确自我介绍。",
+      "topic": "language",
+      "tags": [
+        "英语",
+        "翻译"
+      ],
+      "topics": [
+        "language"
+      ],
+      "summary": "根据发言推测：可能关注语言与表达；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能提升相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "技能提升"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注语言与表达；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能提升相关意向。",
+        "analyzedMessages": 30,
+        "firstAt": "2025-08-17T20:11:08.000Z",
+        "lastAt": "2026-09-21T04:24:44.000Z",
+        "topics": [
+          {
+            "id": "language",
+            "name": "语言与表达",
+            "keywords": [
+              "英语",
+              "翻译"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 2,
+            "dayCount": 2,
+            "firstAt": "2025-12-26T12:43:12.000Z",
+            "lastAt": "2025-12-27T02:02:51.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "技能提升",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-12-27T02:02:51.000Z",
+            "lastAt": "2025-12-27T02:02:51.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "5888d807d83ece72",
@@ -3960,7 +5430,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d50c6134c6543980",
@@ -3979,7 +5451,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "686ffb58c9f84f16",
@@ -3998,7 +5472,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "58ce111be4696f83",
@@ -4017,7 +5493,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "abae930fb037e772",
@@ -4036,7 +5514,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1cfd91f05ba53ced",
@@ -4055,7 +5535,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "41772245febfc2d6",
@@ -4074,7 +5556,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "32853dd16bdf9d58",
@@ -4093,7 +5577,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8b7cbb57d43a3d89",
@@ -4112,7 +5598,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d405f6e469127ebe",
@@ -4131,7 +5619,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "aed2d88705dc4f96",
@@ -4150,7 +5640,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ff3144dc197022f6",
@@ -4162,14 +5654,57 @@
       "messageCount": 459,
       "lastActiveAt": "2025-12-08T08:01:29.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 459 条发言，暂未整理到明确自我介绍。",
+      "topic": "biomed",
+      "tags": [
+        "生物",
+        "写作",
+        "翻译"
+      ],
+      "topics": [
+        "biomed",
+        "language"
+      ],
+      "summary": "根据发言推测：可能关注生命科学与医学、语言与表达；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注生命科学与医学、语言与表达；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 232,
+        "firstAt": "2025-05-25T15:07:17.000Z",
+        "lastAt": "2025-12-08T08:01:13.000Z",
+        "topics": [
+          {
+            "id": "biomed",
+            "name": "生命科学与医学",
+            "keywords": [
+              "生物"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 5,
+            "dayCount": 4,
+            "firstAt": "2025-06-10T03:12:31.000Z",
+            "lastAt": "2025-07-29T20:19:30.000Z"
+          },
+          {
+            "id": "language",
+            "name": "语言与表达",
+            "keywords": [
+              "写作",
+              "翻译"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 2,
+            "firstAt": "2025-05-25T15:21:43.000Z",
+            "lastAt": "2025-06-08T05:01:09.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "29d157d5b0ce7881",
@@ -4188,7 +5723,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e41625b54b4bf9a8",
@@ -4207,7 +5744,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6b0c26d3a1bca0d8",
@@ -4226,7 +5765,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8daaf5929d04ece8",
@@ -4245,7 +5786,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "18a0bd4a185f517d",
@@ -4264,7 +5807,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "dbe334702cd0d155",
@@ -4283,7 +5828,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "efac831587207912",
@@ -4302,7 +5849,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7a7764c7e351cba6",
@@ -4321,7 +5870,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d0239570044e680c",
@@ -4340,7 +5891,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c418005523fd084d",
@@ -4359,7 +5912,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "438f9e144f08c61d",
@@ -4378,7 +5933,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "20cf2ae6c7987784",
@@ -4397,7 +5954,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "040c5779aa5ee657",
@@ -4416,7 +5975,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d1e80912035cac1c",
@@ -4435,7 +5996,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "eae85942da33cc7f",
@@ -4454,7 +6017,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a2a622f8249ac454",
@@ -4473,7 +6038,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "23da88728042f36b",
@@ -4492,7 +6059,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "54dda95c7597c821",
@@ -4504,14 +6073,59 @@
       "messageCount": 270,
       "lastActiveAt": "2026-09-01T00:20:00.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 270 条发言，暂未整理到明确自我介绍。",
+      "topic": "language",
+      "tags": [
+        "英语",
+        "翻译",
+        "日语",
+        "新闻学"
+      ],
+      "topics": [
+        "language",
+        "humanities"
+      ],
+      "summary": "根据发言推测：可能关注语言与表达、人文与社会科学；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注语言与表达、人文与社会科学；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 161,
+        "firstAt": "2025-06-09T09:54:12.000Z",
+        "lastAt": "2026-09-01T00:20:00.000Z",
+        "topics": [
+          {
+            "id": "language",
+            "name": "语言与表达",
+            "keywords": [
+              "英语",
+              "翻译",
+              "日语"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 7,
+            "dayCount": 5,
+            "firstAt": "2025-07-29T09:22:28.000Z",
+            "lastAt": "2025-12-26T14:21:51.000Z"
+          },
+          {
+            "id": "humanities",
+            "name": "人文与社会科学",
+            "keywords": [
+              "新闻学"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-09-05T14:08:51.000Z",
+            "lastAt": "2025-09-05T14:08:51.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "93eec4eb295058fe",
@@ -4523,14 +6137,41 @@
       "messageCount": 310,
       "lastActiveAt": "2026-05-17T06:02:41.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 310 条发言，暂未整理到明确自我介绍。",
+      "topic": "science",
+      "tags": [
+        "数学"
+      ],
+      "topics": [
+        "science"
+      ],
+      "summary": "根据发言推测：可能关注数学与自然科学；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注数学与自然科学；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 167,
+        "firstAt": "2025-06-18T13:23:04.000Z",
+        "lastAt": "2026-05-17T06:02:41.000Z",
+        "topics": [
+          {
+            "id": "science",
+            "name": "数学与自然科学",
+            "keywords": [
+              "数学"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-10-14T16:27:55.000Z",
+            "lastAt": "2025-10-14T16:27:55.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "e849278aa70d9811",
@@ -4549,7 +6190,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e4bc19a3e0a54ad3",
@@ -4561,14 +6204,57 @@
       "messageCount": 875,
       "lastActiveAt": "2026-10-02T05:41:37.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 875 条发言，暂未整理到明确自我介绍。",
+      "topic": "biomed",
+      "tags": [
+        "生物",
+        "深度学习",
+        "AI"
+      ],
+      "topics": [
+        "biomed",
+        "computing"
+      ],
+      "summary": "根据发言推测：可能关注生命科学与医学、计算机与人工智能；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注生命科学与医学、计算机与人工智能；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 325,
+        "firstAt": "2025-06-09T08:20:43.000Z",
+        "lastAt": "2026-10-02T05:41:37.000Z",
+        "topics": [
+          {
+            "id": "biomed",
+            "name": "生命科学与医学",
+            "keywords": [
+              "生物"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 6,
+            "dayCount": 5,
+            "firstAt": "2025-06-09T08:20:43.000Z",
+            "lastAt": "2025-12-30T19:34:45.000Z"
+          },
+          {
+            "id": "computing",
+            "name": "计算机与人工智能",
+            "keywords": [
+              "深度学习",
+              "AI"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 2,
+            "dayCount": 2,
+            "firstAt": "2026-01-10T17:46:16.000Z",
+            "lastAt": "2026-01-12T06:55:23.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "b35118ca07abe9c0",
@@ -4587,7 +6273,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5119545bab1083d8",
@@ -4606,7 +6294,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "37caa5da0163b3fe",
@@ -4625,7 +6315,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8c9f4388eac36d3d",
@@ -4644,7 +6336,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9b8142ac59fe1993",
@@ -4663,7 +6357,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7be9ab5396e0949c",
@@ -4682,7 +6378,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "051cccc78b7be903",
@@ -4701,7 +6399,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9c37d42098c8692e",
@@ -4713,14 +6413,91 @@
       "messageCount": 1015,
       "lastActiveAt": "2026-09-19T11:21:58.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 1,015 条发言，暂未整理到明确自我介绍。",
+      "topic": "biomed",
+      "tags": [
+        "生物",
+        "医学",
+        "医学院",
+        "光学",
+        "土木",
+        "英语",
+        "算法",
+        "计算机"
+      ],
+      "topics": [
+        "biomed",
+        "engineering",
+        "language",
+        "computing"
+      ],
+      "summary": "根据发言推测：可能关注生命科学与医学、工程与技术、语言与表达；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注生命科学与医学、工程与技术、语言与表达；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 597,
+        "firstAt": "2025-06-20T16:09:27.000Z",
+        "lastAt": "2026-09-19T11:21:51.000Z",
+        "topics": [
+          {
+            "id": "biomed",
+            "name": "生命科学与医学",
+            "keywords": [
+              "生物",
+              "医学",
+              "医学院"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 6,
+            "dayCount": 4,
+            "firstAt": "2025-06-27T15:40:54.000Z",
+            "lastAt": "2025-09-02T16:14:47.000Z"
+          },
+          {
+            "id": "engineering",
+            "name": "工程与技术",
+            "keywords": [
+              "光学",
+              "土木"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 4,
+            "dayCount": 3,
+            "firstAt": "2025-08-24T17:33:27.000Z",
+            "lastAt": "2025-10-05T11:47:50.000Z"
+          },
+          {
+            "id": "language",
+            "name": "语言与表达",
+            "keywords": [
+              "英语"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 4,
+            "dayCount": 3,
+            "firstAt": "2025-08-11T18:20:44.000Z",
+            "lastAt": "2025-08-24T17:50:17.000Z"
+          },
+          {
+            "id": "computing",
+            "name": "计算机与人工智能",
+            "keywords": [
+              "算法",
+              "计算机"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 2,
+            "dayCount": 2,
+            "firstAt": "2025-07-30T19:37:47.000Z",
+            "lastAt": "2025-08-24T17:34:58.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "488201e13d5c67d1",
@@ -4739,7 +6516,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e10168c8eb67afb7",
@@ -4758,7 +6537,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2338af1798c83b3c",
@@ -4777,7 +6558,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4624f231fa9f512d",
@@ -4796,7 +6579,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f10f4af06e232718",
@@ -4808,14 +6593,45 @@
       "messageCount": 560,
       "lastActiveAt": "2026-10-10T05:41:08.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 560 条发言，暂未整理到明确自我介绍。",
+      "topic": "language",
+      "tags": [
+        "英语",
+        "日语",
+        "写作"
+      ],
+      "topics": [
+        "language"
+      ],
+      "summary": "根据发言推测：可能关注语言与表达；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注语言与表达；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 282,
+        "firstAt": "2025-06-21T00:43:13.000Z",
+        "lastAt": "2026-10-10T05:25:35.000Z",
+        "topics": [
+          {
+            "id": "language",
+            "name": "语言与表达",
+            "keywords": [
+              "英语",
+              "日语",
+              "写作"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 3,
+            "firstAt": "2025-09-10T13:21:01.000Z",
+            "lastAt": "2026-09-18T09:49:15.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "3fdc7b184dbec830",
@@ -4834,7 +6650,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "69308798e4064ab8",
@@ -4853,7 +6671,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2b26a04bc61320a2",
@@ -4872,7 +6692,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e0aaa26a43b5f139",
@@ -4891,7 +6713,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "94cfa5504e9a1e30",
@@ -4910,7 +6734,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "832ddddbec140952",
@@ -4929,7 +6755,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5aae655835531308",
@@ -4948,7 +6776,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8812e1f982031639",
@@ -4967,7 +6797,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "97abdcc2477811d6",
@@ -4986,7 +6818,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c879ad791dd54b67",
@@ -5001,11 +6835,31 @@
       "topic": "other",
       "tags": [],
       "topics": [],
-      "summary": "本群可见记录中有 45 条发言，暂未整理到明确自我介绍。",
+      "summary": "根据发言推测：发言中曾表达过考研 / 保研相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "考研 / 保研"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "发言中曾表达过考研 / 保研相关意向。",
+        "analyzedMessages": 22,
+        "firstAt": "2025-07-17T10:01:43.000Z",
+        "lastAt": "2026-07-21T01:32:36.000Z",
+        "topics": [],
+        "goals": [
+          {
+            "name": "考研 / 保研",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-09-30T01:21:09.000Z",
+            "lastAt": "2025-09-30T01:21:09.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "d99f50e13d4a00d5",
@@ -5024,7 +6878,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "09390c30f8852771",
@@ -5043,7 +6899,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3a171505228dca8a",
@@ -5062,7 +6920,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2f1c03c1c948d4fe",
@@ -5081,7 +6941,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "14f155cd064d708a",
@@ -5100,7 +6962,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a618173781590b44",
@@ -5119,7 +6983,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1a337db0209b9f1f",
@@ -5138,7 +7004,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4d7190c3d4a5f2bb",
@@ -5157,7 +7025,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "cba57db71b082cf4",
@@ -5176,7 +7046,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1c7d28108ada0c34",
@@ -5195,7 +7067,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6efdbd75ba2a5873",
@@ -5214,7 +7088,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7405565c5bc2e657",
@@ -5233,7 +7109,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3f0896674d4ba19a",
@@ -5252,7 +7130,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ef78169a67013e28",
@@ -5271,7 +7151,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1cf94f72a6358179",
@@ -5290,7 +7172,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b5fac5a37df86dc4",
@@ -5309,7 +7193,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7e12e8528e15bd82",
@@ -5328,7 +7214,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c8f9b0dfd6dd9a57",
@@ -5347,7 +7235,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1ff555460d24d19c",
@@ -5366,7 +7256,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ef2086b54e2c2e09",
@@ -5385,7 +7277,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "54eaa6ae8995f6ed",
@@ -5404,7 +7298,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f6d0f83f71391026",
@@ -5423,7 +7319,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "41475c499e248885",
@@ -5442,7 +7340,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4d9885e71c9183ea",
@@ -5461,7 +7361,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "89cd2bc4d941b099",
@@ -5480,7 +7382,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "018869b05f065269",
@@ -5492,14 +7396,43 @@
       "messageCount": 46,
       "lastActiveAt": "2026-01-04T23:39:54.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 46 条发言，暂未整理到明确自我介绍。",
+      "topic": "science",
+      "tags": [
+        "地理",
+        "数学"
+      ],
+      "topics": [
+        "science"
+      ],
+      "summary": "根据发言推测：可能关注数学与自然科学；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注数学与自然科学；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 24,
+        "firstAt": "2025-08-29T03:28:44.000Z",
+        "lastAt": "2026-01-04T17:16:18.000Z",
+        "topics": [
+          {
+            "id": "science",
+            "name": "数学与自然科学",
+            "keywords": [
+              "地理",
+              "数学"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 2,
+            "firstAt": "2025-09-14T11:38:22.000Z",
+            "lastAt": "2025-09-20T15:00:11.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "d7ad2d2cd5cf4c21",
@@ -5518,7 +7451,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "fd1f0de5d6100335",
@@ -5537,7 +7472,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "78493d340237c35c",
@@ -5552,11 +7489,31 @@
       "topic": "other",
       "tags": [],
       "topics": [],
-      "summary": "本群可见记录中有 109 条发言，暂未整理到明确自我介绍。",
+      "summary": "根据发言推测：发言中曾表达过考研 / 保研相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "考研 / 保研"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "发言中曾表达过考研 / 保研相关意向。",
+        "analyzedMessages": 68,
+        "firstAt": "2025-07-21T19:54:46.000Z",
+        "lastAt": "2026-04-14T23:26:58.000Z",
+        "topics": [],
+        "goals": [
+          {
+            "name": "考研 / 保研",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-09-30T01:34:35.000Z",
+            "lastAt": "2025-09-30T01:34:35.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "1a7d70e1603488b4",
@@ -5575,7 +7532,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9318878e1b26331a",
@@ -5594,7 +7553,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "48e6be22dd5b3af9",
@@ -5613,7 +7574,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ba1025110e55a96e",
@@ -5632,7 +7595,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ae679d674c5f7b1d",
@@ -5651,7 +7616,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "15bbfb6fa50e1f2d",
@@ -5670,7 +7637,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ad7b7aee47c3fcc8",
@@ -5689,7 +7658,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "27100b18f0ad3fc5",
@@ -5708,7 +7679,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9652d632a8294d70",
@@ -5727,7 +7700,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d6d205625e034e6d",
@@ -5746,7 +7721,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c5d30ffc4c4995a6",
@@ -5765,7 +7742,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "94fbf1932633f26b",
@@ -5777,14 +7756,65 @@
       "messageCount": 122,
       "lastActiveAt": "2025-11-20T09:59:22.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 122 条发言，暂未整理到明确自我介绍。",
+      "topic": "computing",
+      "tags": [
+        "人工智能",
+        "大模型",
+        "计算机",
+        "编程",
+        "AI",
+        "电子",
+        "光学"
+      ],
+      "topics": [
+        "computing",
+        "engineering"
+      ],
+      "summary": "根据发言推测：可能关注计算机与人工智能、工程与技术；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注计算机与人工智能、工程与技术；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 67,
+        "firstAt": "2025-07-23T11:43:28.000Z",
+        "lastAt": "2025-11-20T09:59:22.000Z",
+        "topics": [
+          {
+            "id": "computing",
+            "name": "计算机与人工智能",
+            "keywords": [
+              "人工智能",
+              "大模型",
+              "计算机",
+              "编程",
+              "AI"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 5,
+            "dayCount": 4,
+            "firstAt": "2025-07-24T11:25:39.000Z",
+            "lastAt": "2025-08-30T07:38:17.000Z"
+          },
+          {
+            "id": "engineering",
+            "name": "工程与技术",
+            "keywords": [
+              "电子",
+              "光学"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 2,
+            "dayCount": 2,
+            "firstAt": "2025-07-23T11:47:07.000Z",
+            "lastAt": "2025-08-30T09:59:01.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "fcbdd3bdabfc4479",
@@ -5803,7 +7833,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f40a0005857bf87e",
@@ -5822,7 +7854,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9d4a6d01a654bb33",
@@ -5841,7 +7875,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0ae072fa1f42e417",
@@ -5860,7 +7896,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0d427c90f5d23808",
@@ -5879,7 +7917,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "caa8d486ba63a0fd",
@@ -5898,7 +7938,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6d0283a10d69cd8c",
@@ -5917,7 +7959,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f3fc9c26d288d6cb",
@@ -5929,14 +7973,51 @@
       "messageCount": 214,
       "lastActiveAt": "2026-09-30T09:59:49.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 214 条发言，暂未整理到明确自我介绍。",
+      "topic": "biomed",
+      "tags": [
+        "药学"
+      ],
+      "topics": [
+        "biomed"
+      ],
+      "summary": "根据发言推测：可能关注生命科学与医学；这是根据群内讨论归纳的兴趣线索。发言中曾表达过科研 / 论文相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "科研 / 论文"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注生命科学与医学；这是根据群内讨论归纳的兴趣线索。发言中曾表达过科研 / 论文相关意向。",
+        "analyzedMessages": 100,
+        "firstAt": "2025-07-24T10:59:06.000Z",
+        "lastAt": "2026-09-30T09:59:49.000Z",
+        "topics": [
+          {
+            "id": "biomed",
+            "name": "生命科学与医学",
+            "keywords": [
+              "药学"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 2,
+            "dayCount": 1,
+            "firstAt": "2025-08-24T16:30:50.000Z",
+            "lastAt": "2025-08-24T17:41:32.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "科研 / 论文",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-08-10T08:47:53.000Z",
+            "lastAt": "2025-08-10T08:47:53.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "8f783ea5ca92593d",
@@ -5955,7 +8036,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0811e5253ab4f9d8",
@@ -5974,7 +8057,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d70cb9085807b671",
@@ -5993,7 +8078,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a4cbaee0c6d974de",
@@ -6012,7 +8099,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bc4726316b786c41",
@@ -6031,7 +8120,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "62d94941e215e41c",
@@ -6046,11 +8137,39 @@
       "topic": "other",
       "tags": [],
       "topics": [],
-      "summary": "本群可见记录中有 108 条发言，暂未整理到明确自我介绍。",
+      "summary": "根据发言推测：发言中曾表达过考公 / 考编、考研 / 保研相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "考公 / 考编",
+        "考研 / 保研"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "发言中曾表达过考公 / 考编、考研 / 保研相关意向。",
+        "analyzedMessages": 47,
+        "firstAt": "2025-08-12T10:12:58.000Z",
+        "lastAt": "2026-02-07T09:13:36.000Z",
+        "topics": [],
+        "goals": [
+          {
+            "name": "考公 / 考编",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-10-07T15:24:18.000Z",
+            "lastAt": "2025-10-07T15:24:18.000Z"
+          },
+          {
+            "name": "考研 / 保研",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-10-07T07:05:40.000Z",
+            "lastAt": "2025-10-07T07:05:40.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "ea9bcd55be9302dd",
@@ -6069,7 +8188,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1690efe21a811135",
@@ -6088,7 +8209,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7271d0685f901839",
@@ -6107,7 +8230,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0f6641182d1811f1",
@@ -6126,7 +8251,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b7fc39cc5c0da299",
@@ -6145,7 +8272,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "85edbec48e90f0be",
@@ -6164,7 +8293,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "820b10395a46f448",
@@ -6183,7 +8314,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "fc999137d1da2395",
@@ -6202,7 +8335,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d74e6ecb830a7801",
@@ -6221,7 +8356,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a4c2462eba71c0a3",
@@ -6240,7 +8377,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "22975109b1beb2cd",
@@ -6252,14 +8391,45 @@
       "messageCount": 232,
       "lastActiveAt": "2026-02-15T05:36:01.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 232 条发言，暂未整理到明确自我介绍。",
+      "topic": "humanities",
+      "tags": [
+        "历史",
+        "哲学",
+        "文学"
+      ],
+      "topics": [
+        "humanities"
+      ],
+      "summary": "根据发言推测：可能关注人文与社会科学；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注人文与社会科学；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 164,
+        "firstAt": "2025-08-07T15:59:09.000Z",
+        "lastAt": "2026-02-15T05:35:11.000Z",
+        "topics": [
+          {
+            "id": "humanities",
+            "name": "人文与社会科学",
+            "keywords": [
+              "历史",
+              "哲学",
+              "文学"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 3,
+            "firstAt": "2025-08-09T11:22:18.000Z",
+            "lastAt": "2025-10-05T12:29:16.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "34ae4a1b85f8f6d1",
@@ -6278,7 +8448,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c7bd0c1c536100ff",
@@ -6297,7 +8469,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "78441e59ef3ac3fb",
@@ -6316,7 +8490,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ba72ea6f971df50a",
@@ -6328,14 +8504,87 @@
       "messageCount": 756,
       "lastActiveAt": "2026-10-10T05:10:37.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 756 条发言，暂未整理到明确自我介绍。",
+      "topic": "language",
+      "tags": [
+        "英语",
+        "建筑",
+        "材料",
+        "机器人",
+        "法学",
+        "历史",
+        "文学"
+      ],
+      "topics": [
+        "language",
+        "engineering",
+        "humanities"
+      ],
+      "summary": "根据发言推测：可能关注语言与表达、工程与技术、人文与社会科学；这是根据群内讨论归纳的兴趣线索。发言中曾表达过考研 / 保研相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "考研 / 保研"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注语言与表达、工程与技术、人文与社会科学；这是根据群内讨论归纳的兴趣线索。发言中曾表达过考研 / 保研相关意向。",
+        "analyzedMessages": 292,
+        "firstAt": "2025-08-07T08:00:53.000Z",
+        "lastAt": "2026-10-10T05:10:37.000Z",
+        "topics": [
+          {
+            "id": "language",
+            "name": "语言与表达",
+            "keywords": [
+              "英语"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 7,
+            "dayCount": 6,
+            "firstAt": "2025-08-18T09:58:17.000Z",
+            "lastAt": "2025-08-29T15:15:51.000Z"
+          },
+          {
+            "id": "engineering",
+            "name": "工程与技术",
+            "keywords": [
+              "建筑",
+              "材料",
+              "机器人"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 4,
+            "dayCount": 3,
+            "firstAt": "2025-08-24T17:37:40.000Z",
+            "lastAt": "2025-10-05T09:49:54.000Z"
+          },
+          {
+            "id": "humanities",
+            "name": "人文与社会科学",
+            "keywords": [
+              "法学",
+              "历史",
+              "文学"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 3,
+            "firstAt": "2025-12-07T09:32:28.000Z",
+            "lastAt": "2026-10-10T05:10:37.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "考研 / 保研",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-08-24T17:24:24.000Z",
+            "lastAt": "2025-08-24T17:24:24.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "68aa500642f328ad",
@@ -6354,7 +8603,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9a63182daa7ff00f",
@@ -6373,7 +8624,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3365be4abf05a30e",
@@ -6392,7 +8645,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9f1870d8398d6636",
@@ -6411,7 +8666,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f1d0d901a8c00194",
@@ -6430,7 +8687,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1c83d9a394fa01b1",
@@ -6449,7 +8708,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3d2ac2eed41637fc",
@@ -6468,7 +8729,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d928d7bce39003a2",
@@ -6487,7 +8750,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3012b95f9d2719f1",
@@ -6506,7 +8771,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1b3015cfbd37a98e",
@@ -6525,7 +8792,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6201b4fd6b988d9e",
@@ -6544,7 +8813,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "61964b7d2afa7ecd",
@@ -6563,7 +8834,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "82a5c6648df2720c",
@@ -6582,7 +8855,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3bbeeba9e6eba1ed",
@@ -6601,7 +8876,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "94cdae0e19211acd",
@@ -6620,7 +8897,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2a92a6f0d051ea11",
@@ -6639,7 +8918,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "53ab6e1237cefd2d",
@@ -6658,7 +8939,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "09faa3a5f87ff808",
@@ -6677,7 +8960,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "512373bb5e23690c",
@@ -6696,7 +8981,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "31ce0518daf3f1ce",
@@ -6715,7 +9002,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d0fb796eae9590e7",
@@ -6734,7 +9023,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "91c71168b576d867",
@@ -6749,11 +9040,31 @@
       "topic": "other",
       "tags": [],
       "topics": [],
-      "summary": "本群可见记录中有 429 条发言，暂未整理到明确自我介绍。",
+      "summary": "根据发言推测：发言中曾表达过学习搭子相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "学习搭子"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "发言中曾表达过学习搭子相关意向。",
+        "analyzedMessages": 145,
+        "firstAt": "2025-08-20T05:31:54.000Z",
+        "lastAt": "2025-10-07T14:14:53.000Z",
+        "topics": [],
+        "goals": [
+          {
+            "name": "学习搭子",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-08-29T10:35:22.000Z",
+            "lastAt": "2025-08-29T10:35:22.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "ccd94d912a7dd2be",
@@ -6772,7 +9083,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "145a186c7f40a5ad",
@@ -6784,14 +9097,55 @@
       "messageCount": 255,
       "lastActiveAt": "2025-10-18T02:59:30.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 255 条发言，暂未整理到明确自我介绍。",
+      "topic": "language",
+      "tags": [
+        "英语",
+        "数学"
+      ],
+      "topics": [
+        "language",
+        "science"
+      ],
+      "summary": "根据发言推测：可能关注语言与表达、数学与自然科学；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注语言与表达、数学与自然科学；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 131,
+        "firstAt": "2025-08-17T15:06:16.000Z",
+        "lastAt": "2025-10-18T02:59:30.000Z",
+        "topics": [
+          {
+            "id": "language",
+            "name": "语言与表达",
+            "keywords": [
+              "英语"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 2,
+            "firstAt": "2025-08-17T15:09:34.000Z",
+            "lastAt": "2025-08-18T13:13:17.000Z"
+          },
+          {
+            "id": "science",
+            "name": "数学与自然科学",
+            "keywords": [
+              "数学"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-09-16T08:07:40.000Z",
+            "lastAt": "2025-09-16T08:07:40.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "cd334685d66a2f02",
@@ -6810,7 +9164,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "421e51373c2f2fa3",
@@ -6829,7 +9185,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3f3eb8a6dd075f2a",
@@ -6848,7 +9206,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a5abcbb31f3b4e92",
@@ -6867,7 +9227,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "83a50d6982a05449",
@@ -6886,7 +9248,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d7196ed89a39e143",
@@ -6905,7 +9269,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a0c649fd5ebaf118",
@@ -6924,7 +9290,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ce1e13bde7a70332",
@@ -6943,7 +9311,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "38118fb1d8ad2eb3",
@@ -6962,7 +9332,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a778ec39cfc2a35a",
@@ -6981,7 +9353,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a78a28248f685f2b",
@@ -7000,7 +9374,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "193e61dd2ecb52a2",
@@ -7019,7 +9395,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "19fb55bb08aa950c",
@@ -7038,7 +9416,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "54eb58181465820c",
@@ -7057,7 +9437,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2235b5c40c4ea001",
@@ -7076,7 +9458,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7483ca4b37e68e33",
@@ -7095,7 +9479,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4a56911f9eb3a609",
@@ -7114,7 +9500,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "86a8f999ece9dc7b",
@@ -7133,7 +9521,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e2f2c09021267edc",
@@ -7152,7 +9542,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e7397289585c1ed4",
@@ -7171,7 +9563,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "446452f19477258d",
@@ -7190,7 +9584,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     }
   ],
   "edges": [
@@ -13848,6 +16244,86 @@
       "evidence": [],
       "firstAt": "2025-05-27T10:14:12.000Z",
       "lastAt": "2025-05-27T10:14:12.000Z"
+    },
+    {
+      "id": "20993558a1849027:552cdd3376358c74",
+      "source": "552cdd3376358c74",
+      "target": "20993558a1849027",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「大模型、机器人」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "94fbf1932633f26b:9d2c23fcbc112ef4",
+      "source": "9d2c23fcbc112ef4",
+      "target": "94fbf1932633f26b",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「电子、人工智能、大模型」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "54dda95c7597c821:f6b06684dbdd2683",
+      "source": "f6b06684dbdd2683",
+      "target": "54dda95c7597c821",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「英语、日语」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "f10f4af06e232718:f6b06684dbdd2683",
+      "source": "f6b06684dbdd2683",
+      "target": "f10f4af06e232718",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「英语、日语」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "9dd84b2c9f540cc2:ba72ea6f971df50a",
+      "source": "9dd84b2c9f540cc2",
+      "target": "ba72ea6f971df50a",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「材料、文学」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "20993558a1849027:94fbf1932633f26b",
+      "source": "20993558a1849027",
+      "target": "94fbf1932633f26b",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「计算机、大模型」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "5fc2011e8d800d7a:94fbf1932633f26b",
+      "source": "5fc2011e8d800d7a",
+      "target": "94fbf1932633f26b",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「电子、编程」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "22975109b1beb2cd:8996198bd1d525ac",
+      "source": "8996198bd1d525ac",
+      "target": "22975109b1beb2cd",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「文学、历史」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "54dda95c7597c821:f10f4af06e232718",
+      "source": "54dda95c7597c821",
+      "target": "f10f4af06e232718",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「英语、日语」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "22975109b1beb2cd:ba72ea6f971df50a",
+      "source": "22975109b1beb2cd",
+      "target": "ba72ea6f971df50a",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「历史、文学」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
     }
   ],
   "notes": "仅统计本机可见记录，不代表完整群历史。群昵称与核对后的自我介绍用于资料整理；互动不代表合作，未发言不代表从未发言。",
@@ -13871,5 +16347,6 @@
       "求职 / 职业发展",
       "学习搭子"
     ]
-  }
+  },
+  "speechUpdatedAt": "2026-10-10T17:49:49.478Z"
 }

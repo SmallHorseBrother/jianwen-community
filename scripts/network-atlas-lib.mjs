@@ -49,7 +49,7 @@ export function inferredEdges(people, existingEdges, taxonomy = TAXONOMIES.entre
   }
   for(let i=0;i<people.length;i++)for(let j=i+1;j<people.length;j++) {
     const a=people[i],b=people[j],shared=a.tags.filter(t=>b.tags.includes(t)&&!['AI','开发'].includes(t));
-    if(shared.length>=2)add(a,b,'shared',`群昵称或自我介绍共同涉及「${shared.slice(0,3).join('、')}」，${taxonomy.kind==='entrepreneurship'?'尚无合作确认':'仅为共同兴趣线索，不代表已结伴'}。`);
+    if(shared.length>=2)add(a,b,'shared',`群昵称、自我介绍或发言归纳共同涉及「${shared.slice(0,3).join('、')}」，${a.speech||b.speech?'包含发言推测标签，':''}${taxonomy.kind==='entrepreneurship'?'尚无合作确认':'仅为共同兴趣线索，不代表已结伴'}。`);
   }
   return result;
 }

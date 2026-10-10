@@ -71,12 +71,22 @@
         "AI",
         "FDE",
         "硬件",
-        "健康"
+        "健康",
+        "健身",
+        "引体",
+        "力量举",
+        "医疗",
+        "agent",
+        "短剧",
+        "自媒体",
+        "社群"
       ],
       "topics": [
         "ai",
         "hardware",
-        "health"
+        "health",
+        "content",
+        "data"
       ],
       "summary": "小马哥，北大在读，专业方向是AI for science。目前入驻到北京AI原点社区和亦庄模数世界社区…",
       "offers": [],
@@ -84,7 +94,74 @@
         "主要对AI应用、 AI硬件 、大健康/体育、FDE比较感兴趣，主要做的项目小程序 食探、教链、健文社区等等"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注健康、运动与医疗、AI 应用与企业服务、内容、品牌与增长；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 152,
+        "firstAt": "2026-10-08T02:45:56.000Z",
+        "lastAt": "2026-10-10T07:45:41.000Z",
+        "topics": [
+          {
+            "id": "health",
+            "name": "健康、运动与医疗",
+            "keywords": [
+              "健身",
+              "引体",
+              "力量举",
+              "医疗"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 8,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T04:58:04.000Z",
+            "lastAt": "2026-10-08T10:12:29.000Z"
+          },
+          {
+            "id": "ai",
+            "name": "AI 应用与企业服务",
+            "keywords": [
+              "AI",
+              "FDE",
+              "agent"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 6,
+            "dayCount": 2,
+            "firstAt": "2026-10-08T03:22:46.000Z",
+            "lastAt": "2026-10-09T11:59:15.000Z"
+          },
+          {
+            "id": "content",
+            "name": "内容、品牌与增长",
+            "keywords": [
+              "短剧",
+              "自媒体",
+              "社群"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 4,
+            "dayCount": 2,
+            "firstAt": "2026-10-08T04:05:32.000Z",
+            "lastAt": "2026-10-09T09:55:03.000Z"
+          },
+          {
+            "id": "data",
+            "name": "数据、量化与财税",
+            "keywords": [
+              "财税",
+              "量化"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 2,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T03:22:46.000Z",
+            "lastAt": "2026-10-08T15:48:28.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "8abe0ca1c7335930",
@@ -104,16 +181,93 @@
       ],
       "topic": "content",
       "tags": [
-        "自媒体"
+        "自媒体",
+        "AI",
+        "FDE",
+        "运营",
+        "短剧",
+        "营销",
+        "健身",
+        "健康",
+        "康复",
+        "教学"
       ],
       "topics": [
-        "content"
+        "content",
+        "ai",
+        "health",
+        "education"
       ],
       "summary": "李响，机关办事员，准备兼职做自由教练，和自媒体相关",
       "offers": [],
       "needs": [],
       "stage": "探索交流",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注AI 应用与企业服务、内容、品牌与增长、健康、运动与医疗；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 46,
+        "firstAt": "2026-10-08T04:02:33.000Z",
+        "lastAt": "2026-10-08T17:16:44.000Z",
+        "topics": [
+          {
+            "id": "ai",
+            "name": "AI 应用与企业服务",
+            "keywords": [
+              "AI",
+              "FDE"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 7,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T04:46:58.000Z",
+            "lastAt": "2026-10-08T15:19:24.000Z"
+          },
+          {
+            "id": "content",
+            "name": "内容、品牌与增长",
+            "keywords": [
+              "自媒体",
+              "运营",
+              "短剧",
+              "营销"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 6,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T04:02:33.000Z",
+            "lastAt": "2026-10-08T08:57:00.000Z"
+          },
+          {
+            "id": "health",
+            "name": "健康、运动与医疗",
+            "keywords": [
+              "健身",
+              "健康",
+              "康复"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T08:31:46.000Z",
+            "lastAt": "2026-10-08T09:20:12.000Z"
+          },
+          {
+            "id": "education",
+            "name": "教育、科研与求职",
+            "keywords": [
+              "教学"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T09:07:24.000Z",
+            "lastAt": "2026-10-08T09:07:24.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "882fe4a1d0a3769a",
@@ -150,7 +304,9 @@
       "offers": [],
       "needs": [],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "ab6dc4762aa91a9c",
@@ -169,7 +325,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2b5d3205a18d856e",
@@ -209,7 +367,9 @@
         "短期目标是冲ICML2027，长期而言，想在发表一些较高水平论文的同时，做一些对人们有用的项目，改进"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "24539947289e5ba2",
@@ -242,7 +402,9 @@
         "后期会整理出web Viki形式，对后训练环境感兴趣的小伙伴可以多多交流哈"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "0df6b0f98fc258aa",
@@ -279,7 +441,9 @@
       "offers": [],
       "needs": [],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "d7f1f00a89fb898c",
@@ -313,7 +477,43 @@
       ],
       "needs": [],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注AI 应用与企业服务、教育、科研与求职；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 3,
+        "firstAt": "2026-10-08T10:22:58.000Z",
+        "lastAt": "2026-10-09T08:22:52.000Z",
+        "topics": [
+          {
+            "id": "ai",
+            "name": "AI 应用与企业服务",
+            "keywords": [
+              "AI"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T10:22:58.000Z",
+            "lastAt": "2026-10-08T10:22:58.000Z"
+          },
+          {
+            "id": "education",
+            "name": "教育、科研与求职",
+            "keywords": [
+              "研究生",
+              "学习"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T10:22:58.000Z",
+            "lastAt": "2026-10-08T10:22:58.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "9c754a1ed801a7b1",
@@ -348,7 +548,9 @@
       "offers": [],
       "needs": [],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "5e193bca883e0416",
@@ -371,7 +573,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "nickname"
     },
     {
       "id": "497696309e47ae3b",
@@ -408,7 +612,32 @@
         "感兴趣做个人自媒体，个体化教师"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注教育、科研与求职；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 2,
+        "firstAt": "2026-10-08T16:57:02.000Z",
+        "lastAt": "2026-10-08T17:13:07.000Z",
+        "topics": [
+          {
+            "id": "education",
+            "name": "教育、科研与求职",
+            "keywords": [
+              "教育",
+              "教学",
+              "学习"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T16:57:02.000Z",
+            "lastAt": "2026-10-08T16:57:02.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "443e2a0ed78ae9e3",
@@ -440,7 +669,9 @@
       "offers": [],
       "needs": [],
       "stage": "探索交流",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "97b46406ce6b6064",
@@ -471,7 +702,9 @@
       ],
       "needs": [],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "781c1b17d2e04019",
@@ -504,7 +737,42 @@
       ],
       "needs": [],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注AI 应用与企业服务、具身、硬件与产业；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 1,
+        "firstAt": "2026-10-08T09:59:41.000Z",
+        "lastAt": "2026-10-08T09:59:41.000Z",
+        "topics": [
+          {
+            "id": "ai",
+            "name": "AI 应用与企业服务",
+            "keywords": [
+              "AI"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T09:59:41.000Z",
+            "lastAt": "2026-10-08T09:59:41.000Z"
+          },
+          {
+            "id": "hardware",
+            "name": "具身、硬件与产业",
+            "keywords": [
+              "家电"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T09:59:41.000Z",
+            "lastAt": "2026-10-08T09:59:41.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "04516ef3e02a676e",
@@ -537,7 +805,9 @@
         "常志奇，散打专业方向，目前在做其他行业，入群是为了增长一些其他专业知识，个人对体能训练，大健康行业比较感兴趣，希望ai行业能带动其发展更好"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "cf2e5aa96768a63b",
@@ -574,7 +844,56 @@
         "hai 各位好，我是joe，目前博士在读，主要在研发生物医药相关的大模型，可以为客户提供定制的个人健康监测以及治病位点挖掘等相关服务，能够连接到一些医院等资源，希望能和大家多多交流，共同进步"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注AI 应用与企业服务、教育、科研与求职、健康、运动与医疗；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 1,
+        "firstAt": "2026-10-08T09:58:11.000Z",
+        "lastAt": "2026-10-08T09:58:11.000Z",
+        "topics": [
+          {
+            "id": "ai",
+            "name": "AI 应用与企业服务",
+            "keywords": [
+              "大模型"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T09:58:11.000Z",
+            "lastAt": "2026-10-08T09:58:11.000Z"
+          },
+          {
+            "id": "education",
+            "name": "教育、科研与求职",
+            "keywords": [
+              "博士"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T09:58:11.000Z",
+            "lastAt": "2026-10-08T09:58:11.000Z"
+          },
+          {
+            "id": "health",
+            "name": "健康、运动与医疗",
+            "keywords": [
+              "健康",
+              "生物",
+              "医药"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T09:58:11.000Z",
+            "lastAt": "2026-10-08T09:58:11.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "9d923befdf6f60ea",
@@ -599,7 +918,9 @@
       "offers": [],
       "needs": [],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "be3d635f52a3e049",
@@ -623,7 +944,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "nickname"
     },
     {
       "id": "97d431bbc23ee4d5",
@@ -659,7 +982,9 @@
         "米 在职互联网广告算法工程师 硕一， 对ai 、agent提效与业务结合有过一些实践， 在学习和看ai方向赛道和机会，希望能和大佬们学习，扩充人脉，提升认知"
       ],
       "stage": "探索交流",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "cca3cb02f8f37029",
@@ -682,7 +1007,8 @@
         "博士",
         "学习",
         "量化",
-        "AI"
+        "AI",
+        "agent"
       ],
       "topics": [
         "education",
@@ -695,7 +1021,56 @@
         "大家好，我是26届北大物理学院博士，现在在私募量化工作，积极拥抱ai方面机会，希望和群友多学习交流"
       ],
       "stage": "探索交流",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注AI 应用与企业服务、数据、量化与财税、教育、科研与求职；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 4,
+        "firstAt": "2026-10-08T13:10:16.000Z",
+        "lastAt": "2026-10-09T11:34:26.000Z",
+        "topics": [
+          {
+            "id": "ai",
+            "name": "AI 应用与企业服务",
+            "keywords": [
+              "AI",
+              "agent"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 2,
+            "dayCount": 2,
+            "firstAt": "2026-10-08T13:10:16.000Z",
+            "lastAt": "2026-10-09T11:34:26.000Z"
+          },
+          {
+            "id": "data",
+            "name": "数据、量化与财税",
+            "keywords": [
+              "量化"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T13:10:16.000Z",
+            "lastAt": "2026-10-08T13:10:16.000Z"
+          },
+          {
+            "id": "education",
+            "name": "教育、科研与求职",
+            "keywords": [
+              "博士",
+              "学习"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T13:10:16.000Z",
+            "lastAt": "2026-10-08T13:10:16.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "12878bda7f9fd73f",
@@ -717,7 +1092,8 @@
       "tags": [
         "硕士",
         "学习",
-        "AI"
+        "AI",
+        "agent"
       ],
       "topics": [
         "education",
@@ -729,7 +1105,44 @@
         "大家好啊，我是hola，21级北大物理硕士，目前在做自己的ai回忆录小程序，希望跟大家多多学习[玫瑰][玫瑰][玫瑰]"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注AI 应用与企业服务、教育、科研与求职；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 18,
+        "firstAt": "2026-10-08T13:06:27.000Z",
+        "lastAt": "2026-10-10T01:27:37.000Z",
+        "topics": [
+          {
+            "id": "ai",
+            "name": "AI 应用与企业服务",
+            "keywords": [
+              "AI",
+              "agent"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 4,
+            "dayCount": 2,
+            "firstAt": "2026-10-08T13:06:27.000Z",
+            "lastAt": "2026-10-09T11:52:51.000Z"
+          },
+          {
+            "id": "education",
+            "name": "教育、科研与求职",
+            "keywords": [
+              "硕士",
+              "学习"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T13:06:27.000Z",
+            "lastAt": "2026-10-08T13:06:27.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "ed236f0a3746d9b6",
@@ -770,7 +1183,9 @@
         "希望以AI短剧为切入点，探索多模态内容生成工具链的长期价值与商业化可能"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "702021ef7174bc76",
@@ -795,7 +1210,9 @@
         "家电",
         "学习",
         "营销",
-        "AI"
+        "AI",
+        "贸易",
+        "俄罗斯"
       ],
       "topics": [
         "commerce",
@@ -810,7 +1227,69 @@
       ],
       "needs": [],
       "stage": "项目推进",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注跨境、电商与零售、AI 应用与企业服务、教育、科研与求职；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 12,
+        "firstAt": "2026-10-08T04:47:47.000Z",
+        "lastAt": "2026-10-08T14:20:52.000Z",
+        "topics": [
+          {
+            "id": "commerce",
+            "name": "跨境、电商与零售",
+            "keywords": [
+              "跨境",
+              "电商",
+              "贸易",
+              "俄罗斯"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T05:22:36.000Z",
+            "lastAt": "2026-10-08T14:20:25.000Z"
+          },
+          {
+            "id": "ai",
+            "name": "AI 应用与企业服务",
+            "keywords": [
+              "AI"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T05:22:36.000Z",
+            "lastAt": "2026-10-08T05:22:36.000Z"
+          },
+          {
+            "id": "education",
+            "name": "教育、科研与求职",
+            "keywords": [
+              "学习"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T05:22:36.000Z",
+            "lastAt": "2026-10-08T05:22:36.000Z"
+          },
+          {
+            "id": "hardware",
+            "name": "具身、硬件与产业",
+            "keywords": [
+              "家电"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T05:22:36.000Z",
+            "lastAt": "2026-10-08T05:22:36.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "3074f6550d8852d3",
@@ -829,7 +1308,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "abae930fb037e772",
@@ -851,18 +1332,43 @@
       "tags": [
         "数据",
         "培训",
-        "AI"
+        "AI",
+        "健康"
       ],
       "topics": [
         "data",
         "education",
-        "ai"
+        "ai",
+        "health"
       ],
       "summary": "大家好，我是龙龙，本科在读，大数据专业。方向是 AI 企业侧部署落地：一是给企业员工做 AI 工具实操培训，讲岗位怎么用、不讲概念…",
       "offers": [],
       "needs": [],
       "stage": "探索交流",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注健康、运动与医疗；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 7,
+        "firstAt": "2026-10-08T03:23:58.000Z",
+        "lastAt": "2026-10-08T15:58:23.000Z",
+        "topics": [
+          {
+            "id": "health",
+            "name": "健康、运动与医疗",
+            "keywords": [
+              "健康"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T03:34:29.000Z",
+            "lastAt": "2026-10-08T03:34:29.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "9d453f5c0261c7e3",
@@ -894,7 +1400,9 @@
       ],
       "needs": [],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "a2a622f8249ac454",
@@ -931,7 +1439,9 @@
       "offers": [],
       "needs": [],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "d79357ec44a21003",
@@ -955,7 +1465,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "nickname"
     },
     {
       "id": "2338af1798c83b3c",
@@ -994,7 +1506,9 @@
         "希望以 AI + 健身为切入点，探索垂直领域产品的长期价值与商业化可能"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "283d3ba93dda224d",
@@ -1019,7 +1533,9 @@
       "offers": [],
       "needs": [],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "ba72ea6f971df50a",
@@ -1050,7 +1566,9 @@
         "人外有人 大二公管专业 对社科方向以及个体成长方向感兴趣，未来想开发创造相关社交媒体，精准助力个人成长，帮助个体远离内耗与焦虑，提升自身技能与素养，掌控好时间，发挥出个人价值"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "f1d0d901a8c00194",
@@ -1086,7 +1604,30 @@
         "也希望考完研之后努力提升自己，加入马哥的团队"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注AI 应用与企业服务；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 1,
+        "firstAt": "2026-10-08T09:04:42.000Z",
+        "lastAt": "2026-10-08T09:04:42.000Z",
+        "topics": [
+          {
+            "id": "ai",
+            "name": "AI 应用与企业服务",
+            "keywords": [
+              "开发"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T09:04:42.000Z",
+            "lastAt": "2026-10-08T09:04:42.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "09faa3a5f87ff808",
@@ -1105,7 +1646,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "152f05ab2f486e19",
@@ -1147,7 +1690,9 @@
         "希望和各位创业伙伴一起，探索AI更多垂直场景的可能性"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "f1605a60a2dc875d",
@@ -1185,7 +1730,57 @@
         "未来也比较感兴趣做个人ip"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注内容、品牌与增长、具身、硬件与产业、健康、运动与医疗；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 2,
+        "firstAt": "2026-10-08T13:24:09.000Z",
+        "lastAt": "2026-10-08T13:29:25.000Z",
+        "topics": [
+          {
+            "id": "content",
+            "name": "内容、品牌与增长",
+            "keywords": [
+              "运营",
+              "个人IP"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T13:24:09.000Z",
+            "lastAt": "2026-10-08T13:24:09.000Z"
+          },
+          {
+            "id": "hardware",
+            "name": "具身、硬件与产业",
+            "keywords": [
+              "无人机"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T13:24:09.000Z",
+            "lastAt": "2026-10-08T13:24:09.000Z"
+          },
+          {
+            "id": "health",
+            "name": "健康、运动与医疗",
+            "keywords": [
+              "运动",
+              "康复",
+              "力量训练"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T13:24:09.000Z",
+            "lastAt": "2026-10-08T13:24:09.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "db79a9194db860aa",
@@ -1210,7 +1805,8 @@
         "知识付费",
         "私域",
         "经济",
-        "AI"
+        "AI",
+        "内容"
       ],
       "topics": [
         "content",
@@ -1223,7 +1819,58 @@
       ],
       "needs": [],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注内容、品牌与增长、AI 应用与企业服务、数据、量化与财税；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 7,
+        "firstAt": "2026-10-08T04:04:34.000Z",
+        "lastAt": "2026-10-09T02:31:40.000Z",
+        "topics": [
+          {
+            "id": "content",
+            "name": "内容、品牌与增长",
+            "keywords": [
+              "运营",
+              "短剧",
+              "知识付费",
+              "私域",
+              "内容"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T04:04:34.000Z",
+            "lastAt": "2026-10-08T04:15:51.000Z"
+          },
+          {
+            "id": "ai",
+            "name": "AI 应用与企业服务",
+            "keywords": [
+              "AI"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T04:04:34.000Z",
+            "lastAt": "2026-10-08T04:04:34.000Z"
+          },
+          {
+            "id": "data",
+            "name": "数据、量化与财税",
+            "keywords": [
+              "经济"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T04:04:34.000Z",
+            "lastAt": "2026-10-08T04:04:34.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "e15cc0a34449ae0e",
@@ -1254,7 +1901,9 @@
       ],
       "needs": [],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "291dd11ea5b766f9",
@@ -1292,7 +1941,55 @@
         "各位大佬好，我是calmcode，目前在国企研究所做研发（AI+网络安全），想探索自媒体或教培方向的副业，了解学习各行各业的AI应用，很幸运有如此宝贵的机会向大佬们学习，提升认知"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注AI 应用与企业服务、内容、品牌与增长、教育、科研与求职；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 1,
+        "firstAt": "2026-10-08T15:26:41.000Z",
+        "lastAt": "2026-10-08T15:26:41.000Z",
+        "topics": [
+          {
+            "id": "ai",
+            "name": "AI 应用与企业服务",
+            "keywords": [
+              "AI"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T15:26:41.000Z",
+            "lastAt": "2026-10-08T15:26:41.000Z"
+          },
+          {
+            "id": "content",
+            "name": "内容、品牌与增长",
+            "keywords": [
+              "自媒体"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T15:26:41.000Z",
+            "lastAt": "2026-10-08T15:26:41.000Z"
+          },
+          {
+            "id": "education",
+            "name": "教育、科研与求职",
+            "keywords": [
+              "教培",
+              "学习"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T15:26:41.000Z",
+            "lastAt": "2026-10-08T15:26:41.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "84680e5d23c70634",
@@ -1335,7 +2032,9 @@
         "平时有健身习惯，预计近期起号做健身生活化减脂内容和服装类相关，主要是视频挂车投流变现"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "0dee2f26f22e4f79",
@@ -1368,7 +2067,9 @@
       "offers": [],
       "needs": [],
       "stage": "探索交流",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "a91b3f54c6660576",
@@ -1397,7 +2098,9 @@
       "offers": [],
       "needs": [],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "86fc2191ee8f80b9",
@@ -1426,7 +2129,9 @@
       "offers": [],
       "needs": [],
       "stage": "探索交流",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "002918e1613b8c6f",
@@ -1465,7 +2170,9 @@
         "目前想通过学习的内容去了解副业"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "253261a21b2ba710",
@@ -1496,7 +2203,9 @@
       "offers": [],
       "needs": [],
       "stage": "探索交流",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "4addc734cd9d5ed4",
@@ -1533,7 +2242,9 @@
         "主要对个人认知提升、副业搞钱、人际关系、社群内训直播比较感兴趣"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "8dfe7ed11a688aa0",
@@ -1568,7 +2279,9 @@
       "offers": [],
       "needs": [],
       "stage": "探索交流",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "6e21b7b1013eb323",
@@ -1603,7 +2316,54 @@
         "大家好，我是interesting Ma，目前从事口腔实验/口腔技工相关工作，平时使用AI辅助口腔数字化模型分析、实训教具资料整理、工艺信息归类，探索AI在口腔工艺里的落地应用，希望和大家多多交流学习"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注AI 应用与企业服务、教育、科研与求职、健康、运动与医疗；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 1,
+        "firstAt": "2026-10-09T02:32:53.000Z",
+        "lastAt": "2026-10-09T02:32:53.000Z",
+        "topics": [
+          {
+            "id": "ai",
+            "name": "AI 应用与企业服务",
+            "keywords": [
+              "AI"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-09T02:32:53.000Z",
+            "lastAt": "2026-10-09T02:32:53.000Z"
+          },
+          {
+            "id": "education",
+            "name": "教育、科研与求职",
+            "keywords": [
+              "学习"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-09T02:32:53.000Z",
+            "lastAt": "2026-10-09T02:32:53.000Z"
+          },
+          {
+            "id": "health",
+            "name": "健康、运动与医疗",
+            "keywords": [
+              "口腔"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-09T02:32:53.000Z",
+            "lastAt": "2026-10-09T02:32:53.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "f2778b16bceaf6b5",
@@ -1634,7 +2394,31 @@
       "offers": [],
       "needs": [],
       "stage": "探索交流",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注跨境、电商与零售；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 2,
+        "firstAt": "2026-10-09T02:23:50.000Z",
+        "lastAt": "2026-10-09T02:26:32.000Z",
+        "topics": [
+          {
+            "id": "commerce",
+            "name": "跨境、电商与零售",
+            "keywords": [
+              "零售",
+              "门店"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-09T02:23:50.000Z",
+            "lastAt": "2026-10-09T02:23:50.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "6ff6131f42649b37",
@@ -1656,7 +2440,8 @@
       "tags": [
         "保研",
         "博士",
-        "AI"
+        "AI",
+        "科研"
       ],
       "topics": [
         "education",
@@ -1668,7 +2453,32 @@
         "都忘说自我介绍了，大家好，我是sora，上海交通大学博士生，研究方向自进化，因为是有保研经历对现在保研市场有一定了解，想做相关方向的平台"
       ],
       "stage": "探索交流",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注教育、科研与求职；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 8,
+        "firstAt": "2026-10-08T08:03:19.000Z",
+        "lastAt": "2026-10-08T09:19:25.000Z",
+        "topics": [
+          {
+            "id": "education",
+            "name": "教育、科研与求职",
+            "keywords": [
+              "保研",
+              "博士",
+              "科研"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T08:08:02.000Z",
+            "lastAt": "2026-10-08T08:09:06.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "e086480afc329d62",
@@ -1702,7 +2512,9 @@
         "对AI优化财税及账务流程方便感兴趣，希望能和小伙伴们一起进步和执行[愉快]"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "446452f19477258d",
@@ -1735,7 +2547,42 @@
       ],
       "needs": [],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注AI 应用与企业服务、健康、运动与医疗；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 1,
+        "firstAt": "2026-10-08T08:54:21.000Z",
+        "lastAt": "2026-10-08T08:54:21.000Z",
+        "topics": [
+          {
+            "id": "ai",
+            "name": "AI 应用与企业服务",
+            "keywords": [
+              "AI"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T08:54:21.000Z",
+            "lastAt": "2026-10-08T08:54:21.000Z"
+          },
+          {
+            "id": "health",
+            "name": "健康、运动与医疗",
+            "keywords": [
+              "健身"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T08:54:21.000Z",
+            "lastAt": "2026-10-08T08:54:21.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "a48f8bd04323b197",
@@ -1757,7 +2604,12 @@
       "tags": [
         "教育",
         "AI",
-        "自动化"
+        "自动化",
+        "软件",
+        "开发",
+        "大模型",
+        "课程",
+        "学习"
       ],
       "topics": [
         "education",
@@ -1767,7 +2619,48 @@
       "offers": [],
       "needs": [],
       "stage": "探索交流",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注AI 应用与企业服务、教育、科研与求职；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 77,
+        "firstAt": "2026-10-08T14:54:40.000Z",
+        "lastAt": "2026-10-08T16:15:12.000Z",
+        "topics": [
+          {
+            "id": "ai",
+            "name": "AI 应用与企业服务",
+            "keywords": [
+              "软件",
+              "开发",
+              "自动化",
+              "AI",
+              "大模型"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 6,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T15:22:55.000Z",
+            "lastAt": "2026-10-08T15:38:34.000Z"
+          },
+          {
+            "id": "education",
+            "name": "教育、科研与求职",
+            "keywords": [
+              "教育",
+              "课程",
+              "学习"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 4,
+            "dayCount": 2,
+            "firstAt": "2026-10-08T15:01:40.000Z",
+            "lastAt": "2026-10-08T16:15:12.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "1a4f4c1743671fe6",
@@ -1801,7 +2694,9 @@
       ],
       "needs": [],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "19cd51f5a5fc4765",
@@ -1834,7 +2729,8 @@
         "数据",
         "算法",
         "财务",
-        "健康"
+        "健康",
+        "生物"
       ],
       "topics": [
         "commerce",
@@ -1855,7 +2751,55 @@
         "感兴趣请"
       ],
       "stage": "项目推进",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注跨境、电商与零售、具身、硬件与产业、健康、运动与医疗；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 2,
+        "firstAt": "2026-10-08T13:48:56.000Z",
+        "lastAt": "2026-10-10T02:31:48.000Z",
+        "topics": [
+          {
+            "id": "commerce",
+            "name": "跨境、电商与零售",
+            "keywords": [
+              "俄罗斯"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T13:48:56.000Z",
+            "lastAt": "2026-10-08T13:48:56.000Z"
+          },
+          {
+            "id": "hardware",
+            "name": "具身、硬件与产业",
+            "keywords": [
+              "传感器"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-10T02:31:48.000Z",
+            "lastAt": "2026-10-10T02:31:48.000Z"
+          },
+          {
+            "id": "health",
+            "name": "健康、运动与医疗",
+            "keywords": [
+              "健康",
+              "生物"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-10T02:31:48.000Z",
+            "lastAt": "2026-10-10T02:31:48.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "ce7bd2fe129f9f7e",
@@ -1891,7 +2835,54 @@
         "各位学长学姐们好 我是小齐大一在读电气专业对Al短剧、提升认知建立自己的第二个大脑 、健身感兴趣，目前正在学习Al插件之类的知识想通过Al来搞个副业"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注内容、品牌与增长、教育、科研与求职、健康、运动与医疗；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 1,
+        "firstAt": "2026-10-08T06:01:47.000Z",
+        "lastAt": "2026-10-08T06:01:47.000Z",
+        "topics": [
+          {
+            "id": "content",
+            "name": "内容、品牌与增长",
+            "keywords": [
+              "短剧"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T06:01:47.000Z",
+            "lastAt": "2026-10-08T06:01:47.000Z"
+          },
+          {
+            "id": "education",
+            "name": "教育、科研与求职",
+            "keywords": [
+              "学习"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T06:01:47.000Z",
+            "lastAt": "2026-10-08T06:01:47.000Z"
+          },
+          {
+            "id": "health",
+            "name": "健康、运动与医疗",
+            "keywords": [
+              "健身"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T06:01:47.000Z",
+            "lastAt": "2026-10-08T06:01:47.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "67fb5b576144a55f",
@@ -1929,7 +2920,9 @@
         "主要对区块链比较感兴趣，但尚无形成付费产品，同时也在研究AI方向赛道和机会"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "f931a68a0ddbad17",
@@ -1973,7 +2966,9 @@
         "总之，很高兴加入这个交流群，期待和各位交流自媒体运营、科研转化，也欢迎对媒介生物、生物防治感兴趣的朋友一起探讨，多多指教"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "63d6462a1cbcde9c",
@@ -2011,7 +3006,9 @@
         "计科硕士研一，目前想做思维导图和考研复试教培类的项目"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "c8cd54e541b30972",
@@ -2044,7 +3041,9 @@
       ],
       "needs": [],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "26c9e9743f5097c6",
@@ -2086,7 +3085,30 @@
         "希望能多多向大佬们学习，持续进步～"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注AI 应用与企业服务；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 1,
+        "firstAt": "2026-10-08T13:09:19.000Z",
+        "lastAt": "2026-10-08T13:09:19.000Z",
+        "topics": [
+          {
+            "id": "ai",
+            "name": "AI 应用与企业服务",
+            "keywords": [
+              "开发"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-08T13:09:19.000Z",
+            "lastAt": "2026-10-08T13:09:19.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "a42f7e58b5c8e6d2",
@@ -2120,7 +3142,9 @@
         "希望以AI+前端为切入点，探索垂直开发者工具的长期价值与商业化可能"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "edb1c210cb3a3566",
@@ -2157,7 +3181,9 @@
         "最近也想做一些AIGC的自媒体账号"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "17a8820c45393549",
@@ -2192,7 +3218,9 @@
       "offers": [],
       "needs": [],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "a533d6a7f9141321",
@@ -2229,7 +3257,45 @@
         "希望在这里能和大家多交流实战经验，也期待能向各位大佬学习"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注AI 应用与企业服务、教育、科研与求职；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 1,
+        "firstAt": "2026-10-09T05:46:14.000Z",
+        "lastAt": "2026-10-09T05:46:14.000Z",
+        "topics": [
+          {
+            "id": "ai",
+            "name": "AI 应用与企业服务",
+            "keywords": [
+              "AI",
+              "大模型",
+              "agent",
+              "自动化"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-09T05:46:14.000Z",
+            "lastAt": "2026-10-09T05:46:14.000Z"
+          },
+          {
+            "id": "education",
+            "name": "教育、科研与求职",
+            "keywords": [
+              "求职"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-10-09T05:46:14.000Z",
+            "lastAt": "2026-10-09T05:46:14.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "d6a7e7fd0e99bbb6",
@@ -2268,7 +3334,9 @@
         "希望多多向大佬们学习，持续进步～"
       ],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     },
     {
       "id": "a6b3063c44a6846c",
@@ -2291,7 +3359,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "nickname"
     },
     {
       "id": "92e57e3154819528",
@@ -2322,7 +3392,9 @@
       ],
       "needs": [],
       "stage": "正在实践",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "introduction"
     }
   ],
   "edges": [
@@ -4041,11 +5113,59 @@
       "evidence": []
     },
     {
+      "id": "253261a21b2ba710:552cdd3376358c74",
+      "source": "552cdd3376358c74",
+      "target": "253261a21b2ba710",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「健身、自媒体」，包含发言推测标签，尚无合作确认。",
+      "evidence": []
+    },
+    {
+      "id": "552cdd3376358c74:67fb5b576144a55f",
+      "source": "552cdd3376358c74",
+      "target": "67fb5b576144a55f",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「自媒体、社群」，包含发言推测标签，尚无合作确认。",
+      "evidence": []
+    },
+    {
+      "id": "0df6b0f98fc258aa:8abe0ca1c7335930",
+      "source": "8abe0ca1c7335930",
+      "target": "0df6b0f98fc258aa",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「运营、健康」，包含发言推测标签，尚无合作确认。",
+      "evidence": []
+    },
+    {
+      "id": "8abe0ca1c7335930:f1605a60a2dc875d",
+      "source": "8abe0ca1c7335930",
+      "target": "f1605a60a2dc875d",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「运营、康复」，包含发言推测标签，尚无合作确认。",
+      "evidence": []
+    },
+    {
+      "id": "253261a21b2ba710:8abe0ca1c7335930",
+      "source": "8abe0ca1c7335930",
+      "target": "253261a21b2ba710",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「自媒体、健身」，包含发言推测标签，尚无合作确认。",
+      "evidence": []
+    },
+    {
       "id": "882fe4a1d0a3769a:a2a622f8249ac454",
       "source": "882fe4a1d0a3769a",
       "target": "a2a622f8249ac454",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、学习」，尚无合作确认。",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「健身、学习」，尚无合作确认。",
+      "evidence": []
+    },
+    {
+      "id": "882fe4a1d0a3769a:a48f8bd04323b197",
+      "source": "882fe4a1d0a3769a",
+      "target": "a48f8bd04323b197",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「自动化、学习」，包含发言推测标签，尚无合作确认。",
       "evidence": []
     },
     {
@@ -4053,15 +5173,15 @@
       "source": "882fe4a1d0a3769a",
       "target": "63d6462a1cbcde9c",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「健身、运动」，尚无合作确认。",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「健身、运动」，尚无合作确认。",
       "evidence": []
     },
     {
-      "id": "882fe4a1d0a3769a:a533d6a7f9141321",
-      "source": "882fe4a1d0a3769a",
-      "target": "a533d6a7f9141321",
+      "id": "0df6b0f98fc258aa:abae930fb037e772",
+      "source": "0df6b0f98fc258aa",
+      "target": "abae930fb037e772",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「自动化、学习」，尚无合作确认。",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「健康、培训」，包含发言推测标签，尚无合作确认。",
       "evidence": []
     },
     {
@@ -4069,15 +5189,7 @@
       "source": "0df6b0f98fc258aa",
       "target": "f1605a60a2dc875d",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「运营、个人IP」，尚无合作确认。",
-      "evidence": []
-    },
-    {
-      "id": "0df6b0f98fc258aa:db79a9194db860aa",
-      "source": "0df6b0f98fc258aa",
-      "target": "db79a9194db860aa",
-      "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「运营、知识付费」，尚无合作确认。",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「运营、个人IP」，包含发言推测标签，尚无合作确认。",
       "evidence": []
     },
     {
@@ -4085,7 +5197,7 @@
       "source": "9c754a1ed801a7b1",
       "target": "702021ef7174bc76",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「跨境、电商、学习」，尚无合作确认。",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「跨境、电商、学习」，包含发言推测标签，尚无合作确认。",
       "evidence": []
     },
     {
@@ -4093,7 +5205,7 @@
       "source": "9c754a1ed801a7b1",
       "target": "d79357ec44a21003",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「跨境、电商」，尚无合作确认。",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「跨境、电商」，尚无合作确认。",
       "evidence": []
     },
     {
@@ -4101,7 +5213,23 @@
       "source": "be3d635f52a3e049",
       "target": "63d6462a1cbcde9c",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「教培、考研」，尚无合作确认。",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「教培、考研」，尚无合作确认。",
+      "evidence": []
+    },
+    {
+      "id": "002918e1613b8c6f:12878bda7f9fd73f",
+      "source": "12878bda7f9fd73f",
+      "target": "002918e1613b8c6f",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「学习、agent」，包含发言推测标签，尚无合作确认。",
+      "evidence": []
+    },
+    {
+      "id": "12878bda7f9fd73f:26c9e9743f5097c6",
+      "source": "12878bda7f9fd73f",
+      "target": "26c9e9743f5097c6",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「学习、agent」，包含发言推测标签，尚无合作确认。",
       "evidence": []
     },
     {
@@ -4109,7 +5237,7 @@
       "source": "702021ef7174bc76",
       "target": "d79357ec44a21003",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「跨境、电商」，尚无合作确认。",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「跨境、电商」，包含发言推测标签，尚无合作确认。",
       "evidence": []
     },
     {
@@ -4117,7 +5245,7 @@
       "source": "a2a622f8249ac454",
       "target": "67fb5b576144a55f",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「学习、社群」，尚无合作确认。",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「学习、社群」，尚无合作确认。",
       "evidence": []
     },
     {
@@ -4125,7 +5253,7 @@
       "source": "a2a622f8249ac454",
       "target": "a533d6a7f9141321",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「求职、学习」，尚无合作确认。",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「求职、学习」，包含发言推测标签，尚无合作确认。",
       "evidence": []
     },
     {
@@ -4133,15 +5261,15 @@
       "source": "db79a9194db860aa",
       "target": "4addc734cd9d5ed4",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「运营、私域」，尚无合作确认。",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「运营、私域」，包含发言推测标签，尚无合作确认。",
       "evidence": []
     },
     {
-      "id": "002918e1613b8c6f:26c9e9743f5097c6",
-      "source": "002918e1613b8c6f",
+      "id": "26c9e9743f5097c6:db79a9194db860aa",
+      "source": "db79a9194db860aa",
       "target": "26c9e9743f5097c6",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「学习、agent、内容」，尚无合作确认。",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「短剧、内容」，包含发言推测标签，尚无合作确认。",
       "evidence": []
     },
     {
@@ -4149,7 +5277,15 @@
       "source": "002918e1613b8c6f",
       "target": "a533d6a7f9141321",
       "kind": "shared",
-      "reason": "群昵称或自我介绍共同涉及「学习、agent」，尚无合作确认。",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「学习、agent」，包含发言推测标签，尚无合作确认。",
+      "evidence": []
+    },
+    {
+      "id": "a48f8bd04323b197:a533d6a7f9141321",
+      "source": "a48f8bd04323b197",
+      "target": "a533d6a7f9141321",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「自动化、大模型、学习」，包含发言推测标签，尚无合作确认。",
       "evidence": []
     }
   ],
@@ -4166,5 +5302,6 @@
     "matchLabel": "潜在供需匹配",
     "sharedLabel": "共同方向",
     "goals": []
-  }
+  },
+  "speechUpdatedAt": "2026-10-10T17:49:41.280Z"
 }

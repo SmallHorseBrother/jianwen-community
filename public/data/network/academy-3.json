@@ -67,16 +67,73 @@
       "introductions": [],
       "topic": "humanities",
       "tags": [
-        "文学"
+        "文学",
+        "大模型",
+        "后端",
+        "自动化",
+        "机械",
+        "物理"
       ],
       "topics": [
-        "humanities"
+        "humanities",
+        "computing",
+        "engineering",
+        "science"
       ],
-      "summary": "本群可见记录中有 1,654 条发言，暂未整理到明确自我介绍。",
+      "summary": "根据发言推测：可能关注计算机与人工智能、工程与技术、数学与自然科学；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注计算机与人工智能、工程与技术、数学与自然科学；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 627,
+        "firstAt": "2025-08-25T12:15:42.000Z",
+        "lastAt": "2026-10-09T04:11:01.000Z",
+        "topics": [
+          {
+            "id": "computing",
+            "name": "计算机与人工智能",
+            "keywords": [
+              "大模型",
+              "后端"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 4,
+            "dayCount": 4,
+            "firstAt": "2025-12-25T07:48:22.000Z",
+            "lastAt": "2026-07-02T14:42:58.000Z"
+          },
+          {
+            "id": "engineering",
+            "name": "工程与技术",
+            "keywords": [
+              "自动化",
+              "机械"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 3,
+            "firstAt": "2025-10-19T09:56:01.000Z",
+            "lastAt": "2026-09-11T12:55:58.000Z"
+          },
+          {
+            "id": "science",
+            "name": "数学与自然科学",
+            "keywords": [
+              "物理"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-04-06T11:10:47.000Z",
+            "lastAt": "2026-04-06T11:10:47.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "58b1ac9acc29c3f5",
@@ -95,7 +152,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ab6dc4762aa91a9c",
@@ -114,7 +173,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c850cc42750b476f",
@@ -133,7 +194,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "44584b0b31242cc7",
@@ -152,7 +215,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "32cdbe5f6e374998",
@@ -171,7 +236,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e23fbb33e287ea61",
@@ -190,7 +257,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f1c8dce03647e8a7",
@@ -209,7 +278,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2fc03d95f23d2a8b",
@@ -228,7 +299,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "443e2a0ed78ae9e3",
@@ -247,7 +320,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0f9ce49c06afecc5",
@@ -266,7 +341,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bf1f8a22086cd387",
@@ -285,7 +362,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9815ca7fad8966e6",
@@ -304,7 +383,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e93ded4963b95dcf",
@@ -323,7 +404,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "41772245febfc2d6",
@@ -342,7 +425,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ff3144dc197022f6",
@@ -361,7 +446,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9d453f5c0261c7e3",
@@ -380,7 +467,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2338af1798c83b3c",
@@ -399,7 +488,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c2e4a828fa54d4b7",
@@ -418,7 +509,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "78493d340237c35c",
@@ -437,7 +530,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "eb9d18d3382a0186",
@@ -456,7 +551,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c33d6d07ba3fbb2b",
@@ -475,7 +572,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ba72ea6f971df50a",
@@ -494,7 +593,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f910afd03e97cba1",
@@ -513,7 +614,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "79057b2cce729e6a",
@@ -532,7 +635,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "152f05ab2f486e19",
@@ -551,7 +656,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a71c26d9b11dbeb9",
@@ -570,7 +677,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3d72f58e307b2c2c",
@@ -589,7 +698,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "44529c822ec005ac",
@@ -608,7 +719,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "abd1a8bbf7186080",
@@ -627,7 +740,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0f08daaf4ec758b3",
@@ -646,7 +761,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0b1a7276dcfad59e",
@@ -665,7 +782,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f794b1b23f98d9bb",
@@ -684,7 +803,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3ac0baeb29114592",
@@ -703,7 +824,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a7a7328362a68fd5",
@@ -722,7 +845,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "92c47934795b3f07",
@@ -741,7 +866,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e2a2aaaa112c08b1",
@@ -760,7 +887,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c4f032e9e18009b8",
@@ -779,7 +908,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8a23cbe5ba29160c",
@@ -798,7 +929,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7a527dca8838a06c",
@@ -817,7 +950,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "182735ab58fdc41c",
@@ -836,7 +971,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "23b31a63ece2ff34",
@@ -855,7 +992,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "793f0ad53b1ec8a9",
@@ -874,7 +1013,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "075b1f13a8ee796a",
@@ -893,7 +1034,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ab5da8e098d86eb3",
@@ -912,7 +1055,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8cc5a9c1b264ce9b",
@@ -931,7 +1076,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1dad9ce1fe7ca3ab",
@@ -950,7 +1097,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "857824bbb4551937",
@@ -969,7 +1118,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "76fbf19cf78a19f3",
@@ -988,7 +1139,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f1605a60a2dc875d",
@@ -1007,7 +1160,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c36582834024fb16",
@@ -1026,7 +1181,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "348c72e56fd7a535",
@@ -1045,7 +1202,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2c9e70248ef0bdc6",
@@ -1064,7 +1223,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f9a2c4baffd2db62",
@@ -1083,7 +1244,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "46d0b4fa8846ea9b",
@@ -1102,7 +1265,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "be9fe56ed375ef1c",
@@ -1121,7 +1286,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d838b21b0cf45569",
@@ -1140,7 +1307,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e7bfe5040b56991f",
@@ -1159,7 +1328,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c8a50ecb1c26812f",
@@ -1178,7 +1349,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b5cb4c9482d213ca",
@@ -1197,7 +1370,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e256c2a9fa7b5915",
@@ -1216,7 +1391,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1d48db50a5b7a934",
@@ -1235,7 +1412,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6566ddaaf866cb8a",
@@ -1254,7 +1433,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9bb7ebdd32d1ac30",
@@ -1273,7 +1454,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4e27390803672919",
@@ -1292,7 +1475,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d3561de529c976dd",
@@ -1311,7 +1496,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "505c66742fb4b205",
@@ -1330,7 +1517,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "21b1755a794cd8fd",
@@ -1349,7 +1538,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5f99bb400191f57b",
@@ -1368,7 +1559,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "40e8ac0e1dc40bad",
@@ -1387,7 +1580,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "97b69dfa8a291671",
@@ -1406,7 +1601,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "dc63599a37004609",
@@ -1425,7 +1622,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ba684342744a91df",
@@ -1444,7 +1643,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c1e3c4136d4993d3",
@@ -1463,7 +1664,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9a434e088a412b7b",
@@ -1482,7 +1685,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "611229700fb7064c",
@@ -1501,7 +1706,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "073240b6d35e4af1",
@@ -1520,7 +1727,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0c9729110bd32575",
@@ -1539,7 +1748,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3a492a4ec20a0364",
@@ -1558,7 +1769,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "df7b9ca84e437ace",
@@ -1577,7 +1790,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b0f2432ac26842c3",
@@ -1596,7 +1811,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6173fc2d8b17ce71",
@@ -1615,7 +1832,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2c2ef39b2458eaff",
@@ -1634,7 +1853,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3113d53c3ee1bf0e",
@@ -1653,7 +1874,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b4d02d75f1c01c97",
@@ -1672,7 +1895,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1182adccd97e735d",
@@ -1691,7 +1916,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ee9c0e88a07d793a",
@@ -1710,7 +1937,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "23fb6c06fddad7ef",
@@ -1729,7 +1958,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "21496cf00a5a0cd8",
@@ -1748,7 +1979,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "76bbc95c6a379b9c",
@@ -1767,7 +2000,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a27075a1173224a5",
@@ -1786,7 +2021,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e15cc0a34449ae0e",
@@ -1805,7 +2042,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e019ca41180a9479",
@@ -1824,7 +2063,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "dcae24c23d7f8d50",
@@ -1843,7 +2084,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "894f8051c1329fec",
@@ -1862,7 +2105,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b1887ce444befd2a",
@@ -1881,7 +2126,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "655ad05f27fd8c18",
@@ -1900,7 +2147,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bf597b2e5a6ccac7",
@@ -1919,7 +2168,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "cfa9251b22f0384f",
@@ -1938,7 +2189,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e9ff57b62f8cbb47",
@@ -1957,7 +2210,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "369f524fb6f180f1",
@@ -1976,7 +2231,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "dadcc9885e028ff9",
@@ -1995,7 +2252,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "94aca88e8421744f",
@@ -2014,7 +2273,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "28a00963ba33ef87",
@@ -2033,7 +2294,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bdace1d6d4732394",
@@ -2052,7 +2315,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e7e1217094f0a5f2",
@@ -2071,7 +2336,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f146bd9682b38dd8",
@@ -2090,7 +2357,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "800d16f638a3c9c1",
@@ -2109,7 +2378,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0bac7f43b7b4027e",
@@ -2128,7 +2399,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5102dc48218d38a8",
@@ -2147,7 +2420,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c054b28a6291b112",
@@ -2166,7 +2441,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "efcc666caff71498",
@@ -2185,7 +2462,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "150de6f056c92bf3",
@@ -2204,7 +2483,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ade5dd15ae5467c5",
@@ -2223,7 +2504,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5989aa4a81de5197",
@@ -2242,7 +2525,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0b4a9e68dd5299ca",
@@ -2261,7 +2546,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5cd4bbd94d63f7cc",
@@ -2280,7 +2567,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6922ac90f2511290",
@@ -2299,7 +2588,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "673aac40b057b304",
@@ -2318,7 +2609,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f7640e9169f111a7",
@@ -2337,7 +2630,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a81befaa9c31400b",
@@ -2356,7 +2651,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "21c1a55fffb39726",
@@ -2368,14 +2665,41 @@
       "messageCount": 64,
       "lastActiveAt": "2026-07-30T08:07:40.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 64 条发言，暂未整理到明确自我介绍。",
+      "topic": "humanities",
+      "tags": [
+        "文学"
+      ],
+      "topics": [
+        "humanities"
+      ],
+      "summary": "根据发言推测：可能关注人文与社会科学；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注人文与社会科学；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 43,
+        "firstAt": "2025-09-23T08:56:05.000Z",
+        "lastAt": "2026-07-30T08:07:40.000Z",
+        "topics": [
+          {
+            "id": "humanities",
+            "name": "人文与社会科学",
+            "keywords": [
+              "文学"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 2,
+            "firstAt": "2026-03-05T15:30:27.000Z",
+            "lastAt": "2026-03-20T15:09:55.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "613185f38bebd48d",
@@ -2394,7 +2718,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e84da1a7afd8f4d5",
@@ -2413,7 +2739,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0019b206476531df",
@@ -2432,7 +2760,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1043b4f02543130f",
@@ -2451,7 +2781,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6172587e7ca133c2",
@@ -2470,7 +2802,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "291dd11ea5b766f9",
@@ -2489,7 +2823,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7b77b70337ba9d0f",
@@ -2508,7 +2844,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "873e51b3e109eef8",
@@ -2527,7 +2865,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "400ad9962cb12153",
@@ -2546,7 +2886,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4d42fc0738964698",
@@ -2565,7 +2907,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4f7ede9b7e0c897c",
@@ -2580,11 +2924,31 @@
       "topic": "other",
       "tags": [],
       "topics": [],
-      "summary": "本群可见记录中有 240 条发言，暂未整理到明确自我介绍。",
+      "summary": "根据发言推测：发言中曾表达过考研 / 保研相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "考研 / 保研"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "发言中曾表达过考研 / 保研相关意向。",
+        "analyzedMessages": 101,
+        "firstAt": "2025-10-03T13:37:51.000Z",
+        "lastAt": "2026-03-27T05:36:38.000Z",
+        "topics": [],
+        "goals": [
+          {
+            "name": "考研 / 保研",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-10-04T12:42:19.000Z",
+            "lastAt": "2025-10-04T12:42:19.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "ce45326749832289",
@@ -2603,7 +2967,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a676e6fdb8b97638",
@@ -2622,7 +2988,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1d8e7bc832db105a",
@@ -2641,7 +3009,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ffa2f0b56f08b37a",
@@ -2660,7 +3030,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "de88c62ee01c0257",
@@ -2679,7 +3051,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "629d5ad0199f6f00",
@@ -2698,7 +3072,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "776855443d72f63f",
@@ -2717,7 +3093,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "234767c68f58d3ed",
@@ -2736,7 +3114,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9798455b649423e5",
@@ -2755,7 +3135,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "85693e5254b3bfcb",
@@ -2774,7 +3156,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bddf385a62a9c763",
@@ -2793,7 +3177,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f0164238d6988918",
@@ -2812,7 +3198,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "20cea43777f56438",
@@ -2831,7 +3219,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "21d6f22e68da1d9a",
@@ -2850,7 +3240,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8bb308fd4eb8cda6",
@@ -2869,7 +3261,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c4d80f0600eca6e7",
@@ -2888,7 +3282,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7e34e22ede48afca",
@@ -2907,7 +3303,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8f2cfce6cd08dcb6",
@@ -2926,7 +3324,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "46b0bd43b303973c",
@@ -2945,7 +3345,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "eaf5ddd738440950",
@@ -2964,7 +3366,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "98e7e6222919ecbd",
@@ -2983,7 +3387,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0d4c3e1137058894",
@@ -3002,7 +3408,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d004b0eb357fcfa2",
@@ -3021,7 +3429,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "46c116870c4ab562",
@@ -3040,7 +3450,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8bb8237d86749f02",
@@ -3059,7 +3471,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c49c660e83caf091",
@@ -3078,7 +3492,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e8bf340cf61e689f",
@@ -3097,7 +3513,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "06c8e1cd47ddbb3c",
@@ -3116,7 +3534,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "fcd456128fbdc8d4",
@@ -3135,7 +3555,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5758726673aacae3",
@@ -3154,7 +3576,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "59f8fb68f252df17",
@@ -3173,7 +3597,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bd2363b18cd6ad89",
@@ -3192,7 +3618,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "412ef23315fae546",
@@ -3211,7 +3639,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "20521c5bc5a06b0f",
@@ -3230,7 +3660,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2a45d06c8c99c2ba",
@@ -3249,7 +3681,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b23b4dbf70057694",
@@ -3268,7 +3702,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "413547d3391b43a2",
@@ -3287,7 +3723,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "db72d627a09748c6",
@@ -3306,7 +3744,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "68a8eefa33c92723",
@@ -3325,7 +3765,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "54ba45abd0105234",
@@ -3344,7 +3786,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "14676f28d1e46227",
@@ -3363,7 +3807,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "802a88b7e833078b",
@@ -3382,7 +3828,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2a0d834a8ee98261",
@@ -3401,7 +3849,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a3989f9f5f419d7a",
@@ -3420,7 +3870,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1ba79ab0f1b53ce3",
@@ -3439,7 +3891,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "eab472f7e2bf1034",
@@ -3458,7 +3912,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f2b2d517ad5721b4",
@@ -3477,7 +3933,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "722b6bec5f5a4302",
@@ -3496,7 +3954,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "224db1304256d910",
@@ -3515,7 +3975,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "89b26009685969b1",
@@ -3534,7 +3996,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "444f74ac2ab45a4d",
@@ -3553,7 +4017,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "992af66e0beff106",
@@ -3572,7 +4038,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "aa098efc83d443a8",
@@ -3591,7 +4059,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "659e7b5777489c3c",
@@ -3610,7 +4080,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "074d52267a1f1b0e",
@@ -3629,7 +4101,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ea84ca315bf52d5a",
@@ -3648,7 +4122,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "35b409fabfa2c21d",
@@ -3667,7 +4143,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "516390d0a9482ba8",
@@ -3686,7 +4164,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1354b32808a68f64",
@@ -3705,7 +4185,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d50324ad701ce665",
@@ -3724,7 +4206,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "af56deb42212da62",
@@ -3743,7 +4227,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6b51c99f33895461",
@@ -3762,7 +4248,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ce058a11db30f4de",
@@ -3781,7 +4269,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7ec1e43e29d97331",
@@ -3800,7 +4290,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7b589fa3638dbb94",
@@ -3819,7 +4311,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "637d112f59430768",
@@ -3838,7 +4332,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8cdc6a965105e7ee",
@@ -3857,7 +4353,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e07992d9fe44a442",
@@ -3876,7 +4374,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3ca0f61f8e7d6a59",
@@ -3895,7 +4395,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "30094b0aaa5ddfa4",
@@ -3914,7 +4416,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "00314a4f9c0537ee",
@@ -3933,7 +4437,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "816394551eff0f72",
@@ -3952,7 +4458,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2e3fe56a29089dbd",
@@ -3971,7 +4479,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "54357a790913ab1d",
@@ -3990,7 +4500,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "372f1416ecad0d84",
@@ -4009,7 +4521,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2ca2d568d00ecccf",
@@ -4028,7 +4542,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "834e511d110cb9db",
@@ -4047,7 +4563,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e24b29741ac3fff0",
@@ -4066,7 +4584,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9eb7e28ff2182a8c",
@@ -4085,7 +4605,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b94355e06dae5e5a",
@@ -4104,7 +4626,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bf401339816bb02d",
@@ -4123,7 +4647,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e1ff74edd1af06a9",
@@ -4142,7 +4668,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "96d56bbea706e1a8",
@@ -4161,7 +4689,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "852371796fc22daf",
@@ -4180,7 +4710,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bc91bf5a95c3d62f",
@@ -4199,7 +4731,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "36ef3c2f028a832c",
@@ -4218,7 +4752,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f36253394a63c5f9",
@@ -4237,7 +4773,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "039465f0ce635253",
@@ -4256,7 +4794,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "86f92d255a04968b",
@@ -4275,7 +4815,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "97f82f4dbbc80807",
@@ -4294,7 +4836,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c0286cf913613478",
@@ -4313,7 +4857,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "142e40df1fb8c49c",
@@ -4332,7 +4878,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ba55a5d63aacca96",
@@ -4351,7 +4899,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "59abce1ee5c3d4cb",
@@ -4370,7 +4920,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "84b48f74f71f457e",
@@ -4389,7 +4941,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9a43a0d773bfdcde",
@@ -4408,7 +4962,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "559eb85f68d1e82a",
@@ -4420,14 +4976,41 @@
       "messageCount": 29,
       "lastActiveAt": "2026-06-11T02:33:52.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 29 条发言，暂未整理到明确自我介绍。",
+      "topic": "language",
+      "tags": [
+        "英语"
+      ],
+      "topics": [
+        "language"
+      ],
+      "summary": "根据发言推测：可能关注语言与表达；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注语言与表达；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 12,
+        "firstAt": "2025-12-23T11:27:31.000Z",
+        "lastAt": "2026-05-25T13:15:01.000Z",
+        "topics": [
+          {
+            "id": "language",
+            "name": "语言与表达",
+            "keywords": [
+              "英语"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-01-25T17:43:25.000Z",
+            "lastAt": "2026-01-25T17:43:25.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "ec78cba29b7f14ef",
@@ -4446,7 +5029,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c1ad657a199cf3ce",
@@ -4465,7 +5050,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6a2f06be41be285d",
@@ -4484,7 +5071,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "42604161ee3cbe07",
@@ -4503,7 +5092,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8f2d37711e6240b8",
@@ -4522,7 +5113,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "377495882f3c397a",
@@ -4541,7 +5134,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "acf7525c6321b015",
@@ -4560,7 +5155,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8b5ea189ef48007f",
@@ -4579,7 +5176,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a8cbd631bf9fd0da",
@@ -4598,7 +5197,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "37278a9e23ca1567",
@@ -4617,7 +5218,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ca2f2fb7fe0487c0",
@@ -4636,7 +5239,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "40cd00f61875082b",
@@ -4655,7 +5260,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "365110cfdebadec3",
@@ -4667,14 +5274,41 @@
       "messageCount": 60,
       "lastActiveAt": "2026-07-28T04:14:38.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 60 条发言，暂未整理到明确自我介绍。",
+      "topic": "science",
+      "tags": [
+        "物理"
+      ],
+      "topics": [
+        "science"
+      ],
+      "summary": "根据发言推测：可能关注数学与自然科学；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注数学与自然科学；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 31,
+        "firstAt": "2025-12-31T10:18:37.000Z",
+        "lastAt": "2026-07-28T04:14:37.000Z",
+        "topics": [
+          {
+            "id": "science",
+            "name": "数学与自然科学",
+            "keywords": [
+              "物理"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-04-06T11:13:09.000Z",
+            "lastAt": "2026-04-06T11:13:09.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "8e7d1cc62ee3a4fd",
@@ -4693,7 +5327,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6396ef2b68c18056",
@@ -4712,7 +5348,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "55a933fb355c07eb",
@@ -4731,7 +5369,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "afeb337895a2c172",
@@ -4750,7 +5390,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0dee2f26f22e4f79",
@@ -4769,7 +5411,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4726b42dfc18b389",
@@ -4788,7 +5432,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "66ea5e775d61adcd",
@@ -4807,7 +5453,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a45570b8580656f5",
@@ -4826,7 +5474,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8123a1e0a021a6d9",
@@ -4845,7 +5495,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "10bc582b8282bc64",
@@ -4864,7 +5516,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a604681003b866e1",
@@ -4883,7 +5537,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3b58a2d2134f541f",
@@ -4902,7 +5558,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b7560bc4bdf2ed12",
@@ -4921,7 +5579,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e36b0dfaddb3455c",
@@ -4940,7 +5600,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8dd21aadf796b2c3",
@@ -4959,7 +5621,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3c56a9a261c559b0",
@@ -4978,7 +5642,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d1fec159a2f8894f",
@@ -4997,7 +5663,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "48baa192b0fc1a89",
@@ -5016,7 +5684,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7e0fa3d42e6b5098",
@@ -5035,7 +5705,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ea9527563e3c7f4e",
@@ -5054,7 +5726,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7fa3f31e9baf91cc",
@@ -5073,7 +5747,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d89803d0b3fc5d4b",
@@ -5092,7 +5768,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "fb32d6059f95a595",
@@ -5111,7 +5789,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2f1f80f507c33a0d",
@@ -5130,7 +5810,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d89f5370ac9f73f5",
@@ -5149,7 +5831,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e9c2429b437ef2ef",
@@ -5168,7 +5852,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "87bd6c70e27d7294",
@@ -5187,7 +5873,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "140b7024f668e9dd",
@@ -5206,7 +5894,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "963b99048e9c9b28",
@@ -5225,7 +5915,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3b96b13d3eefc05f",
@@ -5244,7 +5936,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8534443f2b0fbf5c",
@@ -5263,7 +5957,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c5450aff8b9ec0f9",
@@ -5282,7 +5978,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4a4f7a5c42b01462",
@@ -5301,7 +5999,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a91b3f54c6660576",
@@ -5320,7 +6020,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8e808611a60b2ff9",
@@ -5339,7 +6041,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e967e9d1ec0ee658",
@@ -5358,7 +6062,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7c93ff6b9fb62f03",
@@ -5377,7 +6083,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bad91ed84b9294b5",
@@ -5396,7 +6104,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1a08c4aa2369628b",
@@ -5415,7 +6125,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b0363b122ffa7e89",
@@ -5434,7 +6146,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d9342df6b5d0fb1a",
@@ -5453,7 +6167,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d7b0c38e81be328b",
@@ -5472,7 +6188,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8145e258babd465e",
@@ -5491,7 +6209,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9f73c866de89324c",
@@ -5510,7 +6230,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b93d932112b356aa",
@@ -5529,7 +6251,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4bf2e9e48826b8b7",
@@ -5548,7 +6272,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "976f91576576106d",
@@ -5567,7 +6293,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "42a39c352a1928fb",
@@ -5586,7 +6314,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7c745bdcd9e4659d",
@@ -5605,7 +6335,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f6968f1a1ed8b534",
@@ -5624,7 +6356,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6ed7469fc613f51d",
@@ -5643,7 +6377,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4f02c40aa87bb7ff",
@@ -5662,7 +6398,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "35fab46e024a1649",
@@ -5681,7 +6419,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ad0adf4367742cfe",
@@ -5700,7 +6440,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ce24b21451922bcb",
@@ -5719,7 +6461,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "63ef6031d8889151",
@@ -5738,7 +6482,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c3c0a29c4da108f1",
@@ -5757,7 +6503,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "86fc2191ee8f80b9",
@@ -5776,7 +6524,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ff7bf894a8699f41",
@@ -5795,7 +6545,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e358bdf65f719c3d",
@@ -5814,7 +6566,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "70e7d8bfb43eda54",
@@ -5833,7 +6587,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "06d5ad00f763878a",
@@ -5852,7 +6608,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8e679eeea4a55eab",
@@ -5871,7 +6629,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e7b7190afa3483c8",
@@ -5890,7 +6650,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "033ed7307d979e9f",
@@ -5909,7 +6671,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bad031abd553b37e",
@@ -5928,7 +6692,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8b42b381e0058c82",
@@ -5940,14 +6706,41 @@
       "messageCount": 28,
       "lastActiveAt": "2026-07-28T02:14:56.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 28 条发言，暂未整理到明确自我介绍。",
+      "topic": "science",
+      "tags": [
+        "物理"
+      ],
+      "topics": [
+        "science"
+      ],
+      "summary": "根据发言推测：可能关注数学与自然科学；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注数学与自然科学；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 8,
+        "firstAt": "2026-04-03T09:35:08.000Z",
+        "lastAt": "2026-07-28T02:14:56.000Z",
+        "topics": [
+          {
+            "id": "science",
+            "name": "数学与自然科学",
+            "keywords": [
+              "物理"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-07-28T01:55:41.000Z",
+            "lastAt": "2026-07-28T01:55:41.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "97a241e58957589c",
@@ -5966,7 +6759,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2ab9265b2e505b99",
@@ -5985,7 +6780,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "06c654744eb2fdbd",
@@ -6004,7 +6801,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3f8fce107adbb926",
@@ -6023,7 +6822,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0256f07a4454fb14",
@@ -6042,7 +6843,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "36386a4887b70ceb",
@@ -6061,7 +6864,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6c88817d2ab911d7",
@@ -6080,7 +6885,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5b102b80a0519416",
@@ -6099,7 +6906,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "480e466f1e544a35",
@@ -6118,7 +6927,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3de2f4316227ffe8",
@@ -6137,7 +6948,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4cb0c1d62f3fe86b",
@@ -6156,7 +6969,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c4a693ccd3186b76",
@@ -6175,7 +6990,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6ca697cceedb0c59",
@@ -6194,7 +7011,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c38807941bab0937",
@@ -6213,7 +7032,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "712589eb62c974d5",
@@ -6232,7 +7053,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a77a95ed1e90a07d",
@@ -6251,7 +7074,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7a0045274b6dadba",
@@ -6270,7 +7095,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9b115f544ffb44e1",
@@ -6289,7 +7116,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ac6899b31a7267ce",
@@ -6308,7 +7137,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9da2a9aafe7f108b",
@@ -6327,7 +7158,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "30f27656a31e9727",
@@ -6346,7 +7179,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "dba5cdf4df587a3f",
@@ -6365,7 +7200,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c8f158ebca17c7d6",
@@ -6384,7 +7221,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e7397289585c1ed4",
@@ -6403,7 +7242,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "446452f19477258d",
@@ -6422,7 +7263,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f687871b01ff9f38",
@@ -6441,7 +7284,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     }
   ],
   "edges": [
@@ -8172,5 +9017,6 @@
       "求职 / 职业发展",
       "学习搭子"
     ]
-  }
+  },
+  "speechUpdatedAt": "2026-10-10T17:49:50.204Z"
 }

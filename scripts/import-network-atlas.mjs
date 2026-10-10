@@ -2,9 +2,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
-import { TOPICS, publicId, xmlField, redact, profileDetails, inferredEdges } from './network-atlas-lib.mjs';
+import { TOPICS, publicId, xmlField, redact, inferredEdges } from './network-atlas-lib.mjs';
 import { sourceDirectory, readMembers, readMessages, joinedMembers } from './network-atlas-source.mjs';
 import { taxonomyForGroup, publicTaxonomy } from './network-taxonomies.mjs';
+import { applySpeechProfile, createSpeechCollector } from './network-speech.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const config=JSON.parse(fs.readFileSync(path.join(root,'scripts/network-atlas.config.json'),'utf8'));
@@ -12,6 +13,29 @@ const write=process.argv.includes('--write'),avatars=process.argv.includes('--av
 const groupArg=process.argv.indexOf('--group'),groupId=groupArg>=0?process.argv[groupArg+1]:null;
 if(groupArg>=0&&!config.groups.some(g=>g.id===groupId))throw new Error('Unknown --group');
 const groups=groupId?config.groups.filter(g=>g.id===groupId):config.groups;
+// Enrich the existing membership snapshot using read-only chat history from its time window.
+if(process.argv.includes('--summarize-speech')) {
+  const directory=sourceDirectory();
+  for(const group of groups) {
+    const file=path.join(root,'public/data',group.id===config.defaultGroup?'network-atlas.json':`network/${group.id}.json`);
+    const data=JSON.parse(fs.readFileSync(file,'utf8')),taxonomy=taxonomyForGroup(group.id);
+    const collectors=new Map(data.people.map(p=>[p.id,createSpeechCollector(taxonomy)]));
+    const seen=new Set(),cutoff=Date.parse(data.lastMessageAt)/1000;let scanned=0;
+    for(const row of readMessages(directory,group.groupId)) {
+      if(row.create_time>cutoff||row.local_type!==1)continue;
+      const key=row.server_id&&row.server_id!=='0'?`server:${row.server_id}`:row.key;
+      if(seen.has(key))continue;seen.add(key);scanned++;
+      collectors.get(publicId(row.user_name||''))?.observe(row);
+    }
+    data.people=data.people.map(p=>applySpeechProfile({...p,speech:collectors.get(p.id).finish()},taxonomy));
+    const facts=data.edges.filter(e=>e.kind==='interaction'||e.kind==='collaboration');
+    data.edges=[...facts,...inferredEdges(data.people,facts,taxonomy)];
+    data.speechUpdatedAt=new Date().toISOString();
+    if(write)fs.writeFileSync(file,JSON.stringify(data,null,2)+'\n');
+    console.log(JSON.stringify({group:group.id,scanned,withSpeech:data.people.filter(p=>p.speech).length,newSummaries:data.people.filter(p=>p.profileSource==='speech').length,unclassified:data.people.filter(p=>p.topic==='other').length,written:write,bytes:Buffer.byteLength(JSON.stringify(data))}));
+  }
+  process.exit(0);
+}
 // Reclassify only reviewed public material; preserve source timestamps, avatars and facts.
 if(process.argv.includes('--reclassify')) {
   for(const group of groups) {
@@ -19,10 +43,7 @@ if(process.argv.includes('--reclassify')) {
     const data=JSON.parse(fs.readFileSync(file,'utf8')),taxonomy=taxonomyForGroup(group.id);
     data.classification=publicTaxonomy(taxonomy);
     data.topics=(taxonomy.topics||TOPICS).map(({words,...t})=>t);
-    data.people=data.people.map(person=>{
-      const details=profileDetails(person.introductions,person.groupNickname,taxonomy);
-      return {...person,...details,summary:person.introductions.length?details.summary:person.summary};
-    });
+    data.people=data.people.map(person=>applySpeechProfile(person,taxonomy));
     const facts=data.edges.filter(e=>e.kind==='interaction'||e.kind==='collaboration');
     data.edges=[...facts,...inferredEdges(data.people,facts,taxonomy)];
     if(write)fs.writeFileSync(file,JSON.stringify(data,null,2)+'\n');
@@ -70,8 +91,9 @@ for(const group of groups) {
     messages++;first=Math.min(first,r.create_time);last=Math.max(last,r.create_time);
     if(r.local_type===10000){for(const id of joinedMembers(r.raw))joins.set(id,Math.max(joins.get(id)||0,r.create_time));continue;}
     if(!ids.has(r.user_name))continue;
-    const stat=stats.get(r.user_name)||{count:0,last:0,introductions:[]};
+    const stat=stats.get(r.user_name)||{count:0,last:0,introductions:[],speech:createSpeechCollector(taxonomy)};
     stat.count++;stat.last=Math.max(stat.last,r.create_time);
+    stat.speech.observe(r);
     if(r.local_type===1&&(reviewed.has(r.key)||(group.id===config.defaultGroup&&r.key.startsWith('message_2.db:')&&reviewed.has(r.local_id)))) {
       stat.introductions.push({messageId:r.key,at:iso(r.create_time),text:redact(r.text)});
       reviewedRows.set(r.local_id,r);
@@ -86,9 +108,7 @@ for(const group of groups) {
   const people=members.map(m=>{
     const stat=stats.get(m.username)||{count:0,last:0,introductions:[]};
     const intro=stat.introductions.sort((a,b)=>a.at.localeCompare(b.at)),nickname=redact(m.nick_name||''),groupNickname=redact(m.groupNickname);
-    const profile=profileDetails(intro,groupNickname,taxonomy);
-    if(!intro.length)profile.summary=stat.count?`本群可见记录中有 ${stat.count.toLocaleString('zh-CN')} 条发言，暂未整理到明确自我介绍。`:'本群可见记录中暂无发言，个人介绍待补充。';
-    return {id:publicId(m.username),name:groupNickname||nickname||'未命名成员',nickname,groupNickname,avatar:'',joinedAt:iso(joins.get(m.username)),messageCount:stat.count,lastActiveAt:iso(stat.last),introductions:intro,...profile};
+    return applySpeechProfile({id:publicId(m.username),name:groupNickname||nickname||'未命名成员',nickname,groupNickname,avatar:'',joinedAt:iso(joins.get(m.username)),messageCount:stat.count,lastActiveAt:iso(stat.last),introductions:intro,speech:stat.speech?.finish()||null},taxonomy);
   });
   for(const pair of group.collaborations||[]){const from=reviewedRows.get(pair.fromIntroductionId),to=reviewedRows.get(pair.toIntroductionId);if(from&&to)addInteraction(from.user_name,to.user_name,from,'collaboration',pair.reason);}
   const factualEdges=[...edges.values()].sort((a,b)=>b.count-a.count||a.id.localeCompare(b.id));

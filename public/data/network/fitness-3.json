@@ -65,14 +65,93 @@
       "messageCount": 2215,
       "lastActiveAt": "2026-10-10T04:50:07.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 2,215 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体",
+        "双力臂",
+        "街头健身",
+        "前水平",
+        "单杠",
+        "卧推",
+        "深蹲",
+        "硬拉"
+      ],
+      "topics": [
+        "calisthenics",
+        "strength"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练、力量训练与力量举；这是根据群内讨论归纳的兴趣线索。发言中曾表达过增肌、减脂、耐力 / 运动表现相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "增肌",
+        "减脂",
+        "耐力 / 运动表现"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练、力量训练与力量举；这是根据群内讨论归纳的兴趣线索。发言中曾表达过增肌、减脂、耐力 / 运动表现相关意向。",
+        "analyzedMessages": 1096,
+        "firstAt": "2025-07-04T11:53:43.000Z",
+        "lastAt": "2026-10-10T03:37:49.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体",
+              "双力臂",
+              "街头健身",
+              "前水平",
+              "单杠"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 55,
+            "dayCount": 36,
+            "firstAt": "2025-07-11T12:17:57.000Z",
+            "lastAt": "2026-08-10T12:30:40.000Z"
+          },
+          {
+            "id": "strength",
+            "name": "力量训练与力量举",
+            "keywords": [
+              "卧推",
+              "深蹲",
+              "硬拉"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 6,
+            "dayCount": 5,
+            "firstAt": "2025-08-05T16:09:58.000Z",
+            "lastAt": "2026-04-19T09:21:57.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "增肌",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-08-18T10:43:22.000Z",
+            "lastAt": "2026-08-18T10:43:22.000Z"
+          },
+          {
+            "name": "减脂",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-08-18T10:43:22.000Z",
+            "lastAt": "2026-08-18T10:43:22.000Z"
+          },
+          {
+            "name": "耐力 / 运动表现",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-11-27T04:23:42.000Z",
+            "lastAt": "2025-11-27T04:23:42.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "6ec46a3f8ce0af82",
@@ -91,7 +170,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ab6dc4762aa91a9c",
@@ -103,14 +184,45 @@
       "messageCount": 220,
       "lastActiveAt": "2026-08-19T05:13:05.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 220 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "前水平",
+        "引体",
+        "双力臂"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 126,
+        "firstAt": "2025-07-27T12:34:44.000Z",
+        "lastAt": "2026-06-27T03:50:55.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "前水平",
+              "引体",
+              "双力臂"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 8,
+            "dayCount": 3,
+            "firstAt": "2025-10-10T13:24:11.000Z",
+            "lastAt": "2026-03-23T23:40:55.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "c850cc42750b476f",
@@ -129,7 +241,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "23fa3213f759c953",
@@ -148,7 +262,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "46e6b05adc0499c4",
@@ -167,7 +283,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "68e11edb2b3d9323",
@@ -186,7 +304,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a9e68e71e013deff",
@@ -205,7 +325,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c9407ef91a510c5b",
@@ -217,14 +339,43 @@
       "messageCount": 115,
       "lastActiveAt": "2026-06-09T08:10:24.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 115 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "双力臂",
+        "引体"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 64,
+        "firstAt": "2026-02-19T13:29:27.000Z",
+        "lastAt": "2026-06-09T08:10:24.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "双力臂",
+              "引体"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 2,
+            "firstAt": "2026-05-11T02:28:51.000Z",
+            "lastAt": "2026-06-09T08:10:24.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "a05caf3b4669e623",
@@ -243,7 +394,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d5900a26106cad4d",
@@ -262,7 +415,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "42393de5daa586cf",
@@ -281,7 +436,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a4251eebb7adc046",
@@ -300,7 +457,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "93cf711a53315039",
@@ -319,7 +478,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0f9ce49c06afecc5",
@@ -338,7 +499,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bf1f8a22086cd387",
@@ -357,7 +520,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9815ca7fad8966e6",
@@ -376,7 +541,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9acea54dc578585b",
@@ -395,7 +562,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "346c136b1fcb89fd",
@@ -414,7 +583,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "30a1404ccb448aa3",
@@ -433,7 +604,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e93ded4963b95dcf",
@@ -452,7 +625,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2b57dc3c8201034d",
@@ -471,7 +646,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9230671d60b0ef7d",
@@ -490,7 +667,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4d452a370b9f0fb5",
@@ -509,7 +688,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9d453f5c0261c7e3",
@@ -528,7 +709,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "040c5779aa5ee657",
@@ -547,7 +730,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "98501f631ad5e09b",
@@ -559,14 +744,79 @@
       "messageCount": 3516,
       "lastActiveAt": "2026-08-30T03:03:05.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 3,516 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "俄挺",
+        "引体",
+        "前水平",
+        "倒立",
+        "双力臂",
+        "力量训练",
+        "深蹲",
+        "卧推",
+        "力量举"
+      ],
+      "topics": [
+        "calisthenics",
+        "strength"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练、力量训练与力量举；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "技能突破"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练、力量训练与力量举；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破相关意向。",
+        "analyzedMessages": 759,
+        "firstAt": "2025-07-14T14:56:09.000Z",
+        "lastAt": "2026-08-30T02:55:01.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "俄挺",
+              "引体",
+              "前水平",
+              "倒立",
+              "双力臂"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 60,
+            "dayCount": 25,
+            "firstAt": "2025-07-14T15:05:12.000Z",
+            "lastAt": "2026-04-24T08:41:46.000Z"
+          },
+          {
+            "id": "strength",
+            "name": "力量训练与力量举",
+            "keywords": [
+              "力量训练",
+              "深蹲",
+              "卧推",
+              "力量举"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 8,
+            "dayCount": 7,
+            "firstAt": "2025-09-09T10:06:23.000Z",
+            "lastAt": "2025-12-04T07:54:28.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "技能突破",
+            "messageCount": 2,
+            "dayCount": 2,
+            "firstAt": "2025-07-29T11:09:23.000Z",
+            "lastAt": "2025-09-08T07:13:56.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "e4bc19a3e0a54ad3",
@@ -578,14 +828,43 @@
       "messageCount": 332,
       "lastActiveAt": "2026-06-05T06:37:01.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 332 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "单杠",
+        "引体"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 124,
+        "firstAt": "2025-07-12T07:01:53.000Z",
+        "lastAt": "2026-06-02T08:40:40.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "单杠",
+              "引体"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 3,
+            "firstAt": "2025-08-28T06:54:24.000Z",
+            "lastAt": "2025-12-22T13:38:11.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "b35118ca07abe9c0",
@@ -604,7 +883,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "488201e13d5c67d1",
@@ -623,7 +904,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "69308798e4064ab8",
@@ -642,7 +925,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8812e1f982031639",
@@ -661,7 +946,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d99f50e13d4a00d5",
@@ -680,7 +967,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3a171505228dca8a",
@@ -699,7 +988,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4d7190c3d4a5f2bb",
@@ -718,7 +1009,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b4a934e086cb0d34",
@@ -737,7 +1030,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ef78169a67013e28",
@@ -756,7 +1051,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d4d2eea7010e7940",
@@ -775,7 +1072,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8697f8caafa65252",
@@ -787,14 +1086,43 @@
       "messageCount": 124,
       "lastActiveAt": "2025-10-18T11:59:01.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 124 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "街健",
+        "倒立"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 72,
+        "firstAt": "2025-08-01T03:27:29.000Z",
+        "lastAt": "2025-10-18T11:58:59.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "街健",
+              "倒立"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 3,
+            "firstAt": "2025-08-01T03:28:39.000Z",
+            "lastAt": "2025-09-17T12:29:46.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "b76d408d3f9c5c57",
@@ -806,14 +1134,45 @@
       "messageCount": 46,
       "lastActiveAt": "2026-07-21T10:11:50.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 46 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "倒立",
+        "引体",
+        "双力臂"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 20,
+        "firstAt": "2025-07-17T03:27:22.000Z",
+        "lastAt": "2026-07-21T10:11:50.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "倒立",
+              "引体",
+              "双力臂"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 3,
+            "firstAt": "2025-09-02T12:34:38.000Z",
+            "lastAt": "2025-12-03T12:53:15.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "a91f2fcdf0b610e1",
@@ -832,7 +1191,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1cf94f72a6358179",
@@ -851,7 +1212,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f7d2eb568e235b06",
@@ -870,7 +1233,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b5fac5a37df86dc4",
@@ -889,7 +1254,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7e12e8528e15bd82",
@@ -908,7 +1275,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2d5cae158fb78eb8",
@@ -927,7 +1296,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c8f9b0dfd6dd9a57",
@@ -946,7 +1317,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1ff555460d24d19c",
@@ -965,7 +1338,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "54eaa6ae8995f6ed",
@@ -984,7 +1359,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f6d0f83f71391026",
@@ -1003,7 +1380,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e51db3afbd8e5775",
@@ -1022,7 +1401,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4d9885e71c9183ea",
@@ -1041,7 +1422,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0460fc7b517a2beb",
@@ -1053,14 +1436,95 @@
       "messageCount": 393,
       "lastActiveAt": "2026-08-16T20:20:12.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 393 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "倒立",
+        "街健",
+        "引体",
+        "双力臂",
+        "双杠",
+        "瑜伽",
+        "柔韧",
+        "普拉提",
+        "卧推",
+        "深蹲",
+        "硬拉"
+      ],
+      "topics": [
+        "calisthenics",
+        "mobility",
+        "strength"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练、瑜伽与柔韧训练、力量训练与力量举；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "技能突破"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练、瑜伽与柔韧训练、力量训练与力量举；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破相关意向。",
+        "analyzedMessages": 217,
+        "firstAt": "2025-10-22T13:11:07.000Z",
+        "lastAt": "2026-08-13T16:28:28.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "倒立",
+              "街健",
+              "引体",
+              "双力臂",
+              "双杠"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 32,
+            "dayCount": 10,
+            "firstAt": "2025-10-22T13:13:48.000Z",
+            "lastAt": "2026-04-19T08:59:37.000Z"
+          },
+          {
+            "id": "mobility",
+            "name": "瑜伽与柔韧训练",
+            "keywords": [
+              "瑜伽",
+              "柔韧",
+              "普拉提"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 19,
+            "dayCount": 3,
+            "firstAt": "2025-10-22T13:15:39.000Z",
+            "lastAt": "2025-12-03T14:42:32.000Z"
+          },
+          {
+            "id": "strength",
+            "name": "力量训练与力量举",
+            "keywords": [
+              "卧推",
+              "深蹲",
+              "硬拉"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 7,
+            "dayCount": 5,
+            "firstAt": "2025-10-22T13:31:54.000Z",
+            "lastAt": "2026-04-19T08:59:37.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "技能突破",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-11-25T13:53:41.000Z",
+            "lastAt": "2025-11-25T13:53:41.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "c364841cd87f2a5d",
@@ -1079,11 +1543,34 @@
       "topics": [
         "calisthenics"
       ],
-      "summary": "本群可见记录中有 167 条发言，暂未整理到明确自我介绍。",
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 81,
+        "firstAt": "2026-02-23T14:26:18.000Z",
+        "lastAt": "2026-08-05T10:38:14.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 2,
+            "firstAt": "2026-02-26T01:23:54.000Z",
+            "lastAt": "2026-07-16T07:53:45.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "f993defcf8cabc1f",
@@ -1102,7 +1589,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c2e4a828fa54d4b7",
@@ -1121,7 +1610,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "fbec8b140eba77e0",
@@ -1140,7 +1631,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "fb3700894e98a512",
@@ -1159,7 +1652,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d7ad2d2cd5cf4c21",
@@ -1178,7 +1673,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "fd1f0de5d6100335",
@@ -1197,7 +1694,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8e16fbd3628c6e37",
@@ -1216,7 +1715,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "15c7f490debc16bb",
@@ -1228,14 +1729,59 @@
       "messageCount": 250,
       "lastActiveAt": "2026-10-08T13:01:18.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 250 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "俄挺",
+        "前水平",
+        "引体",
+        "街健",
+        "自重训练"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。发言中曾表达过增肌相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "增肌"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。发言中曾表达过增肌相关意向。",
+        "analyzedMessages": 135,
+        "firstAt": "2025-07-17T03:07:13.000Z",
+        "lastAt": "2026-07-21T09:31:49.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "俄挺",
+              "前水平",
+              "引体",
+              "街健",
+              "自重训练"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 15,
+            "dayCount": 12,
+            "firstAt": "2025-07-20T08:45:55.000Z",
+            "lastAt": "2026-07-21T09:29:26.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "增肌",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-08-19T09:52:40.000Z",
+            "lastAt": "2025-08-19T09:52:40.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "78493d340237c35c",
@@ -1254,7 +1800,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9318878e1b26331a",
@@ -1273,7 +1821,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6786481d06bbf841",
@@ -1292,7 +1842,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "dc1ce05f81511e1f",
@@ -1304,14 +1856,49 @@
       "messageCount": 155,
       "lastActiveAt": "2026-07-02T05:59:08.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 155 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体",
+        "双力臂",
+        "街健",
+        "单杠",
+        "倒立"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 82,
+        "firstAt": "2025-08-08T14:16:27.000Z",
+        "lastAt": "2025-09-24T16:28:50.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体",
+              "双力臂",
+              "街健",
+              "单杠",
+              "倒立"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 16,
+            "dayCount": 3,
+            "firstAt": "2025-08-08T14:16:27.000Z",
+            "lastAt": "2025-09-24T16:28:50.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "0fa55b67b62eaa89",
@@ -1330,7 +1917,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "89995fb52f3cf343",
@@ -1349,7 +1938,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "eb9d18d3382a0186",
@@ -1361,14 +1952,41 @@
       "messageCount": 145,
       "lastActiveAt": "2025-10-13T08:53:16.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 145 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 112,
+        "firstAt": "2025-07-19T13:12:08.000Z",
+        "lastAt": "2025-10-13T08:53:16.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 7,
+            "dayCount": 3,
+            "firstAt": "2025-09-17T09:00:06.000Z",
+            "lastAt": "2025-10-13T08:44:14.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "c3c30cae6d66c77d",
@@ -1387,7 +2005,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e6461c12226a5762",
@@ -1406,7 +2026,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "33d6f4f30cdc9a9d",
@@ -1418,14 +2040,45 @@
       "messageCount": 83,
       "lastActiveAt": "2026-02-07T10:20:52.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 83 条发言，暂未整理到明确自我介绍。",
+      "topic": "strength",
+      "tags": [
+        "力量训练",
+        "硬拉",
+        "力量举"
+      ],
+      "topics": [
+        "strength"
+      ],
+      "summary": "根据发言推测：可能关注力量训练与力量举；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注力量训练与力量举；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 49,
+        "firstAt": "2025-07-31T15:14:01.000Z",
+        "lastAt": "2026-02-07T10:20:48.000Z",
+        "topics": [
+          {
+            "id": "strength",
+            "name": "力量训练与力量举",
+            "keywords": [
+              "力量训练",
+              "硬拉",
+              "力量举"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 2,
+            "firstAt": "2025-08-05T15:32:12.000Z",
+            "lastAt": "2025-09-20T14:12:11.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "e27ceb8959ce445e",
@@ -1444,7 +2097,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ca01ca1ea00ad8aa",
@@ -1463,7 +2118,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c2c92a4c46ef7817",
@@ -1482,7 +2139,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "15bbfb6fa50e1f2d",
@@ -1501,7 +2160,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4e32e971f8c58904",
@@ -1513,14 +2174,61 @@
       "messageCount": 144,
       "lastActiveAt": "2026-10-05T05:08:15.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 144 条发言，暂未整理到明确自我介绍。",
+      "topic": "strength",
+      "tags": [
+        "深蹲",
+        "卧推",
+        "硬拉",
+        "引体",
+        "双杠"
+      ],
+      "topics": [
+        "strength",
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注力量训练与力量举、街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注力量训练与力量举、街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 71,
+        "firstAt": "2025-07-21T13:24:30.000Z",
+        "lastAt": "2026-10-05T05:08:15.000Z",
+        "topics": [
+          {
+            "id": "strength",
+            "name": "力量训练与力量举",
+            "keywords": [
+              "深蹲",
+              "卧推",
+              "硬拉"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 10,
+            "dayCount": 7,
+            "firstAt": "2025-10-02T10:55:41.000Z",
+            "lastAt": "2026-10-05T05:08:15.000Z"
+          },
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体",
+              "双杠"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 9,
+            "dayCount": 9,
+            "firstAt": "2025-07-21T13:24:30.000Z",
+            "lastAt": "2026-10-05T05:08:15.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "ad7b7aee47c3fcc8",
@@ -1539,7 +2247,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "27100b18f0ad3fc5",
@@ -1558,7 +2268,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d6d205625e034e6d",
@@ -1577,7 +2289,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c5d30ffc4c4995a6",
@@ -1596,7 +2310,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "fcbdd3bdabfc4479",
@@ -1615,7 +2331,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0ae072fa1f42e417",
@@ -1634,7 +2352,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c584e95e50cedfb0",
@@ -1653,7 +2373,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0d427c90f5d23808",
@@ -1672,7 +2394,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "caa8d486ba63a0fd",
@@ -1691,7 +2415,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6d0283a10d69cd8c",
@@ -1710,7 +2436,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c33d6d07ba3fbb2b",
@@ -1729,7 +2457,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0811e5253ab4f9d8",
@@ -1748,7 +2478,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d70cb9085807b671",
@@ -1767,7 +2499,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bc4726316b786c41",
@@ -1786,7 +2520,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "62d94941e215e41c",
@@ -1805,7 +2541,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "340f78ae3d1caa68",
@@ -1817,14 +2555,57 @@
       "messageCount": 166,
       "lastActiveAt": "2025-10-17T10:29:11.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 166 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体",
+        "双力臂",
+        "俄挺",
+        "前水平"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "技能突破"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破相关意向。",
+        "analyzedMessages": 72,
+        "firstAt": "2025-08-26T12:24:54.000Z",
+        "lastAt": "2025-10-17T10:29:11.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体",
+              "双力臂",
+              "俄挺",
+              "前水平"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 4,
+            "dayCount": 4,
+            "firstAt": "2025-09-10T04:24:30.000Z",
+            "lastAt": "2025-10-09T00:36:14.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "技能突破",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-09-10T04:24:30.000Z",
+            "lastAt": "2025-09-10T04:24:30.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "1690efe21a811135",
@@ -1836,14 +2617,43 @@
       "messageCount": 66,
       "lastActiveAt": "2025-12-31T11:27:52.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 66 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体",
+        "双力臂"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 43,
+        "firstAt": "2025-10-14T10:08:08.000Z",
+        "lastAt": "2025-12-31T11:27:37.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体",
+              "双力臂"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 4,
+            "dayCount": 4,
+            "firstAt": "2025-10-30T14:02:26.000Z",
+            "lastAt": "2025-12-15T07:20:32.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "7271d0685f901839",
@@ -1862,7 +2672,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e39895f9049fcb7a",
@@ -1881,7 +2693,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0f6641182d1811f1",
@@ -1900,7 +2714,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b7fc39cc5c0da299",
@@ -1919,7 +2735,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "85edbec48e90f0be",
@@ -1938,7 +2756,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "fc999137d1da2395",
@@ -1957,7 +2777,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "22975109b1beb2cd",
@@ -1969,14 +2791,85 @@
       "messageCount": 2090,
       "lastActiveAt": "2026-06-08T01:53:29.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 2,090 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体",
+        "前水平",
+        "双力臂",
+        "倒立",
+        "单杠",
+        "健美",
+        "健体",
+        "力量训练",
+        "卧推",
+        "深蹲",
+        "撸铁"
+      ],
+      "topics": [
+        "calisthenics",
+        "bodybuilding",
+        "strength"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练、健美与塑形、力量训练与力量举；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练、健美与塑形、力量训练与力量举；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 1408,
+        "firstAt": "2025-08-01T11:04:32.000Z",
+        "lastAt": "2026-06-08T01:53:29.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体",
+              "前水平",
+              "双力臂",
+              "倒立",
+              "单杠"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 21,
+            "dayCount": 10,
+            "firstAt": "2025-08-02T02:11:03.000Z",
+            "lastAt": "2025-10-25T14:39:53.000Z"
+          },
+          {
+            "id": "bodybuilding",
+            "name": "健美与塑形",
+            "keywords": [
+              "健美",
+              "健体"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 7,
+            "dayCount": 2,
+            "firstAt": "2025-10-05T14:02:05.000Z",
+            "lastAt": "2025-10-13T05:38:17.000Z"
+          },
+          {
+            "id": "strength",
+            "name": "力量训练与力量举",
+            "keywords": [
+              "力量训练",
+              "卧推",
+              "深蹲",
+              "撸铁"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 6,
+            "dayCount": 6,
+            "firstAt": "2025-09-30T15:57:42.000Z",
+            "lastAt": "2025-11-20T14:55:00.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "34ae4a1b85f8f6d1",
@@ -1995,7 +2888,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ba72ea6f971df50a",
@@ -2014,7 +2909,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "68aa500642f328ad",
@@ -2033,7 +2930,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9a63182daa7ff00f",
@@ -2052,7 +2951,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3365be4abf05a30e",
@@ -2071,7 +2972,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "58dd73e97527d213",
@@ -2090,7 +2993,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9f1870d8398d6636",
@@ -2109,7 +3014,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f1d0d901a8c00194",
@@ -2128,7 +3035,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1c83d9a394fa01b1",
@@ -2147,7 +3056,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3d2ac2eed41637fc",
@@ -2166,7 +3077,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "13d8720c2b695c1e",
@@ -2178,14 +3091,109 @@
       "messageCount": 798,
       "lastActiveAt": "2026-05-04T06:26:29.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 798 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体",
+        "双力臂",
+        "前水平",
+        "双杠",
+        "单杠",
+        "深蹲",
+        "力量训练",
+        "举重",
+        "力量举",
+        "卧推",
+        "健美",
+        "瑜伽"
+      ],
+      "topics": [
+        "calisthenics",
+        "strength",
+        "bodybuilding",
+        "mobility"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练、力量训练与力量举、健美与塑形；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "技能突破"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练、力量训练与力量举、健美与塑形；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破相关意向。",
+        "analyzedMessages": 375,
+        "firstAt": "2025-08-07T12:39:39.000Z",
+        "lastAt": "2026-04-13T13:38:21.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体",
+              "双力臂",
+              "前水平",
+              "双杠",
+              "单杠"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 15,
+            "dayCount": 6,
+            "firstAt": "2025-08-07T12:39:39.000Z",
+            "lastAt": "2026-02-21T10:07:59.000Z"
+          },
+          {
+            "id": "strength",
+            "name": "力量训练与力量举",
+            "keywords": [
+              "深蹲",
+              "力量训练",
+              "举重",
+              "力量举",
+              "卧推"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 7,
+            "dayCount": 4,
+            "firstAt": "2025-08-17T14:18:53.000Z",
+            "lastAt": "2026-03-07T02:00:29.000Z"
+          },
+          {
+            "id": "bodybuilding",
+            "name": "健美与塑形",
+            "keywords": [
+              "健美"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 1,
+            "firstAt": "2025-08-26T09:20:17.000Z",
+            "lastAt": "2025-08-26T09:22:28.000Z"
+          },
+          {
+            "id": "mobility",
+            "name": "瑜伽与柔韧训练",
+            "keywords": [
+              "瑜伽"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-08-26T07:48:21.000Z",
+            "lastAt": "2025-08-26T07:48:21.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "技能突破",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-08-07T14:30:29.000Z",
+            "lastAt": "2025-08-07T14:30:29.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "d928d7bce39003a2",
@@ -2204,7 +3212,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3012b95f9d2719f1",
@@ -2223,7 +3233,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1b3015cfbd37a98e",
@@ -2242,7 +3254,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4c30074f1c87500e",
@@ -2261,7 +3275,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6201b4fd6b988d9e",
@@ -2280,7 +3296,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "82a5c6648df2720c",
@@ -2299,7 +3317,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3bbeeba9e6eba1ed",
@@ -2318,7 +3338,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "82dd9c5c24f2ceb0",
@@ -2330,14 +3352,49 @@
       "messageCount": 190,
       "lastActiveAt": "2026-07-12T09:17:39.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 190 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体",
+        "双杠",
+        "俄挺",
+        "双力臂",
+        "前水平"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 85,
+        "firstAt": "2025-08-12T09:19:06.000Z",
+        "lastAt": "2026-01-30T11:00:53.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体",
+              "双杠",
+              "俄挺",
+              "双力臂",
+              "前水平"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 18,
+            "dayCount": 12,
+            "firstAt": "2025-08-17T07:54:48.000Z",
+            "lastAt": "2025-09-09T10:03:46.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "48d1f45188a0341e",
@@ -2356,7 +3413,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f2cb2cc17e25571a",
@@ -2368,14 +3427,41 @@
       "messageCount": 30,
       "lastActiveAt": "2026-06-13T14:15:13.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 30 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 19,
+        "firstAt": "2025-08-12T07:48:26.000Z",
+        "lastAt": "2026-06-13T14:15:13.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 1,
+            "firstAt": "2025-08-26T13:29:03.000Z",
+            "lastAt": "2025-08-26T13:39:15.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "32c1816b9bd634b4",
@@ -2387,14 +3473,45 @@
       "messageCount": 202,
       "lastActiveAt": "2026-09-09T14:41:18.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 202 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "俄挺",
+        "双力臂",
+        "引体"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 101,
+        "firstAt": "2025-08-21T10:10:47.000Z",
+        "lastAt": "2026-09-09T14:16:42.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "俄挺",
+              "双力臂",
+              "引体"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 14,
+            "dayCount": 8,
+            "firstAt": "2025-09-16T01:58:53.000Z",
+            "lastAt": "2026-09-09T14:16:42.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "565bcb256bd2cb74",
@@ -2406,14 +3523,41 @@
       "messageCount": 38,
       "lastActiveAt": "2026-08-30T04:08:20.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 38 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 12,
+        "firstAt": "2025-08-24T02:38:29.000Z",
+        "lastAt": "2026-08-30T04:08:13.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 2,
+            "dayCount": 2,
+            "firstAt": "2025-08-24T02:38:29.000Z",
+            "lastAt": "2026-07-26T12:44:04.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "53070891f0f590bb",
@@ -2432,7 +3576,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "91c71168b576d867",
@@ -2451,7 +3597,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "949c2a6fdec5438f",
@@ -2470,7 +3618,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ccd94d912a7dd2be",
@@ -2489,7 +3639,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f910afd03e97cba1",
@@ -2508,7 +3660,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "cd334685d66a2f02",
@@ -2527,7 +3681,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "421e51373c2f2fa3",
@@ -2546,7 +3702,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3f3eb8a6dd075f2a",
@@ -2565,7 +3723,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "79057b2cce729e6a",
@@ -2584,7 +3744,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d7196ed89a39e143",
@@ -2603,7 +3765,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7fa2ddf4f80e7488",
@@ -2622,7 +3786,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7172b972265a8630",
@@ -2641,7 +3807,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a28a1230b3584131",
@@ -2660,7 +3828,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3534ae68eb3f7ed8",
@@ -2679,7 +3849,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "82849c56d7692771",
@@ -2698,7 +3870,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d948a70bc527b626",
@@ -2710,14 +3884,53 @@
       "messageCount": 18,
       "lastActiveAt": "2026-05-05T03:15:06.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 18 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体",
+        "双力臂"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "技能突破"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破相关意向。",
+        "analyzedMessages": 9,
+        "firstAt": "2025-08-24T12:38:12.000Z",
+        "lastAt": "2026-05-05T03:15:06.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体",
+              "双力臂"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 2,
+            "dayCount": 1,
+            "firstAt": "2025-11-01T10:22:09.000Z",
+            "lastAt": "2025-11-01T10:23:40.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "技能突破",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-11-01T10:22:09.000Z",
+            "lastAt": "2025-11-01T10:22:09.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "38118fb1d8ad2eb3",
@@ -2736,7 +3949,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a778ec39cfc2a35a",
@@ -2755,7 +3970,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "152f05ab2f486e19",
@@ -2774,7 +3991,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a71c26d9b11dbeb9",
@@ -2793,7 +4012,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a78a28248f685f2b",
@@ -2812,7 +4033,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "44529c822ec005ac",
@@ -2831,7 +4054,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f293c307edd2e606",
@@ -2843,14 +4068,55 @@
       "messageCount": 7291,
       "lastActiveAt": "2026-02-16T14:25:12.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 7,291 条发言，暂未整理到明确自我介绍。",
+      "topic": "swimming",
+      "tags": [
+        "游泳",
+        "健美"
+      ],
+      "topics": [
+        "swimming",
+        "bodybuilding"
+      ],
+      "summary": "根据发言推测：可能关注游泳与水上运动、健美与塑形；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注游泳与水上运动、健美与塑形；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 772,
+        "firstAt": "2025-08-26T05:20:43.000Z",
+        "lastAt": "2025-12-03T15:37:14.000Z",
+        "topics": [
+          {
+            "id": "swimming",
+            "name": "游泳与水上运动",
+            "keywords": [
+              "游泳"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 6,
+            "dayCount": 3,
+            "firstAt": "2025-08-26T09:26:16.000Z",
+            "lastAt": "2025-10-23T05:33:06.000Z"
+          },
+          {
+            "id": "bodybuilding",
+            "name": "健美与塑形",
+            "keywords": [
+              "健美"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-10-27T13:57:26.000Z",
+            "lastAt": "2025-10-27T13:57:26.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "8e8dddf88f229503",
@@ -2869,7 +4135,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0f08daaf4ec758b3",
@@ -2888,7 +4156,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0b1a7276dcfad59e",
@@ -2907,7 +4177,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6f6d282d87135d6e",
@@ -2919,14 +4191,103 @@
       "messageCount": 732,
       "lastActiveAt": "2026-07-08T13:24:24.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 732 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体",
+        "倒立",
+        "双力臂",
+        "俄挺",
+        "单杠",
+        "卧推",
+        "力量训练",
+        "力量举",
+        "深蹲",
+        "硬拉",
+        "游泳"
+      ],
+      "topics": [
+        "calisthenics",
+        "strength",
+        "swimming"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练、力量训练与力量举、游泳与水上运动；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破、耐力 / 运动表现相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "技能突破",
+        "耐力 / 运动表现"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练、力量训练与力量举、游泳与水上运动；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破、耐力 / 运动表现相关意向。",
+        "analyzedMessages": 450,
+        "firstAt": "2025-08-29T05:01:21.000Z",
+        "lastAt": "2026-07-08T13:24:24.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体",
+              "倒立",
+              "双力臂",
+              "俄挺",
+              "单杠"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 89,
+            "dayCount": 36,
+            "firstAt": "2025-08-29T05:01:21.000Z",
+            "lastAt": "2026-07-02T12:39:22.000Z"
+          },
+          {
+            "id": "strength",
+            "name": "力量训练与力量举",
+            "keywords": [
+              "卧推",
+              "力量训练",
+              "力量举",
+              "深蹲",
+              "硬拉"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 14,
+            "dayCount": 8,
+            "firstAt": "2025-08-29T14:16:17.000Z",
+            "lastAt": "2026-05-03T14:10:57.000Z"
+          },
+          {
+            "id": "swimming",
+            "name": "游泳与水上运动",
+            "keywords": [
+              "游泳"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 2,
+            "firstAt": "2026-04-19T09:13:11.000Z",
+            "lastAt": "2026-04-30T06:50:23.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "技能突破",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-12-02T11:33:52.000Z",
+            "lastAt": "2025-12-02T11:33:52.000Z"
+          },
+          {
+            "name": "耐力 / 运动表现",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-09-10T12:03:12.000Z",
+            "lastAt": "2025-09-10T12:03:12.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "f794b1b23f98d9bb",
@@ -2945,7 +4306,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3ac0baeb29114592",
@@ -2964,7 +4327,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a7a7328362a68fd5",
@@ -2983,7 +4348,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "92c47934795b3f07",
@@ -3002,7 +4369,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e2a2aaaa112c08b1",
@@ -3021,7 +4390,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c4f032e9e18009b8",
@@ -3040,7 +4411,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7a527dca8838a06c",
@@ -3059,7 +4432,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "182735ab58fdc41c",
@@ -3078,7 +4453,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "23b31a63ece2ff34",
@@ -3097,7 +4474,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "793f0ad53b1ec8a9",
@@ -3116,7 +4495,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "075b1f13a8ee796a",
@@ -3135,7 +4516,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8f9cf68a8b93f658",
@@ -3154,7 +4537,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7d1e56857ec433f8",
@@ -3173,7 +4558,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ab5da8e098d86eb3",
@@ -3192,7 +4579,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8cc5a9c1b264ce9b",
@@ -3211,7 +4600,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "857824bbb4551937",
@@ -3230,7 +4621,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "76fbf19cf78a19f3",
@@ -3249,7 +4642,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f1605a60a2dc875d",
@@ -3268,7 +4663,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c36582834024fb16",
@@ -3287,7 +4684,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "348c72e56fd7a535",
@@ -3306,7 +4705,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1cd48cf87bde0133",
@@ -3325,7 +4726,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2c9e70248ef0bdc6",
@@ -3344,7 +4747,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f9a2c4baffd2db62",
@@ -3363,7 +4768,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "be9fe56ed375ef1c",
@@ -3382,7 +4789,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d838b21b0cf45569",
@@ -3401,7 +4810,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e7bfe5040b56991f",
@@ -3420,7 +4831,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c8a50ecb1c26812f",
@@ -3439,7 +4852,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b5cb4c9482d213ca",
@@ -3458,7 +4873,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4915d4072abd1c9b",
@@ -3477,7 +4894,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "db79a9194db860aa",
@@ -3489,14 +4908,57 @@
       "messageCount": 619,
       "lastActiveAt": "2026-09-27T03:43:11.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 619 条发言，暂未整理到明确自我介绍。",
+      "topic": "running",
+      "tags": [
+        "跑步",
+        "单杠",
+        "引体"
+      ],
+      "topics": [
+        "running",
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注跑步与耐力运动、街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注跑步与耐力运动、街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 381,
+        "firstAt": "2025-09-06T07:08:49.000Z",
+        "lastAt": "2026-09-27T03:43:11.000Z",
+        "topics": [
+          {
+            "id": "running",
+            "name": "跑步与耐力运动",
+            "keywords": [
+              "跑步"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 10,
+            "dayCount": 2,
+            "firstAt": "2026-03-26T03:41:38.000Z",
+            "lastAt": "2026-05-08T12:59:39.000Z"
+          },
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "单杠",
+              "引体"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 2,
+            "firstAt": "2026-07-16T07:53:37.000Z",
+            "lastAt": "2026-07-27T07:47:13.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "1d48db50a5b7a934",
@@ -3515,7 +4977,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6566ddaaf866cb8a",
@@ -3534,7 +4998,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9bb7ebdd32d1ac30",
@@ -3553,7 +5019,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d3561de529c976dd",
@@ -3572,7 +5040,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "40e8ac0e1dc40bad",
@@ -3591,7 +5061,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "dc63599a37004609",
@@ -3610,7 +5082,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0e29350ba12a7e73",
@@ -3629,7 +5103,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9a434e088a412b7b",
@@ -3648,7 +5124,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0ed7e473c4cf7a47",
@@ -3667,7 +5145,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "073240b6d35e4af1",
@@ -3686,7 +5166,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0c9729110bd32575",
@@ -3705,7 +5187,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3a492a4ec20a0364",
@@ -3720,11 +5204,31 @@
       "topic": "other",
       "tags": [],
       "topics": [],
-      "summary": "本群可见记录中有 301 条发言，暂未整理到明确自我介绍。",
+      "summary": "根据发言推测：发言中曾表达过增肌相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "增肌"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "发言中曾表达过增肌相关意向。",
+        "analyzedMessages": 174,
+        "firstAt": "2025-09-07T08:22:50.000Z",
+        "lastAt": "2026-10-03T04:29:56.000Z",
+        "topics": [],
+        "goals": [
+          {
+            "name": "增肌",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-05-06T13:42:03.000Z",
+            "lastAt": "2026-05-06T13:42:03.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "aceb0a9af8964bd9",
@@ -3743,7 +5247,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9a1fe34e3a0d03f8",
@@ -3762,7 +5268,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3113d53c3ee1bf0e",
@@ -3781,7 +5289,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "09a4563c0710981b",
@@ -3800,7 +5310,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1182adccd97e735d",
@@ -3819,7 +5331,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ee9c0e88a07d793a",
@@ -3838,7 +5352,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "43b93432ef2ec128",
@@ -3857,7 +5373,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "21496cf00a5a0cd8",
@@ -3876,7 +5394,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "76bbc95c6a379b9c",
@@ -3895,7 +5415,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a27075a1173224a5",
@@ -3914,7 +5436,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "894f8051c1329fec",
@@ -3933,7 +5457,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b1887ce444befd2a",
@@ -3952,7 +5478,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "655ad05f27fd8c18",
@@ -3971,7 +5499,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bf597b2e5a6ccac7",
@@ -3990,7 +5520,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "cfa9251b22f0384f",
@@ -4002,14 +5534,87 @@
       "messageCount": 285,
       "lastActiveAt": "2026-08-20T04:59:40.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 285 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体",
+        "双杠",
+        "双力臂",
+        "俄挺",
+        "街健",
+        "卧推",
+        "跑步"
+      ],
+      "topics": [
+        "calisthenics",
+        "strength",
+        "running"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练、力量训练与力量举、跑步与耐力运动；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "技能突破"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练、力量训练与力量举、跑步与耐力运动；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破相关意向。",
+        "analyzedMessages": 175,
+        "firstAt": "2025-09-14T11:34:11.000Z",
+        "lastAt": "2026-08-20T04:59:40.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体",
+              "双杠",
+              "双力臂",
+              "俄挺",
+              "街健"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 29,
+            "dayCount": 12,
+            "firstAt": "2025-09-17T02:37:01.000Z",
+            "lastAt": "2026-07-26T13:34:37.000Z"
+          },
+          {
+            "id": "strength",
+            "name": "力量训练与力量举",
+            "keywords": [
+              "卧推"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 8,
+            "dayCount": 3,
+            "firstAt": "2025-09-17T08:42:20.000Z",
+            "lastAt": "2025-11-27T06:09:28.000Z"
+          },
+          {
+            "id": "running",
+            "name": "跑步与耐力运动",
+            "keywords": [
+              "跑步"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 1,
+            "firstAt": "2025-11-27T05:32:38.000Z",
+            "lastAt": "2025-11-27T05:45:03.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "技能突破",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-02-08T14:32:15.000Z",
+            "lastAt": "2026-02-08T14:32:15.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "e9ff57b62f8cbb47",
@@ -4028,7 +5633,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f217045f34447d40",
@@ -4047,7 +5654,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "369f524fb6f180f1",
@@ -4066,7 +5675,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "dadcc9885e028ff9",
@@ -4085,7 +5696,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "94aca88e8421744f",
@@ -4104,7 +5717,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "28a00963ba33ef87",
@@ -4123,7 +5738,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bdace1d6d4732394",
@@ -4135,14 +5752,65 @@
       "messageCount": 391,
       "lastActiveAt": "2026-09-29T10:36:59.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 391 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体",
+        "俄挺",
+        "街健",
+        "街头健身",
+        "单杠",
+        "硬拉",
+        "力量举"
+      ],
+      "topics": [
+        "calisthenics",
+        "strength"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练、力量训练与力量举；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练、力量训练与力量举；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 197,
+        "firstAt": "2025-09-23T09:38:53.000Z",
+        "lastAt": "2026-08-25T06:07:20.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体",
+              "俄挺",
+              "街健",
+              "街头健身",
+              "单杠"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 20,
+            "dayCount": 10,
+            "firstAt": "2025-09-23T13:58:32.000Z",
+            "lastAt": "2026-08-08T08:40:46.000Z"
+          },
+          {
+            "id": "strength",
+            "name": "力量训练与力量举",
+            "keywords": [
+              "硬拉",
+              "力量举"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 2,
+            "firstAt": "2025-09-24T15:42:00.000Z",
+            "lastAt": "2026-07-11T14:24:17.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "70a6a1142ff4987a",
@@ -4154,14 +5822,65 @@
       "messageCount": 1040,
       "lastActiveAt": "2026-10-08T12:40:00.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 1,040 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "倒立",
+        "引体",
+        "双力臂",
+        "街健",
+        "单杠",
+        "深蹲",
+        "硬拉"
+      ],
+      "topics": [
+        "calisthenics",
+        "strength"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练、力量训练与力量举；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练、力量训练与力量举；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 484,
+        "firstAt": "2025-09-17T02:16:51.000Z",
+        "lastAt": "2026-09-09T13:46:44.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "倒立",
+              "引体",
+              "双力臂",
+              "街健",
+              "单杠"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 15,
+            "dayCount": 13,
+            "firstAt": "2025-09-25T02:21:11.000Z",
+            "lastAt": "2026-07-02T09:31:35.000Z"
+          },
+          {
+            "id": "strength",
+            "name": "力量训练与力量举",
+            "keywords": [
+              "深蹲",
+              "硬拉"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 3,
+            "firstAt": "2025-09-26T08:17:34.000Z",
+            "lastAt": "2025-10-29T09:41:20.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "9196e51751dec583",
@@ -4180,7 +5899,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f146bd9682b38dd8",
@@ -4199,7 +5920,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f9627442067908f1",
@@ -4218,7 +5941,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "800d16f638a3c9c1",
@@ -4237,7 +5962,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0bac7f43b7b4027e",
@@ -4249,14 +5976,65 @@
       "messageCount": 108,
       "lastActiveAt": "2026-04-21T07:52:39.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 108 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体",
+        "俄挺",
+        "倒立",
+        "街健",
+        "双力臂",
+        "举重",
+        "卧推"
+      ],
+      "topics": [
+        "calisthenics",
+        "strength"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练、力量训练与力量举；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练、力量训练与力量举；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 60,
+        "firstAt": "2025-10-04T02:49:36.000Z",
+        "lastAt": "2026-04-21T07:51:56.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体",
+              "俄挺",
+              "倒立",
+              "街健",
+              "双力臂"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 18,
+            "dayCount": 3,
+            "firstAt": "2025-10-04T02:49:36.000Z",
+            "lastAt": "2026-04-21T07:48:58.000Z"
+          },
+          {
+            "id": "strength",
+            "name": "力量训练与力量举",
+            "keywords": [
+              "举重",
+              "卧推"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 6,
+            "dayCount": 3,
+            "firstAt": "2025-12-01T09:14:44.000Z",
+            "lastAt": "2026-04-21T07:48:58.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "5102dc48218d38a8",
@@ -4275,7 +6053,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "efcc666caff71498",
@@ -4294,7 +6074,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "186562d2ecc7e988",
@@ -4313,7 +6095,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c65616e6029ff499",
@@ -4325,14 +6109,47 @@
       "messageCount": 150,
       "lastActiveAt": "2026-05-01T11:37:50.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 150 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "双杠",
+        "引体",
+        "倒立",
+        "双力臂"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 65,
+        "firstAt": "2025-09-21T09:04:36.000Z",
+        "lastAt": "2026-05-01T11:37:50.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "双杠",
+              "引体",
+              "倒立",
+              "双力臂"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 11,
+            "dayCount": 9,
+            "firstAt": "2025-09-24T15:35:32.000Z",
+            "lastAt": "2026-05-01T11:37:50.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "ade5dd15ae5467c5",
@@ -4351,7 +6168,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5989aa4a81de5197",
@@ -4370,7 +6189,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0b4a9e68dd5299ca",
@@ -4389,7 +6210,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5cd4bbd94d63f7cc",
@@ -4401,14 +6224,45 @@
       "messageCount": 131,
       "lastActiveAt": "2026-07-31T04:26:03.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 131 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "街健",
+        "引体",
+        "双力臂"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 89,
+        "firstAt": "2025-09-21T13:32:41.000Z",
+        "lastAt": "2026-07-31T04:26:03.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "街健",
+              "引体",
+              "双力臂"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 5,
+            "dayCount": 4,
+            "firstAt": "2025-09-21T13:45:46.000Z",
+            "lastAt": "2026-06-04T07:24:55.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "673aac40b057b304",
@@ -4427,7 +6281,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f65d13193475f095",
@@ -4446,7 +6302,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f7640e9169f111a7",
@@ -4465,7 +6323,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a81befaa9c31400b",
@@ -4484,7 +6344,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "21c1a55fffb39726",
@@ -4496,14 +6358,41 @@
       "messageCount": 192,
       "lastActiveAt": "2026-09-07T04:44:12.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 192 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 104,
+        "firstAt": "2025-09-23T09:27:38.000Z",
+        "lastAt": "2026-09-07T04:44:08.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 8,
+            "dayCount": 4,
+            "firstAt": "2025-09-23T09:27:38.000Z",
+            "lastAt": "2026-04-21T14:48:34.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "e84da1a7afd8f4d5",
@@ -4522,7 +6411,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "0019b206476531df",
@@ -4534,14 +6425,55 @@
       "messageCount": 2961,
       "lastActiveAt": "2026-04-16T08:30:56.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 2,961 条发言，暂未整理到明确自我介绍。",
+      "topic": "bodybuilding",
+      "tags": [
+        "健美",
+        "形体",
+        "健体"
+      ],
+      "topics": [
+        "bodybuilding"
+      ],
+      "summary": "根据发言推测：可能关注健美与塑形；这是根据群内讨论归纳的兴趣线索。发言中曾表达过耐力 / 运动表现相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "耐力 / 运动表现"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注健美与塑形；这是根据群内讨论归纳的兴趣线索。发言中曾表达过耐力 / 运动表现相关意向。",
+        "analyzedMessages": 1897,
+        "firstAt": "2025-09-24T15:55:33.000Z",
+        "lastAt": "2026-04-16T08:30:51.000Z",
+        "topics": [
+          {
+            "id": "bodybuilding",
+            "name": "健美与塑形",
+            "keywords": [
+              "健美",
+              "形体",
+              "健体"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 18,
+            "dayCount": 5,
+            "firstAt": "2025-09-24T15:55:33.000Z",
+            "lastAt": "2025-10-14T02:42:52.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "耐力 / 运动表现",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-10-14T02:12:18.000Z",
+            "lastAt": "2025-10-14T02:12:18.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "1043b4f02543130f",
@@ -4553,14 +6485,43 @@
       "messageCount": 94,
       "lastActiveAt": "2026-08-07T14:36:11.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 94 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "街健",
+        "引体"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 68,
+        "firstAt": "2025-10-20T04:23:48.000Z",
+        "lastAt": "2026-08-07T14:36:11.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "街健",
+              "引体"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 4,
+            "dayCount": 3,
+            "firstAt": "2025-11-06T06:39:40.000Z",
+            "lastAt": "2026-03-19T14:31:13.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "0209ec2d0ebfb644",
@@ -4579,7 +6540,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5ccd4efb9c635792",
@@ -4598,7 +6561,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "873e51b3e109eef8",
@@ -4617,7 +6582,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "291857d023bec979",
@@ -4636,7 +6603,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bd1b2691de6a6815",
@@ -4655,7 +6624,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "19fb55bb08aa950c",
@@ -4674,7 +6645,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "54eb58181465820c",
@@ -4693,7 +6666,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "48e288a9946ff931",
@@ -4712,7 +6687,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ffa2f0b56f08b37a",
@@ -4731,7 +6708,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "629d5ad0199f6f00",
@@ -4750,7 +6729,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "234767c68f58d3ed",
@@ -4762,14 +6743,43 @@
       "messageCount": 59,
       "lastActiveAt": "2025-11-22T13:17:47.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 59 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "双力臂",
+        "街健"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 16,
+        "firstAt": "2025-10-14T14:17:18.000Z",
+        "lastAt": "2025-11-21T13:15:26.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "双力臂",
+              "街健"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 2,
+            "dayCount": 2,
+            "firstAt": "2025-10-17T13:36:10.000Z",
+            "lastAt": "2025-11-21T13:14:31.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "85693e5254b3bfcb",
@@ -4788,7 +6798,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bddf385a62a9c763",
@@ -4807,7 +6819,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f0164238d6988918",
@@ -4826,7 +6840,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "20cea43777f56438",
@@ -4845,7 +6861,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8bb308fd4eb8cda6",
@@ -4864,7 +6882,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "dfee612c9abbb43f",
@@ -4883,7 +6903,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c4d80f0600eca6e7",
@@ -4902,7 +6924,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8f2cfce6cd08dcb6",
@@ -4921,7 +6945,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7483ca4b37e68e33",
@@ -4940,7 +6966,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d004b0eb357fcfa2",
@@ -4959,7 +6987,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8bb8237d86749f02",
@@ -4978,7 +7008,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "61b2ef9addedcfc8",
@@ -4990,14 +7022,61 @@
       "messageCount": 140,
       "lastActiveAt": "2026-08-17T14:08:10.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 140 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "街健",
+        "双杠",
+        "引体",
+        "深蹲",
+        "力量举"
+      ],
+      "topics": [
+        "calisthenics",
+        "strength"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练、力量训练与力量举；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练、力量训练与力量举；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 98,
+        "firstAt": "2025-10-13T04:51:37.000Z",
+        "lastAt": "2026-08-17T14:08:10.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "街健",
+              "双杠",
+              "引体"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 4,
+            "dayCount": 3,
+            "firstAt": "2025-10-15T07:51:26.000Z",
+            "lastAt": "2026-03-11T02:59:16.000Z"
+          },
+          {
+            "id": "strength",
+            "name": "力量训练与力量举",
+            "keywords": [
+              "深蹲",
+              "力量举"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 2,
+            "dayCount": 2,
+            "firstAt": "2025-10-14T02:22:02.000Z",
+            "lastAt": "2026-08-17T14:07:48.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "aed9219b75af39cf",
@@ -5026,7 +7105,30 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注户外与其他运动；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 20,
+        "firstAt": "2025-10-11T13:41:57.000Z",
+        "lastAt": "2026-08-22T04:51:06.000Z",
+        "topics": [
+          {
+            "id": "outdoor",
+            "name": "户外与其他运动",
+            "keywords": [
+              "武术"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 2,
+            "dayCount": 2,
+            "firstAt": "2025-10-11T13:52:05.000Z",
+            "lastAt": "2026-02-24T10:51:22.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "introduction"
     },
     {
       "id": "cc24b9f511856d0f",
@@ -5045,11 +7147,34 @@
       "topics": [
         "calisthenics"
       ],
-      "summary": "本群可见记录中有 51 条发言，暂未整理到明确自我介绍。",
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 22,
+        "firstAt": "2025-10-19T08:13:31.000Z",
+        "lastAt": "2026-08-08T16:19:46.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-08-07T14:45:53.000Z",
+            "lastAt": "2026-08-07T14:45:53.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "fcd456128fbdc8d4",
@@ -5068,7 +7193,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5758726673aacae3",
@@ -5087,7 +7214,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "412ef23315fae546",
@@ -5106,7 +7235,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "20521c5bc5a06b0f",
@@ -5125,7 +7256,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b23b4dbf70057694",
@@ -5144,7 +7277,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "db72d627a09748c6",
@@ -5163,7 +7298,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "68a8eefa33c92723",
@@ -5182,7 +7319,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "54ba45abd0105234",
@@ -5201,7 +7340,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ca000f3e7e81cecf",
@@ -5220,7 +7361,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "fd51b97a2756ca83",
@@ -5239,7 +7382,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a3989f9f5f419d7a",
@@ -5258,7 +7403,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a3f8b544ff9a4b1f",
@@ -5270,14 +7417,55 @@
       "messageCount": 257,
       "lastActiveAt": "2026-08-30T04:22:41.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 257 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体",
+        "双力臂",
+        "俄挺"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "技能突破"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破相关意向。",
+        "analyzedMessages": 124,
+        "firstAt": "2025-10-19T14:13:08.000Z",
+        "lastAt": "2026-07-11T15:05:32.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体",
+              "双力臂",
+              "俄挺"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 13,
+            "dayCount": 11,
+            "firstAt": "2025-10-19T14:17:02.000Z",
+            "lastAt": "2026-06-27T06:37:35.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "技能突破",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-02-22T13:56:53.000Z",
+            "lastAt": "2026-02-22T13:56:53.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "5a50afa73a9b0194",
@@ -5289,14 +7477,61 @@
       "messageCount": 371,
       "lastActiveAt": "2026-08-05T11:16:32.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 371 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "俄挺",
+        "引体",
+        "倒立",
+        "前水平",
+        "瑜伽"
+      ],
+      "topics": [
+        "calisthenics",
+        "mobility"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练、瑜伽与柔韧训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练、瑜伽与柔韧训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 102,
+        "firstAt": "2025-10-20T04:24:36.000Z",
+        "lastAt": "2026-08-05T11:16:17.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "俄挺",
+              "引体",
+              "倒立",
+              "前水平"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 9,
+            "dayCount": 5,
+            "firstAt": "2025-10-20T05:48:14.000Z",
+            "lastAt": "2025-11-26T15:27:55.000Z"
+          },
+          {
+            "id": "mobility",
+            "name": "瑜伽与柔韧训练",
+            "keywords": [
+              "瑜伽"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 2,
+            "dayCount": 1,
+            "firstAt": "2025-11-25T13:34:36.000Z",
+            "lastAt": "2025-11-25T13:38:27.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "8a9930c3d2c84a70",
@@ -5315,7 +7550,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f2b2d517ad5721b4",
@@ -5334,7 +7571,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "722b6bec5f5a4302",
@@ -5353,7 +7592,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "89b26009685969b1",
@@ -5372,7 +7613,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "444f74ac2ab45a4d",
@@ -5391,7 +7634,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3f5a1454cb9dcebb",
@@ -5410,7 +7655,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "659e7b5777489c3c",
@@ -5429,7 +7676,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6d671f7377187bbc",
@@ -5448,7 +7697,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "35b409fabfa2c21d",
@@ -5467,7 +7718,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e604a52cac93cd42",
@@ -5479,14 +7732,45 @@
       "messageCount": 151,
       "lastActiveAt": "2026-08-02T14:23:03.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 151 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "单杠",
+        "双杠",
+        "引体"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 99,
+        "firstAt": "2025-10-31T01:28:19.000Z",
+        "lastAt": "2026-08-02T14:22:58.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "单杠",
+              "双杠",
+              "引体"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 5,
+            "dayCount": 4,
+            "firstAt": "2025-12-21T03:10:30.000Z",
+            "lastAt": "2026-08-02T14:22:58.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "27d3a132ccdc56ad",
@@ -5505,7 +7789,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "84680e5d23c70634",
@@ -5524,7 +7810,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7ec1e43e29d97331",
@@ -5543,7 +7831,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7b589fa3638dbb94",
@@ -5562,7 +7852,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "637d112f59430768",
@@ -5581,7 +7873,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8cdc6a965105e7ee",
@@ -5600,7 +7894,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e07992d9fe44a442",
@@ -5619,7 +7915,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3ca0f61f8e7d6a59",
@@ -5638,7 +7936,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "00314a4f9c0537ee",
@@ -5657,7 +7957,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "54357a790913ab1d",
@@ -5669,14 +7971,41 @@
       "messageCount": 24,
       "lastActiveAt": "2025-11-23T14:51:13.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 24 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 12,
+        "firstAt": "2025-11-12T23:26:34.000Z",
+        "lastAt": "2025-11-23T14:51:10.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 2,
+            "dayCount": 1,
+            "firstAt": "2025-11-23T09:36:27.000Z",
+            "lastAt": "2025-11-23T09:37:11.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "372f1416ecad0d84",
@@ -5695,7 +8024,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2ca2d568d00ecccf",
@@ -5714,7 +8045,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "834e511d110cb9db",
@@ -5733,7 +8066,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e24b29741ac3fff0",
@@ -5745,14 +8080,57 @@
       "messageCount": 370,
       "lastActiveAt": "2026-05-11T15:36:31.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 370 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "倒立",
+        "引体",
+        "单杠",
+        "俄挺"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "技能突破"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破相关意向。",
+        "analyzedMessages": 134,
+        "firstAt": "2025-11-11T09:02:58.000Z",
+        "lastAt": "2026-05-11T15:35:50.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "倒立",
+              "引体",
+              "单杠",
+              "俄挺"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 17,
+            "dayCount": 10,
+            "firstAt": "2025-11-12T11:15:50.000Z",
+            "lastAt": "2026-04-21T07:29:48.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "技能突破",
+            "messageCount": 2,
+            "dayCount": 2,
+            "firstAt": "2025-11-14T09:46:33.000Z",
+            "lastAt": "2025-11-20T09:26:47.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "9eb7e28ff2182a8c",
@@ -5771,7 +8149,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b94355e06dae5e5a",
@@ -5790,7 +8170,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bf401339816bb02d",
@@ -5809,7 +8191,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e1ff74edd1af06a9",
@@ -5828,7 +8212,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "96d56bbea706e1a8",
@@ -5847,7 +8233,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "852371796fc22daf",
@@ -5866,7 +8254,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "066b9bef789dd21a",
@@ -5878,14 +8268,41 @@
       "messageCount": 105,
       "lastActiveAt": "2026-08-18T10:19:31.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 105 条发言，暂未整理到明确自我介绍。",
+      "topic": "mobility",
+      "tags": [
+        "拉伸"
+      ],
+      "topics": [
+        "mobility"
+      ],
+      "summary": "根据发言推测：可能关注瑜伽与柔韧训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注瑜伽与柔韧训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 74,
+        "firstAt": "2025-11-11T04:38:51.000Z",
+        "lastAt": "2026-08-18T10:19:31.000Z",
+        "topics": [
+          {
+            "id": "mobility",
+            "name": "瑜伽与柔韧训练",
+            "keywords": [
+              "拉伸"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-03-03T14:37:28.000Z",
+            "lastAt": "2026-03-03T14:37:28.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "bc91bf5a95c3d62f",
@@ -5904,7 +8321,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f04a37df0e6d9e7f",
@@ -5916,14 +8335,77 @@
       "messageCount": 985,
       "lastActiveAt": "2026-09-30T07:39:06.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 985 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体",
+        "双杠",
+        "俄挺",
+        "双力臂",
+        "单杠",
+        "举重",
+        "深蹲",
+        "卧推"
+      ],
+      "topics": [
+        "calisthenics",
+        "strength"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练、力量训练与力量举；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "技能突破"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练、力量训练与力量举；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破相关意向。",
+        "analyzedMessages": 382,
+        "firstAt": "2026-02-20T10:37:02.000Z",
+        "lastAt": "2026-09-30T06:57:43.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体",
+              "双杠",
+              "俄挺",
+              "双力臂",
+              "单杠"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 12,
+            "dayCount": 11,
+            "firstAt": "2026-02-24T11:19:49.000Z",
+            "lastAt": "2026-08-18T19:49:04.000Z"
+          },
+          {
+            "id": "strength",
+            "name": "力量训练与力量举",
+            "keywords": [
+              "举重",
+              "深蹲",
+              "卧推"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 3,
+            "firstAt": "2026-05-03T11:48:55.000Z",
+            "lastAt": "2026-08-10T10:30:24.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "技能突破",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-08-18T19:49:04.000Z",
+            "lastAt": "2026-08-18T19:49:04.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "f36253394a63c5f9",
@@ -5942,7 +8424,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "039465f0ce635253",
@@ -5954,14 +8438,43 @@
       "messageCount": 55,
       "lastActiveAt": "2026-10-08T10:57:55.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 55 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体",
+        "前水平"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 39,
+        "firstAt": "2026-04-11T01:29:24.000Z",
+        "lastAt": "2026-10-08T10:57:55.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体",
+              "前水平"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 3,
+            "firstAt": "2026-04-29T02:56:51.000Z",
+            "lastAt": "2026-10-08T10:57:55.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "86f92d255a04968b",
@@ -5980,7 +8493,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "590d125e4632b29c",
@@ -5999,7 +8514,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1ddf2293f7756777",
@@ -6018,7 +8535,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "97f82f4dbbc80807",
@@ -6037,7 +8556,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c0286cf913613478",
@@ -6056,7 +8577,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "142e40df1fb8c49c",
@@ -6075,7 +8598,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ba55a5d63aacca96",
@@ -6094,7 +8619,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "59abce1ee5c3d4cb",
@@ -6106,14 +8633,45 @@
       "messageCount": 52,
       "lastActiveAt": "2026-08-29T10:08:32.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 52 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体",
+        "双力臂",
+        "单杠"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 38,
+        "firstAt": "2025-11-14T09:41:25.000Z",
+        "lastAt": "2026-08-23T11:06:45.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体",
+              "双力臂",
+              "单杠"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 7,
+            "dayCount": 2,
+            "firstAt": "2025-11-14T09:41:25.000Z",
+            "lastAt": "2025-12-07T08:32:18.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "38231ea028d4ae14",
@@ -6132,7 +8690,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "84b48f74f71f457e",
@@ -6151,7 +8711,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c1ad657a199cf3ce",
@@ -6170,7 +8732,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6a2f06be41be285d",
@@ -6189,7 +8753,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "42604161ee3cbe07",
@@ -6208,7 +8774,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8f2d37711e6240b8",
@@ -6227,7 +8795,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "377495882f3c397a",
@@ -6246,7 +8816,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "36a34a5f12b0d33c",
@@ -6265,7 +8837,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "acf7525c6321b015",
@@ -6284,7 +8858,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8b5ea189ef48007f",
@@ -6303,7 +8879,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a8cbd631bf9fd0da",
@@ -6315,14 +8893,51 @@
       "messageCount": 40,
       "lastActiveAt": "2026-06-19T06:13:50.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 40 条发言，暂未整理到明确自我介绍。",
+      "topic": "strength",
+      "tags": [
+        "力量训练"
+      ],
+      "topics": [
+        "strength"
+      ],
+      "summary": "根据发言推测：可能关注力量训练与力量举；这是根据群内讨论归纳的兴趣线索。发言中曾表达过增肌相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "增肌"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注力量训练与力量举；这是根据群内讨论归纳的兴趣线索。发言中曾表达过增肌相关意向。",
+        "analyzedMessages": 23,
+        "firstAt": "2025-11-27T04:53:43.000Z",
+        "lastAt": "2026-06-19T06:13:37.000Z",
+        "topics": [
+          {
+            "id": "strength",
+            "name": "力量训练与力量举",
+            "keywords": [
+              "力量训练"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-11-27T05:10:13.000Z",
+            "lastAt": "2025-11-27T05:10:13.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "增肌",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-11-27T05:10:13.000Z",
+            "lastAt": "2025-11-27T05:10:13.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "37278a9e23ca1567",
@@ -6341,7 +8956,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ca2f2fb7fe0487c0",
@@ -6360,7 +8977,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "40cd00f61875082b",
@@ -6379,7 +8998,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "365110cfdebadec3",
@@ -6398,7 +9019,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "452faa4e2f2be9d8",
@@ -6417,7 +9040,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8e7d1cc62ee3a4fd",
@@ -6436,7 +9061,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "6396ef2b68c18056",
@@ -6455,7 +9082,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "55a933fb355c07eb",
@@ -6474,7 +9103,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "afeb337895a2c172",
@@ -6486,14 +9117,43 @@
       "messageCount": 36,
       "lastActiveAt": "2026-03-21T13:43:01.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 36 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体",
+        "单杠"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 22,
+        "firstAt": "2025-11-27T04:40:49.000Z",
+        "lastAt": "2026-03-21T10:58:23.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体",
+              "单杠"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 5,
+            "dayCount": 3,
+            "firstAt": "2025-11-27T04:40:49.000Z",
+            "lastAt": "2026-03-21T10:57:35.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "6577997dfcfb3f7b",
@@ -6512,7 +9172,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4726b42dfc18b389",
@@ -6531,7 +9193,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f5a3fb99b1002278",
@@ -6543,14 +9207,45 @@
       "messageCount": 96,
       "lastActiveAt": "2026-09-14T12:01:43.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 96 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体",
+        "双力臂",
+        "单杠"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 55,
+        "firstAt": "2026-02-23T14:36:03.000Z",
+        "lastAt": "2026-09-14T11:58:51.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体",
+              "双力臂",
+              "单杠"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 2,
+            "firstAt": "2026-04-08T15:25:46.000Z",
+            "lastAt": "2026-06-13T11:38:28.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "d5dda6b66f3666a5",
@@ -6569,7 +9264,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a45570b8580656f5",
@@ -6588,7 +9285,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8123a1e0a021a6d9",
@@ -6607,7 +9306,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "834afa80402f7e47",
@@ -6626,7 +9327,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3b58a2d2134f541f",
@@ -6645,7 +9348,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b7560bc4bdf2ed12",
@@ -6657,14 +9362,53 @@
       "messageCount": 41,
       "lastActiveAt": "2026-07-08T10:36:05.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 41 条发言，暂未整理到明确自我介绍。",
+      "topic": "strength",
+      "tags": [
+        "力量训练",
+        "硬拉"
+      ],
+      "topics": [
+        "strength"
+      ],
+      "summary": "根据发言推测：可能关注力量训练与力量举；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "技能突破"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注力量训练与力量举；这是根据群内讨论归纳的兴趣线索。发言中曾表达过技能突破相关意向。",
+        "analyzedMessages": 20,
+        "firstAt": "2025-12-06T11:08:11.000Z",
+        "lastAt": "2026-04-26T12:58:26.000Z",
+        "topics": [
+          {
+            "id": "strength",
+            "name": "力量训练与力量举",
+            "keywords": [
+              "力量训练",
+              "硬拉"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 2,
+            "dayCount": 2,
+            "firstAt": "2025-12-06T13:39:42.000Z",
+            "lastAt": "2025-12-07T08:29:27.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "技能突破",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2025-12-07T08:32:39.000Z",
+            "lastAt": "2025-12-07T08:32:39.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "6583efc498736c1c",
@@ -6683,7 +9427,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e36b0dfaddb3455c",
@@ -6702,7 +9448,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8dd21aadf796b2c3",
@@ -6721,7 +9469,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e4745f1deab692e4",
@@ -6733,14 +9483,59 @@
       "messageCount": 109,
       "lastActiveAt": "2026-08-08T08:38:07.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 109 条发言，暂未整理到明确自我介绍。",
+      "topic": "strength",
+      "tags": [
+        "卧推",
+        "双力臂",
+        "引体",
+        "街健"
+      ],
+      "topics": [
+        "strength",
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注力量训练与力量举、街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注力量训练与力量举、街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 56,
+        "firstAt": "2025-12-13T11:25:45.000Z",
+        "lastAt": "2026-08-08T08:37:25.000Z",
+        "topics": [
+          {
+            "id": "strength",
+            "name": "力量训练与力量举",
+            "keywords": [
+              "卧推"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 8,
+            "dayCount": 3,
+            "firstAt": "2025-12-17T11:34:12.000Z",
+            "lastAt": "2026-02-26T08:17:10.000Z"
+          },
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "双力臂",
+              "引体",
+              "街健"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 6,
+            "dayCount": 4,
+            "firstAt": "2025-12-13T11:25:45.000Z",
+            "lastAt": "2026-02-26T08:17:45.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "3c56a9a261c559b0",
@@ -6759,7 +9554,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d1fec159a2f8894f",
@@ -6771,14 +9568,41 @@
       "messageCount": 43,
       "lastActiveAt": "2026-05-06T09:03:02.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 43 条发言，暂未整理到明确自我介绍。",
+      "topic": "outdoor",
+      "tags": [
+        "攀岩"
+      ],
+      "topics": [
+        "outdoor"
+      ],
+      "summary": "根据发言推测：可能关注户外与其他运动；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注户外与其他运动；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 18,
+        "firstAt": "2025-12-11T04:37:19.000Z",
+        "lastAt": "2026-05-06T08:03:39.000Z",
+        "topics": [
+          {
+            "id": "outdoor",
+            "name": "户外与其他运动",
+            "keywords": [
+              "攀岩"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 3,
+            "firstAt": "2026-02-20T11:49:55.000Z",
+            "lastAt": "2026-03-09T09:38:10.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "7e0fa3d42e6b5098",
@@ -6797,7 +9621,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ea9527563e3c7f4e",
@@ -6816,7 +9642,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7fa3f31e9baf91cc",
@@ -6835,7 +9663,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d89803d0b3fc5d4b",
@@ -6854,7 +9684,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "fb32d6059f95a595",
@@ -6873,7 +9705,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2f1f80f507c33a0d",
@@ -6892,7 +9726,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d89f5370ac9f73f5",
@@ -6911,7 +9747,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e9c2429b437ef2ef",
@@ -6930,7 +9768,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "87bd6c70e27d7294",
@@ -6949,7 +9789,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "140b7024f668e9dd",
@@ -6968,7 +9810,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "963b99048e9c9b28",
@@ -6987,7 +9831,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "3b96b13d3eefc05f",
@@ -7006,7 +9852,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "88c8c05bed28fe67",
@@ -7025,7 +9873,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8534443f2b0fbf5c",
@@ -7044,7 +9894,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4a4f7a5c42b01462",
@@ -7063,7 +9915,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "a91b3f54c6660576",
@@ -7082,7 +9936,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8e808611a60b2ff9",
@@ -7101,7 +9957,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7c93ff6b9fb62f03",
@@ -7120,7 +9978,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bad91ed84b9294b5",
@@ -7139,7 +9999,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1a08c4aa2369628b",
@@ -7158,7 +10020,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d9342df6b5d0fb1a",
@@ -7177,7 +10041,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "8145e258babd465e",
@@ -7196,7 +10062,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b93d932112b356aa",
@@ -7215,7 +10083,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4bf2e9e48826b8b7",
@@ -7234,7 +10104,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "976f91576576106d",
@@ -7253,7 +10125,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "42a39c352a1928fb",
@@ -7272,7 +10146,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7c745bdcd9e4659d",
@@ -7291,7 +10167,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f6968f1a1ed8b534",
@@ -7303,14 +10181,41 @@
       "messageCount": 39,
       "lastActiveAt": "2026-06-27T01:49:34.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 39 条发言，暂未整理到明确自我介绍。",
+      "topic": "strength",
+      "tags": [
+        "力量训练"
+      ],
+      "topics": [
+        "strength"
+      ],
+      "summary": "根据发言推测：可能关注力量训练与力量举；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注力量训练与力量举；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 16,
+        "firstAt": "2026-01-02T14:09:52.000Z",
+        "lastAt": "2026-06-27T01:41:35.000Z",
+        "topics": [
+          {
+            "id": "strength",
+            "name": "力量训练与力量举",
+            "keywords": [
+              "力量训练"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 2,
+            "dayCount": 1,
+            "firstAt": "2026-03-26T03:42:34.000Z",
+            "lastAt": "2026-03-26T03:55:23.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "4f02c40aa87bb7ff",
@@ -7329,7 +10234,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ce24b21451922bcb",
@@ -7348,7 +10255,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "63ef6031d8889151",
@@ -7367,7 +10276,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "47cc2c13bbb62359",
@@ -7379,14 +10290,43 @@
       "messageCount": 36,
       "lastActiveAt": "2026-03-10T13:54:30.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 36 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "街健",
+        "俄挺"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 15,
+        "firstAt": "2026-01-08T03:25:08.000Z",
+        "lastAt": "2026-03-10T13:40:56.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "街健",
+              "俄挺"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 1,
+            "firstAt": "2026-01-08T03:25:59.000Z",
+            "lastAt": "2026-01-08T04:13:22.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "86fc2191ee8f80b9",
@@ -7405,7 +10345,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ff7bf894a8699f41",
@@ -7424,7 +10366,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "70e7d8bfb43eda54",
@@ -7443,7 +10387,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f0f87c0cf51440e4",
@@ -7462,7 +10408,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9f82014cee6ed3c7",
@@ -7474,14 +10422,67 @@
       "messageCount": 164,
       "lastActiveAt": "2026-10-02T14:45:57.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 164 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "单杠",
+        "双杠",
+        "引体",
+        "街头健身",
+        "力量训练",
+        "卧推",
+        "深蹲",
+        "硬拉"
+      ],
+      "topics": [
+        "calisthenics",
+        "strength"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练、力量训练与力量举；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练、力量训练与力量举；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 110,
+        "firstAt": "2026-02-27T12:12:57.000Z",
+        "lastAt": "2026-10-02T14:45:56.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "单杠",
+              "双杠",
+              "引体",
+              "街头健身"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 9,
+            "dayCount": 7,
+            "firstAt": "2026-02-27T12:12:57.000Z",
+            "lastAt": "2026-10-02T14:45:56.000Z"
+          },
+          {
+            "id": "strength",
+            "name": "力量训练与力量举",
+            "keywords": [
+              "力量训练",
+              "卧推",
+              "深蹲",
+              "硬拉"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 5,
+            "dayCount": 4,
+            "firstAt": "2026-03-26T03:54:41.000Z",
+            "lastAt": "2026-04-19T09:09:28.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "9c6142893bf51226",
@@ -7500,7 +10501,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1ab5c7551d9a1d19",
@@ -7519,7 +10522,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "acf35e030bb95f49",
@@ -7531,14 +10536,41 @@
       "messageCount": 12,
       "lastActiveAt": "2026-09-02T13:29:47.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 12 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 7,
+        "firstAt": "2026-02-21T08:22:53.000Z",
+        "lastAt": "2026-09-02T13:29:47.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 3,
+            "dayCount": 3,
+            "firstAt": "2026-02-21T08:22:53.000Z",
+            "lastAt": "2026-09-02T13:29:47.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "8e679eeea4a55eab",
@@ -7557,7 +10589,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "033ed7307d979e9f",
@@ -7576,7 +10610,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "bad031abd553b37e",
@@ -7595,7 +10631,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "2ab9265b2e505b99",
@@ -7614,7 +10652,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d3ddb07ed139bd5d",
@@ -7633,7 +10673,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "06c654744eb2fdbd",
@@ -7645,14 +10687,47 @@
       "messageCount": 32,
       "lastActiveAt": "2026-10-05T15:01:23.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 32 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "双力臂",
+        "街健",
+        "引体",
+        "双杠"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 16,
+        "firstAt": "2026-03-16T03:46:36.000Z",
+        "lastAt": "2026-10-05T15:01:23.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "双力臂",
+              "街健",
+              "引体",
+              "双杠"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 5,
+            "dayCount": 5,
+            "firstAt": "2026-03-16T03:46:36.000Z",
+            "lastAt": "2026-10-05T15:01:23.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "cc4f462f7e4e375c",
@@ -7671,7 +10746,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1102d7719a4128f8",
@@ -7690,7 +10767,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "537775d0231d54d3",
@@ -7709,7 +10788,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "60a2c6cbf65aee3e",
@@ -7728,7 +10809,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4dcd57de27eb99b9",
@@ -7747,7 +10830,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "984dc778b9e1bfb9",
@@ -7766,7 +10851,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "731db78250f1a1bd",
@@ -7785,7 +10872,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "d597d444abd0ca1b",
@@ -7804,7 +10893,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "73b68ff1d7b14540",
@@ -7823,7 +10914,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "36386a4887b70ceb",
@@ -7842,7 +10935,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "480e466f1e544a35",
@@ -7861,7 +10956,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4cb0c1d62f3fe86b",
@@ -7880,7 +10977,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c4a693ccd3186b76",
@@ -7899,7 +10998,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c38807941bab0937",
@@ -7918,7 +11019,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "712589eb62c974d5",
@@ -7930,14 +11033,69 @@
       "messageCount": 258,
       "lastActiveAt": "2026-09-29T07:59:55.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 258 条发言，暂未整理到明确自我介绍。",
+      "topic": "strength",
+      "tags": [
+        "卧推",
+        "力量训练",
+        "力量举",
+        "引体"
+      ],
+      "topics": [
+        "strength",
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注力量训练与力量举、街健与自重训练；这是根据群内讨论归纳的兴趣线索。发言中曾表达过减脂相关意向。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [
+        "减脂"
+      ],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注力量训练与力量举、街健与自重训练；这是根据群内讨论归纳的兴趣线索。发言中曾表达过减脂相关意向。",
+        "analyzedMessages": 169,
+        "firstAt": "2026-04-02T07:21:48.000Z",
+        "lastAt": "2026-09-29T07:59:55.000Z",
+        "topics": [
+          {
+            "id": "strength",
+            "name": "力量训练与力量举",
+            "keywords": [
+              "卧推",
+              "力量训练",
+              "力量举"
+            ],
+            "confidence": "多次讨论",
+            "messageCount": 6,
+            "dayCount": 5,
+            "firstAt": "2026-07-11T11:40:06.000Z",
+            "lastAt": "2026-09-24T10:37:37.000Z"
+          },
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 4,
+            "dayCount": 4,
+            "firstAt": "2026-07-02T09:28:30.000Z",
+            "lastAt": "2026-08-30T03:02:08.000Z"
+          }
+        ],
+        "goals": [
+          {
+            "name": "减脂",
+            "messageCount": 1,
+            "dayCount": 1,
+            "firstAt": "2026-07-05T10:47:42.000Z",
+            "lastAt": "2026-07-05T10:47:42.000Z"
+          }
+        ]
+      },
+      "profileSource": "speech"
     },
     {
       "id": "df734282a20a73e6",
@@ -7956,7 +11114,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "07b54d5c8083fd90",
@@ -7975,7 +11135,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ac6899b31a7267ce",
@@ -7987,14 +11149,41 @@
       "messageCount": 13,
       "lastActiveAt": "2026-04-30T15:28:31.000Z",
       "introductions": [],
-      "topic": "other",
-      "tags": [],
-      "topics": [],
-      "summary": "本群可见记录中有 13 条发言，暂未整理到明确自我介绍。",
+      "topic": "calisthenics",
+      "tags": [
+        "引体"
+      ],
+      "topics": [
+        "calisthenics"
+      ],
+      "summary": "根据发言推测：可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": {
+        "version": 1,
+        "summary": "可能关注街健与自重训练；这是根据群内讨论归纳的兴趣线索。",
+        "analyzedMessages": 7,
+        "firstAt": "2026-04-01T02:34:45.000Z",
+        "lastAt": "2026-04-18T07:52:06.000Z",
+        "topics": [
+          {
+            "id": "calisthenics",
+            "name": "街健与自重训练",
+            "keywords": [
+              "引体"
+            ],
+            "confidence": "有限线索",
+            "messageCount": 2,
+            "dayCount": 2,
+            "firstAt": "2026-04-01T02:34:45.000Z",
+            "lastAt": "2026-04-18T07:52:06.000Z"
+          }
+        ],
+        "goals": []
+      },
+      "profileSource": "speech"
     },
     {
       "id": "9da2a9aafe7f108b",
@@ -8013,7 +11202,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "dba5cdf4df587a3f",
@@ -8032,7 +11223,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "64150311c2b42ea8",
@@ -8051,7 +11244,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "57b9e12139fef5d4",
@@ -8070,7 +11265,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4ed82e06aac0c5b1",
@@ -8089,7 +11286,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "9235d1b1b6f0a1fd",
@@ -8108,7 +11307,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "5812ab08d3e9075a",
@@ -8127,7 +11328,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "b1eedd51ffc0b7e3",
@@ -8146,7 +11349,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "253261a21b2ba710",
@@ -8165,7 +11370,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4addc734cd9d5ed4",
@@ -8184,7 +11391,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "e958c57ba69074e4",
@@ -8203,7 +11412,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "49e3a5ef5607ae0d",
@@ -8222,7 +11433,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "669eb3a20465add0",
@@ -8241,7 +11454,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "20b70c77c86b332d",
@@ -8260,7 +11475,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "fa09c1727c504b26",
@@ -8279,7 +11496,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "4e88d49e9472ec9b",
@@ -8298,7 +11517,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "ed45549c78b09de0",
@@ -8317,7 +11538,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "1e149448e333212d",
@@ -8336,7 +11559,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "f6f96fc32c4c8da3",
@@ -8355,7 +11580,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "446452f19477258d",
@@ -8374,7 +11601,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "85cb9b612651620d",
@@ -8393,7 +11622,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "c252b99eaa6bea56",
@@ -8412,7 +11643,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     },
     {
       "id": "7ae7e7e721ead8f0",
@@ -8431,7 +11664,9 @@
       "offers": [],
       "needs": [],
       "stage": "待补充",
-      "goals": []
+      "goals": [],
+      "speech": null,
+      "profileSource": "empty"
     }
   ],
   "edges": [
@@ -15551,6 +18786,502 @@
       "evidence": [],
       "firstAt": "2026-02-21T10:35:54.000Z",
       "lastAt": "2026-02-21T10:35:54.000Z"
+    },
+    {
+      "id": "552cdd3376358c74:ab6dc4762aa91a9c",
+      "source": "552cdd3376358c74",
+      "target": "ab6dc4762aa91a9c",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、双力臂、前水平」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "552cdd3376358c74:c9407ef91a510c5b",
+      "source": "552cdd3376358c74",
+      "target": "c9407ef91a510c5b",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、双力臂」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "552cdd3376358c74:b76d408d3f9c5c57",
+      "source": "552cdd3376358c74",
+      "target": "b76d408d3f9c5c57",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、双力臂」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "ab6dc4762aa91a9c:c9407ef91a510c5b",
+      "source": "ab6dc4762aa91a9c",
+      "target": "c9407ef91a510c5b",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、双力臂」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "98501f631ad5e09b:ab6dc4762aa91a9c",
+      "source": "ab6dc4762aa91a9c",
+      "target": "98501f631ad5e09b",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「前水平、引体、双力臂」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "b76d408d3f9c5c57:c9407ef91a510c5b",
+      "source": "c9407ef91a510c5b",
+      "target": "b76d408d3f9c5c57",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「双力臂、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "98501f631ad5e09b:b76d408d3f9c5c57",
+      "source": "98501f631ad5e09b",
+      "target": "b76d408d3f9c5c57",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、倒立、双力臂」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "15c7f490debc16bb:98501f631ad5e09b",
+      "source": "98501f631ad5e09b",
+      "target": "15c7f490debc16bb",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「俄挺、引体、前水平」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "dc1ce05f81511e1f:e4bc19a3e0a54ad3",
+      "source": "e4bc19a3e0a54ad3",
+      "target": "dc1ce05f81511e1f",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「单杠、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "22975109b1beb2cd:e4bc19a3e0a54ad3",
+      "source": "e4bc19a3e0a54ad3",
+      "target": "22975109b1beb2cd",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「单杠、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "13d8720c2b695c1e:e4bc19a3e0a54ad3",
+      "source": "e4bc19a3e0a54ad3",
+      "target": "13d8720c2b695c1e",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「单杠、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "0460fc7b517a2beb:8697f8caafa65252",
+      "source": "8697f8caafa65252",
+      "target": "0460fc7b517a2beb",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「街健、倒立」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "8697f8caafa65252:dc1ce05f81511e1f",
+      "source": "8697f8caafa65252",
+      "target": "dc1ce05f81511e1f",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「街健、倒立」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "70a6a1142ff4987a:8697f8caafa65252",
+      "source": "8697f8caafa65252",
+      "target": "70a6a1142ff4987a",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「街健、倒立」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "0460fc7b517a2beb:15c7f490debc16bb",
+      "source": "0460fc7b517a2beb",
+      "target": "15c7f490debc16bb",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「街健、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "0460fc7b517a2beb:dc1ce05f81511e1f",
+      "source": "0460fc7b517a2beb",
+      "target": "dc1ce05f81511e1f",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「倒立、街健、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "15c7f490debc16bb:22975109b1beb2cd",
+      "source": "15c7f490debc16bb",
+      "target": "22975109b1beb2cd",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「前水平、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "13d8720c2b695c1e:33d6f4f30cdc9a9d",
+      "source": "33d6f4f30cdc9a9d",
+      "target": "13d8720c2b695c1e",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「力量训练、力量举」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "33d6f4f30cdc9a9d:6f6d282d87135d6e",
+      "source": "33d6f4f30cdc9a9d",
+      "target": "6f6d282d87135d6e",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「力量训练、硬拉、力量举」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "33d6f4f30cdc9a9d:bdace1d6d4732394",
+      "source": "33d6f4f30cdc9a9d",
+      "target": "bdace1d6d4732394",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「硬拉、力量举」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "4e32e971f8c58904:82dd9c5c24f2ceb0",
+      "source": "4e32e971f8c58904",
+      "target": "82dd9c5c24f2ceb0",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、双杠」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "4e32e971f8c58904:cfa9251b22f0384f",
+      "source": "4e32e971f8c58904",
+      "target": "cfa9251b22f0384f",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「卧推、引体、双杠」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "4e32e971f8c58904:bdace1d6d4732394",
+      "source": "4e32e971f8c58904",
+      "target": "bdace1d6d4732394",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「硬拉、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "1690efe21a811135:340f78ae3d1caa68",
+      "source": "340f78ae3d1caa68",
+      "target": "1690efe21a811135",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、双力臂」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "32c1816b9bd634b4:340f78ae3d1caa68",
+      "source": "340f78ae3d1caa68",
+      "target": "32c1816b9bd634b4",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、双力臂、俄挺」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "340f78ae3d1caa68:d948a70bc527b626",
+      "source": "340f78ae3d1caa68",
+      "target": "d948a70bc527b626",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、双力臂」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "1690efe21a811135:22975109b1beb2cd",
+      "source": "1690efe21a811135",
+      "target": "22975109b1beb2cd",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、双力臂」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "13d8720c2b695c1e:1690efe21a811135",
+      "source": "1690efe21a811135",
+      "target": "13d8720c2b695c1e",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、双力臂」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "32c1816b9bd634b4:82dd9c5c24f2ceb0",
+      "source": "82dd9c5c24f2ceb0",
+      "target": "32c1816b9bd634b4",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、俄挺、双力臂」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "82dd9c5c24f2ceb0:d948a70bc527b626",
+      "source": "82dd9c5c24f2ceb0",
+      "target": "d948a70bc527b626",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、双力臂」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "32c1816b9bd634b4:d948a70bc527b626",
+      "source": "32c1816b9bd634b4",
+      "target": "d948a70bc527b626",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「双力臂、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "6f6d282d87135d6e:c65616e6029ff499",
+      "source": "6f6d282d87135d6e",
+      "target": "c65616e6029ff499",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、倒立、双力臂」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "5cd4bbd94d63f7cc:6f6d282d87135d6e",
+      "source": "6f6d282d87135d6e",
+      "target": "5cd4bbd94d63f7cc",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、双力臂」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "cfa9251b22f0384f:db79a9194db860aa",
+      "source": "db79a9194db860aa",
+      "target": "cfa9251b22f0384f",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「跑步、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "bdace1d6d4732394:db79a9194db860aa",
+      "source": "db79a9194db860aa",
+      "target": "bdace1d6d4732394",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「单杠、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "db79a9194db860aa:e24b29741ac3fff0",
+      "source": "db79a9194db860aa",
+      "target": "e24b29741ac3fff0",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「单杠、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "70a6a1142ff4987a:cfa9251b22f0384f",
+      "source": "cfa9251b22f0384f",
+      "target": "70a6a1142ff4987a",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、双力臂、街健」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "0bac7f43b7b4027e:70a6a1142ff4987a",
+      "source": "70a6a1142ff4987a",
+      "target": "0bac7f43b7b4027e",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「倒立、引体、双力臂」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "0bac7f43b7b4027e:c65616e6029ff499",
+      "source": "0bac7f43b7b4027e",
+      "target": "c65616e6029ff499",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、倒立、双力臂」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "0bac7f43b7b4027e:5cd4bbd94d63f7cc",
+      "source": "0bac7f43b7b4027e",
+      "target": "5cd4bbd94d63f7cc",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、街健、双力臂」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "5cd4bbd94d63f7cc:c65616e6029ff499",
+      "source": "c65616e6029ff499",
+      "target": "5cd4bbd94d63f7cc",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、双力臂」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "1043b4f02543130f:61b2ef9addedcfc8",
+      "source": "1043b4f02543130f",
+      "target": "61b2ef9addedcfc8",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「街健、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "1043b4f02543130f:e4745f1deab692e4",
+      "source": "1043b4f02543130f",
+      "target": "e4745f1deab692e4",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「街健、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "06c654744eb2fdbd:1043b4f02543130f",
+      "source": "1043b4f02543130f",
+      "target": "06c654744eb2fdbd",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「街健、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "234767c68f58d3ed:e4745f1deab692e4",
+      "source": "234767c68f58d3ed",
+      "target": "e4745f1deab692e4",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「双力臂、街健」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "06c654744eb2fdbd:234767c68f58d3ed",
+      "source": "234767c68f58d3ed",
+      "target": "06c654744eb2fdbd",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「双力臂、街健」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "61b2ef9addedcfc8:e604a52cac93cd42",
+      "source": "61b2ef9addedcfc8",
+      "target": "e604a52cac93cd42",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「双杠、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "61b2ef9addedcfc8:e4745f1deab692e4",
+      "source": "61b2ef9addedcfc8",
+      "target": "e4745f1deab692e4",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「街健、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "5a50afa73a9b0194:a3f8b544ff9a4b1f",
+      "source": "a3f8b544ff9a4b1f",
+      "target": "5a50afa73a9b0194",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、俄挺」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "59abce1ee5c3d4cb:a3f8b544ff9a4b1f",
+      "source": "a3f8b544ff9a4b1f",
+      "target": "59abce1ee5c3d4cb",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、双力臂」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "a3f8b544ff9a4b1f:f5a3fb99b1002278",
+      "source": "a3f8b544ff9a4b1f",
+      "target": "f5a3fb99b1002278",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、双力臂」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "5a50afa73a9b0194:e24b29741ac3fff0",
+      "source": "5a50afa73a9b0194",
+      "target": "e24b29741ac3fff0",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「俄挺、引体、倒立」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "5a50afa73a9b0194:f04a37df0e6d9e7f",
+      "source": "5a50afa73a9b0194",
+      "target": "f04a37df0e6d9e7f",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「俄挺、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "e604a52cac93cd42:f04a37df0e6d9e7f",
+      "source": "e604a52cac93cd42",
+      "target": "f04a37df0e6d9e7f",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「单杠、双杠、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "59abce1ee5c3d4cb:e604a52cac93cd42",
+      "source": "e604a52cac93cd42",
+      "target": "59abce1ee5c3d4cb",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「单杠、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "e24b29741ac3fff0:f5a3fb99b1002278",
+      "source": "e24b29741ac3fff0",
+      "target": "f5a3fb99b1002278",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、单杠」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "afeb337895a2c172:f04a37df0e6d9e7f",
+      "source": "f04a37df0e6d9e7f",
+      "target": "afeb337895a2c172",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、单杠」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "59abce1ee5c3d4cb:afeb337895a2c172",
+      "source": "59abce1ee5c3d4cb",
+      "target": "afeb337895a2c172",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、单杠」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "afeb337895a2c172:f5a3fb99b1002278",
+      "source": "afeb337895a2c172",
+      "target": "f5a3fb99b1002278",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、单杠」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "9f82014cee6ed3c7:b7560bc4bdf2ed12",
+      "source": "b7560bc4bdf2ed12",
+      "target": "9f82014cee6ed3c7",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「力量训练、硬拉」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "06c654744eb2fdbd:9f82014cee6ed3c7",
+      "source": "9f82014cee6ed3c7",
+      "target": "06c654744eb2fdbd",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「双杠、引体」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
+    },
+    {
+      "id": "712589eb62c974d5:9f82014cee6ed3c7",
+      "source": "9f82014cee6ed3c7",
+      "target": "712589eb62c974d5",
+      "kind": "shared",
+      "reason": "群昵称、自我介绍或发言归纳共同涉及「引体、力量训练、卧推」，包含发言推测标签，仅为共同兴趣线索，不代表已结伴。",
+      "evidence": []
     }
   ],
   "notes": "仅统计本机可见记录，不代表完整群历史。群昵称与核对后的自我介绍用于资料整理；互动不代表合作，未发言不代表从未发言。",
@@ -15574,5 +19305,6 @@
       "保持运动习惯",
       "寻找训练搭子"
     ]
-  }
+  },
+  "speechUpdatedAt": "2026-10-10T17:50:03.671Z"
 }

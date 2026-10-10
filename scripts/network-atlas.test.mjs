@@ -73,6 +73,14 @@ test('all published groups have reviewed sources, cached avatars and group-local
       assert.ok(p.name);assert.ok(!/^(?:\d+,){5}/.test(p.name));assert.ok(p.messageCount>=0);
       assert.ok(data.topics.some(t=>t.id===p.topic));
       assert.ok(p.goals.every(g=>data.classification.goals.includes(g)));
+      if(p.speech){
+        assert.equal(p.speech.version,1);assert.ok(p.speech.analyzedMessages>0&&p.speech.analyzedMessages<=p.messageCount);
+        assert.ok(p.speech.firstAt<=p.speech.lastAt);assert.ok(p.speech.lastAt<=data.lastMessageAt);
+        assert.ok(p.speech.topics.length||p.speech.goals.length);
+        for(const t of p.speech.topics){assert.ok(data.topics.some(x=>x.id===t.id));assert.ok(t.messageCount>0&&t.messageCount<=p.speech.analyzedMessages);assert.ok(t.dayCount>0&&t.dayCount<=t.messageCount);}
+        for(const g of p.speech.goals)assert.ok(data.classification.goals.includes(g.name));
+        if(!p.introductions.length){assert.equal(p.profileSource,'speech');assert.match(p.summary,/^根据发言推测：/);}
+      }
       for(const intro of p.introductions){assert.ok(reviewed.has(intro.messageId),`${group.id}: unreviewed source ${intro.messageId}`);assert.ok(intro.text);}
       if(p.avatar){assert.equal(p.avatar,`/images/network/${p.id}.webp`);assert.ok(fs.existsSync(new URL('../public'+p.avatar,import.meta.url)));}
       if(!p.introductions.length){assert.deepEqual(p.offers,[]);assert.deepEqual(p.needs,[]);assert.equal(p.stage,'待补充');}

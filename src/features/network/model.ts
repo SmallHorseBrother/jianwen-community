@@ -3,9 +3,9 @@ import type { NetworkEdge, NetworkPerson } from './types';
 export function filterPeople(people: NetworkPerson[], query: string, topic: string, needsOnly: boolean, stage: string, goal = '') {
   const words = query.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
   return people.filter(person => {
-    const searchable = [person.name, person.nickname, person.summary, ...person.tags, ...(person.goals || []), ...person.offers, ...person.needs].join(' ').toLocaleLowerCase();
+    const searchable = [person.name, person.nickname, person.summary, person.speech?.summary||'', ...person.tags, ...(person.goals || []), ...person.offers, ...person.needs].join(' ').toLocaleLowerCase();
     return (!topic || person.topics.includes(topic) || person.topic === topic)
-      && (!needsOnly || person.needs.length > 0)
+      && (!needsOnly || person.needs.length > 0 || !!person.speech?.goals.length)
       && (!stage || person.stage === stage)
       && (!goal || (goal === '待补充' ? !person.goals?.length : person.goals?.includes(goal)))
       && words.every(word => searchable.includes(word));
@@ -15,8 +15,8 @@ export function filterPeople(people: NetworkPerson[], query: string, topic: stri
 export function exportPeopleCsv(people: NetworkPerson[], goalLabel = '阶段') {
   const cell = (value: string | number) => `"${String(value).replace(/^[=+@\-\t\r]/, "'$&").replace(/"/g, '""')}"`;
   return '\uFEFF' + [
-    ['群昵称 / 名称', '微信昵称', '方向', goalLabel, '简介', '资源与实践', '兴趣与需求', '入群时间', '消息数'],
-    ...people.map(p => [p.name,p.nickname,p.tags.join('、'),goalLabel==='阶段'||goalLabel==='项目阶段'?p.stage:p.goals?.join('、')||'待补充',p.summary,p.offers.join('；'),p.needs.join('；'),p.joinedAt || '',p.messageCount]),
+    ['群昵称 / 名称', '微信昵称', '方向', goalLabel, '简介', '资源与实践', '兴趣与需求', '入群时间', '消息数', '简介来源', '发言推测'],
+    ...people.map(p => [p.name,p.nickname,p.tags.join('、'),goalLabel==='阶段'||goalLabel==='项目阶段'?p.stage:p.goals?.join('、')||'待补充',p.summary,p.offers.join('；'),p.needs.join('；'),p.joinedAt || '',p.messageCount,p.profileSource==='speech'?'根据发言推测':p.introductions.length?'成员自我介绍':'昵称或资料待补充',p.speech?`根据发言推测：${p.speech.summary}`:'']),
   ].map(row => row.map(cell).join(',')).join('\r\n');
 }
 
@@ -27,6 +27,7 @@ export function graphPeople(people: NetworkPerson[], edges: NetworkEdge[], selec
   return [...people].sort((a,b) => Number(b.id === selectedId)-Number(a.id === selectedId)
     || Number(neighbors.has(b.id))-Number(neighbors.has(a.id))
     || Number(b.introductions.length>0)-Number(a.introductions.length>0)
+    || Number(!!b.speech)-Number(!!a.speech)
     || b.messageCount-a.messageCount || a.id.localeCompare(b.id)).slice(0,limit);
 }
 
