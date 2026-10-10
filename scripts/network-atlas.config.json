@@ -1,6 +1,18 @@
 {
-  "groupId": "48403137834@chatroom",
-  "title": "枭马葛创业交流群",
-  "reviewedIntroductionIds": [31,37,44,53,55,60,64,65,66,68,69,70,76,80,94,145,146,150,157,187,203,268,269,276,296,313,327,332,335,355,365,397,423,445,452,458,459,473,476,488,493,494,505,507,526,550,555,587,599,610,636,644,761,786,801,804,813,814,839,878,883],
-  "collaborations": [{ "fromIntroductionId": 269, "toIntroductionId": 31, "reason": "小硕在自我介绍中明确表示，正在与小马哥合作食探 C 端与 G 端拓客。" }]
+  "defaultGroup": "entrepreneurs",
+  "groups": [
+    {
+      "id": "entrepreneurs", "groupId": "48403137834@chatroom", "title": "枭马葛创业交流群",
+      "reviewedIntroductionIds": [31,37,44,53,55,60,64,65,66,68,69,70,76,80,94,145,146,150,157,187,203,268,269,276,296,313,327,332,335,355,365,397,423,445,452,458,459,473,476,488,493,494,505,507,526,550,555,587,599,610,636,644,761,786,801,804,813,814,839,878,883],
+      "collaborations": [{ "fromIntroductionId": 269, "toIntroductionId": 31, "reason": "小硕在自我介绍中明确表示，正在与小马哥合作食探 C 端与 G 端拓客。" }]
+    },
+    { "id": "learning", "groupId": "46014332051@chatroom", "title": "枭马葛学习群", "reviewedIntroductionIds": ["message_0.db:87","message_0.db:102","message_0.db:149","message_0.db:279","message_0.db:951","message_0.db:984","message_0.db:996","message_0.db:999","message_0.db:1000","message_0.db:1007","message_0.db:1011","message_0.db:1056","message_0.db:1114","message_0.db:1342","message_0.db:1384","message_0.db:1470","message_0.db:1543","message_2.db:81","message_2.db:84","message_2.db:251","message_2.db:316","message_2.db:1023","message_2.db:1771","message_2.db:1776","message_2.db:3249","message_2.db:12578","message_2.db:14923","message_2.db:17898","message_2.db:21709","message_0.db:50","message_0.db:56","message_0.db:57","message_0.db:62","message_0.db:80","message_0.db:83","message_0.db:94","message_0.db:136","message_0.db:174","message_0.db:179","message_0.db:183","message_0.db:337","message_0.db:342","message_0.db:982","message_0.db:1015","message_0.db:1029","message_0.db:1110","message_0.db:1318","message_0.db:1333","message_0.db:1339","message_0.db:1341","message_0.db:1382","message_0.db:1445","message_0.db:2104","message_0.db:2115","message_0.db:2118","message_2.db:47","message_2.db:181","message_2.db:236","message_2.db:240","message_2.db:963","message_2.db:1059","message_2.db:1274","message_2.db:1289","message_2.db:1304","message_2.db:2222","message_2.db:2237","message_2.db:6120","message_2.db:7064","message_2.db:7916","message_2.db:8026","message_2.db:10304"] },
+    { "id": "fitness", "groupId": "47479417743@chatroom", "title": "枭马葛健身群", "reviewedIntroductionIds": ["message_0.db:46","message_0.db:49","message_0.db:58","message_0.db:66","message_0.db:74","message_0.db:76","message_0.db:78","message_0.db:80","message_0.db:81","message_0.db:90","message_0.db:105","message_0.db:137","message_0.db:142","message_0.db:262","message_0.db:302","message_0.db:376","message_0.db:1047","message_0.db:1895","message_0.db:2144","message_2.db:1472","message_2.db:10744","message_2.db:14337","message_2.db:23996","message_2.db:28842","message_2.db:29284","message_2.db:29285","message_2.db:29286","message_2.db:29288","message_0.db:50","message_0.db:51","message_0.db:54","message_0.db:57","message_0.db:67","message_0.db:70","message_0.db:75","message_0.db:83","message_0.db:92","message_0.db:93","message_0.db:98","message_0.db:103","message_0.db:222","message_0.db:259","message_0.db:590","message_0.db:1045","message_2.db:295","message_2.db:1473","message_2.db:4662","message_2.db:4665","message_2.db:10746","message_2.db:11939","message_2.db:14343"] },
+    { "id": "academy-1", "groupId": "49126180086@chatroom", "title": "健文学院-1班", "reviewedIntroductionIds": [] },
+    { "id": "academy-2", "groupId": "43472137027@chatroom", "title": "健文学院-2班", "reviewedIntroductionIds": [] },
+    { "id": "academy-3", "groupId": "49015003281@chatroom", "title": "健文学院-3班", "reviewedIntroductionIds": [] },
+    { "id": "fitness-1", "groupId": "43440408513@chatroom", "title": "枭马葛—健身群（一）", "reviewedIntroductionIds": [] },
+    { "id": "fitness-2", "groupId": "47773191331@chatroom", "title": "枭马葛—健身群（二）", "reviewedIntroductionIds": [] },
+    { "id": "fitness-3", "groupId": "49954387309@chatroom", "title": "枭马葛—健身群（三）", "reviewedIntroductionIds": ["message_0.db:27513"] }
+  ]
 }

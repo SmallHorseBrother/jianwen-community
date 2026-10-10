@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "defaultGroup": "entrepreneurs",
+  "groups": [
+    {
+      "id": "entrepreneurs",
+      "title": "枭马葛创业交流群",
+      "path": "/data/network-atlas.json",
+      "members": 67,
+      "introductions": 60,
+      "messages": 893,
+      "generatedAt": "2026-10-10T07:52:41.640Z"
+    },
+    {
+      "id": "learning",
+      "title": "枭马葛学习群",
+      "path": "/data/network/learning.json",
+      "members": 348,
+      "introductions": 71,
+      "messages": 39857,
+      "generatedAt": "2026-10-10T07:53:01.556Z"
+    },
+    {
+      "id": "fitness",
+      "title": "枭马葛健身群",
+      "path": "/data/network/fitness.json",
+      "members": 279,
+      "introductions": 50,
+      "messages": 34993,
+      "generatedAt": "2026-10-10T07:53:15.761Z"
+    },
+    {
+      "id": "academy-1",
+      "title": "健文学院-1班",
+      "path": "/data/network/academy-1.json",
+      "members": 424,
+      "introductions": 0,
+      "messages": 71481,
+      "generatedAt": "2026-10-10T07:53:39.289Z"
+    },
+    {
+      "id": "academy-2",
+      "title": "健文学院-2班",
+      "path": "/data/network/academy-2.json",
+      "members": 375,
+      "introductions": 0,
+      "messages": 53440,
+      "generatedAt": "2026-10-10T07:53:58.351Z"
+    },
+    {
+      "id": "academy-3",
+      "title": "健文学院-3班",
+      "path": "/data/network/academy-3.json",
+      "members": 336,
+      "introductions": 0,
+      "messages": 7798,
+      "generatedAt": "2026-10-10T07:54:23.603Z"
+    },
+    {
+      "id": "fitness-1",
+      "title": "枭马葛—健身群（一）",
+      "path": "/data/network/fitness-1.json",
+      "members": 420,
+      "introductions": 0,
+      "messages": 69770,
+      "generatedAt": "2026-10-10T07:58:24.469Z"
+    },
+    {
+      "id": "fitness-2",
+      "title": "枭马葛—健身群（二）",
+      "path": "/data/network/fitness-2.json",
+      "members": 381,
+      "introductions": 0,
+      "messages": 107245,
+      "generatedAt": "2026-10-10T07:55:22.158Z"
+    },
+    {
+      "id": "fitness-3",
+      "title": "枭马葛—健身群（三）",
+      "path": "/data/network/fitness-3.json",
+      "members": 440,
+      "introductions": 1,
+      "messages": 60475,
+      "generatedAt": "2026-10-10T07:55:51.896Z"
+    }
+  ]
+}

@@ -73,7 +73,7 @@ export default function NetworkGraph({ people, edges, topics, selectedId, onSele
     return ()=>{active=false;cancelAnimationFrame(frame);observer.disconnect();controls.dispose();for(const {line}of lineObjects){line.geometry.dispose();(line.material as THREE.Material).dispose();}renderer.dispose();renderer.domElement.remove();controlsRef.current=null;};
   }, [people, edges, topics]);
 
-  return <div className={`network-graph ${unavailable ? 'network-graph-fallback' : ''}`} ref={host} aria-label="可旋转的人脉星图">
+  return <div className={`network-graph ${people.length>90?'is-dense':''} ${unavailable ? 'network-graph-fallback' : ''}`} ref={host} aria-label="可旋转的人脉星图">
     <div className="network-webgl" ref={canvasHost} />
     {unavailable && <p className="network-fallback-note">当前设备未启用 3D，已切换为可点击的成员视图。</p>}
     <div className="network-node-layer">
