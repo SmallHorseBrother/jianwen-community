@@ -34,4 +34,10 @@ describe('network directory',()=>{
     const edges=Array.from({length:500},(_,i)=>({id:String(i),source:String(i),target:'end',kind:'interaction' as const,count:i,reason:'引用',evidence:[]}));
     const visible=graphEdges(edges,'0');expect(visible).toHaveLength(350);expect(visible[0].source).toBe('0');expect(edges[0].source).toBe('0');
   });
+  it('searches concrete portrait details and exports their attribution without old keyword guesses',()=>{
+    const p:NetworkPerson={...base,summary:'负重引体训练',offers:[],needs:[],goals:[],portrait:{version:2,status:'specific',summary:'负重引体训练',sections:[{kind:'practice',title:'具体安排',text:'海豹划船作为辅助动作',confidence:'self_reported',references:[{messageId:'test:1',at:'2026-10-01T00:00:00Z'}]}],badges:[],topicIds:[],goals:[],sourceEnd:'2026-10-10T00:00:00Z',coverage:{messageCount:1,textCount:1,meaningfulTextCount:1,sampledMessages:1,imageCount:0,stickerCount:0,voiceCount:0,otherCount:0}},speech:{version:1,summary:'增肌减脂',topics:[],goals:[],analyzedMessages:1,firstAt:'',lastAt:''}};
+    expect(filterPeople([p],'海豹划船','',false,'')).toEqual([p]);
+    expect(filterPeople([p],'增肌减脂','',false,'')).toEqual([]);
+    const csv=exportPeopleCsv([p]);expect(csv).toContain('具体安排（本人表达）');expect(csv).not.toContain('增肌减脂');
+  });
 });

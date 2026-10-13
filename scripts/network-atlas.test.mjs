@@ -79,11 +79,20 @@ test('all published groups have reviewed sources, cached avatars and group-local
         assert.ok(p.speech.topics.length||p.speech.goals.length);
         for(const t of p.speech.topics){assert.ok(data.topics.some(x=>x.id===t.id));assert.ok(t.messageCount>0&&t.messageCount<=p.speech.analyzedMessages);assert.ok(t.dayCount>0&&t.dayCount<=t.messageCount);}
         for(const g of p.speech.goals)assert.ok(data.classification.goals.includes(g.name));
-        if(!p.introductions.length){assert.equal(p.profileSource,'speech');assert.match(p.summary,/^根据发言推测：/);}
+        if(!p.introductions.length&&!p.portrait){assert.equal(p.profileSource,'speech');assert.match(p.summary,/^根据发言推测：/);}
       }
       for(const intro of p.introductions){assert.ok(reviewed.has(intro.messageId),`${group.id}: unreviewed source ${intro.messageId}`);assert.ok(intro.text);}
       if(p.avatar){assert.equal(p.avatar,`/images/network/${p.id}.webp`);assert.ok(fs.existsSync(new URL('../public'+p.avatar,import.meta.url)));}
-      if(!p.introductions.length){assert.deepEqual(p.offers,[]);assert.deepEqual(p.needs,[]);assert.equal(p.stage,'待补充');}
+      if(!p.introductions.length){if(!p.portrait){assert.deepEqual(p.offers,[]);assert.deepEqual(p.needs,[]);}assert.equal(p.stage,'待补充');}
+      if(p.portrait){
+        assert.equal(p.portrait.version,2);assert.ok(p.portrait.coverage.messageCount<=p.messageCount);
+        if(p.portrait.sourceEnd===data.lastMessageAt)assert.equal(p.portrait.coverage.messageCount,p.messageCount);
+        const c=p.portrait.coverage;assert.equal(c.textCount+c.imageCount+c.stickerCount+c.voiceCount+c.videoCount+c.linkCount+c.otherCount,c.messageCount);
+        assert.ok((c.replyCount||0)<=c.textCount);assert.ok(p.portrait.sourceEnd<=data.lastMessageAt);
+        assert.ok(p.portrait.sections.every(s=>s.references.length&&s.references.every(r=>r.at<=p.portrait.sourceEnd)));
+        if(p.portrait.status!=='insufficient')assert.deepEqual(p.goals,p.portrait.goals);
+        if(p.portrait.status!=='insufficient')assert.equal(p.summary,p.portrait.summary);
+      }
     }
     for(const e of data.edges){assert.ok(ids.has(e.source)&&ids.has(e.target));assert.notEqual(e.source,e.target);assert.ok(!pairs.has(e.id));pairs.add(e.id);
       if(e.kind==='interaction'){assert.ok(e.count>0);assert.ok(e.firstAt<=e.lastAt);if(group.id!==config.defaultGroup)assert.deepEqual(e.evidence,[]);}

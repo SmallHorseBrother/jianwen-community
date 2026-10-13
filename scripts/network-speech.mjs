@@ -1,5 +1,6 @@
 import { TOPICS, profileDetails } from './network-atlas-lib.mjs';
 import { createHash } from 'node:crypto';
+import { applyPortrait } from './network-portraits.mjs';
 
 const weakWords = new Set(['AI','软件','开发','数据','算法','内容','品牌','学习','运动','健康','硬件','设计','经济','金融','数学','物理','化学']);
 const matches = (text, word) => /^[a-z]+$/i.test(word)
@@ -73,7 +74,7 @@ export function applySpeechProfile(person, taxonomy) {
   const tags=[...new Set([...details.tags,...(speech?.topics.flatMap(t=>t.keywords)||[])])].slice(0,12);
   const goals=[...new Set([...details.goals,...(speech?.goals.map(g=>g.name)||[])])];
   const source=person.introductions.length?'introduction':speech?'speech':details.topic!=='other'?'nickname':'empty';
-  return {...person,...details,topic:details.topic==='other'?speech?.topics[0]?.id||'other':details.topic,topics,tags,goals,
+  return applyPortrait({...person,...details,topic:details.topic==='other'?speech?.topics[0]?.id||'other':details.topic,topics,tags,goals,
     summary:person.introductions.length?details.summary:speech?`根据发言推测：${speech.summary}`:person.messageCount?`本群可见记录中有 ${person.messageCount.toLocaleString('zh-CN')} 条发言，暂未整理到明确自我介绍。`:'本群可见记录中暂无发言，个人介绍待补充。',
-    profileSource:source};
+    profileSource:source},taxonomy);
 }

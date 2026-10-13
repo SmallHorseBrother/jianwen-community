@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowUpRight, Check, Download, GitBranch, Grid2X2, ListFilte
 import NetworkGraph from '../features/network/NetworkGraph';
 import Avatar from '../features/network/Avatar';
 import { exportPeopleCsv, filterPeople, graphPeople, graphEdges } from '../features/network/model';
-import type { EdgeKind, NetworkCatalog, NetworkData, NetworkGroup, NetworkPerson, SpeechSummary } from '../features/network/types';
+import type { EdgeKind, NetworkCatalog, NetworkData, NetworkGroup, NetworkPerson, SpeechSummary, MemberPortrait } from '../features/network/types';
 import '../features/network/network.css';
 
 const date = (value: string | null) => value ? new Date(value).toLocaleString('zh-CN',{year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '记录未包含';
@@ -48,7 +48,7 @@ function AtlasGroup({group,groups}:{group:NetworkGroup;groups:NetworkGroup[]}) {
   const select=(id:string|null)=>{const next=new URLSearchParams(params);if(id)next.set('person',id);else next.delete('person');setParams(next,{replace:true});setCopied(false);setShareError('');};
   useEffect(()=>{if(selectedId)closeRef.current?.focus();},[selectedId]);
   useEffect(()=>{if(!selectedId)return;const escape=(e:KeyboardEvent)=>{if(e.key==='Escape'){const next=new URLSearchParams(params);next.delete('person');setParams(next,{replace:true});}};window.addEventListener('keydown',escape);return()=>window.removeEventListener('keydown',escape);},[selectedId,params,setParams]);
-  const people=useMemo(()=>data?filterPeople(data.people,query,topic,needsOnly,stage,goal).filter(p=>!activity||(activity==='introduced'?p.introductions.length>0:activity==='summarized'?!!p.speech:activity==='spoken'?p.messageCount>0:p.messageCount===0)):[],[data,query,topic,needsOnly,stage,goal,activity]);
+  const people=useMemo(()=>data?filterPeople(data.people,query,topic,needsOnly,stage,goal).filter(p=>!activity||(activity==='introduced'?p.introductions.length>0:activity==='summarized'?(p.portrait?p.portrait.status!=='insufficient':!!p.speech):activity==='spoken'?p.messageCount>0:p.messageCount===0)):[],[data,query,topic,needsOnly,stage,goal,activity]);
   const plottedPeople=useMemo(()=>graphPeople(people,data?.edges||[],selectedId,compact?70:140),[people,data,selectedId,compact]);
   const visibleEdges=useMemo(()=>{const ids=new Set(plottedPeople.map(p=>p.id));return graphEdges(data?.edges.filter(e=>ids.has(e.source)&&ids.has(e.target)&&(showShared||e.kind!=='shared'))||[],selectedId,compact?180:350);},[plottedPeople,data,showShared,selectedId,compact]);
   const selected=data?.people.find(p=>p.id===selectedId);
@@ -79,13 +79,13 @@ function AtlasGroup({group,groups}:{group:NetworkGroup;groups:NetworkGroup[]}) {
           {data.topics.map(t=><button key={t.id} className={topic===t.id?'is-active':''} onClick={()=>setTopic(topic===t.id?'':t.id)} aria-pressed={topic===t.id}><span className="network-dot" style={{background:t.color}}/>{t.name}<span>{data.people.filter(p=>p.topics.includes(t.id)||p.topic===t.id).length}</span></button>)}
         </div>
         <div className="network-filters">
-          <label><input type="checkbox" checked={needsOnly} onChange={e=>setNeedsOnly(e.target.checked)}/>只看有兴趣 / 需求的成员</label>
+          <label><input type="checkbox" checked={needsOnly} onChange={e=>setNeedsOnly(e.target.checked)}/>只看有明确交流需求的成员</label>
           {entrepreneurship?<select value={stage} onChange={e=>setStage(e.target.value)} aria-label="项目阶段"><option value="">全部项目阶段</option>{['项目推进','正在实践','探索交流','待补充'].map(s=><option key={s}>{s}</option>)}</select>:<select value={goal} onChange={e=>setGoal(e.target.value)} aria-label={classification?.goalLabel}><option value="">全部{classification?.goalLabel}</option>{[...(classification?.goals||[]),'待补充'].map(s=><option key={s}>{s}</option>)}</select>}
           <select value={activity} onChange={e=>setActivity(e.target.value)} aria-label="成员资料"><option value="">全部成员资料</option><option value="introduced">有自我介绍</option><option value="summarized">有发言归纳</option><option value="spoken">有可见发言</option><option value="silent">暂无可见发言</option></select>
           {hasFilters&&<button className="network-text-button" onClick={clearFilters}>清除全部筛选</button>}
         </div>
         <div className="network-legend"><p className="network-section-label">连线意味着什么</p><span><i/>{entrepreneurship?'合作自述 / 群内互动':'群内互动'}</span>{entrepreneurship&&<span><i className="is-match"/>{relationLabels.match}</span>}<span><i className="is-shared"/>{relationLabels.shared} · 有待了解</span><p>分类结合昵称、自我介绍和发言归纳。推测标签仅作兴趣线索，共同兴趣不代表已结伴。</p></div>
-        <div className="network-snapshot">资料更新 {date(data.generatedAt)}<br/>{data.speechUpdatedAt&&<>发言归纳更新 {date(data.speechUpdatedAt)}<br/></>}{data.messageTotal?.toLocaleString('zh-CN')} 条可见消息<br/>{date(data.firstMessageAt||null)} 至 {date(data.lastMessageAt)}<br/>仅代表本机可见记录，不是完整群历史。</div>
+        <div className="network-snapshot">资料更新 {date(data.generatedAt)}<br/>{data.portraitUpdatedAt?<>个人画像更新 {date(data.portraitUpdatedAt)}<br/></>:data.speechUpdatedAt&&<>发言归纳更新 {date(data.speechUpdatedAt)}<br/></>}{data.messageTotal?.toLocaleString('zh-CN')} 条可见消息<br/>{date(data.firstMessageAt||null)} 至 {date(data.lastMessageAt)}<br/>仅代表本机可见记录，不是完整群历史。</div>
       </aside>
       <main className="network-main">
         <section className="network-heading"><div><p className="network-eyebrow">{classification?.label} · {classification?.eyebrow}</p><h1>{data.title}</h1><p className="network-heading-description">{classification?.description}</p></div>
@@ -98,7 +98,7 @@ function AtlasGroup({group,groups}:{group:NetworkGroup;groups:NetworkGroup[]}) {
         {view==='graph' ? <NetworkGraph people={plottedPeople} edges={visibleEdges} topics={data.topics} selectedId={selectedId} onSelect={select} autoRotate={autoRotate}/> : <div className="network-directory">
           {people.map(person=><button className="network-person-card" key={person.id} onClick={()=>select(person.id)}>
             <div className="network-card-top"><Avatar person={person}/><div><h2>{person.name}</h2><span>{data.topics.find(t=>t.id===person.topic)?.name}</span></div><ArrowUpRight size={18}/></div>
-            <p>{person.summary}</p><div className="network-tags">{person.tags.slice(0,4).map(tag=><span key={tag}>{tag}</span>)}</div><span className="network-card-footer">{person.profileSource==='speech'?'发言推测 · ':''}{goalText(person)}{person.needs.length>0?' · 有交流需求':''}</span>
+            <p>{person.summary}</p><div className="network-tags">{person.tags.slice(0,4).map(tag=><span key={tag}>{tag}</span>)}</div><span className="network-card-footer">{person.portrait?.status==='specific'?'具体画像 · ':person.profileSource==='speech'?'发言推测 · ':''}{goalText(person)}{person.needs.length>0?' · 有交流需求':''}</span>
           </button>)}
           {!people.length&&<div className="network-empty"><p>没有找到匹配的伙伴</p><button className="network-button" onClick={clearFilters}>清除筛选</button></div>}
         </div>}
@@ -108,11 +108,11 @@ function AtlasGroup({group,groups}:{group:NetworkGroup;groups:NetworkGroup[]}) {
             <div className="network-detail-tabs" role="tablist" aria-label="名片内容">{([['profile','介绍'],['connections',`关联 ${related.length}`],['sources','自我介绍']] as const).map(([key,title])=><button role="tab" aria-selected={tab===key} key={key} onClick={()=>setTab(key)}>{title}</button>)}</div>
             <div className="network-detail-body" role="tabpanel">
               {tab==='profile'&&<>
-                <h3>背景与当前方向</h3><p className="network-bio">{selected.summary}</p>
-                {selected.speech&&<SpeechSection speech={selected.speech} showSummary={selected.profileSource!=='speech'}/>}
+                <h3>{selected.portrait?'个人画像':'背景与当前方向'}</h3><p className="network-bio">{selected.summary}</p>
+                {selected.portrait?<PortraitSection portrait={selected.portrait}/>:selected.speech&&<SpeechSection speech={selected.speech} showSummary={selected.profileSource!=='speech'}/>}
                 <dl className="network-facts"><dt>所在群</dt><dd>{group.title}</dd><dt>{classification?.goalLabel}</dt><dd>{goalText(selected)}</dd><dt>群昵称</dt><dd>{selected.groupNickname||'未设置'}</dd><dt>微信昵称</dt><dd>{selected.nickname}</dd><dt>入群记录</dt><dd>{date(selected.joinedAt)}</dd><dt>可见发言</dt><dd>{selected.messageCount.toLocaleString('zh-CN')} 条</dd><dt>最近发言</dt><dd>{date(selected.lastActiveAt)}</dd></dl>
-                <ProfileSection title={classification?.offersLabel||'正在做 / 能提供'} lines={selected.offers} empty="自述中暂未明确列出，可在群内进一步了解。"/>
-                <ProfileSection title={classification?.needsLabel||'兴趣 / 正在寻找'} lines={selected.needs} empty="还没有整理到具体需求。"/>
+                {(!selected.portrait||selected.profileSource==='introduction'&&selected.portrait.status==='insufficient')&&<><ProfileSection title={classification?.offersLabel||'正在做 / 能提供'} lines={selected.offers} empty="自述中暂未明确列出，可在群内进一步了解。"/>
+                <ProfileSection title={classification?.needsLabel||'兴趣 / 正在寻找'} lines={selected.needs} empty="还没有整理到具体需求。"/></>}
                 <p className="network-source-note">自我介绍与发言推测分别标注。讨论某个话题不代表具备相应专业、职业或训练水平，以本人最新说明为准。</p>
               </>}
               {tab==='connections'&&<>{related.length?related.map(edge=>{const other=data.people.find(p=>p.id===(edge.source===selected.id?edge.target:edge.source)) as NetworkPerson;return <article className={`network-relation is-${edge.kind}`} key={edge.id}>
@@ -140,5 +140,13 @@ function SpeechSection({speech,showSummary}:{speech:SpeechSummary;showSummary:bo
     {speech.topics.map(t=><div className="network-speech-item" key={t.id}><strong>{t.name}</strong><span>{t.confidence} · {t.messageCount} 条相关发言 · {t.dayCount} 天</span><p>{t.keywords.join('、')}</p></div>)}
     {speech.goals.length>0&&<div className="network-speech-goals"><h4>曾表达的意向</h4>{speech.goals.map(g=><p key={g.name}>{g.name}<span> · {g.messageCount} 条发言 · 最近 {date(g.lastAt)}</span></p>)}</div>}
     <p className="network-source-note">归纳 {speech.analyzedMessages.toLocaleString('zh-CN')} 条有效文字发言 · {date(speech.firstAt)} 至 {date(speech.lastAt)}。这些是兴趣与意向线索，可能已变化。</p>
+  </section>;
+}
+
+function PortraitSection({portrait}:{portrait:MemberPortrait}) {
+  const c=portrait.coverage;
+  return <section className="network-portrait" aria-label="具体个人画像">
+    {portrait.sections.map((section,i)=><article key={`${section.kind}-${i}`} className="network-portrait-section"><h3>{section.title}<span>{section.confidence==='self_reported'?'本人表达':'综合推测'}</span></h3><p>{section.text}</p><details><summary>来源时间 · {section.references.length} 条</summary><p>{section.references.map(ref=>date(ref.at)).join('；')}</p></details></article>)}
+    <p className="network-source-note">可见消息 {c.messageCount.toLocaleString('zh-CN')} 条 · 纯文字 {Math.max(0,c.textCount-(c.replyCount||0))} 条{c.replyCount?` · 引用回复 ${c.replyCount} 条`:''}{c.imageCount?` · 图片 ${c.imageCount} 张`:''}{c.stickerCount?` · 表情 ${c.stickerCount} 条`:''}{c.voiceCount?` · 语音 ${c.voiceCount} 条`:''}{c.videoCount?` · 视频 ${c.videoCount} 条`:''}{c.linkCount?` · 链接 / 文件 ${c.linkCount} 条`:''}{c.otherCount?` · 其他 ${c.otherCount} 条`:''}<br/>画像参考 {c.sampledMessages} 条选取的文字、回复或分享标题，记录截至 {date(portrait.sourceEnd)}。过往目标和安排以标注时间为准。</p>
   </section>;
 }

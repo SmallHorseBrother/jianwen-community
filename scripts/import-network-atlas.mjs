@@ -68,6 +68,9 @@ let entries=fs.existsSync(publicCatalog)?JSON.parse(fs.readFileSync(publicCatalo
 
 for(const group of groups) {
   const taxonomy=taxonomyForGroup(group.id);
+  const priorFile=path.join(root,'public',datasetPath(group));
+  const priorData=fs.existsSync(priorFile)?JSON.parse(fs.readFileSync(priorFile,'utf8')):null;
+  const priorPortraits=new Map((priorData?.people||[]).filter(p=>p.portrait).map(p=>[p.id,p.portrait]));
   const members=readMembers(directory,group.groupId);
   if(!members.length)throw new Error(`${group.title}: 群成员为空，停止导出`);
   const ids=new Set(members.map(m=>m.username)),stats=new Map(),joins=new Map(),edges=new Map(),reviewedRows=new Map();
@@ -108,7 +111,7 @@ for(const group of groups) {
   const people=members.map(m=>{
     const stat=stats.get(m.username)||{count:0,last:0,introductions:[]};
     const intro=stat.introductions.sort((a,b)=>a.at.localeCompare(b.at)),nickname=redact(m.nick_name||''),groupNickname=redact(m.groupNickname);
-    return applySpeechProfile({id:publicId(m.username),name:groupNickname||nickname||'未命名成员',nickname,groupNickname,avatar:'',joinedAt:iso(joins.get(m.username)),messageCount:stat.count,lastActiveAt:iso(stat.last),introductions:intro,speech:stat.speech?.finish()||null},taxonomy);
+    return applySpeechProfile({id:publicId(m.username),name:groupNickname||nickname||'未命名成员',nickname,groupNickname,avatar:'',joinedAt:iso(joins.get(m.username)),messageCount:stat.count,lastActiveAt:iso(stat.last),introductions:intro,speech:stat.speech?.finish()||null,portrait:priorPortraits.get(publicId(m.username))},taxonomy);
   });
   for(const pair of group.collaborations||[]){const from=reviewedRows.get(pair.fromIntroductionId),to=reviewedRows.get(pair.toIntroductionId);if(from&&to)addInteraction(from.user_name,to.user_name,from,'collaboration',pair.reason);}
   const factualEdges=[...edges.values()].sort((a,b)=>b.count-a.count||a.id.localeCompare(b.id));
@@ -132,7 +135,7 @@ for(const group of groups) {
       person.avatar=`/images/network/${id}.webp`;avatarSaved++;
     }catch{avatarFailed++;}
   }));
-  const dataset={schemaVersion:1,groupId:group.id,title:group.title,classification:publicTaxonomy(taxonomy),generatedAt:new Date().toISOString(),contactUpdatedAt:contactUpdated,firstMessageAt:iso(first),lastMessageAt:iso(last),messageTotal:messages,topics:(taxonomy.topics||TOPICS).map(({words,...t})=>t),people,edges:relations,notes:'仅统计本机可见记录，不代表完整群历史。群昵称与核对后的自我介绍用于资料整理；互动不代表合作，未发言不代表从未发言。'};
+  const dataset={schemaVersion:1,groupId:group.id,title:group.title,classification:publicTaxonomy(taxonomy),generatedAt:new Date().toISOString(),contactUpdatedAt:contactUpdated,firstMessageAt:iso(first),lastMessageAt:iso(last),messageTotal:messages,portraitUpdatedAt:priorData?.portraitUpdatedAt,topics:(taxonomy.topics||TOPICS).map(({words,...t})=>t),people,edges:relations,notes:'仅统计本机可见记录，不代表完整群历史。群昵称与核对后的自我介绍用于资料整理；互动不代表合作，未发言不代表从未发言。'};
   const entry={id:group.id,kind:taxonomy.kind,title:group.title,path:datasetPath(group),members:people.length,introductions:people.filter(p=>p.introductions.length).length,messages,generatedAt:dataset.generatedAt};
   if(write){const out=path.join(root,'public',datasetPath(group));fs.mkdirSync(path.dirname(out),{recursive:true});fs.writeFileSync(out,JSON.stringify(dataset,null,2)+'\n');entries=entries.filter(e=>e.id!==entry.id);entries.push(entry);}
   console.log(JSON.stringify({...entry,written:write,duplicates,groupNicknames:people.filter(p=>p.groupNickname).length,edges:relations.length,avatarSaved,avatarFailed,bytes:Buffer.byteLength(JSON.stringify(dataset))}));
