@@ -47,6 +47,7 @@ import LearningToolbox from './pages/learning/LearningToolbox';
 import MatchingCenter from './pages/MatchingCenter';
 import CommunityProfiles from './pages/CommunityProfiles';
 const NetworkAtlas = React.lazy(() => import('./pages/NetworkAtlas'));
+const AIMiracles = React.lazy(() => import('./pages/ai/AIMiracles'));
 import ComingSoon from './components/Common/ComingSoon';
 import NotFound from './components/Common/NotFound';
 
@@ -92,6 +93,7 @@ const AppRoutes: React.FC = () => {
 
       {/* AI成长中心：测评—专项卷—学习—作品闭环 */}
       <Route path="/ai" element={<AIHome />} />
+      <Route path="/ai/miracles" element={<React.Suspense fallback={<Layout><p role="status" className="py-12">正在加载 AI 案例…</p></Layout>}><AIMiracles /></React.Suspense>} />
       <Route path="/ai/assessment" element={<Navigate to="/ai/exams/comprehensive" replace />} />
       <Route path="/ai/exams" element={<AIExamCenter />} />
       <Route path="/ai/exams/comprehensive" element={<AILayout><AIAssessment /></AILayout>} />

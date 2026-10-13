@@ -5,6 +5,7 @@ import Layout from '../../components/Layout/Layout';
 
 const navigation = [
   { to: '/ai', label: '学习总览', end: true },
+  { to: '/ai/miracles', label: 'AI 创造的奇迹' },
   { to: '/ai/exams', label: '考试大厅' },
   { to: '/ai/roadmap', label: '学习路径' },
   { to: '/ai/projects', label: '作品档案' },

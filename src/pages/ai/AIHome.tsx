@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { ArrowRight, CheckCircle2, FileCheck2, Route, Target } from 'lucide-react';
+import { ArrowRight, BookOpen, CheckCircle2, FileCheck2, Route, Target } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { aiLearningService } from '../../features/aiLearning/service';
 import { useLearningDashboard } from '../../features/aiLearning/useLearningDashboard';
 import AILayout from './AILayout';
+import '../../features/aiMiracles/miracles.css';
 
 const labels: Record<string, string> = {
   M: 'AI心智模型', F: '任务定义', T: '工具信息', V: '核验安全', C: '创造执行', S: '系统思维',
@@ -32,6 +33,7 @@ const AIHome: React.FC = () => {
   return <AILayout>
     <div className="redesign-learning">
       <header className="page-heading"><div><h1>AI 学习</h1><p>从一次测评，走到一个作品。</p></div><Link to="/ai/exams" className="jw-action secondary">考试大厅 <ArrowRight /></Link></header>
+      <Link to="/ai/miracles" className="miracles-entry"><div><span className="miracles-entry-kicker"><BookOpen size={18} aria-hidden="true" />AI 创造的奇迹</span><h2>AI 已经帮人类做成了什么？</h2><p>探索真实案例、原始来源和研究边界。从一个问题，认识 AI 的可能。</p></div><ArrowRight aria-hidden="true" /></Link>
       {error && <div className="ai-learning-alert is-error" role="status">{error}</div>}
       <div className="learning-overview">
         <section className="learning-progress-panel"><span className="learning-panel-label">我的学习</span>

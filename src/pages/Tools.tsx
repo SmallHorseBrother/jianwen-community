@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Dumbbell, Sparkles, MessageSquarePlus, Send, User, MessageCircle, UtensilsCrossed, ArrowUpRight, GitBranch } from 'lucide-react';
+import { Dumbbell, Sparkles, MessageSquarePlus, Send, User, MessageCircle, UtensilsCrossed, ArrowUpRight, GitBranch, BookOpen } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { submitSuggestion, getAllSuggestions } from '../services/suggestionService';
 import Dialog from '../components/Common/Dialog';
@@ -295,6 +295,14 @@ const Tools: React.FC = () => {
       icon: <Dumbbell className="w-8 h-8" />,
       link: 'https://pullupindex.top/',
       isExternal: true,
+      status: 'active',
+    },
+    {
+      title: 'AI 创造的奇迹',
+      description: '按时间和领域探索 AI 解决真实问题的案例，附原始来源与研究边界。开源共创。',
+      icon: <BookOpen className="w-8 h-8" />,
+      link: '/ai/miracles',
+      isExternal: false,
       status: 'active',
     },
   ];
