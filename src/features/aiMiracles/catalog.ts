@@ -14,7 +14,7 @@ export interface MiracleEvent {
 }
 
 export const MIRACLES_SOURCE = 'https://github.com/tzhu40816-ai/ai-miriacles';
-export const MIRACLES_REVISION = '9ab401cd6e657a0a30026a7cdc43ec34e18d3a8b';
+export const MIRACLES_REVISION = 'e1e82fbc5b454b29442984df40a67ae1d7a9879b';
 export const MIRACLES_DATA_URL = '/data/ai-miracles/events.json';
 
 export const miracleDomains: Record<string, Record<MiracleLanguage, string>> = {

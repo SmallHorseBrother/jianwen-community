@@ -5,7 +5,7 @@
 ## 来源与许可
 
 - 上游项目：https://github.com/tzhu40816-ai/ai-miriacles
-- 本次快照：`9ab401cd6e657a0a30026a7cdc43ec34e18d3a8b`，217 条、13 个分类（含其他）。
+- 本次快照：`e1e82fbc5b454b29442984df40a67ae1d7a9879b`，218 条、13 个分类（含其他）。
 - `public/data/ai-miracles/events.json` 原样保留上游数据，随社区网站静态部署。
 - `public/data/ai-miracles/source.json` 记录版本、导入时间和适配说明。
 - 上游代码 MIT、数据 CC BY 4.0，原始许可保存在同目录 `LICENSE.txt`。
@@ -18,3 +18,5 @@
 数据仅在进入案例页面后加载；不新增数据库、模型调用或第三方依赖。加载失败时可重试，空结果可清除筛选。
 
 更新时从上游的确定提交读取 `data/events.json`，检查条目 ID 唯一、日期、中英文标题与摘要、来源链接协议；更新数据、来源清单、`catalog.ts` 的版本号和本文件。新增领域同步更新 `miracleDomains`。阅读精选只按 ID 筛选，不改写原始数据。
+
+使用 `node scripts/sync-ai-miracles.mjs` 只读检查最新版本；`--write` 校验并写入数据、许可、来源清单、页面版本号和本文件，`--ref <完整提交 SHA>` 固定版本。脚本不安装依赖、不构建网站，也不提交或部署；维护者检查并只提交同步文件后，沿用现有推送部署流程发布。上游 GitHub 提交与已经上线的社区快照不会自动互相覆盖。
