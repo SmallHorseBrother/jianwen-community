@@ -77,6 +77,17 @@ const parseGroupIdentity = (data: any): string[] => {
   return [];
 };
 
+const PHONE_TAKEN_MESSAGE = '该手机号已被注册，请使用其他手机号或直接登录';
+
+const isAlreadyRegisteredError = (error: { message?: string; code?: string }): boolean =>
+  error.code === 'user_already_exists' || /already registered/i.test(error.message ?? '');
+
+const isRateLimitError = (error: { message?: string; code?: string; status?: number }): boolean =>
+  error.status === 429 ||
+  error.code === 'over_request_rate_limit' ||
+  error.code === 'over_email_send_rate_limit' ||
+  /rate limit/i.test(error.message ?? '');
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [state, setState] = useState<AuthState>({
     user: null,
@@ -253,7 +264,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (phone: string, password: string) => {
     // Use operation queue to prevent concurrent login attempts
     return operationQueue.enqueue(async () => {
-      logOperationStart('login', { phone });
+      logOperationStart('login');
       
       try {
         // Set manual login flag to prevent listener interference
@@ -351,78 +362,94 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const register = async (phone: string, password: string, nickname: string) => {
-    try {
-      const email = `${phone}@jianwen.community`;
-      
-      // 1. 先尝试注册账号
-      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          emailRedirectTo: undefined,
-        },
-      });
-      if (signUpError) {
-        throw signUpError;
-      }
-      if (!signUpData.user) {
-        throw new Error('注册失败');
-      }
+    return operationQueue.enqueue(async () => {
+      logOperationStart('register');
+      try {
+        const email = `${phone}@jianwen.community`;
 
-      // 2. 注册后立即登录，确保获取 session，避免 RLS 拒绝 profile 插入
-      const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-      if (signInError) {
-        throw signInError;
-      }
-      if (!signInData.session) {
-        console.warn('注册后未获取到 session，可能需要邮箱确认');
-      }
+        // 1. 注册账号。若该账号已存在，可能是上次注册在建资料前中断留下的“半成品”，
+        //    此时用同一密码登录并补建资料；密码不对或资料已存在则视为手机号已被占用。
+        const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+          email,
+          password,
+        });
 
-      // 3. 创建用户资料
-      const profile = await createUserProfile({
-        id: signUpData.user.id,
-        phone,
-        nickname,
-        bio: '',
-        bench_press: 0,
-        squat: 0,
-        deadlift: 0,
-        is_public: true,
-        group_identity: null,
-        profession: null,
-        group_nickname: null,
-        specialties: [],
-        fitness_interests: [],
-        learning_interests: [],
-        social_links: {},
-        wechat_id: null,
-        tags: [],
-        skills_offering: null,
-        skills_seeking: null,
-        age: null,
-        gender: null,
-      });
+        let userId: string;
+        if (signUpError) {
+          if (!isAlreadyRegisteredError(signUpError)) throw signUpError;
 
-      setState({
-        user: mapProfileToUser(profile),
-        isAuthenticated: true,
-        isLoading: false,
-      });
+          const { data: existingSignIn, error: existingError } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+          });
+          if (existingError || !existingSignIn.user) throw new Error(PHONE_TAKEN_MESSAGE);
 
-      console.log('Registration & profile creation completed successfully');
-    } catch (error: any) {
-      if (error.message && (error.message.includes('User already registered') || 
-          error.message.includes('duplicate key value violates unique constraint "profiles_phone_key"'))) {
-        throw new Error('该手机号已被注册，请使用其他手机号或直接登录');
+          const existingProfile = await getUserProfile(existingSignIn.user.id);
+          if (existingProfile) {
+            await supabase.auth.signOut();
+            throw new Error(PHONE_TAKEN_MESSAGE);
+          }
+          userId = existingSignIn.user.id;
+        } else {
+          if (!signUpData.user) throw new Error('注册失败');
+          userId = signUpData.user.id;
+
+          // 2. 未开启邮箱确认时 signUp 已带 session；没有则登录一次，避免 RLS 拒绝 profile 插入
+          if (!signUpData.session) {
+            const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+            if (signInError) throw signInError;
+          }
+        }
+
+        // 3. 创建用户资料；失败时登出并提示重试（同手机号同密码再次注册会走上面的补建分支）
+        let profile;
+        try {
+          profile = await createUserProfile({
+            id: userId,
+            phone,
+            nickname,
+            bio: '',
+            bench_press: 0,
+            squat: 0,
+            deadlift: 0,
+            is_public: true,
+            group_identity: null,
+            profession: null,
+            group_nickname: null,
+            specialties: [],
+            fitness_interests: [],
+            learning_interests: [],
+            social_links: {},
+            wechat_id: null,
+            tags: [],
+            skills_offering: null,
+            skills_seeking: null,
+            age: null,
+            gender: null,
+          });
+        } catch (profileError: any) {
+          logError(profileError, 'register-profile-create');
+          await supabase.auth.signOut();
+          if (profileError?.code === '23505' && String(profileError.message).includes('profiles_phone_key')) {
+            throw new Error(PHONE_TAKEN_MESSAGE);
+          }
+          throw new Error('账号已创建，但资料保存失败。请用同一手机号和密码再次点击“注册”完成');
+        }
+
+        setState({
+          user: mapProfileToUser(profile),
+          isAuthenticated: true,
+          isLoading: false,
+        });
+        logOperationStart('register-complete', { userId });
+      } catch (error: any) {
+        logError(error, 'register');
+        if (isRateLimitError(error)) {
+          throw new Error('操作过于频繁，请稍后再试');
+        }
+        throw new Error(error?.message || '注册失败');
       }
-      if (error.code === '23505' && error.message.includes('profiles_phone_key')) {
-        throw new Error('该手机号已被注册，请使用其他手机号或直接登录');
-      }
-      throw new Error(error.message || '注册失败');
-    }
+    }, 'register');
   };
 
   const logout = async () => {
