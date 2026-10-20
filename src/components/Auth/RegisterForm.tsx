@@ -1,8 +1,19 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Phone, Lock, User, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import MathCaptcha from '../Common/MathCaptcha';
+import { useAttemptLimiter } from '../../hooks/useAttemptLimiter';
+import {
+  isValidMainlandPhone,
+  normalizePhone,
+  MAX_NICKNAME_LENGTH,
+  MIN_PASSWORD_LENGTH,
+} from '../../lib/authValidation';
+
+const MAX_FAILED_ATTEMPTS = 5;
+const LOCK_DURATION_MS = 60_000;
+const MIN_FILL_MS = 1500;
 
 const RegisterForm: React.FC = () => {
   const [phone, setPhone] = useState('');
@@ -12,10 +23,18 @@ const RegisterForm: React.FC = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
+  const [honeypot, setHoneypot] = useState('');
+  const [captchaKey, setCaptchaKey] = useState(0);
+  const openedAtRef = useRef(Date.now());
   const { register } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  
+  const { lockedSeconds, recordFailure, recordSuccess } = useAttemptLimiter(
+    'jw_register_lock',
+    MAX_FAILED_ATTEMPTS,
+    LOCK_DURATION_MS,
+  );
+
   // 获取用户原本想要访问的页面
   const from = location.state?.from || '/';
 
@@ -23,13 +42,37 @@ const RegisterForm: React.FC = () => {
     e.preventDefault();
     setError('');
 
-    if (!phone || !password || !nickname) {
+    if (lockedSeconds > 0) {
+      setError(`尝试次数过多，请 ${lockedSeconds} 秒后再试`);
+      return;
+    }
+
+    // 蜜罐字段只有脚本会填；提交过快也不是真人操作
+    if (honeypot || Date.now() - openedAtRef.current < MIN_FILL_MS) {
+      setError('提交过于频繁，请稍后再试');
+      return;
+    }
+
+    const cleanPhone = normalizePhone(phone);
+    const cleanNickname = nickname.trim();
+
+    if (!cleanPhone || !password || !cleanNickname) {
       setError('请填写所有必填项');
       return;
     }
 
-    if (password.length < 6) {
-      setError('密码长度至少6位');
+    if (!isValidMainlandPhone(cleanPhone)) {
+      setError('请输入有效的11位手机号');
+      return;
+    }
+
+    if (cleanNickname.length > MAX_NICKNAME_LENGTH) {
+      setError(`昵称不能超过${MAX_NICKNAME_LENGTH}个字符`);
+      return;
+    }
+
+    if (password.length < MIN_PASSWORD_LENGTH) {
+      setError(`密码长度至少${MIN_PASSWORD_LENGTH}位`);
       return;
     }
 
@@ -40,15 +83,17 @@ const RegisterForm: React.FC = () => {
 
     setIsLoading(true);
     try {
-      console.log('Submitting registration form...', { phone, nickname });
-      await register(phone, password, nickname);
-      console.log('Registration successful, navigating to profile onboarding...');
+      await register(cleanPhone, password, cleanNickname);
+      recordSuccess();
       navigate('/profile?flow=register', { replace: true, state: { from } });
     } catch (err) {
-      console.error('Registration form error:', err);
+      recordFailure();
       setError(err instanceof Error ? err.message : '注册失败，请重试');
     } finally {
       setIsLoading(false);
+      // 每次提交后都要重新完成滑块，避免一次验证后无限提交
+      setIsCaptchaValid(false);
+      setCaptchaKey((key) => key + 1);
     }
   };
 
@@ -93,11 +138,14 @@ const RegisterForm: React.FC = () => {
                 <input
                   id="phone"
                   type="tel"
+                  inputMode="numeric"
+                  autoComplete="tel"
+                  maxLength={11}
                   required
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 11))}
                   className="auth-input block pl-10 pr-3"
-                  placeholder="请输入手机号"
+                  placeholder="请输入11位手机号"
                 />
               </div>
             </div>
@@ -129,7 +177,20 @@ const RegisterForm: React.FC = () => {
             </div>
 
             <div>
-              <MathCaptcha onVerify={setIsCaptchaValid} />
+              <MathCaptcha key={captchaKey} onVerify={setIsCaptchaValid} />
+            </div>
+
+            {/* 蜜罐：真人看不到也不会填 */}
+            <div aria-hidden="true" style={{ position: 'absolute', left: '-10000px', width: 1, height: 1, overflow: 'hidden' }}>
+              <label htmlFor="website">网站</label>
+              <input
+                id="website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+              />
             </div>
           </div>
 
@@ -140,10 +201,10 @@ const RegisterForm: React.FC = () => {
           <div>
             <button
               type="submit"
-              disabled={isLoading}
+              disabled={isLoading || lockedSeconds > 0}
               className="neon-button group relative w-full flex justify-center py-3 px-4 text-sm font-semibold rounded-xl focus:outline-none disabled:opacity-50"
             >
-              {isLoading ? '注册中...' : '注册'}
+              {isLoading ? '注册中...' : lockedSeconds > 0 ? `请 ${lockedSeconds} 秒后再试` : '注册'}
             </button>
           </div>
 

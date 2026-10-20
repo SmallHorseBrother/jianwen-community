@@ -3,6 +3,11 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Phone, Lock, Eye, EyeOff, AlertCircle, Info } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import MathCaptcha from '../Common/MathCaptcha';
+import { useAttemptLimiter } from '../../hooks/useAttemptLimiter';
+import { normalizePhone } from '../../lib/authValidation';
+
+const MAX_FAILED_ATTEMPTS = 5;
+const LOCK_DURATION_MS = 60_000;
 
 // 检测浏览器兼容性
 function detectBrowserIssues(): string[] {
@@ -41,10 +46,16 @@ const LoginForm: React.FC = () => {
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
   const [browserIssues, setBrowserIssues] = useState<string[]>([]);
   const [showTroubleshooting, setShowTroubleshooting] = useState(false);
+  const [captchaKey, setCaptchaKey] = useState(0);
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  
+  const { lockedSeconds, recordFailure, recordSuccess } = useAttemptLimiter(
+    'jw_login_lock',
+    MAX_FAILED_ATTEMPTS,
+    LOCK_DURATION_MS,
+  );
+
   // 获取用户原本想要访问的页面
   const from = location.state?.from || '/';
 
@@ -58,7 +69,13 @@ const LoginForm: React.FC = () => {
     e.preventDefault();
     setError('');
 
-    if (!phone || !password) {
+    if (lockedSeconds > 0) {
+      setError(`尝试次数过多，请 ${lockedSeconds} 秒后再试`);
+      return;
+    }
+
+    const cleanPhone = normalizePhone(phone);
+    if (!cleanPhone || !password) {
       setError('请填写手机号和密码');
       return;
     }
@@ -70,15 +87,17 @@ const LoginForm: React.FC = () => {
 
     setIsLoading(true);
     try {
-      console.log('Starting login process...');
-      await login(phone, password);
-      console.log('Login successful, navigating to:', from);
-      
+      await login(cleanPhone, password);
+      recordSuccess();
+
       // 登录成功后立即导航
       navigate(from, { replace: true });
     } catch (err: unknown) {
-      console.error('Login failed:', err);
       setIsLoading(false);
+      recordFailure();
+      // 每次失败后都要重新完成滑块，避免一次验证后无限猜密码
+      setIsCaptchaValid(false);
+      setCaptchaKey((key) => key + 1);
       const message = err instanceof Error ? err.message : String(err || '');
 
       // 提供更详细的错误信息
@@ -93,7 +112,7 @@ const LoginForm: React.FC = () => {
         setError('网络连接异常，请稍后重试');
         setShowTroubleshooting(true);
       } else if (message.includes('资料')) {
-        setError('获取用户资料失败，已自动清理缓存，请重试');
+        setError('获取用户资料失败，请重试');
         setShowTroubleshooting(true);
       } else {
         setError(message || '登录失败，请稍后重试');
@@ -178,7 +197,7 @@ const LoginForm: React.FC = () => {
             </div>
 
             <div>
-              <MathCaptcha onVerify={setIsCaptchaValid} />
+              <MathCaptcha key={captchaKey} onVerify={setIsCaptchaValid} />
             </div>
           </div>
 
@@ -215,10 +234,10 @@ const LoginForm: React.FC = () => {
           <div>
             <button
               type="submit"
-              disabled={isLoading}
+              disabled={isLoading || lockedSeconds > 0}
               className="neon-button group relative w-full flex justify-center py-3 px-4 text-sm font-semibold rounded-xl focus:outline-none disabled:opacity-50"
             >
-              {isLoading ? '登录中...' : '登录'}
+              {isLoading ? '登录中...' : lockedSeconds > 0 ? `请 ${lockedSeconds} 秒后再试` : '登录'}
             </button>
           </div>
 
