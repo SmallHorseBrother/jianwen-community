@@ -5,7 +5,7 @@
 ## 来源与许可
 
 - 上游项目：https://github.com/tzhu40816-ai/ai-miriacles
-- 本次快照：`e1e82fbc5b454b29442984df40a67ae1d7a9879b`，218 条、13 个分类（含其他）。
+- 本次快照：`c7c18f44e1b4cfa1da141db2751ece207553adb3`，233 条、13 个分类（含其他）。
 - `public/data/ai-miracles/events.json` 原样保留上游数据，随社区网站静态部署。
 - `public/data/ai-miracles/source.json` 记录版本、导入时间和适配说明。
 - 上游代码 MIT、数据 CC BY 4.0，原始许可保存在同目录 `LICENSE.txt`。
