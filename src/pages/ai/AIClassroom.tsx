@@ -24,7 +24,7 @@ const ClassroomList: React.FC = () => {
   if (!user || !isAuthenticated) return <div className="cw-page"><div className="cw-empty-card"><h1>AI 课堂</h1><p>老师登录健文社区账号后，就能创建课堂、开关学生能用的 AI 功能。学生不需要注册，用 6 位口令进入。</p><Link to="/login" className="jw-action">登录 <ArrowRight /></Link></div></div>;
   const create = async (e: React.FormEvent) => {
     e.preventDefault();
-    try { const r = await classroomApi.createClassroom(title.trim() || '我的课堂'); navigate(`/ai/classroom/${r.classroom.id}`); }
+    try { const r = await classroomApi.createClassroom(title.trim() || '我的课堂'); navigate(`/ai/class/teacher/${r.classroom.id}`); }
     catch (err) { setError((err as Error).message); }
   };
   return (
@@ -37,7 +37,7 @@ const ClassroomList: React.FC = () => {
       </form>
       <div className="cw-class-list">
         {me?.classrooms.map((c) => (
-          <Link key={c.id} to={`/ai/classroom/${c.id}`} className="cw-class-item"><div><b>{c.title}</b><span>口令 {c.join_code} · {new Date(c.created_at).toLocaleDateString('zh-CN')}</span></div><ArrowRight aria-hidden="true" /></Link>
+          <Link key={c.id} to={`/ai/class/teacher/${c.id}`} className="cw-class-item"><div><b>{c.title}</b><span>口令 {c.join_code} · {new Date(c.created_at).toLocaleDateString('zh-CN')}</span></div><ArrowRight aria-hidden="true" /></Link>
         ))}
         {me && me.classrooms.length === 0 && <p className="cw-muted">还没有课堂。新建一个，上课时把口令投到大屏上。</p>}
       </div>
@@ -74,7 +74,7 @@ const ClassroomConsole: React.FC<{ id: string }> = ({ id }) => {
   useInterval(() => { void refresh(); }, 3000);
   useInterval(() => setClock(Date.now()), 1000);
 
-  const joinUrl = `${window.location.origin}/class`;
+  const joinUrl = `${window.location.origin}/ai/class`;
   const joinCode = s?.classroom.join_code;
   useEffect(() => { if (joinCode) QRCode.toDataURL(`${joinUrl}?code=${joinCode}`, { margin: 1, width: 360 }).then(setQr).catch(() => setQr('')); }, [joinCode, joinUrl]);
 
@@ -91,7 +91,7 @@ const ClassroomConsole: React.FC<{ id: string }> = ({ id }) => {
   return (
     <div className="cw-console">
       <header className="cw-console-head">
-        <div><Link to="/ai/classroom" className="cw-back">← 我的课堂</Link><h1>{s.classroom.title}</h1></div>
+        <div><Link to="/ai/class/teacher" className="cw-back">← 我的课堂</Link><h1>{s.classroom.title}</h1></div>
         <div className="cw-join-info">学生打开 <b>{joinUrl.replace(/^https?:\/\//, '')}</b> 口令 <b className="cw-code">{s.classroom.join_code}</b></div>
         <button type="button" className="jw-action" onClick={() => setProjector(true)}><MonitorUp aria-hidden="true" />投屏口令</button>
       </header>
@@ -144,7 +144,7 @@ const ClassroomConsole: React.FC<{ id: string }> = ({ id }) => {
           <div className="cw-side cw-tc-row">
             <button type="button" className="cw-mini" onClick={() => twice('code', () => void update({ new_code: true }))}>{note === 'code' ? '再点一次确认' : '换口令'}</button>
             <button type="button" className="cw-mini" onClick={() => twice('clear', () => void update({ clear_students: true }))}>{note === 'clear' ? '再点一次确认' : '清空学生名单'}</button>
-            <button type="button" className="cw-mini" onClick={() => twice('end', () => void update({ archive: true }).then(() => window.location.assign('/ai/classroom')))}>{note === 'end' ? '再点一次确认' : '结束这节课'}</button>
+            <button type="button" className="cw-mini" onClick={() => twice('end', () => void update({ archive: true }).then(() => window.location.assign('/ai/class/teacher')))}>{note === 'end' ? '再点一次确认' : '结束这节课'}</button>
           </div>
         </aside>
 

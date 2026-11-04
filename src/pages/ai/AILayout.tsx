@@ -10,7 +10,7 @@ const navigation = [
   { to: '/ai/roadmap', label: '学习路径' },
   { to: '/ai/projects', label: '作品档案' },
   { to: '/ai/lab', label: 'AI 实验室' },
-  { to: '/ai/classroom', label: 'AI 课堂' },
+  { to: '/ai/class/teacher', label: 'AI 课堂' },
 ];
 
 const AILayout: React.FC<React.PropsWithChildren> = ({ children }) => {

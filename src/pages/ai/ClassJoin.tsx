@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Lock } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
-import { ApiError, classroomApi, mmss, studentToken, TOOL_NAMES, type StudentState, type Tool } from '../features/aiClassroom/api';
-import { TOOL_ICONS, ToolPanel, WorkCard, useInterval, useStableShared, useStableWorks } from '../features/aiClassroom/components';
+import { ApiError, classroomApi, mmss, studentToken, TOOL_NAMES, type StudentState, type Tool } from '../../features/aiClassroom/api';
+import { TOOL_ICONS, ToolPanel, WorkCard, useInterval, useStableShared, useStableWorks } from '../../features/aiClassroom/components';
 
 // 学生入口：课堂口令 + 名字，不需要注册。能用什么、用多久、交几次，都由老师控制。
 const ClassJoin: React.FC = () => {

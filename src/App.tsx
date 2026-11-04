@@ -34,7 +34,7 @@ import AISpecialtyExam from './pages/ai/AISpecialtyExam';
 import AILayout from './pages/ai/AILayout';
 import AIClassroom from './pages/ai/AIClassroom';
 import AILab from './pages/ai/AILab';
-import ClassJoin from './pages/ClassJoin';
+import ClassJoin from './pages/ai/ClassJoin';
 import Guide from './pages/Guide';
 import Tasks from './pages/Tasks';
 import Notifications from './pages/Notifications';
@@ -106,10 +106,10 @@ const AppRoutes: React.FC = () => {
       <Route path="/ai/learn/:stepId" element={<AILearn />} />
       <Route path="/ai/practice" element={<AIPractice />} />
       <Route path="/ai/projects" element={<AIProjects />} />
-      <Route path="/ai/classroom" element={<AIClassroom />} />
-      <Route path="/ai/classroom/:id" element={<AIClassroom />} />
+      <Route path="/ai/class" element={<ClassJoin />} />
+      <Route path="/ai/class/teacher" element={<AIClassroom />} />
+      <Route path="/ai/class/teacher/:id" element={<AIClassroom />} />
       <Route path="/ai/lab" element={<AILab />} />
-      <Route path="/class" element={<ClassJoin />} />
 
       {/* 关于我 / 数字分身 */}
       <Route path="/about" element={<Layout><PersonalBrandPublic /></Layout>} />

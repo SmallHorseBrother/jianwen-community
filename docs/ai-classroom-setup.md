@@ -1,6 +1,6 @@
 # AI 课堂工作台 + AI 积分：上线说明
 
-把原来在老师电脑上运行的“课堂工作台”搬进健文社区。老师在社区里开课堂、控制开关；学生用手机或电脑打开社区的 `/class` 页面，输入 6 位口令和名字就能用，**不再依赖教室局域网**。没有课的时候，登录用户可以在 `/ai/lab`（AI 实验室）用自己的积分做同样的实验。
+把原来在老师电脑上运行的“课堂工作台”搬进健文社区。老师在社区里开课堂、控制开关；学生用手机或电脑打开社区的 `/ai/class` 页面，输入 6 位口令和名字就能用，**不再依赖教室局域网**。没有课的时候，登录用户可以在 `/ai/lab`（AI 实验室）用自己的积分做同样的实验。
 
 ## 包含什么
 
@@ -11,8 +11,8 @@
 | 数据库：积分风控、积分包商品和订单 | `supabase/migrations/202610280001_ai_credit_guard_and_shop.sql` |
 | 服务端：Edge Function `ai-classroom` | `supabase/functions/ai-classroom/index.ts`、`core.ts` |
 | 服务端：积分包下单和支付回调（加在已上线的入群支付函数里） | `supabase/functions/ai-group-payment/index.ts` |
-| 老师控制台 | `/ai/classroom`、`/ai/classroom/:id`（`src/pages/ai/AIClassroom.tsx`） |
-| 学生入口（不注册） | `/class`（`src/pages/ClassJoin.tsx`） |
+| 老师控制台 | `/ai/class/teacher`、`/ai/class/teacher/:id`（`src/pages/ai/AIClassroom.tsx`） |
+| 学生入口（不注册） | `/ai/class`（`src/pages/ai/ClassJoin.tsx`） |
 | AI 实验室（自学） | `/ai/lab`（`src/pages/ai/AILab.tsx`） |
 | 共用组件和样式（含买积分弹窗、积分明细） | `src/features/aiClassroom/` |
 
@@ -67,11 +67,11 @@ Supabase Dashboard → `SQL Editor` → `New query`，**按顺序**执行（每�
 
 ## 五、上线后检查（管理员账号）
 
-1. 登录 → 打开 `/ai/classroom` → 新建一个课堂。
+1. 登录 → 打开 `/ai/class/teacher` → 新建一个课堂。
 2. 在控制台左下“积分”里点 **检查模型连接**，要显示“连接正常”。如果失败，先看 `WANJIE_API_KEY`；如果显示网络错误，可能是 Supabase 所在地区连不上万界数据，需要告诉我。同一条提示里会写“来源 IP 取自：……”：应该是 `cf-connecting-ip` 或 `x-real-ip`；如果是 “x-forwarded-for 第一项” 或 “没有取到”，同一网络限领可能被绕过或不生效，需要告诉我。
 3. 点 **给自己加 1000 积分**（只有管理员能看到这个按钮）。
 4. 切到“老师演示”，各试一次：问 AI、文字画图、改一张照片。
-5. 用手机打开 `你的社区域名/class`，输入口令和名字。老师开放“画图 3 分钟”，手机上应该立刻出现画图功能。
+5. 用手机打开 `你的社区域名/ai/class`，输入口令和名字。老师开放“画图 3 分钟”，手机上应该立刻出现画图功能。
 6. 打开 `/ai/lab` → 点 **买积分** → 选“尝鲜包” → 微信扫码付 ¥9.9。几秒后弹窗显示“已到账 100 积分”，余额和“积分明细”里都能看到。再用支付宝试一次，付完应该自动回到实验室并显示到账。
 
 ## 积分规则
@@ -108,7 +108,7 @@ select * from public.ai_credit_daily_usage limit 14;
 
 ## 积分包
 
-在 `/ai/lab` 和 `/ai/classroom` 的余额旁点 **买积分**。
+在 `/ai/lab` 和 `/ai/class/teacher` 的余额旁点 **买积分**。
 
 | 积分包 | 价格 | 积分 |
 |---|---|---|
