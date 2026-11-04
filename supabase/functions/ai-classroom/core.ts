@@ -62,7 +62,9 @@ export type Deps = {
   repo: Repo; storage: Storage; providers: Providers;
   now: () => Date; randomHex: (bytes: number) => string; sha256: (text: string) => Promise<string>; uuid: () => string;
 };
-export type Request = { action: string; body: Record<string, any>; userId: string | null; studentToken: string | null };
+// ipHash：请求来源 IP 的 HMAC 哈希（不含原始 IP），只在第一次建积分账号时用来限制同一网络领赠送的次数
+// ipSource：IP 取自哪个请求头（只在管理员自检里显示，方便部署后核对）
+export type Request = { action: string; body: Record<string, any>; userId: string | null; studentToken: string | null; ipHash?: string | null; ipSource?: string | null };
 export type Response = { status: number; body: unknown };
 
 export const TOOLS: Tool[] = ['chat', 'image', 'video'];
@@ -80,6 +82,8 @@ const DB_ERRORS: Record<string, [number, string]> = {
   CLASS_SPEND_LIMIT: [402, '这节课的积分预算用完了，请老师调整。'],
   INSUFFICIENT_CREDITS: [402, '积分不够了。'],
   CLASS_NOT_FOUND: [404, '课堂不存在或已经结束。'],
+  RATE_LIMITED: [429, '操作太快了，歇一分钟再试。'],
+  PLATFORM_PAUSED: [503, '今天的 AI 生成量到上限了，明天再来。'],
 };
 function dbError(e: unknown): never {
   const msg = String((e as Error)?.message || e);
@@ -99,6 +103,30 @@ export function effectiveTools(c: Classroom, now: Date): Record<Tool, ToolState 
   return out;
 }
 const cleanText = (v: unknown, max: number) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
+
+// 来源 IP：优先 Cloudflare 写入的 cf-connecting-ip（客户端伪造不了），其次 x-real-ip；
+// 最后才用 x-forwarded-for 的第一项，这一项客户端可以预先填写，只作兜底
+export function clientIp(get: (name: string) => string | null): { ip: string; source: string } | null {
+  for (const name of ['cf-connecting-ip', 'x-real-ip']) {
+    const value = get(name)?.trim();
+    if (value) return { ip: value, source: name };
+  }
+  const first = (get('x-forwarded-for') || '').split(',')[0].trim();
+  return first ? { ip: first, source: 'x-forwarded-for 第一项（可能被伪造）' } : null;
+}
+
+// 同一网络的标识：IPv4 用完整地址；IPv6 只取前 64 位（同一台手机会在 /64 里随意换地址）
+export function networkKey(raw: string): string {
+  const ip = raw.trim().replace(/^\[|\]$/g, '').split('%')[0];
+  const mapped = ip.match(/^::ffff:(\d{1,3}(?:\.\d{1,3}){3})$/i);
+  if (mapped) return mapped[1];
+  if (!ip.includes(':')) return ip;
+  const [head, tail] = ip.split('::');
+  const h = head ? head.split(':') : [];
+  const t = tail ? tail.split(':') : [];
+  const groups = tail !== undefined ? [...h, ...Array(Math.max(0, 8 - h.length - t.length)).fill('0'), ...t] : h;
+  return groups.slice(0, 4).map((g) => (parseInt(g, 16) || 0).toString(16)).join(':') + '::/64';
+}
 function b64ToBytes(b64: string): Uint8Array {
   const bin = atob(b64); const out = new Uint8Array(bin.length);
   for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
@@ -316,6 +344,8 @@ async function create(deps: Deps, who: Who, body: Record<string, any>) {
 
 // ---------- 身份 ----------
 async function requireUser(req: Request) { if (!req.userId) fail(401, '请先登录健文社区账号。'); return req.userId!; }
+// 读余额；第一次会建账号并按规则发赠送积分
+const ensureBalance = (deps: Deps, req: Request, uid: string) => deps.repo.rpc<number>('ai_credit_ensure_account', { p_user: uid, p_ip_hash: req.ipHash ?? null });
 async function requireStudent(deps: Deps, req: Request) {
   if (!req.studentToken) fail(401, '请先输入课堂口令。');
   const s = await deps.repo.studentByTokenHash(await deps.sha256(req.studentToken!));
@@ -401,12 +431,13 @@ async function route(req: Request, deps: Deps): Promise<unknown> {
     // ===== 登录用户（老师 / 自学） =====
     case 'me': {
       const uid = await requireUser(req);
-      const balance = await repo.rpc<number>('ai_credit_ensure_account', { p_user: uid });
+      const balance = await ensureBalance(deps, req, uid);
       const classes = (await repo.classroomsByTeacher(uid)).filter((c) => !c.archived_at);
       return { balance, prices: await repo.prices(), is_admin: await repo.isAdmin(uid), classrooms: classes.map((c) => ({ id: c.id, title: c.title, join_code: c.join_code, created_at: c.created_at })) };
     }
     case 'class-create': {
       const uid = await requireUser(req);
+      await ensureBalance(deps, req, uid); // 老师账号在这里按网络规则建好；学生提交时只会建 0 余额账号
       const title = cleanText(b.title, 60) || '我的课堂';
       for (let i = 0; i < 3; i++) {
         try { const c = await repo.insertClassroom({ teacher_id: uid, title, join_code: await newCode(deps) }); return { classroom: { id: c.id, title: c.title, join_code: c.join_code } }; }
@@ -432,7 +463,7 @@ async function route(req: Request, deps: Deps): Promise<unknown> {
         works: await present(deps, works, { teacher: true }),
         shared: shared.map((s) => ({ id: s.id, url: urls[s.path] })),
         spent: await repo.classroomSpent(c.id),
-        balance: await repo.rpc<number>('ai_credit_ensure_account', { p_user: uid }),
+        balance: await ensureBalance(deps, req, uid),
         configured: deps.providers.configured(),
         now: now.toISOString(),
       };
@@ -502,28 +533,30 @@ async function route(req: Request, deps: Deps): Promise<unknown> {
     }
     case 'create': {
       const uid = await requireUser(req);
+      await ensureBalance(deps, req, uid); // 先按网络规则建账号，再扣费，避免直接调用 create 绕过赠送限制
       let classroom: Classroom | null = null;
       if (b.classroom_id) classroom = await ownClassroom(deps, uid, b.classroom_id);
       const name = classroom ? '老师' : cleanText(b.author_name, 20) || '我';
       const w = await create(deps, { role: classroom ? 'teacher' : 'self', userId: uid, studentId: null, name, classroom }, b);
-      return { work: (await present(deps, [w]))[0], balance: await repo.rpc<number>('ai_credit_ensure_account', { p_user: uid }) };
+      return { work: (await present(deps, [w]))[0], balance: await ensureBalance(deps, req, uid) };
     }
     case 'my-works': {
       const uid = await requireUser(req);
       await advance(deps, { userId: uid, personal: true }, 3);
       return {
         works: await present(deps, await repo.works({ userId: uid, personal: true }, 30)),
-        balance: await repo.rpc<number>('ai_credit_ensure_account', { p_user: uid }),
+        balance: await ensureBalance(deps, req, uid),
         prices: await repo.prices(),
       };
     }
     case 'selftest': {
       const uid = await requireUser(req);
       if (!(await repo.isAdmin(uid))) fail(403, '只有管理员可以检查。');
-      if (!deps.providers.configured()) return { ok: false, message: '还没有配置 WANJIE_API_KEY。' };
+      const ipNote = `来源 IP 取自：${req.ipSource || '没有取到（同一网络限领不生效）'}。`;
+      if (!deps.providers.configured()) return { ok: false, message: '还没有配置 WANJIE_API_KEY。' + ipNote };
       const t0 = Date.now();
-      try { const r = await deps.providers.chat({ prompt: '用一句话说“你好，同学们”。', signal: AbortSignal.timeout(20_000) }); return { ok: true, message: `连接正常（${r.model}，${((Date.now() - t0) / 1000).toFixed(1)} 秒）：${r.text.slice(0, 40)}` }; }
-      catch (e) { return { ok: false, message: '连接失败：' + String((e as Error).message).slice(0, 120) }; }
+      try { const r = await deps.providers.chat({ prompt: '用一句话说“你好，同学们”。', signal: AbortSignal.timeout(20_000) }); return { ok: true, message: `连接正常（${r.model}，${((Date.now() - t0) / 1000).toFixed(1)} 秒）：${r.text.slice(0, 40)}。${ipNote}` }; }
+      catch (e) { return { ok: false, message: '连接失败：' + String((e as Error).message).slice(0, 120) + ' ' + ipNote }; }
     }
     case 'admin-grant': {
       const uid = await requireUser(req);

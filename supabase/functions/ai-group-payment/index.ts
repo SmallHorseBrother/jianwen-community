@@ -47,6 +47,35 @@ type OrderRow = {
   created_at: string;
 };
 
+// 微信下单只需要这几个字段；入群订单和积分包订单都满足
+type PayableOrder = Pick<OrderRow, 'order_no' | 'amount_cents' | 'subject' | 'expires_at'>;
+
+type ShopProductRow = {
+  code: string;
+  kind: 'credit_pack';
+  title: string;
+  description: string;
+  price_cents: number;
+  credits: number | null;
+};
+
+type ShopOrderRow = {
+  id: string;
+  user_id: string;
+  product_code: string;
+  credits: number | null;
+  order_no: string;
+  provider: Provider;
+  amount_cents: number;
+  subject: string;
+  status: OrderRow['status'];
+  provider_code_url: string | null;
+  provider_payment_url: string | null;
+  expires_at: string;
+  paid_at: string | null;
+  created_at: string;
+};
+
 type WechatConfig = {
   appId: string;
   mchId: string;
@@ -280,9 +309,10 @@ function randomHex(bytes = 5): string {
   return Array.from(values, (value) => value.toString(16).padStart(2, '0')).join('').toUpperCase();
 }
 
-function makeOrderNo(): string {
+// 入群订单以 AI 开头，积分包订单以 SP 开头；支付回调按前缀分到不同的订单表
+function makeOrderNo(prefix: 'AI' | 'SP' = 'AI'): string {
   const timestamp = new Date().toISOString().replace(/[-:TZ.]/g, '').slice(0, 14);
-  return `AI${timestamp}${randomHex(5)}`;
+  return `${prefix}${timestamp}${randomHex(5)}`;
 }
 
 function amountToYuan(amountCents: number) {
@@ -374,6 +404,7 @@ function extractTopLevelJsonValue(raw: string, property: string): string | null 
 async function signedAlipayUrl(config: AlipayConfig, method: string, bizContent: Record<string, unknown>, options?: {
   notify?: boolean;
   return?: boolean;
+  returnUrl?: string;
 }) {
   const params: Record<string, string> = {
     app_id: config.appId,
@@ -386,7 +417,7 @@ async function signedAlipayUrl(config: AlipayConfig, method: string, bizContent:
     biz_content: JSON.stringify(bizContent),
   };
   if (options?.notify) params.notify_url = config.notifyUrl;
-  if (options?.return) params.return_url = config.returnUrl;
+  if (options?.return) params.return_url = options.returnUrl || config.returnUrl;
   params.sign = await rsaSign(config.privateKey, canonicalAlipayParams(params));
   return `${config.gateway}${config.gateway.includes('?') ? '&' : '?'}${new URLSearchParams(params).toString()}`;
 }
@@ -420,7 +451,7 @@ async function wechatRequest(config: WechatConfig, method: string, path: string,
   return payload;
 }
 
-async function createWechatOrder(config: WechatConfig, order: OrderRow) {
+async function createWechatOrder(config: WechatConfig, order: PayableOrder) {
   const body = JSON.stringify({
     appid: config.appId,
     mchid: config.mchId,
@@ -655,6 +686,169 @@ async function syncOrder(service: ReturnType<typeof createServiceClient>, userId
   return getMembershipStatus(service, userId);
 }
 
+// ---------- 积分包（shop_products / shop_orders） ----------
+// 和入群权益共用同一套商户配置与回调地址；入群的逻辑不经过这里。
+const SHOP_ORDER_COLUMNS = 'id, user_id, product_code, credits, order_no, provider, amount_cents, subject, status, provider_code_url, provider_payment_url, expires_at, paid_at, created_at';
+const isShopOrderNo = (orderNo: string) => orderNo.startsWith('SP');
+
+type PaidState = { amountCents: number; tradeNo: string; status: string; payload: Record<string, unknown> };
+
+function shopReturnUrl() {
+  const url = new URL(env('AI_GROUP_PAYMENT_RETURN_URL'));
+  url.pathname = '/ai/lab';
+  url.search = '?shop=return';
+  url.hash = '';
+  return url.toString();
+}
+
+async function listShopProducts(service: ReturnType<typeof createServiceClient>) {
+  const { data, error } = await service.from('shop_products')
+    .select('code, kind, title, description, price_cents, credits').eq('active', true).order('sort_order');
+  if (error) throw error;
+  return (data || []) as ShopProductRow[];
+}
+
+async function creditBalance(service: ReturnType<typeof createServiceClient>, userId: string): Promise<number | null> {
+  const { data, error } = await service.from('ai_credit_accounts').select('balance').eq('user_id', userId).maybeSingle();
+  if (error) throw error;
+  return data ? Number(data.balance) : null;
+}
+
+function shopOrderPayload(order: ShopOrderRow, balance?: number | null) {
+  return {
+    order_no: order.order_no,
+    provider: order.provider,
+    status: order.status,
+    amount_cents: order.amount_cents,
+    credits: order.credits,
+    expires_at: order.expires_at,
+    paid_at: order.paid_at,
+    wechat_code_url: order.provider_code_url,
+    alipay_payment_url: order.provider_payment_url,
+    ...(balance === undefined ? {} : { balance }),
+  };
+}
+
+async function completeShopOrder(service: ReturnType<typeof createServiceClient>, orderNo: string, provider: Provider, paid: PaidState) {
+  const { error } = await service.rpc('complete_shop_order', {
+    p_order_no: orderNo,
+    p_provider: provider,
+    p_amount_cents: paid.amountCents,
+    p_provider_trade_no: paid.tradeNo,
+    p_provider_status: paid.status,
+    p_paid_at: new Date().toISOString(),
+    p_provider_payload: paid.payload,
+  });
+  if (!error) return;
+  if (error.message.includes('ORDER_NOT_FOUND')) throw new HttpError(404, '订单不存在');
+  if (error.message.includes('AMOUNT_MISMATCH')) throw new HttpError(400, '支付金额与订单不符');
+  if (error.message.includes('PROVIDER_MISMATCH')) throw new HttpError(400, '支付渠道与订单不符');
+  throw error;
+}
+
+// 主动向支付平台查单；没付或金额对不上时返回 null（金额在数据库里会再核一次）
+async function queryShopPayment(order: ShopOrderRow): Promise<PaidState | null> {
+  if (order.provider === 'wechat') {
+    const config = getWechatConfig();
+    const path = `/v3/pay/transactions/out-trade-no/${encodeURIComponent(order.order_no)}?mchid=${encodeURIComponent(config.mchId)}`;
+    const state = await wechatRequest(config, 'GET', path);
+    const amount = state.amount as Record<string, unknown> | undefined;
+    if (state.trade_state !== 'SUCCESS' || Number(amount?.total) !== order.amount_cents) return null;
+    const tradeNo = String(state.transaction_id || '');
+    return { amountCents: order.amount_cents, tradeNo, status: 'SUCCESS', payload: { trade_state: 'SUCCESS', transaction_id: tradeNo } };
+  }
+  const config = getAlipayConfig();
+  const response = await fetch(await signedAlipayUrl(config, 'alipay.trade.query', { out_trade_no: order.order_no }));
+  if (!response.ok) throw new HttpError(502, `支付宝订单查询失败（${response.status}）`);
+  const rawResponse = await response.text();
+  const envelope = JSON.parse(rawResponse) as Record<string, unknown>;
+  const signedState = extractTopLevelJsonValue(rawResponse, 'alipay_trade_query_response');
+  const responseSignature = typeof envelope.sign === 'string' ? envelope.sign : '';
+  if (!signedState || !responseSignature || !await rsaVerify(config.publicKey, signedState, responseSignature)) {
+    throw new HttpError(502, '支付宝订单查询验签失败');
+  }
+  const state = envelope.alipay_trade_query_response as Record<string, unknown> | undefined;
+  const tradeStatus = String(state?.trade_status || '');
+  if (!['TRADE_SUCCESS', 'TRADE_FINISHED'].includes(tradeStatus) || yuanToCents(state?.total_amount) !== order.amount_cents) return null;
+  const tradeNo = String(state?.trade_no || '');
+  return { amountCents: order.amount_cents, tradeNo, status: tradeStatus, payload: { trade_status: tradeStatus, trade_no: tradeNo } };
+}
+
+async function createShopOrder(service: ReturnType<typeof createServiceClient>, userId: string, productCode: string, provider: Provider) {
+  if (provider === 'wechat' && !isWechatConfigured()) throw new HttpError(503, '微信支付尚未配置');
+  if (provider === 'alipay' && !isAlipayConfigured()) throw new HttpError(503, '支付宝支付尚未配置');
+  const { data: product, error: productError } = await service.from('shop_products')
+    .select('code, kind, title, description, price_cents, credits').eq('code', productCode).eq('active', true).maybeSingle();
+  if (productError) throw productError;
+  if (!product) throw new HttpError(404, '这个积分包已经下架，请刷新后重新选择');
+  const item = product as ShopProductRow;
+
+  // 微信扫码链接在有效期内可以复用：同一个包还剩 5 分钟以上的未付订单就直接返回，避免重复点击生成一串订单
+  if (provider === 'wechat') {
+    const { data: existing, error: existingError } = await service.from('shop_orders').select(SHOP_ORDER_COLUMNS)
+      .eq('user_id', userId).eq('product_code', item.code).eq('provider', 'wechat').eq('status', 'created')
+      .eq('amount_cents', item.price_cents).eq('credits', item.credits)
+      .gt('expires_at', new Date(Date.now() + 5 * 60 * 1000).toISOString())
+      .order('created_at', { ascending: false }).limit(1).maybeSingle();
+    if (existingError) throw existingError;
+    if (existing) return existing as ShopOrderRow;
+  }
+
+  const { data: created, error: insertError } = await service.from('shop_orders').insert({
+    user_id: userId,
+    product_code: item.code,
+    product_kind: item.kind,
+    credits: item.credits,
+    order_no: makeOrderNo('SP'),
+    provider,
+    amount_cents: item.price_cents,
+    subject: `健文社区 AI 积分 · ${item.title}（${item.credits} 积分）`,
+    status: 'pending',
+    expires_at: new Date(Date.now() + ORDER_TTL_MINUTES * 60 * 1000).toISOString(),
+  }).select(SHOP_ORDER_COLUMNS).single();
+  if (insertError || !created) throw insertError || new Error('创建订单失败');
+  const order = created as ShopOrderRow;
+
+  try {
+    const patch = provider === 'wechat'
+      ? { status: 'created', provider_code_url: await createWechatOrder(getWechatConfig(), order) }
+      : {
+        status: 'created',
+        provider_payment_url: await signedAlipayUrl(getAlipayConfig(), 'alipay.trade.page.pay', {
+          out_trade_no: order.order_no,
+          total_amount: amountToYuan(order.amount_cents),
+          subject: order.subject,
+          product_code: 'FAST_INSTANT_TRADE_PAY',
+        }, { notify: true, return: true, returnUrl: shopReturnUrl() }),
+      };
+    const { data, error } = await service.from('shop_orders').update(patch).eq('id', order.id).select(SHOP_ORDER_COLUMNS).single();
+    if (error || !data) throw error || new Error('保存支付订单失败');
+    return data as ShopOrderRow;
+  } catch (error) {
+    await service.from('shop_orders').update({ status: 'failed' }).eq('id', order.id);
+    throw error;
+  }
+}
+
+async function syncShopOrder(service: ReturnType<typeof createServiceClient>, userId: string, orderNo: string) {
+  const load = async () => {
+    const { data, error } = await service.from('shop_orders').select(SHOP_ORDER_COLUMNS)
+      .eq('order_no', orderNo).eq('user_id', userId).maybeSingle();
+    if (error) throw error;
+    if (!data) throw new HttpError(404, '订单不存在');
+    return data as ShopOrderRow;
+  };
+  let order = await load();
+  if (order.status === 'created') {
+    const paid = await queryShopPayment(order);
+    if (paid) {
+      await completeShopOrder(service, order.order_no, order.provider, paid);
+      order = await load();
+    }
+  }
+  return shopOrderPayload(order, await creditBalance(service, userId));
+}
+
 async function handleWechatNotify(req: Request) {
   const config = getWechatConfig();
   const rawBody = await req.text();
@@ -677,6 +871,13 @@ async function handleWechatNotify(req: Request) {
   }
 
   const service = createServiceClient();
+  if (isShopOrderNo(orderNo)) {
+    const tradeNo = String(state.transaction_id || '');
+    await completeShopOrder(service, orderNo, 'wechat', {
+      amountCents: Number(amount?.total), tradeNo, status: 'SUCCESS', payload: { trade_state: 'SUCCESS', transaction_id: tradeNo },
+    });
+    return json({ code: 'SUCCESS', message: '成功' });
+  }
   const { data, error } = await service.from('ai_group_orders').select('*').eq('order_no', orderNo).single();
   if (error || !data) throw new HttpError(404, '订单不存在');
   const order = data as OrderRow;
@@ -702,6 +903,13 @@ async function handleAlipayNotify(req: Request) {
   }
 
   const service = createServiceClient();
+  if (isShopOrderNo(params.out_trade_no || '')) {
+    await completeShopOrder(service, params.out_trade_no, 'alipay', {
+      amountCents: yuanToCents(params.total_amount), tradeNo: params.trade_no || '', status: params.trade_status,
+      payload: { trade_status: params.trade_status, trade_no: params.trade_no || '' },
+    });
+    return text('success');
+  }
   const { data, error } = await service.from('ai_group_orders').select('*').eq('order_no', params.out_trade_no).single();
   if (error || !data) throw new HttpError(404, '订单不存在');
   const order = data as OrderRow;
@@ -724,8 +932,27 @@ serve(async (req: Request) => {
     if (action === 'alipay-notify') return await handleAlipayNotify(req);
 
     const user = await requireUser(req);
-    const body = await req.json() as { action?: string; provider?: Provider; order_no?: string };
+    const body = await req.json() as { action?: string; provider?: Provider; order_no?: string; product_code?: string };
     const service = createServiceClient();
+
+    if (body.action === 'shop-products') {
+      return json({
+        products: await listShopProducts(service),
+        providers: { wechat: isWechatConfigured(), alipay: isAlipayConfigured() },
+        can_buy: !user.is_anonymous,
+        balance: await creditBalance(service, user.id),
+      });
+    }
+    if (body.action === 'shop-create-order') {
+      if (user.is_anonymous) throw new HttpError(403, '请先登录正式账号再购买积分');
+      if (body.provider !== 'wechat' && body.provider !== 'alipay') throw new HttpError(400, '请选择微信或支付宝');
+      if (!body.product_code) throw new HttpError(400, '请选择积分包');
+      return json(shopOrderPayload(await createShopOrder(service, user.id, body.product_code, body.provider)), 201);
+    }
+    if (body.action === 'shop-sync-order') {
+      if (!body.order_no || !isShopOrderNo(body.order_no)) throw new HttpError(400, '缺少订单号');
+      return json(await syncShopOrder(service, user.id, body.order_no));
+    }
 
     if (body.action === 'status') {
       return json(statusPayload(await getMembershipStatus(service, user.id)));

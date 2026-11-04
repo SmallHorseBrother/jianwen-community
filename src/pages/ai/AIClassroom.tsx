@@ -6,6 +6,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import AILayout from './AILayout';
 import { classroomApi, mmss, readImage, TOOL_NAMES, type Me, type TeacherState, type Tool } from '../../features/aiClassroom/api';
 import { Lightbox, TOOL_ICONS, ToolPanel, WorkCard, useInterval, useStableShared, useStableWorks } from '../../features/aiClassroom/components';
+import BuyCredits from '../../features/aiClassroom/BuyCredits';
 
 const TOOL_HINT: Record<Tool, string> = { chat: '文字问答，可以加图片', image: '文字画图、照片改图，约半分钟', video: '5 秒视频，要等 1～3 分钟' };
 const TOOLS: Tool[] = ['chat', 'image', 'video'];
@@ -17,7 +18,9 @@ const ClassroomList: React.FC = () => {
   const [me, setMe] = useState<Me | null>(null);
   const [title, setTitle] = useState('');
   const [error, setError] = useState('');
-  useEffect(() => { if (user && isAuthenticated) classroomApi.me().then(setMe).catch((e) => setError(e.message)); }, [user, isAuthenticated]);
+  const [buying, setBuying] = useState(false);
+  const loadMe = useCallback(() => { classroomApi.me().then(setMe).catch((e) => setError(e.message)); }, []);
+  useEffect(() => { if (user && isAuthenticated) loadMe(); }, [user, isAuthenticated, loadMe]);
   if (!user || !isAuthenticated) return <div className="cw-page"><div className="cw-empty-card"><h1>AI 课堂</h1><p>老师登录健文社区账号后，就能创建课堂、开关学生能用的 AI 功能。学生不需要注册，用 6 位口令进入。</p><Link to="/login" className="jw-action">登录 <ArrowRight /></Link></div></div>;
   const create = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,7 +29,7 @@ const ClassroomList: React.FC = () => {
   };
   return (
     <div className="cw-page">
-      <header className="page-heading"><div><h1>AI 课堂</h1><p>老师控制开关，学生在自己的设备上用 AI。</p></div>{me && <span className="cw-balance"><Coins aria-hidden="true" />{me.balance} 积分</span>}</header>
+      <header className="page-heading"><div><h1>AI 课堂</h1><p>老师控制开关，学生在自己的设备上用 AI。</p></div>{me && <div className="cw-head-credits"><span className="cw-balance"><Coins aria-hidden="true" />{me.balance} 积分</span><button type="button" className="jw-action secondary" onClick={() => setBuying(true)}>买积分</button></div>}</header>
       {error && <p className="cw-msg bad">{error}</p>}
       <form className="cw-create" onSubmit={create}>
         <input value={title} onChange={(e) => setTitle(e.target.value)} maxLength={60} placeholder="课堂名称，比如：府学小学 第2课" />
@@ -39,6 +42,7 @@ const ClassroomList: React.FC = () => {
         {me && me.classrooms.length === 0 && <p className="cw-muted">还没有课堂。新建一个，上课时把口令投到大屏上。</p>}
       </div>
       {me && <section className="cw-prices"><h2>积分价格</h2><div>{me.prices.map((p) => <span key={p.kind}>{p.label}<b>{p.credits}</b></span>)}</div><p className="cw-muted">课堂里学生的消耗都记在老师账上。生成失败会自动退回积分。</p></section>}
+      {buying && <BuyCredits prices={me?.prices} onClose={() => setBuying(false)} onPaid={loadMe} />}
     </div>
   );
 };
@@ -59,17 +63,20 @@ const ClassroomConsole: React.FC<{ id: string }> = ({ id }) => {
   const [fetchedAt, setFetchedAt] = useState(Date.now());
   const [note, setNote] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
+  const [prices, setPrices] = useState<Me['prices']>([]);
+  const [buying, setBuying] = useState(false);
 
   const refresh = useCallback(async () => {
     try { const r = await classroomApi.classState(id); setS(r); setFetchedAt(Date.now()); setError(''); }
     catch (e) { setError((e as Error).message); }
   }, [id]);
-  useEffect(() => { void refresh(); classroomApi.me().then((m) => setIsAdmin(m.is_admin)).catch(() => {}); }, [refresh]);
+  useEffect(() => { void refresh(); classroomApi.me().then((m) => { setIsAdmin(m.is_admin); setPrices(m.prices); }).catch(() => {}); }, [refresh]);
   useInterval(() => { void refresh(); }, 3000);
   useInterval(() => setClock(Date.now()), 1000);
 
   const joinUrl = `${window.location.origin}/class`;
-  useEffect(() => { if (s) QRCode.toDataURL(`${joinUrl}?code=${s.classroom.join_code}`, { margin: 1, width: 360 }).then(setQr).catch(() => setQr('')); }, [s?.classroom.join_code, joinUrl]);
+  const joinCode = s?.classroom.join_code;
+  useEffect(() => { if (joinCode) QRCode.toDataURL(`${joinUrl}?code=${joinCode}`, { margin: 1, width: 360 }).then(setQr).catch(() => setQr('')); }, [joinCode, joinUrl]);
 
   const works = useStableWorks(s?.works);
   const shared = useStableShared(s?.shared);
@@ -127,7 +134,8 @@ const ClassroomConsole: React.FC<{ id: string }> = ({ id }) => {
             <div className="cw-students">{s.students.map((x) => <span key={x.id} className={x.online ? 'on' : ''}>{x.name}<i>{x.count}</i></span>)}{s.students.length === 0 && <small className="cw-muted">还没有学生进入。</small>}</div>
           </div>
           <div className="cw-side"><h3><Coins aria-hidden="true" />积分</h3>
-            <p>账户余额 <b>{s.balance}</b>　本节课已用 <b>{s.spent}</b></p>
+            <p>账户余额 <b>{s.balance}</b>{'　'}本节课已用 <b>{s.spent}</b></p>
+            <div className="cw-tc-row"><button type="button" className="cw-mini" onClick={() => setBuying(true)}><Coins aria-hidden="true" />买积分</button></div>
             <div className="cw-tc-row"><span>本节课上限</span>
               <select value={s.classroom.spend_limit ?? ''} onChange={(e) => void update({ spend_limit: e.target.value === '' ? null : Number(e.target.value) })}>
                 <option value="">不限</option>{[200, 500, 1000, 2000, 5000].map((n) => <option key={n} value={n}>{n} 积分</option>)}</select></div>
@@ -161,6 +169,7 @@ const ClassroomConsole: React.FC<{ id: string }> = ({ id }) => {
       </div>
 
       {lb != null && <Lightbox works={visible} index={lb} onIndex={setLb} onClose={() => setLb(null)} />}
+      {buying && <BuyCredits prices={prices} onClose={() => setBuying(false)} onPaid={() => void refresh()} />}
       {projector && (
         <div className="cw-projector" role="dialog" aria-modal="true" onClick={() => setProjector(false)}>
           <div><p>打开网址</p><h1>{joinUrl.replace(/^https?:\/\//, '')}</h1><p>课堂口令</p><h1 className="cw-code">{s.classroom.join_code}</h1>{qr && <img src={qr} alt="扫码进入课堂" />}<small>点任意处关闭</small></div>

@@ -2,7 +2,7 @@
 // 部署后在 Function 设置里关闭 “Verify JWT”（学生不登录，用课堂口令换来的令牌访问）。
 // 需要的 Secrets：WANJIE_API_KEY（万界数据密钥）。可选：WANJIE_API_BASE、AI_CLASSROOM_CHAT_MODEL、AI_CLASSROOM_VISION_MODEL。
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-import { handle, type Classroom, type Deps, type Repo, type Shared, type Student, type Work, type WorkFilter } from './core.ts';
+import { clientIp, handle, networkKey, type Classroom, type Deps, type Repo, type Shared, type Student, type Work, type WorkFilter } from './core.ts';
 
 const cors = {
   'Access-Control-Allow-Origin': '*',
@@ -124,6 +124,14 @@ const deps: Deps = {
   sha256: async (t) => hex(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t))),
 };
 
+// 来源网络用服务端密钥做 HMAC 后再交给数据库：只用来数同一网络领了几次赠送，库里不存原始 IP
+async function networkHashFrom(req: Request): Promise<{ hash: string; source: string } | null> {
+  const found = clientIp((name) => req.headers.get(name));
+  if (!found || !SECRET) return null;
+  const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(SECRET), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  return { hash: hex(await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(networkKey(found.ip)))), source: found.source };
+}
+
 async function userIdFrom(req: Request): Promise<string | null> {
   const auth = req.headers.get('authorization');
   if (!auth || !auth.startsWith('Bearer ')) return null;
@@ -144,6 +152,8 @@ Deno.serve(async (req) => {
     if (raw.length > 9_000_000) return new Response(JSON.stringify({ error: '提交的内容太大（图片请小于 6MB）。' }), { status: 413, headers: { ...cors, 'Content-Type': 'application/json' } });
     body = raw ? JSON.parse(raw) : {};
   } catch { return new Response(JSON.stringify({ error: '请求格式不对。' }), { status: 400, headers: { ...cors, 'Content-Type': 'application/json' } }); }
-  const out = await handle({ action: String(body.action || ''), body, userId: await userIdFrom(req), studentToken: req.headers.get('x-class-token') }, deps);
+  const userId = await userIdFrom(req);
+  const network = userId ? await networkHashFrom(req) : null;
+  const out = await handle({ action: String(body.action || ''), body, userId, studentToken: req.headers.get('x-class-token'), ipHash: network?.hash ?? null, ipSource: network?.source ?? null }, deps);
   return new Response(JSON.stringify(out.body), { status: out.status, headers: { ...cors, 'Content-Type': 'application/json; charset=utf-8' } });
 });

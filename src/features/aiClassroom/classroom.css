@@ -187,3 +187,45 @@
   .cw-tool { padding: 16px; } .cw-tool textarea { font-size: 17px; }
   .cw-foot-info { margin-left: 0; }
 }
+
+/* ---------- 买积分 / 积分明细 ---------- */
+/* 弹窗是原生 dialog，不在 .cw-page 里面，所以这里直接用全站的颜色变量；
+   选择器带上 .cw-shop，压过 .jw-dialog 对 p、label、input 的通用样式 */
+.cw-head-credits { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cw-shop.jw-dialog { width: min(660px, calc(100% - 32px)); }
+.cw-shop .cw-shop-error { margin-bottom: 14px; padding: 10px 14px; border-radius: 8px; background: #fde8e4; color: #9c3026; font-size: 16px; }
+.cw-shop .cw-shop-packs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 18px; }
+.cw-shop .cw-shop-packs label { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 16px; border: 2px solid var(--line, #dcd9d1); border-radius: 10px; background: #fffdf8; cursor: pointer; line-height: 1.4; }
+.cw-shop .cw-shop-packs label.on { border-color: var(--orange, #ff603d); background: #ffe5da; }
+.cw-shop .cw-shop-packs label:focus-within { outline: 3px solid var(--orange, #ff603d); outline-offset: 2px; }
+.cw-shop .cw-shop-packs input { position: absolute; width: 1px; height: 1px; min-height: 0; padding: 0; opacity: 0; pointer-events: none; }
+.cw-shop .cw-shop-pack-title { font-size: 16px; color: var(--muted, #696a63); }
+.cw-shop .cw-shop-packs strong { font-size: 24px; font-weight: 900; }
+.cw-shop .cw-shop-price { font-size: 20px; font-weight: 800; color: #b33d21; }
+.cw-shop .cw-shop-packs small { font-size: 14px; line-height: 1.5; color: var(--muted, #696a63); }
+.cw-shop .cw-shop-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; margin-top: 4px; }
+.cw-shop .cw-shop-note { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 12px; font-size: 15px; line-height: 1.6; color: var(--muted, #696a63); }
+.cw-shop .cw-shop-link { min-height: 44px; border: 0; background: none; color: #b33d21; font-size: 16px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.cw-shop .cw-shop-pay { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.cw-shop .cw-shop-pay img { width: 240px; height: 240px; padding: 8px; border: 1px solid var(--line, #dcd9d1); border-radius: 8px; background: #fff; }
+.cw-shop .cw-shop-pay p b { color: #b33d21; font-size: 20px; }
+.cw-shop .cw-shop-done { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 10px 0; text-align: center; }
+.cw-shop .cw-shop-done svg { width: 52px; height: 52px; color: #2f8f5b; }
+.cw-shop .cw-shop-done h3 { font-size: 24px; font-weight: 900; }
+.cw-ledger { margin-top: 30px; padding: 0 18px; border: 1px solid var(--line, #dcd9d1); border-radius: 10px; background: #fffdf8; }
+.cw-ledger summary { display: flex; align-items: center; min-height: 52px; font-size: 18px; font-weight: 800; cursor: pointer; }
+.cw-ledger table { width: 100%; margin-bottom: 12px; border-collapse: collapse; font-size: 15px; }
+.cw-ledger th, .cw-ledger td { padding: 8px 6px; border-top: 1px solid var(--line, #dcd9d1); text-align: left; vertical-align: top; }
+.cw-ledger th { color: var(--muted, #696a63); font-weight: 600; }
+.cw-ledger td small { display: block; font-size: 13px; color: var(--muted, #696a63); }
+.cw-ledger .plus { color: #2f8f5b; font-weight: 700; }
+.cw-ledger > p { margin-bottom: 14px; }
+@media (max-width: 640px) {
+  .cw-shop .cw-shop-packs { grid-template-columns: 1fr; }
+  .cw-shop .cw-shop-packs label { flex-direction: row; flex-wrap: wrap; align-items: baseline; column-gap: 10px; }
+  .cw-shop .cw-shop-packs small { flex-basis: 100%; }
+  .cw-shop .cw-shop-actions .jw-action { flex: 1 1 100%; }
+  .cw-ledger { padding: 0 12px; }
+  .cw-ledger table { font-size: 14px; }
+}
+.cw-shop .cw-shop-notice { margin-bottom: 14px; padding: 12px 14px; border-left: 4px solid var(--orange, #ff603d); border-radius: 8px; background: #ffe5da; color: var(--ink, #20211f); font-size: 15px; line-height: 1.6; }
